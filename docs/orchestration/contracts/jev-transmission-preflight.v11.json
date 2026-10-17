@@ -57,7 +57,7 @@
     },
     {
       "path": "src/benchmark/adaptive-dag-runner.mjs",
-      "sha256": "15aca9b23993ede0d69f031e688362737842831d225f6c9c80c6f2024f265b80"
+      "sha256": "7a4e490c73149c242f91d1f880a34d56053b2299d4393036c1ac7d67324e4479"
     },
     {
       "path": "src/benchmark/telemetry.mjs",

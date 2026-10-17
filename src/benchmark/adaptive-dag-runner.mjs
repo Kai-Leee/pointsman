@@ -658,7 +658,9 @@ export function assertAdaptiveCohortCapacity({manifest, rootDir = ROOT, armIndex
     return {snapshot: state, remaining_jev_arms: remainingArms, required_input_tokens: null, token_capacity_unlimited: true};
   }
   const required = remainingArms * manifest.limits.planning_input_tokens + (remainingArms ? manifest.jev_budget.reserve_input_tokens : 0);
-  if (state.blocked_code || state.reservations_pending || state.remaining_input_tokens < required) fail('ADAPTIVE_COHORT_BUDGET_INSUFFICIENT');
+  // A v3/v4 unlimited ledger has no remaining count (null); `null < required` would always refuse a v1 catalog preparation.
+  const capacityKnown = !(state.unlimited === true && state.token_limit === null && state.remaining_input_tokens === null);
+  if (state.blocked_code || state.reservations_pending || (capacityKnown && state.remaining_input_tokens < required)) fail('ADAPTIVE_COHORT_BUDGET_INSUFFICIENT');
   return {snapshot: state, remaining_jev_arms: remainingArms, required_input_tokens: required};
 }
 

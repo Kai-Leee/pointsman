@@ -67,6 +67,11 @@ test('Claude and measured Jev receive identical typed decisions; receipts and ar
     assert.equal(receipts[0].actual_billed_usd, null);
     assert.equal(assertAdaptiveCohortCapacity({manifest, snapshot: {remaining_input_tokens: 2366258, reservations_pending: 0, blocked_code: null}}).required_input_tokens, 2165536);
     assert.throws(() => assertAdaptiveCohortCapacity({manifest, snapshot: {remaining_input_tokens: 2100000, reservations_pending: 0, blocked_code: null}}), {code: 'ADAPTIVE_COHORT_BUDGET_INSUFFICIENT'});
+    // v1 catalog preparation against today's unlimited ledger: no count to compare, pending/blocked still refuse.
+    const unlimited = {unlimited: true, token_limit: null, remaining_input_tokens: null, reservations_pending: 0, blocked_code: null};
+    assert.equal(assertAdaptiveCohortCapacity({manifest, snapshot: unlimited}).required_input_tokens, 2165536);
+    assert.throws(() => assertAdaptiveCohortCapacity({manifest, snapshot: {...unlimited, reservations_pending: 1}}), {code: 'ADAPTIVE_COHORT_BUDGET_INSUFFICIENT'});
+    assert.throws(() => assertAdaptiveCohortCapacity({manifest, snapshot: {...unlimited, unlimited: false}}), {code: 'ADAPTIVE_COHORT_BUDGET_INSUFFICIENT'});
     assert.deepEqual(Object.values(ADAPTIVE_ARMS.jev_split_relations), ['jev', 'jev', 'claude']);
     assert.equal(JSON.stringify(input).includes('write_scope'), false);
     assert.equal(JSON.stringify(input).includes('artifact_interfaces'), false);
