@@ -1,3 +1,7 @@
+# 평가 프로토콜 — R20261017
+
+- [evaluation-protocol.v1.json](evaluation-protocol.v1.json): 주지표 resolved(Wilson95%), 독립통과율 진단, ITT 포함·제외 규칙, 신뢰성 점검14항목, 보류 과제 선정 규칙. `scripts/harness-style-report.mjs`와 `scripts/select-evaluation-tasks.mjs`가 읽는다. 설명은 [EVALUATION_PROTOCOL](../EVALUATION_PROTOCOL.md).
+
 # 현재 강제 검사·복구 계약 — D075
 
 - [jev-transmission-preflight.v1.json](jev-transmission-preflight.v1.json): v10 실제 전송의 필수 초기·예약 직전·POST 직전 검사와 정책/소스 해시. 예약0과 예약 후 POST0을 구별한다.

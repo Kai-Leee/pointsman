@@ -1,3 +1,5 @@
+R20261017-EVAL-PROTOCOL 완료: Harness A/B 연구와 평가 방법 비교, 평가 구조화. [구조·점검표·보류과제](../orchestration/EVALUATION_PROTOCOL.md) · [결정](../decisions/R20261017_EVAL_PROTOCOL.md). 정본 evaluation-protocol.v1(ITT·Wilson·14점검). pstack(cursor/plugins101b274) 병렬분석 추가, 점검 후보C15–C22는 사용자 검토 대기. 로컬+형제worktree arm54(집계44·제외10·미분류0): Jev 점검 yes9/14, Harness yes2/14. 같은 실행 쌍 claude_all대jev_all 2승1무0패, codex대jev 2승0무1패라 Jev 우위 미입증. 작업브랜치는 origin/research보다9커밋 뒤·미병합. 미충족 C06반복·C08후보1누락·C11과제1개·C12보류과제·C14재현. 보류과제15개 고정(실행 전 과제별 의무·카탈로그·공개검사 필요). 유료·Docker·재채점 없음. 아래는 당시 기록이다.
+
 # D085 — 복수 owner(C)·평평한 답 재질문(v2)·import/문법 오류 직접 수리, 유료 3회: 제품 성공 2/3
 
 `d085-direct-repair.json`(tie-break `flat-reask-v2`) 순차 3회: 01 공개93/93·독립62/63(D085 규칙 미발동), 02 공개93·독립63(tie-break 1·C +A19, 실제 변경 A14만), 03 공개93·독립63(직접 수리가 `ModuleNotFoundError`에서 A21을 고쳐 막힘 해소, 다음 회차 C +A19·worker-mentioned +A13·A21 첫 발동). 회당 26.6–27.7분, Claude $7.75–8.31. 원장 24,661,912·정산1,223·pending0. 조건당 3회 소진. 남은 문제는 공개↔독립 차이(01): `naming.py` 정규식 `[0-9]+`가 숫자+소문자를 나눠(`3value`→`3_value`) field_prefix 독립 검사 1건 실패, 공개 검사는 접두사 시작만 확인해 놓침. 한 줄 규모, 수정하지 않고 백로그. 아래는 같은 D085의 이전 기록이다.

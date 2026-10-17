@@ -1,3 +1,5 @@
+R20261017-EVAL-PROTOCOL 완료: Harness A/B 연구와 평가 방법 비교, 평가 구조화. [구조·점검표·보류과제](docs/orchestration/EVALUATION_PROTOCOL.md) · [결정](docs/decisions/R20261017_EVAL_PROTOCOL.md). 정본 evaluation-protocol.v1(ITT·Wilson·14점검). pstack(cursor/plugins101b274) 병렬분석 추가, 점검 후보C15–C22는 사용자 검토 대기. 로컬+형제worktree arm54(집계44·제외10·미분류0): Jev 점검 yes9/14, Harness yes2/14. 같은 실행 쌍 claude_all대jev_all 2승1무0패, codex대jev 2승0무1패라 Jev 우위 미입증. 작업브랜치는 origin/research보다9커밋 뒤·미병합. 미충족 C06반복·C08후보1누락·C11과제1개·C12보류과제·C14재현. 보류과제15개 고정(실행 전 과제별 의무·카탈로그·공개검사 필요). 유료·Docker·재채점 없음. 아래는 당시 기록이다.
+
 # Jev Router — Claude entry point
 
 @AGENTS.md
