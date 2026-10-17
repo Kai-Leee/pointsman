@@ -1,3 +1,5 @@
+R20261018-HELDOUT-PILOT: 보류과제 h2 시범1회(jev_profile, Claude작업자) 실패. 855.6초 뒤 repair_owners에서 ADAPTIVE_INFERRED_ARTIFACT_BINDING(같은 코드 3번째). Jev가 n1에 haiku55_low 선택→준비검사 실패→n3·공개검사 미실행→부분실행 수리binding 거부. 공개검사0회·수리0회·미채점, 프로토콜상 0점. Claude API환산$4.56, Jev 5호출·86,374토큰(장부1549·pending0). 카탈로그 114.6초·산출물13·단위12. v8+경로는 jev_profile만 허용해 Claude단독 비교 없음. [기록](decisions/R20261018_HELDOUT_PILOT.md). 아래는 당시 기록이다.
+
 R20261017-EVAL-PROTOCOL 완료: Harness A/B 연구와 평가 방법 비교, 평가 구조화. [구조·점검표·보류과제](orchestration/EVALUATION_PROTOCOL.md) · [결정](decisions/R20261017_EVAL_PROTOCOL.md). 정본 evaluation-protocol.v1(ITT·Wilson·14점검). pstack(cursor/plugins101b274) 병렬분석 추가, 점검 후보C15–C22는 사용자 검토 대기. 로컬+형제worktree arm54(집계44·제외10·미분류0): Jev 점검 yes9/14, Harness yes2/14. 같은 실행 쌍 claude_all대jev_all 2승1무0패, codex대jev 2승0무1패라 Jev 우위 미입증. 작업브랜치는 origin/research보다9커밋 뒤·미병합. 미충족 C06반복·C08후보1누락·C11과제1개·C12보류과제·C14재현. 보류과제15개 고정(실행 전 과제별 의무·카탈로그·공개검사 필요). 유료·Docker·재채점 없음. 아래는 당시 기록이다.
 
 ## 2026-10-18 — 보류 과제 manifest를 적응 실행기에 연결
