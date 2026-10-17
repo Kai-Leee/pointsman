@@ -1,0 +1,408 @@
+{
+ "setup_requires_network": [
+  {
+   "path": "setup.sh",
+   "old": "python -m pip install --no-index --no-build-isolation -e .",
+   "new": "python -m pip install --index-url https://pypi.org/simple -e ."
+  }
+ ],
+ "missing_top_level_reexport": [
+  {
+   "path": "pycparser/__init__.py",
+   "old": "from .c_parser import CParser\n",
+   "new": ""
+  }
+ ],
+ "third_party_runtime_import": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "from . import c_ast\n",
+   "new": "import ply.yacc  # noqa: F401\nfrom . import c_ast\n"
+  }
+ ],
+ "filename_ignored": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "self.lexer.filename = filename",
+   "new": "self.lexer.filename = '<unknown>'"
+  }
+ ],
+ "kr_param_decls_dropped": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "return c_ast.FuncDef(decl, param_decls, body,",
+   "new": "return c_ast.FuncDef(decl, None, body,"
+  }
+ ],
+ "specifier_words_sorted": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "c_ast.IdentifierType(list(spec['names']), coord=spec['coord'])",
+   "new": "c_ast.IdentifierType(sorted(spec['names']), coord=spec['coord'])"
+  }
+ ],
+ "anonymous_member_rejected": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "if self.accept(';'):  # anonymous struct/union member\n            return [self._bare_decl(spec)]",
+   "new": "if self.accept(';'):  # anonymous struct/union member\n            self.error('struct member without a declarator')"
+  }
+ ],
+ "designators_dropped": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "exprs.append(c_ast.NamedInitializer(designators, self.initializer()))",
+   "new": "exprs.append(self.initializer())"
+  }
+ ],
+ "c11_keywords_as_identifiers": [
+  {
+   "path": "pycparser/c_lexer.py",
+   "old": "KEYWORDS.update({word: word.upper() for word in ('_Static_assert', '_Alignas', '_Noreturn')})\n",
+   "new": ""
+  }
+ ],
+ "vla_dimension_rejected": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "self.expect(']')  # end of array declarator",
+   "new": "self.expect(']')  # end of array declarator\n        if quals or not (dim is None or isinstance(dim, c_ast.Constant)):\n            self.error('variable-length array')"
+  }
+ ],
+ "empty_external_decl_error": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "if self.at(';'):  # empty external declaration\n            self.next()\n            return []",
+   "new": "if self.at(';'):  # empty external declaration\n            self.error('empty declaration')"
+  }
+ ],
+ "typedef_shadow_ignored": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "def _declare(self, name, is_type):\n        self.scopes[-1][name] = is_type",
+   "new": "def _declare(self, name, is_type):\n        if is_type:\n            self.scopes[-1][name] = True"
+  }
+ ],
+ "flat_precedence": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "precedence = BINARY.get(token.value) if token.type not in NAMES else None",
+   "new": "precedence = (1 if token.value in BINARY else None) if token.type not in NAMES else None"
+  }
+ ],
+ "do_while_as_while": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "return c_ast.DoWhile(cond, body, coord=coord)",
+   "new": "return c_ast.While(cond, body, coord=coord)"
+  }
+ ],
+ "compound_assign_op_truncated": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "return c_ast.Assignment(token.value, left,",
+   "new": "return c_ast.Assignment(token.value[:-1] or '=', left,"
+  }
+ ],
+ "postfix_op_unprefixed": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "c_ast.UnaryOp('p' + token.value, expr",
+   "new": "c_ast.UnaryOp(token.value, expr"
+  }
+ ],
+ "arrow_as_dot": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "expr = c_ast.StructRef(expr, token.value,",
+   "new": "expr = c_ast.StructRef(expr, '.',"
+  }
+ ],
+ "constant_suffix_ignored": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "def _constant_type(kind, text):\n",
+   "new": "def _constant_type(kind, text):\n    return 'double' if 'FLOAT' in kind else 'int'\n"
+  }
+ ],
+ "empty_parens_make_nodes": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "if self.accept(')'):\n            return c_ast.FuncDecl(None, None, coord=coord)",
+   "new": "if self.accept(')'):\n            return c_ast.FuncDecl(c_ast.ParamList([], coord=coord), None, coord=coord)"
+  },
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "args = None\n                if not self.at(')'):",
+   "new": "args = c_ast.ExprList([], coord=coord)\n                if not self.at(')'):"
+  }
+ ],
+ "comma_as_binaryop": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "exprs = [first]\n        while self.accept(','):\n            exprs.append(self.assignment())\n        return c_ast.ExprList(exprs, coord=first.coord)",
+   "new": "while self.accept(','):\n            first = c_ast.BinaryOp(',', first, self.assignment(), coord=first.coord)\n        return first"
+  }
+ ],
+ "coord_as_tuple": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "return Coord(token.filename, token.lineno)",
+   "new": "return (token.filename, token.lineno)"
+  }
+ ],
+ "sequence_children_unindexed": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "out.append((f'{name}[{index}]', child))",
+   "new": "out.append((name, child))"
+  }
+ ],
+ "attr_names_include_children": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "'attr_names': tuple(field for field, kind in _spec if not kind),",
+   "new": "'attr_names': tuple(field for field, kind in _spec),"
+  }
+ ],
+ "show_ignores_nodenames": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "if nodenames and _my_node_name is not None:",
+   "new": "if False:"
+  }
+ ],
+ "node_not_iterable": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "    def __iter__(self):\n        for _, child in self.children():\n            yield child\n\n",
+   "new": ""
+  }
+ ],
+ "frozen_nodes": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "    def children(self):\n",
+   "new": "    def __setattr__(self, name, value):\n        if getattr(self, name, None) is not None:\n            raise AttributeError(f'{type(self).__name__}.{name} is read-only')\n        object.__setattr__(self, name, value)\n\n    def children(self):\n"
+  }
+ ],
+ "generator_requires_coord": [
+  {
+   "path": "pycparser/c_generator.py",
+   "old": "        return getattr(self, 'visit_' + type(node).__name__)(node)",
+   "new": "        self.line = node.coord.line\n        return getattr(self, 'visit_' + type(node).__name__)(node)"
+  }
+ ],
+ "missing_node_classes": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "EmptyStatement:\n",
+   "new": ""
+  },
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "Alignas: alignment*\n",
+   "new": ""
+  }
+ ],
+ "coord_positional": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "def __init__(self, *args, coord=None, **kwargs):\n        names = [name for name, _ in self._fields]",
+   "new": "def __init__(self, *args, coord=None, **kwargs):\n        if len(args) == len(self._fields) + 1:\n            *args, coord = args\n        names = [name for name, _ in self._fields]"
+  },
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "Decl: name quals align storage funcspec type* init* bitsize*",
+   "new": "Decl: name quals storage align funcspec type* init* bitsize*"
+  }
+ ],
+ "unsized_dim_zero": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "dim = None if self.at(']') else self.assignment()",
+   "new": "dim = c_ast.Constant('int', '0') if self.at(']') else self.assignment()"
+  }
+ ],
+ "forward_struct_empty_list": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "members = None\n        if self.accept('{'):",
+   "new": "members = []\n        if self.accept('{'):"
+  }
+ ],
+ "typedecl_always_interposed": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "list(spec['funcspec']), base, None, None, coord=spec['coord'])",
+   "new": "list(spec['funcspec']), c_ast.TypeDecl(None, list(spec['quals']), [], base), None, None, coord=spec['coord'])"
+  }
+ ],
+ "storage_as_string": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "list(spec['storage']), list(spec['funcspec']), typ, init, None, coord=coord)",
+   "new": "' '.join(spec['storage']), ' '.join(spec['funcspec']), typ, init, None, coord=coord)"
+  }
+ ],
+ "pragma_operator_unquoted": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "c_ast.Constant('string', text.value, coord=self._coord(text))",
+   "new": "c_ast.Constant('string', text.value[1:-1], coord=self._coord(text))"
+  }
+ ],
+ "alignas_not_emitted": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "spec['align'].append(c_ast.Alignas(alignment, coord=self._coord(start)))",
+   "new": "spec['align'].append(str(getattr(alignment, 'value', 'alignment')))"
+  },
+  {
+   "path": "pycparser/c_generator.py",
+   "old": "parts += [self.visit(a) for a in n.align or []]",
+   "new": "parts += []"
+  }
+ ],
+ "atomic_specifier_dropped": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "spec['quals'] += inner['quals'] + ['_Atomic']",
+   "new": "spec['quals'] += inner['quals']"
+  }
+ ],
+ "trailing_atomic_not_on_typedecl": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "elif value in QUALS:\n                self.next()\n                spec['quals'].append(value)",
+   "new": "elif value in QUALS:\n                self.next()\n                if not (value == '_Atomic' and (spec['names'] or spec['node'] is not None)):\n                    spec['quals'].append(value)"
+  }
+ ],
+ "pointer_quals_on_ptrdecl": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "        typ = c_ast.TypeDecl(name and name.value, list(spec['quals']), [], base, coord=spec['coord'])\n        for node in reversed(chain):\n            node.type = typ\n            typ = node\n",
+   "new": "        moved = bool(chain) and isinstance(chain[-1], (c_ast.PtrDecl, c_ast.ArrayDecl))\n        typ = c_ast.TypeDecl(name and name.value, [] if moved else list(spec['quals']), [], base, coord=spec['coord'])\n        for node in reversed(chain):\n            node.type = typ\n            typ = node\n        if moved:\n            (chain[-1].quals if isinstance(chain[-1], c_ast.PtrDecl) else chain[-1].dim_quals).extend(spec['quals'])\n"
+  }
+ ],
+ "line_directive_ignored": [
+  {
+   "path": "pycparser/c_lexer.py",
+   "old": "if words[0] == 'line' or words[0].isdigit():",
+   "new": "if False:"
+  }
+ ],
+ "dollar_not_leading": [
+  {
+   "path": "pycparser/c_lexer.py",
+   "old": "('ID', r'[A-Za-z_$][A-Za-z0-9_$]*'),",
+   "new": "('ID', r'[A-Za-z_][A-Za-z0-9_$]*'),"
+  }
+ ],
+ "coord_str_always_column": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "if self.column is not None:\n",
+   "new": "if True:\n"
+  }
+ ],
+ "token_missing_column": [
+  {
+   "path": "pycparser/c_lexer.py",
+   "old": "self.type, self.value, self.lineno, self.column, self.filename = type, value, lineno, column, filename",
+   "new": "self.type, self.value, self.lineno, self.filename = type, value, lineno, filename"
+  }
+ ],
+ "literal_kinds_merged": [
+  {
+   "path": "pycparser/c_lexer.py",
+   "old": "('INT_CONST_BIN', ",
+   "new": "('INT_CONST_DEC', "
+  },
+  {
+   "path": "pycparser/c_lexer.py",
+   "old": "('HEX_FLOAT_CONST', ",
+   "new": "('FLOAT_CONST', "
+  }
+ ],
+ "lookup_never_called": [
+  {
+   "path": "pycparser/c_lexer.py",
+   "old": "kind = KEYWORDS.get(value) or ('TYPEID' if self.type_lookup_func(value) else 'ID')",
+   "new": "kind = KEYWORDS.get(value) or 'ID'"
+  }
+ ],
+ "generic_visit_not_recursive": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "def generic_visit(self, node):\n        for child in node:\n            self.visit(child)",
+   "new": "def generic_visit(self, node):\n        return None"
+  }
+ ],
+ "always_generic_visit": [
+  {
+   "path": "pycparser/c_ast.py",
+   "old": "        return method(node)\n",
+   "new": "        result = method(node)\n        self.generic_visit(node)\n        return result\n"
+  }
+ ],
+ "unspaced_operators": [
+  {
+   "path": "pycparser/c_generator.py",
+   "old": "return f'{left} {n.op} {right}'",
+   "new": "return f'{left}{n.op}{right}'"
+  },
+  {
+   "path": "pycparser/c_generator.py",
+   "old": "keep=SIMPLE + (c_ast.UnaryOp,))} {n.op} {rvalue}'",
+   "new": "keep=SIMPLE + (c_ast.UnaryOp,))}{n.op}{rvalue}'"
+  },
+  {
+   "path": "pycparser/c_generator.py",
+   "old": "text += ' = ' + self._init(n.init)",
+   "new": "text += '=' + self._init(n.init)"
+  }
+ ],
+ "default_mode_minimal_parens": [
+  {
+   "path": "pycparser/c_generator.py",
+   "old": "def __init__(self, reduce_parentheses=False):",
+   "new": "def __init__(self, reduce_parentheses=True):"
+  }
+ ],
+ "reduce_mode_drops_all_parens": [
+  {
+   "path": "pycparser/c_generator.py",
+   "old": "inner, outer = BINARY[node.op], BINARY[op]",
+   "new": "return text"
+  }
+ ],
+ "unary_minus_merged": [
+  {
+   "path": "pycparser/c_generator.py",
+   "old": "return n.op + self._wrap(n.expr)",
+   "new": "return n.op + self._wrap(n.expr, SIMPLE + (c_ast.UnaryOp,))"
+  }
+ ],
+ "message_without_filename": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "raise ParseError(f'{token.filename}:{token.lineno}: {message} before {where}')",
+   "new": "raise ParseError(f'{message} before {where}')"
+  }
+ ],
+ "duplicate_specifier_accepted": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "if bad:\n",
+   "new": "if False:\n"
+  }
+ ],
+ "errors_return_none": [
+  {
+   "path": "pycparser/c_parser.py",
+   "old": "return self._parse(text, filename)",
+   "new": "try:\n            return self._parse(text, filename)\n        except ParseError:\n            return None"
+  }
+ ]
+}

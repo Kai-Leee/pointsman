@@ -1,0 +1,30 @@
+{
+  "schema_version": "dag-public-check-environment/v2",
+  "id": "e2e-swe-public-django-modelcluster/v1",
+  "image_id": "sha256:a6b66b76cef5dc83d9dd1aec0f5d81bce368857f3c2685e9c25cfa3f5bed3cf2",
+  "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:129764af29be879898272cd749ac8b611a4ea13e7c8e0210f5e789a11cae473e",
+  "platform": "linux/amd64",
+  "python": "3.10.20",
+  "minimum_python": "3.10",
+  "preinstalled_dependencies": {
+    "Django": "5.2.15",
+    "django-taggit": "6.1.0",
+    "asgiref": "3.11.1",
+    "sqlparse": "0.5.5",
+    "setuptools": "79.0.1",
+    "pip": "23.0.1",
+    "wheel": "0.46.3"
+  },
+  "unavailable_dependencies": [],
+  "container": {
+    "network_mode": "none",
+    "readonly_rootfs": true,
+    "writable_directory": "/tmp",
+    "tmpfs_size_bytes": 2147483648,
+    "tmpfs_options": "rw,exec,size=2g"
+  },
+  "installation": "Fresh candidate copy and venv with --system-site-packages; the candidate setup.sh runs with PIP_NO_INDEX=1 (without one, the documented pip install -e . --no-build-isolation runs and the receipt records it).",
+  "dependency_basis": "Distribution names and versions observed with importlib.metadata in the pinned image (network none) on 2026-10-18; the image holds no task package.",
+  "sandbox_provided_by": "Docker controller; the Python harness alone is not a sandbox.",
+  "candidate_readiness": "Per-run binding and actual candidate execution are required; authored controls never certify a candidate."
+}

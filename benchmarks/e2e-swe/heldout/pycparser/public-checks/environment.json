@@ -1,0 +1,26 @@
+{
+  "schema_version": "dag-public-check-environment/v2",
+  "id": "e2e-swe-public-pycparser/v1",
+  "image_id": "sha256:abc67defdbfd393a1f63c0a984506500e06035802e0284e4cde058b57fa0795f",
+  "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:65788667ee2dcbfec3210499f0635728ceec8dd7a31f6ffc150f639a6815dd97",
+  "platform": "linux/amd64",
+  "python": "3.10.20",
+  "minimum_python": "3.10",
+  "preinstalled_dependencies": {
+    "setuptools": "79.0.1",
+    "pip": "23.0.1",
+    "wheel": "0.46.3"
+  },
+  "unavailable_dependencies": [],
+  "container": {
+    "network_mode": "none",
+    "readonly_rootfs": true,
+    "writable_directory": "/tmp",
+    "tmpfs_size_bytes": 2147483648,
+    "tmpfs_options": "rw,exec,size=2g"
+  },
+  "installation": "Fresh candidate copy and venv with --system-site-packages; the candidate setup.sh runs with PIP_NO_INDEX=1 (without one, the documented pip install -e . --no-build-isolation runs and the receipt records it).",
+  "dependency_basis": "Distribution names and versions observed with importlib.metadata in the pinned image (network none) on 2026-10-18; the image holds no task package.",
+  "sandbox_provided_by": "Docker controller; the Python harness alone is not a sandbox.",
+  "candidate_readiness": "Per-run binding and actual candidate execution are required; authored controls never certify a candidate."
+}

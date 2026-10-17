@@ -1,0 +1,647 @@
+{
+  "setup_uses_index": [
+    {
+      "path": "setup.sh",
+      "old": "python -m pip install --no-index --no-build-isolation -e .",
+      "new": "python -m pip install --no-build-isolation -e .\npython -m pip install --force-reinstall django-taggit"
+    }
+  ],
+  "removed_timezone_alias": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "return value.astimezone(datetime.timezone.utc)",
+      "new": "return value.astimezone(timezone.utc)"
+    }
+  ],
+  "taggit_hard_dependency": [
+    {
+      "path": "pyproject.toml",
+      "old": "dependencies = [\"Django>=5.2,<5.3\"]\n\n[project.optional-dependencies]\ntaggit = [\"django-taggit>=6.1\"]\n",
+      "new": "dependencies = [\"Django>=5.2,<5.3\", \"django-taggit>=6.1\"]\n"
+    }
+  ],
+  "utils_export_missing": [
+    {
+      "path": "modelcluster/utils.py",
+      "delete": true
+    },
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "from .utils import ManyToManyTraversalError\n",
+      "new": "\nclass ManyToManyTraversalError(ValueError):\n    pass\n"
+    }
+  ],
+  "private_name_collision": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "    def all(self):\n        return self.get_queryset()\n",
+      "new": "    def _items(self):\n        return self.get_queryset()\n\n    def all(self):\n        return self._items()\n"
+    }
+  ],
+  "save_skips_children": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "        for name in committed:\n            getattr(self, name).commit()",
+      "new": "        for name in committed:\n            if name in m2m_names:\n                getattr(self, name).commit()"
+    }
+  ],
+  "default_do_nothing": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "def __init__(self, to, on_delete=models.CASCADE, **kwargs):",
+      "new": "def __init__(self, to, on_delete=models.DO_NOTHING, **kwargs):"
+    }
+  ],
+  "assignment_appends": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "    def __set__(self, instance, value):\n        self.__get__(instance).set(value)\n\n\nclass ParentalKey",
+      "new": "    def __set__(self, instance, value):\n        self.__get__(instance).add(*value)\n\n\nclass ParentalKey"
+    }
+  ],
+  "unsaved_all_queries_db": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "            return FakeQuerySet(self.model, [])\n",
+      "new": "            return self.get_live_queryset()\n"
+    }
+  ],
+  "add_keeps_duplicates": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "                if existing == obj:",
+      "new": "                if False:"
+    }
+  ],
+  "create_saves_child": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "        obj = self.model(**kwargs)\n        self.add(obj)",
+      "new": "        obj = self.model(**kwargs)\n        obj.save()\n        self.add(obj)"
+    }
+  ],
+  "count_reads_db": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "    def all(self):\n        return self.get_queryset()\n",
+      "new": "    def all(self):\n        return self.get_queryset()\n\n    def count(self):\n        return self.model._default_manager.count()\n"
+    }
+  ],
+  "commit_keeps_removed": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "        stored.exclude(pk__in=kept).delete()\n",
+      "new": ""
+    }
+  ],
+  "commit_unsaved_silent": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "            raise IntegrityError(f\"Cannot commit child relation {self.relation_name!r} on an unsaved model\")",
+      "new": "            return"
+    }
+  ],
+  "ignore_child_ordering": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "            setattr(obj, self.parental_key.name, self.instance)\n        drop_prefetched(self.instance, self.relation_name)\n        store_in_memory_objects(self.instance, self.relation_name, sort_by_ordering(self.model, objects))",
+      "new": "            setattr(obj, self.parental_key.name, self.instance)\n        drop_prefetched(self.instance, self.relation_name)\n        store_in_memory_objects(self.instance, self.relation_name, list(objects))"
+    }
+  ],
+  "e001_message_drift": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "\"ParentalKey must point to a subclass of ClusterableModel.\"",
+      "new": "\"ParentalKey must point to a subclass of ClusterableModel\""
+    }
+  ],
+  "e002_missing": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "if (self.remote_field.related_name or \"\").endswith(\"+\"):",
+      "new": "if False:"
+    }
+  ],
+  "e001_on_unresolved": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "if isinstance(target, type) and issubclass(target, models.Model) and not issubclass(target, ClusterableModel):",
+      "new": "if not (isinstance(target, type) and issubclass(target, ClusterableModel)):"
+    }
+  ],
+  "m2m_writes_on_set": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "        drop_prefetched(self.instance, self.relation_name)\n        store_in_memory_objects(self.instance, self.relation_name, sort_by_ordering(self.model, objects))\n\n    def add(self, *objs):\n        self.set(",
+      "new": "        drop_prefetched(self.instance, self.relation_name)\n        store_in_memory_objects(self.instance, self.relation_name, sort_by_ordering(self.model, objects))\n        if self.instance.pk is not None:\n            self.live_manager_class(self.instance).set(objects)\n\n    def add(self, *objs):\n        self.set("
+    }
+  ],
+  "m2m_assignment_needs_pk": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "    def __set__(self, instance, value):\n        self.__get__(instance).set(value)\n\n\nclass ParentalManyToManyField",
+      "new": "    def __set__(self, instance, value):\n        if instance.pk is None:\n            raise ValueError('save the parent first')\n        self.__get__(instance).set(value)\n\n\nclass ParentalManyToManyField"
+    }
+  ],
+  "m2m_manager_no_model": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "        super().__init__(instance, field.related_model, field.name, live_manager_class)\n",
+      "new": "        super().__init__(instance, field.related_model, field.name, live_manager_class)\n        self.target_model = self.model\n        del self.model\n"
+    }
+  ],
+  "m2m_add_unsaved_accepted": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "            if obj.pk is None:\n                raise ValueError",
+      "new": "            if False:\n                raise ValueError"
+    }
+  ],
+  "m2m_ignore_target_ordering": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "        drop_prefetched(self.instance, self.relation_name)\n        store_in_memory_objects(self.instance, self.relation_name, sort_by_ordering(self.model, objects))\n\n    def add(self, *objs):\n        self.set(",
+      "new": "        drop_prefetched(self.instance, self.relation_name)\n        store_in_memory_objects(self.instance, self.relation_name, list(objects))\n\n    def add(self, *objs):\n        self.set("
+    }
+  ],
+  "m2m_reverse_accessor_missing": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "    def contribute_to_class(self, cls, name, **kwargs):\n        super().contribute_to_class(cls, name, **kwargs)",
+      "new": "    def contribute_to_class(self, cls, name, **kwargs):\n        self.remote_field.related_name = \"+\"\n        super().contribute_to_class(cls, name, **kwargs)"
+    }
+  ],
+  "value_from_object_default": [
+    {
+      "path": "modelcluster/fields.py",
+      "old": "        return list(getattr(obj, self.attname).all())",
+      "new": "        return super().value_from_object(obj)"
+    }
+  ],
+  "update_fields_skips_m2m": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "committed = [name for name in update_fields if name in relation_names]",
+      "new": "committed = [name for name in update_fields if name in child_names]"
+    }
+  ],
+  "results_reordered": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "        self.results = list(results)\n",
+      "new": "        self.results = list(reversed(list(results)))\n"
+    }
+  ],
+  "exclude_equals_filter": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "if not evaluate(compiled, obj)])",
+      "new": "if evaluate(compiled, obj)])"
+    }
+  ],
+  "case_insensitive_ignored": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "text, needle, lookup = text.lower(), needle.lower(), lookup[1:]",
+      "new": "lookup = lookup[1:]"
+    },
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "return re.search(needle, text, re.IGNORECASE) is not None",
+      "new": "return re.search(needle, text) is not None"
+    }
+  ],
+  "range_exclusive_upper": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "return wanted[0] <= value <= wanted[1]",
+      "new": "return wanted[0] <= value < wanted[1]"
+    }
+  ],
+  "no_value_coercion": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "        return self.last.to_python(raw)",
+      "new": "        return raw"
+    }
+  ],
+  "in_sql_null_semantics": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "    if lookup == \"in\":\n        return value in wanted",
+      "new": "    if lookup == \"in\":\n        return value is not None and value in wanted"
+    }
+  ],
+  "lookup_token_shadows_field": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "            name = parts[index]\n",
+      "new": "            name = parts[index]\n            if name in LOOKUPS and index == len(parts) - 1:\n                break\n"
+    }
+  ],
+  "none_intermediate_raises": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "            obj = related_object(obj, field)\n            if obj is None:\n                return MISSING\n",
+      "new": "            obj = related_object(obj, field)\n"
+    }
+  ],
+  "unsaved_instances_equal": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "if a.pk is None or b.pk is None or a.pk != b.pk:",
+      "new": "if a.pk != b.pk:"
+    }
+  ],
+  "xor_as_or": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "result = sum(results) % 2 == 1",
+      "new": "result = any(results)"
+    }
+  ],
+  "m2m_traversal_silent": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "    def filter(self, *args, **kwargs):\n        compiled = compile_q(self.model, Q(*args, **kwargs))\n",
+      "new": "    def filter(self, *args, **kwargs):\n        try:\n            compiled = compile_q(self.model, Q(*args, **kwargs))\n        except ManyToManyTraversalError:\n            return self._clone([])\n"
+    }
+  ],
+  "values_ignores_transforms": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "            paths = [LookupPath(self.model, name, allow_lookup=False) for name in names]\n",
+      "new": "            paths = [LookupPath(self.model, name, allow_lookup=False) for name in names]\n            if any(path.transforms for path in paths):\n                raise FieldError(\"transforms are not supported here\")\n"
+    }
+  ],
+  "week_day_iso": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "return value.isoweekday() % 7 + 1",
+      "new": "return value.isoweekday()"
+    }
+  ],
+  "none_component_raises": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "    if value is None:\n        return None\n    if isinstance(value, datetime.datetime)",
+      "new": "    if isinstance(value, datetime.datetime)"
+    }
+  ],
+  "get_returns_first": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "if len(matches.results) > 1:",
+      "new": "if False:"
+    }
+  ],
+  "none_sorts_last": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "return (value is not None, value)",
+      "new": "return (value is None, value)"
+    }
+  ],
+  "values_fk_instance": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "return None if value is MISSING else plain(value)",
+      "new": "return None if value is MISSING else value"
+    }
+  ],
+  "flat_multi_allowed": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "        if flat and len(fields) > 1:\n",
+      "new": "        if False:\n"
+    }
+  ],
+  "distinct_includes_pk": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "for f in self.model._meta.concrete_fields if not f.primary_key]",
+      "new": "for f in self.model._meta.concrete_fields]"
+    }
+  ],
+  "none_not_sticky": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "    def none(self):\n        return self._clone([])",
+      "new": "    def none(self):\n        clone = self._clone([])\n        clone.original_results = self.results\n        return clone"
+    },
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "return self._clone([obj for obj in self.results if evaluate(compiled, obj)])",
+      "new": "return self._clone([obj for obj in getattr(self, \"original_results\", self.results) if evaluate(compiled, obj)])"
+    }
+  ],
+  "prefetch_noop": [
+    {
+      "path": "modelcluster/queryset.py",
+      "old": "        prefetch_related_objects(self.results, *lookups)\n        return self",
+      "new": "        return self"
+    },
+    {
+      "path": "modelcluster/fields.py",
+      "old": "    def get_prefetch_querysets(self, instances, querysets=None):",
+      "new": "    def unused_prefetch_querysets(self, instances, querysets=None):"
+    }
+  ],
+  "constructor_drops_relations": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "        for name, value in relations.items():\n            setattr(self, name, value)",
+      "new": "        relations.clear()"
+    }
+  ],
+  "save_skips_m2m": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "            committed = relation_names",
+      "new": "            committed = child_names"
+    }
+  ],
+  "update_fields_passthrough": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "real_fields = [name for name in update_fields if name not in relation_names]",
+      "new": "real_fields = list(update_fields)"
+    }
+  ],
+  "child_relations_local_only": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "        rel for rel in model._meta.get_fields()\n",
+      "new": "        rel for rel in model._meta.get_fields(include_parents=False)\n"
+    }
+  ],
+  "m2m_relations_include_plain": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "if isinstance(field, ParentalManyToManyField)]",
+      "new": "if isinstance(field, models.ManyToManyField)]"
+    }
+  ],
+  "copy_keeps_child_pks": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "            copies.append(copy)",
+      "new": "            copy.pk = child.pk\n            copies.append(copy)"
+    }
+  ],
+  "copy_child_appends_default": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "        if append:\n            manager.add(*copies)",
+      "new": "        if True:\n            manager.add(*copies)"
+    }
+  ],
+  "map_none_scalar": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "child_object_map.setdefault((child_relation, None), []).append(copy)",
+      "new": "child_object_map[(child_relation, None)] = copy"
+    }
+  ],
+  "copy_all_ignores_exclude": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "            if rel.get_accessor_name() in exclude:\n                continue\n",
+      "new": ""
+    }
+  ],
+  "shallow_children": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "child.serializable_data() if isinstance(child, ClusterableModel) else get_serializable_data_for_fields(child)",
+      "new": "get_serializable_data_for_fields(child)"
+    }
+  ],
+  "local_fields_only": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "    for field in obj._meta.concrete_fields:",
+      "new": "    for field in obj._meta.local_concrete_fields:"
+    }
+  ],
+  "attname_keys": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "            data[field.name] = serialize_field_value(field, obj)",
+      "new": "            data[field.attname] = serialize_field_value(field, obj)"
+    }
+  ],
+  "root_pk_not_set": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "            setattr(obj, parent._meta.pk.attname, pk)",
+      "new": "            pass"
+    }
+  ],
+  "strict_fks_ignored": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "obj = model_from_serializable_data(cls, data, check_fks=check_fks, strict_fks=strict_fks)",
+      "new": "obj = model_from_serializable_data(cls, data, check_fks=check_fks, strict_fks=False)"
+    }
+  ],
+  "cascade_child_kept": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "child_model, child_data, check_fks=check_fks, strict_fks=True, exclude_fields=[rel.field.name])",
+      "new": "child_model, child_data, check_fks=check_fks, strict_fks=False, exclude_fields=[rel.field.name])"
+    }
+  ],
+  "children_not_resorted": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "            setattr(obj, name, children)",
+      "new": "            setattr(obj, name, children)\n            obj.__dict__[\"_cluster_related_objects\"][name] = children"
+    }
+  ],
+  "naive_datetime_as_utc": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "value = timezone.make_aware(value, timezone.get_current_timezone())",
+      "new": "value = timezone.make_aware(value, datetime.timezone.utc)"
+    }
+  ],
+  "filefield_dropped": [
+    {
+      "path": "modelcluster/models.py",
+      "old": "        if field.serialize:\n            data[field.name]",
+      "new": "        if field.serialize and not isinstance(field, models.FileField):\n            data[field.name]"
+    }
+  ],
+  "transient_commit_false_saves": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "            form.fields[pk_name].required = False\n        return form\n",
+      "new": "            form.fields[pk_name].required = False\n        return form\n\n    def save(self, commit=True):\n        objects = super().save(commit=commit)\n        for obj in objects:\n            obj.save()\n        return objects\n"
+    }
+  ],
+  "fk_not_excluded": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "    exclude = list(exclude or []) + [fk.name]",
+      "new": "    exclude = list(exclude or [])"
+    }
+  ],
+  "child_commit_false_writes": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "        if commit:\n            manager.commit()\n            self.save_m2m()",
+      "new": "        manager.commit()\n        if commit:\n            self.save_m2m()"
+    }
+  ],
+  "max_num_always_enforced": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "validate_max=validate_max, min_num=min_num,\n        validate_min=validate_min,",
+      "new": "validate_max=max_num is not None, min_num=min_num,\n        validate_min=min_num is not None,"
+    }
+  ],
+  "order_not_written": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "                setattr(form.instance, sort_order_field, form.cleaned_data.get(\"ORDER\"))",
+      "new": "                pass"
+    }
+  ],
+  "nested_formsets_ignored": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "    if formsets is not None or exclude_formsets is not None:\n        form = clusterform_factory(",
+      "new": "    if False:\n        form = clusterform_factory("
+    }
+  ],
+  "prefix_accessor_name": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "    fk = None\n    inherit_kwargs = None\n",
+      "new": "    fk = None\n    inherit_kwargs = None\n\n    @classmethod\n    def get_default_prefix(cls):\n        return cls.fk.remote_field.get_accessor_name()\n"
+    }
+  ],
+  "formsets_default_all": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "        if model is None or (formsets is None and exclude_formsets is None):\n            return new_class\n",
+      "new": "        if model is None:\n            return new_class\n        exclude_formsets = exclude_formsets or []\n"
+    }
+  ],
+  "exclude_formsets_ignored": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "options = {rel_name: {} for rel_name in relations if rel_name not in exclude_formsets}",
+      "new": "options = {rel_name: {} for rel_name in relations}"
+    }
+  ],
+  "child_widgets_ignored": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "                formset_options[\"widgets\"] = widgets[rel_name]",
+      "new": "                pass"
+    }
+  ],
+  "inherited_relations_skipped": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "relations = {rel.get_accessor_name(): rel for rel in get_all_child_relations(model)}",
+      "new": "relations = {rel.get_accessor_name(): rel for rel in get_all_child_relations(model) if rel.model is model}"
+    }
+  ],
+  "extra_one": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "    extra_form_count = 3",
+      "new": "    extra_form_count = 1"
+    }
+  ],
+  "deleted_forms_validated": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "    def clean(self):\n        super().clean()",
+      "new": "    def is_valid(self):\n        return super().is_valid() and all(form.is_valid() for form in self.forms if form.has_changed())\n\n    def clean(self):\n        super().clean()"
+    }
+  ],
+  "child_unique_unchecked": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "                if key in seen:",
+      "new": "                if False:"
+    }
+  ],
+  "as_p_parent_only": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "return mark_safe(super().as_p() + \"\".join(formset.as_p() for formset in self.formsets.values()))",
+      "new": "return super().as_p()"
+    }
+  ],
+  "kwargs_always_inherited": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "inherited = {key: kwargs[key] for key in (formset_class.inherit_kwargs or []) if key in kwargs}",
+      "new": "inherited = dict(kwargs)"
+    }
+  ],
+  "commit_false_defers_parental": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "        instance = super().save(commit=False)\n        self.__apply_m2m(parental=True)\n",
+      "new": "        instance = super().save(commit=False)\n"
+    },
+    {
+      "path": "modelcluster/forms.py",
+      "old": "self.save_m2m = lambda: self.__apply_m2m(parental=False)",
+      "new": "self.save_m2m = lambda: (self.__apply_m2m(parental=True), self.__apply_m2m(parental=False))"
+    }
+  ],
+  "no_clusterform_factory": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "def clusterform_factory(model, form=ClusterForm,",
+      "new": "def _clusterform_factory(model, form=ClusterForm,"
+    }
+  ],
+  "plain_taggable_manager": [
+    {
+      "path": "modelcluster/contrib/taggit.py",
+      "old": "class ClusterTaggableManager(TaggableManager):",
+      "new": "class _UnusedClusterTaggableManager(TaggableManager):"
+    },
+    {
+      "path": "modelcluster/contrib/taggit.py",
+      "old": "        return list(getattr(obj, self.name).all())\n",
+      "new": "        return list(getattr(obj, self.name).all())\n\n\nClusterTaggableManager = TaggableManager\n"
+    }
+  ],
+  "remove_noop": [
+    {
+      "path": "modelcluster/contrib/taggit.py",
+      "old": "manager.set([item for item in manager.all() if item.tag.name not in names])",
+      "new": "manager.set(list(manager.all()))"
+    }
+  ],
+  "int_tag_coerced": [
+    {
+      "path": "modelcluster/contrib/taggit.py",
+      "old": "self._to_tag_model_instances(tags, {}) if tag not in current]",
+      "new": "self._to_tag_model_instances([str(tag) if isinstance(tag, int) else tag for tag in tags], {}) if tag not in current]"
+    }
+  ],
+  "tags_prefetch_unsupported": [
+    {
+      "path": "modelcluster/contrib/taggit.py",
+      "old": "    def add(self, *tags, **kwargs):",
+      "new": "    def get_prefetch_querysets(self, instances, querysets=None):\n        raise ValueError(\"prefetching tags is not supported\")\n\n    def add(self, *tags, **kwargs):"
+    }
+  ],
+  "form_tags_ignored": [
+    {
+      "path": "modelcluster/forms.py",
+      "old": "    return isinstance(field, ClusterTaggableManager)",
+      "new": "    return None if isinstance(field, ClusterTaggableManager) else False"
+    }
+  ]
+}

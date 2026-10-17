@@ -1,0 +1,2585 @@
+{
+  "status": "ready",
+  "mode": "preflight",
+  "paid_calls": 0,
+  "blockers": [],
+  "live_ready": true,
+  "mapping": {
+    "schema_version": "dag-public-check-audit/v1",
+    "status": "mapped",
+    "mapping_only": true,
+    "product_execution_ready": false,
+    "source_test_count": 88,
+    "original_test_count": 88,
+    "additional_test_count": 0,
+    "public_gate_version": "1",
+    "implemented_test_count": 88,
+    "missing_test_count": 0,
+    "missing_test_ids": [],
+    "missing_requirement_ids": [],
+    "missing": [],
+    "check_count": 9,
+    "checks": [
+      {
+        "id": "public.packaging-imports",
+        "phase": "integration",
+        "test_ids": [
+          "T.R02.01",
+          "T.R02.02",
+          "T.R02.03",
+          "T.R03.01",
+          "T.R03.02"
+        ]
+      },
+      {
+        "id": "public.parentalkey-deferring-manager",
+        "phase": "integration",
+        "test_ids": [
+          "T.R01.01",
+          "T.R04.01",
+          "T.R04.02",
+          "T.R04.03",
+          "T.R04.04",
+          "T.R04.05",
+          "T.R04.06",
+          "T.R04.07",
+          "T.R04.08",
+          "T.R04.09",
+          "T.R04.10",
+          "T.R04.11",
+          "T.integration.cluster-lifecycle"
+        ]
+      },
+      {
+        "id": "public.parental-m2m",
+        "phase": "integration",
+        "test_ids": [
+          "T.R05.01",
+          "T.R05.02",
+          "T.R05.03",
+          "T.R05.04",
+          "T.R05.05",
+          "T.R05.06",
+          "T.R05.07",
+          "T.R05.08"
+        ]
+      },
+      {
+        "id": "public.fakequeryset-filtering",
+        "phase": "integration",
+        "test_ids": [
+          "T.R06.01",
+          "T.R06.02",
+          "T.R06.03",
+          "T.R06.04",
+          "T.R06.05",
+          "T.R06.06",
+          "T.R06.07",
+          "T.R06.08",
+          "T.R06.09",
+          "T.R06.10",
+          "T.R06.11",
+          "T.R06.12",
+          "T.integration.queryset-db-parity"
+        ]
+      },
+      {
+        "id": "public.fakequeryset-retrieval",
+        "phase": "integration",
+        "test_ids": [
+          "T.R06.13",
+          "T.R06.14",
+          "T.R06.15",
+          "T.R06.16",
+          "T.R06.17",
+          "T.R06.18"
+        ]
+      },
+      {
+        "id": "public.clusterable-model-save-copy",
+        "phase": "integration",
+        "test_ids": [
+          "T.R07.01",
+          "T.R07.02",
+          "T.R07.03",
+          "T.R07.04",
+          "T.R07.05",
+          "T.R07.14",
+          "T.R07.15",
+          "T.R07.16",
+          "T.R07.17",
+          "T.integration.copy-then-save"
+        ]
+      },
+      {
+        "id": "public.clusterable-model-serialization",
+        "phase": "integration",
+        "test_ids": [
+          "T.R07.06",
+          "T.R07.07",
+          "T.R07.08",
+          "T.R07.09",
+          "T.R07.10",
+          "T.R07.11",
+          "T.R07.12",
+          "T.R07.13",
+          "T.integration.json-round-trip"
+        ]
+      },
+      {
+        "id": "public.cluster-forms",
+        "phase": "integration",
+        "test_ids": [
+          "T.R08.01",
+          "T.R08.02",
+          "T.R08.03",
+          "T.R08.04",
+          "T.R08.05",
+          "T.R08.06",
+          "T.R08.07",
+          "T.R08.08",
+          "T.R08.09",
+          "T.R08.10",
+          "T.R08.11",
+          "T.R08.12",
+          "T.R08.13",
+          "T.R08.14",
+          "T.R08.15",
+          "T.R08.16",
+          "T.R08.17",
+          "T.integration.clusterform-nested-save"
+        ]
+      },
+      {
+        "id": "public.taggit-cluster",
+        "phase": "integration",
+        "test_ids": [
+          "T.R09.01",
+          "T.R09.02",
+          "T.R09.03",
+          "T.R09.04",
+          "T.R09.05",
+          "T.integration.tags-and-prefetch"
+        ]
+      }
+    ],
+    "blockers": [
+      "REAL_CANDIDATE_ENVIRONMENT_NOT_VALIDATED",
+      "ARTIFACT_REVISION_ADAPTER_NOT_BOUND"
+    ],
+    "controls": {
+      "status": "not_run"
+    },
+    "source_integrity": {
+      "input_path": "benchmarks/e2e-swe/heldout/django-modelcluster/obligations.json",
+      "input_sha256": "9e482b4f1427c64dc0b0b47d5bdee26e16a617d6996d8098bec23f45de291692",
+      "public_source_sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+      "verified": true
+    },
+    "audit_inputs": {
+      "publicGateVersion": "1",
+      "inputPath": "benchmarks/e2e-swe/heldout/django-modelcluster/obligations.json",
+      "checkerRoot": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks",
+      "registryPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/registry.json",
+      "runnerPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/run_public_checks.py",
+      "inventoryPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/inventory.json",
+      "controlRunnerPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/run_control_batch.py",
+      "controlCatalogPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/catalog.json",
+      "assertionContractPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/assertions.json"
+    }
+  },
+  "controls": {
+    "status": "passed",
+    "evidence_level": "authored_local_controls_only",
+    "normal_count": 9,
+    "defective_count": 0,
+    "normal": [
+      {
+        "check_id": "public.packaging-imports",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 42,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R02.01"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R02.02"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R02.03"
+            },
+            {
+              "assertions": 12,
+              "status": "passed",
+              "test_id": "T.R03.01"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R03.02"
+            }
+          ],
+          "check_id": "public.packaging-imports",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.393,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-0x_f9pnw/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2949 sha256=133a2df78cab4f07cc30ec94bf7dbb3e74604f406ad6aee80d63f52ac7dbe711\n  Stored in directory: /tmp/pip-ephem-wheel-cache-iizd4wk_/wheels/70/c5/b3/73303278bbbe53e0dd1fbdb01355b705e191bfcce4247d687b\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R02.01",
+            "T.R02.02",
+            "T.R02.03",
+            "T.R03.01",
+            "T.R03.02"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 12.404121046998625
+      },
+      {
+        "check_id": "public.parentalkey-deferring-manager",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 80,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R01.01"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R04.01"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R04.02"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R04.03"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R04.04"
+            },
+            {
+              "assertions": 10,
+              "status": "passed",
+              "test_id": "T.R04.05"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R04.06"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R04.07"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R04.08"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R04.09"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R04.10"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R04.11"
+            },
+            {
+              "assertions": 16,
+              "status": "passed",
+              "test_id": "T.integration.cluster-lifecycle"
+            }
+          ],
+          "check_id": "public.parentalkey-deferring-manager",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.656,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-of5v3jk4/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=e6dd708343781b7f8b8799b81ffad9a9c9edfa100e11fcab497fb7a722c7c06a\n  Stored in directory: /tmp/pip-ephem-wheel-cache-cp5pm_fw/wheels/e2/dc/f9/28f9ef8bc234bb3730c25bc152f3f25bf36c50d1431ff68e25\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R01.01",
+            "T.R04.01",
+            "T.R04.02",
+            "T.R04.03",
+            "T.R04.04",
+            "T.R04.05",
+            "T.R04.06",
+            "T.R04.07",
+            "T.R04.08",
+            "T.R04.09",
+            "T.R04.10",
+            "T.R04.11",
+            "T.integration.cluster-lifecycle"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 21.092311841999617
+      },
+      {
+        "check_id": "public.parental-m2m",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 33,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 11,
+              "status": "passed",
+              "test_id": "T.R05.01"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R05.02"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R05.03"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R05.04"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R05.05"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R05.06"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R05.07"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R05.08"
+            }
+          ],
+          "check_id": "public.parental-m2m",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.233,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-zy4n_zdx/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=3818724bbfa7eea679896ec12cbab673f19d78dab99c156f826dd97b17fc42df\n  Stored in directory: /tmp/pip-ephem-wheel-cache-vpri2y4o/wheels/b2/2f/14/dcb202ae8cf50a8a73cc731f3e77b77ffa128496f9c9d987c6\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R05.01",
+            "T.R05.02",
+            "T.R05.03",
+            "T.R05.04",
+            "T.R05.05",
+            "T.R05.06",
+            "T.R05.07",
+            "T.R05.08"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 14.985201589999633
+      },
+      {
+        "check_id": "public.fakequeryset-filtering",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 129,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.01"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R06.02"
+            },
+            {
+              "assertions": 17,
+              "status": "passed",
+              "test_id": "T.R06.03"
+            },
+            {
+              "assertions": 10,
+              "status": "passed",
+              "test_id": "T.R06.04"
+            },
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.R06.05"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.06"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R06.07"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R06.08"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R06.09"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.10"
+            },
+            {
+              "assertions": 35,
+              "status": "passed",
+              "test_id": "T.R06.11"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R06.12"
+            },
+            {
+              "assertions": 20,
+              "status": "passed",
+              "test_id": "T.integration.queryset-db-parity"
+            }
+          ],
+          "check_id": "public.fakequeryset-filtering",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.289,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-ip044pr0/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=eb385cde39cbb190a96c91f27b11e179da99b083edf8e693d5e89a39ee660b31\n  Stored in directory: /tmp/pip-ephem-wheel-cache-59s5015p/wheels/60/84/cc/2a1267a2352aba9b6f9bcd957f4d581caf36c509230be57568\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R06.01",
+            "T.R06.02",
+            "T.R06.03",
+            "T.R06.04",
+            "T.R06.05",
+            "T.R06.06",
+            "T.R06.07",
+            "T.R06.08",
+            "T.R06.09",
+            "T.R06.10",
+            "T.R06.11",
+            "T.R06.12",
+            "T.integration.queryset-db-parity"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 20.80828167599975
+      },
+      {
+        "check_id": "public.fakequeryset-retrieval",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 57,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 10,
+              "status": "passed",
+              "test_id": "T.R06.13"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R06.14"
+            },
+            {
+              "assertions": 14,
+              "status": "passed",
+              "test_id": "T.R06.15"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.16"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R06.17"
+            },
+            {
+              "assertions": 14,
+              "status": "passed",
+              "test_id": "T.R06.18"
+            }
+          ],
+          "check_id": "public.fakequeryset-retrieval",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.923,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-uf0lydcp/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2948 sha256=1a7a034fdecceaf595ccde17533ef0d069ae8b5d6c332b7026de55155953978e\n  Stored in directory: /tmp/pip-ephem-wheel-cache-9aijr1en/wheels/09/88/77/f3b89b2679283493516d726fe92b1d7a34be34346165ba5443\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R06.13",
+            "T.R06.14",
+            "T.R06.15",
+            "T.R06.16",
+            "T.R06.17",
+            "T.R06.18"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 13.781026298001962
+      },
+      {
+        "check_id": "public.clusterable-model-save-copy",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 73,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.R07.01"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R07.02"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R07.03"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R07.04"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R07.05"
+            },
+            {
+              "assertions": 13,
+              "status": "passed",
+              "test_id": "T.R07.14"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R07.15"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R07.16"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R07.17"
+            },
+            {
+              "assertions": 14,
+              "status": "passed",
+              "test_id": "T.integration.copy-then-save"
+            }
+          ],
+          "check_id": "public.clusterable-model-save-copy",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.702,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-bgd0094y/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=2ab1253bb8447c4cbced22302d5c95bae71b7726df462ec68ad44753778c26e4\n  Stored in directory: /tmp/pip-ephem-wheel-cache-_1ch4khg/wheels/01/24/b1/83bc5bcab5bf3f1730206a9bb209843af67b2c45d50f5e4c48\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R07.01",
+            "T.R07.02",
+            "T.R07.03",
+            "T.R07.04",
+            "T.R07.05",
+            "T.R07.14",
+            "T.R07.15",
+            "T.R07.16",
+            "T.R07.17",
+            "T.integration.copy-then-save"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 19.01602721800009
+      },
+      {
+        "check_id": "public.clusterable-model-serialization",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 58,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R07.06"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R07.07"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R07.08"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R07.09"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R07.10"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R07.11"
+            },
+            {
+              "assertions": 11,
+              "status": "passed",
+              "test_id": "T.R07.12"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R07.13"
+            },
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.integration.json-round-trip"
+            }
+          ],
+          "check_id": "public.clusterable-model-serialization",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.423,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-h2a0n0xi/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=d7c0fa41308af3bf9a40803c8b9f88ab3dabcfb3647b6c2927720f57e7468b28\n  Stored in directory: /tmp/pip-ephem-wheel-cache-rzthv9ob/wheels/95/f0/54/34ec4af6465cbfe3a931c28914639d2a651eab0bd4fe700964\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R07.06",
+            "T.R07.07",
+            "T.R07.08",
+            "T.R07.09",
+            "T.R07.10",
+            "T.R07.11",
+            "T.R07.12",
+            "T.R07.13",
+            "T.integration.json-round-trip"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 17.574793923999096
+      },
+      {
+        "check_id": "public.cluster-forms",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 123,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R08.01"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R08.02"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R08.03"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R08.04"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R08.05"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R08.06"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R08.07"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R08.08"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R08.09"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R08.10"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R08.11"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R08.12"
+            },
+            {
+              "assertions": 11,
+              "status": "passed",
+              "test_id": "T.R08.13"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R08.14"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R08.15"
+            },
+            {
+              "assertions": 17,
+              "status": "passed",
+              "test_id": "T.R08.16"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R08.17"
+            },
+            {
+              "assertions": 11,
+              "status": "passed",
+              "test_id": "T.integration.clusterform-nested-save"
+            }
+          ],
+          "check_id": "public.cluster-forms",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.42,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-oq_g8za7/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=a25d78523ac3e05bb54aa84a3027808f9c21e2a31473bc34bbfdd42a90c0a55d\n  Stored in directory: /tmp/pip-ephem-wheel-cache-60bxz7un/wheels/d7/64/7b/029308942fab5ff7784c7a8657d04b49db642d87501860cced\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R08.01",
+            "T.R08.02",
+            "T.R08.03",
+            "T.R08.04",
+            "T.R08.05",
+            "T.R08.06",
+            "T.R08.07",
+            "T.R08.08",
+            "T.R08.09",
+            "T.R08.10",
+            "T.R08.11",
+            "T.R08.12",
+            "T.R08.13",
+            "T.R08.14",
+            "T.R08.15",
+            "T.R08.16",
+            "T.R08.17",
+            "T.integration.clusterform-nested-save"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 25.289900511997985
+      },
+      {
+        "check_id": "public.taggit-cluster",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 38,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R09.01"
+            },
+            {
+              "assertions": 12,
+              "status": "passed",
+              "test_id": "T.R09.02"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R09.03"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R09.04"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R09.05"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.integration.tags-and-prefetch"
+            }
+          ],
+          "check_id": "public.taggit-cluster",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.306,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-iqi0uto_/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=06af14631e5c4d1b24d134a3dd6d505c16cce292f1db2c4e9ea5bfbb57b54401\n  Stored in directory: /tmp/pip-ephem-wheel-cache-fpujygw1/wheels/34/98/4e/124aa6245311fdfe7f21cff7022fd9ecea63bf30b8c2b547ca\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R09.01",
+            "T.R09.02",
+            "T.R09.03",
+            "T.R09.04",
+            "T.R09.05",
+            "T.integration.tags-and-prefetch"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 14.458686881000176
+      }
+    ],
+    "negative": [],
+    "product_execution_ready": false,
+    "schema_version": "dag-public-control-receipt/v2",
+    "recorded_at": "2026-10-17T16:51:19.793Z",
+    "source_hashes": [
+      {
+        "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+        "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/obligations.json",
+        "sha256": "9e482b4f1427c64dc0b0b47d5bdee26e16a617d6996d8098bec23f45de291692"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/assertions.json",
+        "sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py",
+        "sha256": "bab30f815a7b24cbf76d1754f743cf0f0a788effc03186dc1c1c61ebe1e56bbe"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/catalog.json",
+        "sha256": "3afbe91488e2cbe1b6d158746c78022336fd24c2bac2a4285ac2f337abdf37c2"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/defects.json",
+        "sha256": "35ebb1e19f33a85ba4dccbe1ded0767745a95b4940ca4878a0666ac6de78a332"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/modelcluster/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/modelcluster/contrib/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/modelcluster/contrib/taggit.py",
+        "sha256": "7223ac35b7b964f31406fe19b095aaf8c88d07de497d9e384bf81c0d40db7696"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/modelcluster/fields.py",
+        "sha256": "228798858b2bc5426717862f8d6168783bf6dde1f6a74a5059df6be570cf93b6"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/modelcluster/forms.py",
+        "sha256": "841a04476db5346973b70c67a2c5ca929066dee89eb0c2824451c1c86693efbc"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/modelcluster/models.py",
+        "sha256": "1442581706ffa510dda5ff1ff66c0ac5cf130115fa13c0849a4af0603136ee85"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/modelcluster/queryset.py",
+        "sha256": "aa828d95f01e986849a09751431e2ca9c936118fa88a5f94e1e5742d2c85facc"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/modelcluster/utils.py",
+        "sha256": "8f9af1f0b4540fd7f42556c8a5034945c9459726fac7b9ee5ba482d614a0ef16"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/pyproject.toml",
+        "sha256": "b9fb5b42f447d81587ca06043d2cc813179b88fe303b58cfd3376a9dd19a44c8"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/reference/setup.sh",
+        "sha256": "839fcd451aea48429b00f613192f6e1813933fb5ec88acbe2b38f1410ef363e6"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/environment.json",
+        "sha256": "0f6e95d83f4e5503b413808d69bebff34bd582ee641997e041b4712fd0e11967"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/harness.py",
+        "sha256": "7c6fa3400d5fce1e426f26eb8bb28324fe5e6398dd914fd025e0688e20761c9f"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/inventory.json",
+        "sha256": "aa68f2bfa4fc9537f5286d3e5118873bdacd4a8f05d8fbcb5d33d57cb9df6b8d"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/registry.json",
+        "sha256": "41a2e735265def7dd72a7c0075f07e5f5abe4f9a18c6d0f13566d93668b9caab"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/run_control_batch.py",
+        "sha256": "61aaf1fe1512c532b1603bc4ebb9109618066609d0770456d8d9752f169ac173"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/run_public_checks.py",
+        "sha256": "55e74f12f1cc95fc7d21c1b9da2d0e44253c73e8533df538df648df75d4cb9c7"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_app/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_app/models.py",
+        "sha256": "5fa1585437fbf9bbaf579a9f646a3222f62bb799117dac463d7927fb70f5918b"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_app/settings.py",
+        "sha256": "8b140656090c5c9ce834ea6c00423397246ca07065f2644a2d8be90517a67337"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_default/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_default/models.py",
+        "sha256": "accd77b5297c6771b0971ccf5416067228b66b651a3080a63a65c961936c7960"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_probe/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_probe/models.py",
+        "sha256": "0ee72e2cca2c051d75ba016bb404d5f62b803a209eabeffc335a2552baf88152"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_tags/__init__.py",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/support/heldout_checker_tags/models.py",
+        "sha256": "f32a5b327d7bd81d6856261edc015eb8cc1f4d91511d5ac7590eb86369c2a114"
+      },
+      {
+        "path": "scripts/audit-dag-public-checks.mjs",
+        "sha256": "9a36dfcd5ff79647489a4d1b50b5207a57469cb5b35b5a8b9e6df19672cff4bf"
+      },
+      {
+        "path": "src/orchestration/dag-contracts.mjs",
+        "sha256": "363c2a7469326600e61b164ccff60490e193b7580602b76aba470de7ccd79adb"
+      },
+      {
+        "path": "src/orchestration/public-audit-v4.mjs",
+        "sha256": "b197e32c76806778e0b6b4903250475d7a7f85c9415415b74e26c92a175ab756"
+      }
+    ],
+    "public_gate_version": "1",
+    "audit_inputs": {
+      "publicGateVersion": "1",
+      "inputPath": "benchmarks/e2e-swe/heldout/django-modelcluster/obligations.json",
+      "checkerRoot": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks",
+      "registryPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/registry.json",
+      "runnerPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/run_public_checks.py",
+      "inventoryPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/inventory.json",
+      "controlRunnerPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/run_control_batch.py",
+      "controlCatalogPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/controls/catalog.json",
+      "assertionContractPath": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/assertions.json"
+    },
+    "container": {
+      "image_id": "sha256:a6b66b76cef5dc83d9dd1aec0f5d81bce368857f3c2685e9c25cfa3f5bed3cf2",
+      "platform": "linux/amd64",
+      "network_mode": "none",
+      "readonly_rootfs": true,
+      "checker_mount_readonly": true,
+      "exit_code": 0,
+      "command": [
+        "create",
+        "--name",
+        "d065-public-controls-16a4a84a-7b33-403c-813b-40047ec802fb",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--read-only",
+        "--tmpfs",
+        "/tmp:rw,exec,size=2g",
+        "--mount",
+        "type=bind,src=/Users/lee/workspace/plugins/jev-router/.claude/worktrees/charming-mirzakhani-20f856,dst=/checker,readonly",
+        "--workdir",
+        "/checker",
+        "--entrypoint",
+        "python3",
+        "sha256:a6b66b76cef5dc83d9dd1aec0f5d81bce368857f3c2685e9c25cfa3f5bed3cf2",
+        "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/run_control_batch.py",
+        "--normal-only"
+      ],
+      "cleanup_confirmed": true
+    },
+    "batch": {
+      "complete_catalog": false,
+      "elapsed_seconds": 46.42768047899881,
+      "environment": {
+        "dependencies": {
+          "Django": "5.2.15",
+          "asgiref": "3.11.1",
+          "django-taggit": "6.1.0",
+          "pip": "23.0.1",
+          "setuptools": "79.0.1",
+          "sqlparse": "0.5.5",
+          "wheel": "0.46.3"
+        },
+        "python": "3.10.20"
+      },
+      "results": [
+        {
+          "defect": "none",
+          "elapsed_seconds": 12.404121046998625,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 42,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R02.01"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R02.02"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R02.03"
+              },
+              {
+                "assertions": 12,
+                "status": "passed",
+                "test_id": "T.R03.01"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R03.02"
+              }
+            ],
+            "check_id": "public.packaging-imports",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.393,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-0x_f9pnw/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2949 sha256=133a2df78cab4f07cc30ec94bf7dbb3e74604f406ad6aee80d63f52ac7dbe711\n  Stored in directory: /tmp/pip-ephem-wheel-cache-iizd4wk_/wheels/70/c5/b3/73303278bbbe53e0dd1fbdb01355b705e191bfcce4247d687b\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R02.01",
+              "T.R02.02",
+              "T.R02.03",
+              "T.R03.01",
+              "T.R03.02"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "packaging-imports",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 21.092311841999617,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 80,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R01.01"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R04.01"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R04.02"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R04.03"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R04.04"
+              },
+              {
+                "assertions": 10,
+                "status": "passed",
+                "test_id": "T.R04.05"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R04.06"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R04.07"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R04.08"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R04.09"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R04.10"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R04.11"
+              },
+              {
+                "assertions": 16,
+                "status": "passed",
+                "test_id": "T.integration.cluster-lifecycle"
+              }
+            ],
+            "check_id": "public.parentalkey-deferring-manager",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.656,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-of5v3jk4/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=e6dd708343781b7f8b8799b81ffad9a9c9edfa100e11fcab497fb7a722c7c06a\n  Stored in directory: /tmp/pip-ephem-wheel-cache-cp5pm_fw/wheels/e2/dc/f9/28f9ef8bc234bb3730c25bc152f3f25bf36c50d1431ff68e25\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R01.01",
+              "T.R04.01",
+              "T.R04.02",
+              "T.R04.03",
+              "T.R04.04",
+              "T.R04.05",
+              "T.R04.06",
+              "T.R04.07",
+              "T.R04.08",
+              "T.R04.09",
+              "T.R04.10",
+              "T.R04.11",
+              "T.integration.cluster-lifecycle"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "parentalkey-deferring-manager",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 14.985201589999633,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 33,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 11,
+                "status": "passed",
+                "test_id": "T.R05.01"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R05.02"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R05.03"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R05.04"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R05.05"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R05.06"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R05.07"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R05.08"
+              }
+            ],
+            "check_id": "public.parental-m2m",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.233,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-zy4n_zdx/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=3818724bbfa7eea679896ec12cbab673f19d78dab99c156f826dd97b17fc42df\n  Stored in directory: /tmp/pip-ephem-wheel-cache-vpri2y4o/wheels/b2/2f/14/dcb202ae8cf50a8a73cc731f3e77b77ffa128496f9c9d987c6\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R05.01",
+              "T.R05.02",
+              "T.R05.03",
+              "T.R05.04",
+              "T.R05.05",
+              "T.R05.06",
+              "T.R05.07",
+              "T.R05.08"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "parental-m2m",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 20.80828167599975,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 129,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.01"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R06.02"
+              },
+              {
+                "assertions": 17,
+                "status": "passed",
+                "test_id": "T.R06.03"
+              },
+              {
+                "assertions": 10,
+                "status": "passed",
+                "test_id": "T.R06.04"
+              },
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.R06.05"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.06"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R06.07"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R06.08"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R06.09"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.10"
+              },
+              {
+                "assertions": 35,
+                "status": "passed",
+                "test_id": "T.R06.11"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R06.12"
+              },
+              {
+                "assertions": 20,
+                "status": "passed",
+                "test_id": "T.integration.queryset-db-parity"
+              }
+            ],
+            "check_id": "public.fakequeryset-filtering",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.289,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-ip044pr0/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=eb385cde39cbb190a96c91f27b11e179da99b083edf8e693d5e89a39ee660b31\n  Stored in directory: /tmp/pip-ephem-wheel-cache-59s5015p/wheels/60/84/cc/2a1267a2352aba9b6f9bcd957f4d581caf36c509230be57568\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R06.01",
+              "T.R06.02",
+              "T.R06.03",
+              "T.R06.04",
+              "T.R06.05",
+              "T.R06.06",
+              "T.R06.07",
+              "T.R06.08",
+              "T.R06.09",
+              "T.R06.10",
+              "T.R06.11",
+              "T.R06.12",
+              "T.integration.queryset-db-parity"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "fakequeryset-filtering",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 13.781026298001962,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 57,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 10,
+                "status": "passed",
+                "test_id": "T.R06.13"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R06.14"
+              },
+              {
+                "assertions": 14,
+                "status": "passed",
+                "test_id": "T.R06.15"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.16"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R06.17"
+              },
+              {
+                "assertions": 14,
+                "status": "passed",
+                "test_id": "T.R06.18"
+              }
+            ],
+            "check_id": "public.fakequeryset-retrieval",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.923,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-uf0lydcp/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2948 sha256=1a7a034fdecceaf595ccde17533ef0d069ae8b5d6c332b7026de55155953978e\n  Stored in directory: /tmp/pip-ephem-wheel-cache-9aijr1en/wheels/09/88/77/f3b89b2679283493516d726fe92b1d7a34be34346165ba5443\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R06.13",
+              "T.R06.14",
+              "T.R06.15",
+              "T.R06.16",
+              "T.R06.17",
+              "T.R06.18"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "fakequeryset-retrieval",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 19.01602721800009,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 73,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.R07.01"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R07.02"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R07.03"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R07.04"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R07.05"
+              },
+              {
+                "assertions": 13,
+                "status": "passed",
+                "test_id": "T.R07.14"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R07.15"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R07.16"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R07.17"
+              },
+              {
+                "assertions": 14,
+                "status": "passed",
+                "test_id": "T.integration.copy-then-save"
+              }
+            ],
+            "check_id": "public.clusterable-model-save-copy",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.702,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-bgd0094y/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=2ab1253bb8447c4cbced22302d5c95bae71b7726df462ec68ad44753778c26e4\n  Stored in directory: /tmp/pip-ephem-wheel-cache-_1ch4khg/wheels/01/24/b1/83bc5bcab5bf3f1730206a9bb209843af67b2c45d50f5e4c48\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R07.01",
+              "T.R07.02",
+              "T.R07.03",
+              "T.R07.04",
+              "T.R07.05",
+              "T.R07.14",
+              "T.R07.15",
+              "T.R07.16",
+              "T.R07.17",
+              "T.integration.copy-then-save"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "clusterable-model-save-copy",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 17.574793923999096,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 58,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R07.06"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R07.07"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R07.08"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R07.09"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R07.10"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R07.11"
+              },
+              {
+                "assertions": 11,
+                "status": "passed",
+                "test_id": "T.R07.12"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R07.13"
+              },
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.integration.json-round-trip"
+              }
+            ],
+            "check_id": "public.clusterable-model-serialization",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.423,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-h2a0n0xi/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=d7c0fa41308af3bf9a40803c8b9f88ab3dabcfb3647b6c2927720f57e7468b28\n  Stored in directory: /tmp/pip-ephem-wheel-cache-rzthv9ob/wheels/95/f0/54/34ec4af6465cbfe3a931c28914639d2a651eab0bd4fe700964\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R07.06",
+              "T.R07.07",
+              "T.R07.08",
+              "T.R07.09",
+              "T.R07.10",
+              "T.R07.11",
+              "T.R07.12",
+              "T.R07.13",
+              "T.integration.json-round-trip"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "clusterable-model-serialization",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 25.289900511997985,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 123,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R08.01"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R08.02"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R08.03"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R08.04"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R08.05"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R08.06"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R08.07"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R08.08"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R08.09"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R08.10"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R08.11"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R08.12"
+              },
+              {
+                "assertions": 11,
+                "status": "passed",
+                "test_id": "T.R08.13"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R08.14"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R08.15"
+              },
+              {
+                "assertions": 17,
+                "status": "passed",
+                "test_id": "T.R08.16"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R08.17"
+              },
+              {
+                "assertions": 11,
+                "status": "passed",
+                "test_id": "T.integration.clusterform-nested-save"
+              }
+            ],
+            "check_id": "public.cluster-forms",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.42,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-oq_g8za7/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=a25d78523ac3e05bb54aa84a3027808f9c21e2a31473bc34bbfdd42a90c0a55d\n  Stored in directory: /tmp/pip-ephem-wheel-cache-60bxz7un/wheels/d7/64/7b/029308942fab5ff7784c7a8657d04b49db642d87501860cced\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R08.01",
+              "T.R08.02",
+              "T.R08.03",
+              "T.R08.04",
+              "T.R08.05",
+              "T.R08.06",
+              "T.R08.07",
+              "T.R08.08",
+              "T.R08.09",
+              "T.R08.10",
+              "T.R08.11",
+              "T.R08.12",
+              "T.R08.13",
+              "T.R08.14",
+              "T.R08.15",
+              "T.R08.16",
+              "T.R08.17",
+              "T.integration.clusterform-nested-save"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "cluster-forms",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 14.458686881000176,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 38,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R09.01"
+              },
+              {
+                "assertions": 12,
+                "status": "passed",
+                "test_id": "T.R09.02"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R09.03"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R09.04"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R09.05"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.integration.tags-and-prefetch"
+              }
+            ],
+            "check_id": "public.taggit-cluster",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-django-modelcluster/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.306,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-iqi0uto_/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: Django<5.3,>=5.2 in /usr/local/lib/python3.10/site-packages (from django-modelcluster==0.0.0) (5.2.15)\nRequirement already satisfied: asgiref>=3.8.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (3.11.1)\nRequirement already satisfied: sqlparse>=0.3.1 in /usr/local/lib/python3.10/site-packages (from Django<5.3,>=5.2->django-modelcluster==0.0.0) (0.5.5)\nRequirement already satisfied: typing_extensions>=4 in /usr/local/lib/python3.10/site-packages (from asgiref>=3.8.1->Django<5.3,>=5.2->django-modelcluster==0.0.0) (4.16.0)\nBuilding wheels for collected packages: django-modelcluster\n  Building editable for django-modelcluster (pyproject.toml): started\n  Building editable for django-modelcluster (pyproject.toml): finished with status 'done'\n  Created wheel for django-modelcluster: filename=django_modelcluster-0.0.0-0.editable-py3-none-any.whl size=2950 sha256=06af14631e5c4d1b24d134a3dd6d505c16cce292f1db2c4e9ea5bfbb57b54401\n  Stored in directory: /tmp/pip-ephem-wheel-cache-fpujygw1/wheels/34/98/4e/124aa6245311fdfe7f21cff7022fd9ecea63bf30b8c2b547ca\nSuccessfully built django-modelcluster\nInstalling collected packages: django-modelcluster\nSuccessfully installed django-modelcluster-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R09.01",
+              "T.R09.02",
+              "T.R09.03",
+              "T.R09.04",
+              "T.R09.05",
+              "T.integration.tags-and-prefetch"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "taggit-cluster",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/django-modelcluster/public-checks"
+        }
+      ],
+      "schema_version": "dag-public-control-batch/v1"
+    },
+    "elapsed_seconds": 46.42768047899881
+  },
+  "frozen_controls": {
+    "status": "verified",
+    "evidence_level": "historical_authored_controls_at_exact_current_sources",
+    "path": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/results/controls.json",
+    "receipt_sha256": "d5a3d8d2ba7e592d9ce3e464648b5a0ce643e898335eea148b64b8eb8dff0a72",
+    "source_count": 34,
+    "normal_count": 9,
+    "defective_count": 88,
+    "recorded_at": "2026-10-17T16:49:40.263Z"
+  },
+  "budget": {
+    "schema_version": "jev-token-budget-snapshot/v4",
+    "budget_id": "8f256409-1245-4f32-ba67-d3fb2fddf6e4",
+    "limit_usd": null,
+    "rate_usd_per_million": 0.6,
+    "token_limit": null,
+    "charged_input_tokens": 27755457,
+    "reserved_input_tokens": 0,
+    "estimated_spent_usd": 16.6532742,
+    "estimated_reserved_usd": 0,
+    "remaining_usd": null,
+    "actual_billed_usd": null,
+    "reservations_pending": 0,
+    "pending_reservation_id": null,
+    "blocked_code": null,
+    "closed": false,
+    "pending_reservation_ids": [],
+    "reservations_in_flight": 0,
+    "remaining_input_tokens": null,
+    "settled_requests": 1544,
+    "budget_unit": "input_tokens",
+    "unlimited": true
+  },
+  "connection": {
+    "baseURL": "https://jev-ai.pro/api",
+    "modelsURL": "https://jev-ai.pro/api/v1/models",
+    "decisionURL": "https://jev-ai.pro/api/v1/systemone",
+    "defaultModel": "jev-latest",
+    "transport": "Node.js fetch (no SDK)",
+    "automaticRetries": 0,
+    "redirects": "blocked",
+    "envFile": "/Users/lee/workspace/.env",
+    "keyConfigured": true,
+    "keySource": "env-file"
+  },
+  "auth": {
+    "logged_in": true,
+    "auth_method": "claude.ai",
+    "accepted_methods": [
+      "claude.ai",
+      "oauth_token"
+    ]
+  },
+  "image": {
+    "schema_version": 1,
+    "image_tag": "ghcr.io/facebookresearch/e2e-swe:django-modelcluster",
+    "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:129764af29be879898272cd749ac8b611a4ea13e7c8e0210f5e789a11cae473e",
+    "image_id": "sha256:a6b66b76cef5dc83d9dd1aec0f5d81bce368857f3c2685e9c25cfa3f5bed3cf2",
+    "architecture": "amd64",
+    "os": "linux",
+    "size_bytes": 257061519,
+    "locked_at": "2026-10-17T13:47:53.141260+00:00"
+  },
+  "environment": {
+    "image_id": "sha256:a6b66b76cef5dc83d9dd1aec0f5d81bce368857f3c2685e9c25cfa3f5bed3cf2",
+    "python": "3.10.20 (main, Jul  6 2026, 21:47:22) [GCC 12.2.0]",
+    "modules": {
+      "Django": {
+        "available": true,
+        "version": "5.2.15"
+      },
+      "django-taggit": {
+        "available": true,
+        "version": "6.1.0"
+      },
+      "asgiref": {
+        "available": true,
+        "version": "3.11.1"
+      },
+      "sqlparse": {
+        "available": true,
+        "version": "0.5.5"
+      },
+      "setuptools": {
+        "available": true,
+        "version": "79.0.1"
+      },
+      "pip": {
+        "available": true,
+        "version": "23.0.1"
+      },
+      "wheel": {
+        "available": true,
+        "version": "0.46.3"
+      }
+    },
+    "network": "none",
+    "read_only": true,
+    "tmpfs": "/tmp:rw,exec,size=2g"
+  },
+  "model_lookup": {
+    "jev_latest_available": true,
+    "inference_calls": 0
+  },
+  "cohort_capacity": {
+    "snapshot": {
+      "schema_version": "jev-token-budget-snapshot/v4",
+      "budget_id": "8f256409-1245-4f32-ba67-d3fb2fddf6e4",
+      "limit_usd": null,
+      "rate_usd_per_million": 0.6,
+      "token_limit": null,
+      "charged_input_tokens": 27755457,
+      "reserved_input_tokens": 0,
+      "estimated_spent_usd": 16.6532742,
+      "estimated_reserved_usd": 0,
+      "remaining_usd": null,
+      "actual_billed_usd": null,
+      "reservations_pending": 0,
+      "pending_reservation_id": null,
+      "blocked_code": null,
+      "closed": false,
+      "pending_reservation_ids": [],
+      "reservations_in_flight": 0,
+      "remaining_input_tokens": null,
+      "settled_requests": 1544,
+      "budget_unit": "input_tokens",
+      "unlimited": true
+    },
+    "remaining_jev_arms": 1,
+    "required_input_tokens": null,
+    "token_capacity_unlimited": true
+  },
+  "schema_version": "adaptive-preflight/v2",
+  "arms": [
+    "jev_profile"
+  ],
+  "protocol": {
+    "draft": {
+      "status": "draft_not_runnable",
+      "protocol": "docs/orchestration/contracts/evaluation-protocol.v1.json",
+      "task": "django-modelcluster",
+      "derived_from": "benchmarks/e2e-swe/manifests/d083-repair-fixes.json",
+      "blockers": [
+        "catalog_reuse hashes are null until a new catalog is prepared with a v1 catalog-prep manifest (scripts/adaptive-dag-comparison.mjs forbids --prepare-catalog on a manifest with catalog_reuse). The loader accepts all-null hashes for a non-openapi task so --probe can run; loadAdaptiveSharedPreparation refuses every arm with ADAPTIVE_CATALOG_REUSE_UNPINNED until all six are pinned.",
+        "public-checks/ holds only registry.json (generated from public-checks.plan.json by scripts/build-heldout-obligations.mjs). inventory.json, run_public_checks.py, environment.json, assertions.json, controls and results/controls.json do not exist yet; --probe stops at inventory.json (ENOENT) in loadPublicAuditInputs.",
+        "repair_policy.assertion_contract is still the openapi benchmarks/e2e-swe/public-checks/assertions.v2.json, which the v7+ loader requires verbatim."
+      ]
+    },
+    "schema_version": "adaptive-dag-comparison/v12",
+    "input": "benchmarks/e2e-swe/heldout/django-modelcluster/obligations.json",
+    "public_registry": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/registry.json",
+    "public_checker_root": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks",
+    "public_environment_ref": "e2e-swe-public-django-modelcluster/v1",
+    "image_lock": "benchmarks/e2e-swe/heldout/django-modelcluster/image-lock.json",
+    "worker_profile": {
+      "id": "opus55-medium",
+      "model": "claude-opus-5-5",
+      "effort": "medium"
+    },
+    "arms": [
+      "jev_profile"
+    ],
+    "cohort_concurrency": 1,
+    "limits": {
+      "max_units": 30,
+      "max_artifacts": 60,
+      "max_files": 60,
+      "max_leaves": 30,
+      "max_depth": 3,
+      "max_nodes": 59,
+      "max_relation_pairs": 435,
+      "max_decisions": 128,
+      "relation_batch_size": 32,
+      "max_request_bytes": 256000,
+      "max_concurrency": 2,
+      "maximum_workers": 30,
+      "minimum_workers": 2,
+      "wall_timeout_seconds": 14400,
+      "planning_input_tokens": null,
+      "max_file_bytes": 262144,
+      "max_total_bytes": 4194304
+    },
+    "max_repair_rounds": 2,
+    "automatic_retries": 0,
+    "jev_budget": {
+      "schema_version": "jev-token-budget/v4",
+      "ledger_path": "benchmark-runs/jev-usd1-budget.json",
+      "max_input_tokens": null,
+      "reserve_input_tokens": 65536
+    },
+    "valuation": {
+      "usd_per_million_input_tokens": 0.6,
+      "basis": "informational_token_pack_equivalent_not_monthly_invoice",
+      "actual_billed_usd": null
+    },
+    "catalog_reuse": {
+      "schema_version": "adaptive-catalog-reuse/v4",
+      "preparation_directory": "benchmark-runs/heldout-django-modelcluster-catalog-01",
+      "original_manifest": "benchmarks/e2e-swe/heldout/django-modelcluster/catalog-prep.v1.json",
+      "original_manifest_sha256": null,
+      "result_sha256": null,
+      "catalog_file_sha256": null,
+      "source_pins_sha256": null,
+      "prepared_request_sha256": null,
+      "provider_request_sha256": null,
+      "allowed_changed_source_paths": [
+        "src/benchmark/adaptive-dag-runner.mjs",
+        "scripts/adaptive-dag-comparison.mjs",
+        "src/benchmark/budget.mjs",
+        "src/benchmark/budget-acquire.mjs",
+        "src/benchmark/dag-runner.mjs",
+        "src/orchestration/adaptive-dag-planner.mjs",
+        "src/orchestration/adaptive-dag-execution.mjs",
+        "scripts/audit-dag-public-checks.mjs",
+        "benchmarks/e2e-swe/public-checks/run_public_checks.py",
+        "benchmarks/e2e-swe/public-checks/extensions/cli_config.py",
+        "src/orchestration/artifact-transport.mjs",
+        "src/orchestration/adaptive-failure.mjs",
+        "src/benchmark/telemetry.mjs"
+      ]
+    },
+    "preparation_accounting": "New source-only catalog for held-out task django-modelcluster (one Claude catalog call, prepared before the cohort and reported separately). The openapi D066 catalog is not reused.",
+    "deadline_basis": "Retain the existing 14400-second total deadline and no separate worker cap. Cumulative and per-arm token spending caps are null. v4 input estimates are observational; official 256000-byte body, structural and uncertainty checks can block.",
+    "session_semantics": "Held-out stage 1 (R20261017-EVAL-PROTOCOL), task django-modelcluster: D083 cloud defaults (d083-repair-fixes.json) with task-bound inputs replaced. Condition jev_profile only; the claude_all control condition cannot be expressed in v12 (arms fixed to [jev_profile]).",
+    "claude_auth_methods": [
+      "claude.ai",
+      "oauth_token"
+    ],
+    "independent_grade": "Root-owned after candidate freeze with benchmarks/e2e-swe/heldout/django-modelcluster/grade.json and benchmarks/e2e-swe/heldout/django-modelcluster/image-lock.json; hidden tests never enter planning, implementation or public repair.",
+    "repair_policy": {
+      "artifact_contract": "docs/orchestration/contracts/adaptive-causal-repair.v1.json",
+      "assertion_contract": "benchmarks/e2e-swe/public-checks/assertions.v2.json",
+      "failure_contract": "adaptive-terminal-cause/v1",
+      "scope_contract": "public-inferred-owner-v3",
+      "token_admission_contract": "docs/orchestration/contracts/jev-token-admission.v4.json",
+      "owner_inference_contract": "docs/orchestration/contracts/adaptive-inferred-repair.v3.json"
+    },
+    "decomposition_policy": {
+      "id": "layered-v2",
+      "contract": "docs/orchestration/contracts/adaptive-layered-decomposition.v2.json"
+    },
+    "public_runner": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/run_public_checks.py",
+    "public_controls_evidence": "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/results/controls.json",
+    "profile_policy": {
+      "contract": "docs/orchestration/contracts/adaptive-profile-selection.v2.json",
+      "candidate_contract": "docs/orchestration/contracts/adaptive-profiles.v1.json",
+      "phase_policy": "initial_and_selected_repairs",
+      "cli_version": "2.1.293",
+      "account_probe": "benchmark-runs/d071-model-probes-01/result.json",
+      "account_probe_sha256": "4201fa4fe2df4b9caea6db759e5609e892605ba99c7bd4afc45b4c59e85b691a",
+      "allowed_profile_ids": [
+        "claude_opus55_low",
+        "claude_opus55_medium",
+        "claude_opus55_high",
+        "claude_opus55_xhigh",
+        "claude_opus55_max",
+        "claude_sonnet55_low",
+        "claude_sonnet55_medium",
+        "claude_sonnet55_high",
+        "claude_sonnet55_xhigh",
+        "claude_sonnet55_max",
+        "claude_haiku55_low",
+        "claude_haiku55_medium",
+        "claude_haiku55_high",
+        "claude_haiku55_xhigh",
+        "claude_haiku55_max",
+        "claude_fable51_low",
+        "claude_fable51_medium",
+        "claude_fable51_high",
+        "claude_fable51_xhigh",
+        "claude_fable51_max"
+      ]
+    },
+    "runtime_speed": {
+      "model_lookup": "per_session",
+      "budget_lock": "ledger_op",
+      "public_check_concurrency": 2,
+      "readiness_batch": true
+    },
+    "question_forms": {
+      "decomposition": {
+        "contract": "docs/orchestration/contracts/adaptive-layered-decomposition.v2.json",
+        "sha256": "595deea341fe26ccd62cca511637c31130e33bad64ae27cfed811120dd6c9d6a"
+      },
+      "owner_criteria": {
+        "contract": "docs/orchestration/contracts/adaptive-owner-criteria.v2.json",
+        "sha256": "6051be503b9484b34e0a77720fec1929d600d955cc858d411337da79b4403ebe"
+      },
+      "inferred_scope": {
+        "contract": "docs/orchestration/contracts/adaptive-inferred-scope.v1.json",
+        "sha256": "8ea862295bc2f6460b003e6b124a509ebf1e5a01a22747579c679511aa05870e"
+      }
+    },
+    "repair_budget": {
+      "policy": "repair-budget-v3",
+      "contract": "docs/orchestration/contracts/adaptive-repair-budget.v3.json",
+      "sha256": "ded35d2885352386e4a13dc948a40cb9b542c4f1d01422d630c2fa74d31171b3"
+    },
+    "repair_feedback": {
+      "read_scope": "candidate-v1",
+      "worker_diagnostics": "report-v1",
+      "scope_expansion": "worker-mentioned-v1"
+    },
+    "schedule_policy": {
+      "policy": "critical-path-v1",
+      "contract": "docs/orchestration/contracts/adaptive-critical-path-schedule.v1.json",
+      "sha256": "66205dc51d05b4a714677c4c8d23de1b104f35371ee493515e47ed20cdb97af0"
+    },
+    "spec_review": {
+      "policy": "spec-review-v1",
+      "contract": "docs/orchestration/contracts/adaptive-spec-review.v1.json",
+      "sha256": "fcb81c6fd247d5fc14177de9fccf9cd5d6a24424f44e9f5a0d22e66f14a2f769"
+    },
+    "manifest_path": "benchmarks/e2e-swe/heldout/django-modelcluster/v12.draft.json",
+    "manifest_sha256": "2491ef8972fbd3de2ee523c3f859ee86f8dac2d7d2c67500467d89ce8b78f678"
+  }
+}

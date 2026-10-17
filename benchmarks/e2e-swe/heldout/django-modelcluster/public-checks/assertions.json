@@ -1,0 +1,6 @@
+{
+  "schema_version": "public-assertion-contract/v1",
+  "version": "1",
+  "scope_basis": "Held-out public checks name no assertion-level repair attributions; failed cases carry their own messages. Repair scope falls back to the conservative plan-level rule.",
+  "assertions": []
+}

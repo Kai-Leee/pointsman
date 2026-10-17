@@ -1,0 +1,965 @@
+{
+  "schema_version": "heldout-public-atoms/v1",
+  "task": "h2",
+  "source_path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+  "source_sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+  "goal": "Build h2 to satisfy the complete public pure-Python HTTP/2 protocol library specification.",
+  "atoms": [
+    {
+      "id": "R01.01",
+      "lines": [
+        3,
+        3
+      ],
+      "title": "Sans-I/O pure-Python HTTP/2 library",
+      "scope": "e2e",
+      "input": "After offline installation, import h2.connection, h2.config, h2.events, h2.errors, h2.settings and h2.exceptions with socket creation blocked, and drive a client/server H2Connection pair only by passing data_to_send() bytes into the other side's receive_data().",
+      "expected": "All modules import as pure Python and the pair exchanges binary HTTP/2 frames (decodable by hyperframe) carrying HPACK-compressed headers, multiplexed streams, flow-control and SETTINGS frames, without the library opening a socket or performing I/O.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/config.py",
+        "h2/events.py",
+        "h2/errors.py",
+        "h2/settings.py",
+        "h2/exceptions.py"
+      ]
+    },
+    {
+      "id": "R02.01",
+      "lines": [
+        7,
+        7
+      ],
+      "title": "Caller-driven bytes-in/bytes-out model",
+      "scope": "integration",
+      "input": "Call a send method (ping, send_headers) on a connection, call data_to_send(), feed the bytes into the peer's receive_data(); call data_to_send() again.",
+      "expected": "The send method only queues bytes; data_to_send() returns and drains them (the next call returns b\"\"); receive_data() returns a list of the events those bytes produced.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R02.02",
+      "lines": [
+        10,
+        19
+      ],
+      "title": "Example construction and handshake",
+      "scope": "integration",
+      "input": "Run the example import line, build client (client_side=True) and server (client_side=False) H2Connection objects via config=H2Configuration(...), then run both initiate_connection() calls and the two receive_data(data_to_send()) exchanges exactly as shown.",
+      "expected": "Imports succeed, both constructors accept the config keyword, no exception is raised, each receive_data returns a list, and both connections are ready for the request step (the following send_headers succeeds).",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/config.py",
+        "h2/events.py"
+      ]
+    },
+    {
+      "id": "R02.03",
+      "lines": [
+        20,
+        24
+      ],
+      "title": "Example GET delivered as RequestReceived",
+      "scope": "integration",
+      "input": "After the example handshake: client.send_headers(1, [(\":method\",\"GET\"), (\":path\",\"/\"), (\":scheme\",\"https\"), (\":authority\",\"example.com\")], end_stream=True); server.receive_data(client.data_to_send()).",
+      "expected": "The returned list contains a RequestReceived for stream 1 whose headers carry the four request headers (bytes tuples under the default header_encoding) and, later in the list, a StreamEnded for stream 1. Other events and their positions are unspecified.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/events.py"
+      ],
+      "gaps": [
+        "The request comment \"[RequestReceived, StreamEnded, ...]\" permits further events; which ones and where is unspecified."
+      ]
+    },
+    {
+      "id": "R02.04",
+      "lines": [
+        25,
+        29
+      ],
+      "title": "Example response delivered as ResponseReceived, DataReceived, StreamEnded",
+      "scope": "integration",
+      "input": "Continue the example: server.send_headers(1, [(\":status\",\"200\")]); server.send_data(1, b\"hello\", end_stream=True); client.receive_data(server.data_to_send()).",
+      "expected": "The returned list contains ResponseReceived (stream 1, headers including (b\":status\", b\"200\")), DataReceived (stream 1, data b\"hello\") and StreamEnded (stream 1), in that order.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/events.py"
+      ],
+      "gaps": [
+        "The response comment lists exactly three events; whether any other event may also appear in that list is unspecified."
+      ]
+    },
+    {
+      "id": "R03.01",
+      "lines": [
+        34,
+        35
+      ],
+      "title": "Offline: nothing installed, downloaded or fetched",
+      "scope": "e2e",
+      "input": "Run setup.sh and every library operation in a container with network disabled, PIP_NO_INDEX=1 and only the pre-installed packages.",
+      "expected": "Installation and library use succeed without installing, downloading or fetching anything and without any network access attempt.",
+      "write_scope": [
+        "setup.sh",
+        "pyproject.toml"
+      ]
+    },
+    {
+      "id": "R03.02",
+      "lines": [
+        37,
+        38
+      ],
+      "title": "hyperframe and hpack runtime dependencies",
+      "scope": "integration",
+      "input": "Run a client/server round trip in an environment whose only third-party packages are the pre-installed hyperframe and hpack; inspect the installed distribution's declared requirements.",
+      "expected": "The library works with hyperframe (frame serialization/parsing) and hpack (header compression) and needs no other third-party runtime package; frames it emits parse with hyperframe and header blocks decode with hpack.",
+      "write_scope": [
+        "pyproject.toml",
+        "h2/connection.py"
+      ],
+      "gaps": [
+        "Whether hyperframe/hpack must be used internally and declared in packaging metadata, or merely be compatible, is unspecified."
+      ]
+    },
+    {
+      "id": "R04.01",
+      "lines": [
+        42,
+        45
+      ],
+      "title": "Offline editable install through setup.sh",
+      "scope": "e2e",
+      "input": "Copy the candidate project to a fresh environment holding the pre-installed dependencies, run its setup.sh with no network and PIP_NO_INDEX=1, then import h2.connection from an unrelated working directory.",
+      "expected": "setup.sh performs `pip install -e . --no-build-isolation` successfully against the pre-installed dependencies, and h2 then imports from the editable install.",
+      "write_scope": [
+        "setup.sh",
+        "pyproject.toml"
+      ],
+      "gaps": [
+        "The text does not say whether the candidate must author setup.sh and the packaging file or whether they are provided."
+      ]
+    },
+    {
+      "id": "R05.01",
+      "lines": [
+        52,
+        52
+      ],
+      "title": "H2Configuration signature and defaults",
+      "scope": "unit",
+      "input": "Construct H2Configuration() with no arguments and H2Configuration(client_side=False, header_encoding=\"utf-8\"); use each as H2Connection(config=...) and run a request.",
+      "expected": "Both keyword arguments are accepted; omitted arguments default to client_side=True and header_encoding=None, so the no-argument configuration behaves as a client whose events carry bytes headers. Whether the values are readable as attributes is unspecified.",
+      "write_scope": [
+        "h2/config.py"
+      ]
+    },
+    {
+      "id": "R05.02",
+      "lines": [
+        54,
+        54
+      ],
+      "title": "client_side selects stream parity and preface",
+      "scope": "integration",
+      "input": "Create connections with client_side=True and client_side=False; call initiate_connection() and get_next_available_stream_id() on each.",
+      "expected": "The client-side connection emits the connection preface magic and uses odd stream IDs; the server-side connection emits no magic and uses even stream IDs.",
+      "write_scope": [
+        "h2/config.py",
+        "h2/connection.py"
+      ],
+      "context_lines": [
+        [
+          52,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "R05.03",
+      "lines": [
+        55,
+        57
+      ],
+      "title": "header_encoding selects bytes or str headers",
+      "scope": "integration",
+      "input": "Deliver the same request to a server configured with header_encoding=None and to one configured with header_encoding=\"utf-8\".",
+      "expected": "With None (the default) RequestReceived.headers holds bytes tuples such as (b\":method\", b\"GET\"); with \"utf-8\" it holds str tuples such as (\":method\", \"GET\").",
+      "write_scope": [
+        "h2/config.py",
+        "h2/connection.py",
+        "h2/events.py"
+      ],
+      "context_lines": [
+        [
+          52,
+          52
+        ]
+      ]
+    },
+    {
+      "id": "R06.01",
+      "lines": [
+        63,
+        63
+      ],
+      "title": "H2Connection constructor and external I/O",
+      "scope": "unit",
+      "input": "Construct H2Connection() with config omitted and H2Connection(config=H2Configuration(...)) with socket creation blocked.",
+      "expected": "Both constructions succeed; the object processes byte buffers only and never performs network I/O. Which role and header encoding apply when config is None is unspecified.",
+      "write_scope": [
+        "h2/connection.py"
+      ],
+      "gaps": [
+        "The configuration implied by H2Connection(config=None) is not stated."
+      ]
+    },
+    {
+      "id": "R06.02",
+      "lines": [
+        67,
+        67
+      ],
+      "title": "initiate_connection preface per role",
+      "scope": "unit",
+      "input": "Call initiate_connection() on a fresh client and on a fresh server connection; decode each data_to_send() with hyperframe.",
+      "expected": "Client output starts with the 24 bytes b\"PRI * HTTP/2.0\\r\\n\\r\\nSM\\r\\n\\r\\n\" immediately followed by a non-ACK SETTINGS frame on stream 0; server output starts with a SETTINGS frame and contains no magic.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.03",
+      "lines": [
+        70,
+        70
+      ],
+      "title": "Client HTTP/1.1 upgrade",
+      "scope": "unit",
+      "input": "On a fresh client call initiate_upgrade_connection() without settings_header; base64url-decode the result (padding-tolerant); inspect data_to_send(); query stream 1.",
+      "expected": "The return value is bytes that base64url-decode to a SETTINGS payload of 6-byte identifier/value entries describing the client settings; the connection preface is queued; stream 1 exists (local_flow_control_window(1) returns an int instead of raising NoSuchStreamError).",
+      "write_scope": [
+        "h2/connection.py"
+      ],
+      "context_lines": [
+        [
+          69,
+          69
+        ]
+      ]
+    },
+    {
+      "id": "R06.04",
+      "lines": [
+        71,
+        71
+      ],
+      "title": "Server HTTP/1.1 upgrade",
+      "scope": "integration",
+      "input": "Pass a client's upgrade value (and separately a hand-built base64url SETTINGS payload, e.g. MAX_CONCURRENT_STREAMS=10) to a fresh server's initiate_upgrade_connection(settings_header=...); then server.send_headers(1, [(\":status\",\"200\")]).",
+      "expected": "The call accepts the header and adopts those values as the client's settings; stream 1 is open so the response headers are sent on stream 1 without the server opening a new stream.",
+      "write_scope": [
+        "h2/connection.py"
+      ],
+      "context_lines": [
+        [
+          69,
+          69
+        ]
+      ],
+      "gaps": [
+        "Whether the server upgrade call queues the server's own SETTINGS or returns a value is unspecified."
+      ]
+    },
+    {
+      "id": "R06.05",
+      "lines": [
+        73,
+        73
+      ],
+      "title": "receive_data returns events and queues automatic responses",
+      "scope": "integration",
+      "input": "Feed a peer SETTINGS frame and a non-ACK PING frame with 8 opaque bytes into receive_data(); decode data_to_send().",
+      "expected": "receive_data returns a list of event objects; the outbound buffer then holds a SETTINGS frame with the ACK flag and a PING frame with the ACK flag carrying the same 8 bytes.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/events.py"
+      ]
+    },
+    {
+      "id": "R06.06",
+      "lines": [
+        73,
+        73
+      ],
+      "title": "Handshake RemoteSettingsChanged enumerates advertised settings",
+      "scope": "integration",
+      "input": "Feed a fresh server the client magic plus a hyperframe SETTINGS frame advertising HEADER_TABLE_SIZE=4096, INITIAL_WINDOW_SIZE=65535, MAX_FRAME_SIZE=16384, MAX_CONCURRENT_STREAMS=100 (all equal to the documented defaults); repeat with differing values (e.g. MAX_CONCURRENT_STREAMS=50, INITIAL_WINDOW_SIZE=1000); repeat client-side with a server SETTINGS.",
+      "expected": "The returned list includes a RemoteSettingsChanged whose changed_settings has a SettingCodes-keyed entry for every advertised setting, including values equal to the defaults; each ChangedSetting.original_value equals the receiver's documented default (4096, 65535, 16384, 100) and new_value the advertised value.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/events.py",
+        "h2/settings.py"
+      ],
+      "gaps": [
+        "original_value for advertised settings without a documented default (ENABLE_PUSH, MAX_HEADER_LIST_SIZE) is unspecified."
+      ]
+    },
+    {
+      "id": "R06.07",
+      "lines": [
+        75,
+        75
+      ],
+      "title": "data_to_send returns and drains pending output",
+      "scope": "unit",
+      "input": "Call data_to_send() on a fresh connection; call initiate_connection(); call data_to_send() twice.",
+      "expected": "The fresh call returns b\"\"; the first call after initiate_connection returns all queued bytes as bytes; the immediately following call returns b\"\".",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.08",
+      "lines": [
+        77,
+        77
+      ],
+      "title": "clear_outbound_data_buffer discards output",
+      "scope": "unit",
+      "input": "Call initiate_connection() (or ping), then clear_outbound_data_buffer(), then data_to_send(); then ping again and call data_to_send().",
+      "expected": "The first data_to_send() returns b\"\" and the discarded bytes never appear; the later ping is queued and returned normally.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.09",
+      "lines": [
+        81,
+        81
+      ],
+      "title": "send_headers emits HEADERS and opens the stream",
+      "scope": "integration",
+      "input": "After a handshake, client.send_headers(1, request_headers) with end_stream False, and on another pair with end_stream=True; decode with hyperframe and hpack; then call send_data on the end_stream=True stream.",
+      "expected": "Exactly one HEADERS frame on stream 1 whose header block decodes to the given (name, value) strings; END_STREAM is set only when end_stream=True; the stream counts as open; after end_stream=True a send_data on it raises ProtocolError.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.10",
+      "lines": [
+        81,
+        81
+      ],
+      "title": "Client stream ID rules and closed-stream send_headers",
+      "scope": "unit",
+      "input": "On a handshaken client: send_headers on even stream 2; open stream 5 then send_headers on stream 3; send_headers on stream 1 after it was reset or closed on both sides.",
+      "expected": "Each call raises an instance of h2.exceptions.ProtocolError.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ]
+    },
+    {
+      "id": "R06.11",
+      "lines": [
+        81,
+        81
+      ],
+      "title": "TooManyStreamsError beyond MAX_CONCURRENT_STREAMS",
+      "scope": "integration",
+      "input": "The server advertises MAX_CONCURRENT_STREAMS=1 with update_settings and the client receives it; the client opens stream 1 without ending it, then calls send_headers on stream 3.",
+      "expected": "The second send_headers raises TooManyStreamsError.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ],
+      "gaps": [
+        "Which MAX_CONCURRENT_STREAMS (peer-advertised or the local default 100) bounds send_headers is not stated; the case uses the peer-advertised value."
+      ]
+    },
+    {
+      "id": "R06.12",
+      "lines": [
+        83,
+        83
+      ],
+      "title": "send_data emits exactly one DATA frame",
+      "scope": "integration",
+      "input": "On an open stream call send_data(1, b\"hello\") and send_data(1, b\"x\" * 16384, end_stream=True); decode output and deliver it to the peer.",
+      "expected": "Each call emits exactly one DATA frame on that stream carrying the given bytes; END_STREAM only on the end_stream=True call; the peer receives DataReceived with matching data then StreamEnded.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.13",
+      "lines": [
+        83,
+        83
+      ],
+      "title": "send_data FlowControlError beyond the window",
+      "scope": "integration",
+      "input": "With default 65535 windows, open a stream and send three 16384-byte frames (leaving 16383 bytes), then send_data with 16384 bytes (within MAX_FRAME_SIZE).",
+      "expected": "The fourth call raises FlowControlError.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ]
+    },
+    {
+      "id": "R06.14",
+      "lines": [
+        83,
+        83
+      ],
+      "title": "send_data FrameTooLargeError beyond MAX_FRAME_SIZE",
+      "scope": "integration",
+      "input": "On a fresh open stream with default settings (MAX_FRAME_SIZE 16384, windows 65535) call send_data with 16385 bytes.",
+      "expected": "FrameTooLargeError is raised; the data is never split across several frames.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ]
+    },
+    {
+      "id": "R06.15",
+      "lines": [
+        83,
+        83
+      ],
+      "title": "Flow-control check precedes frame-size check",
+      "scope": "integration",
+      "input": "On a fresh open stream with default settings call send_data with 65536 bytes (over both the 65535 window and 16384 MAX_FRAME_SIZE); on another stream whose window is exhausted call send_data with 16385 bytes.",
+      "expected": "Both calls raise FlowControlError, not FrameTooLargeError.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ]
+    },
+    {
+      "id": "R06.16",
+      "lines": [
+        83,
+        83
+      ],
+      "title": "send_data after the send side closed",
+      "scope": "unit",
+      "input": "Close stream 1's send side by send_headers(..., end_stream=True) and, separately, by end_stream(1); call send_data(1, b\"x\").",
+      "expected": "An instance of ProtocolError is raised in both cases.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ]
+    },
+    {
+      "id": "R06.17",
+      "lines": [
+        85,
+        85
+      ],
+      "title": "end_stream sends an empty END_STREAM DATA frame",
+      "scope": "integration",
+      "input": "Open stream 1 with send_headers (end_stream False), call end_stream(1), decode data_to_send(), deliver it to the peer, then call send_data(1, b\"x\").",
+      "expected": "One DATA frame with an empty payload and END_STREAM on stream 1 is queued; the peer receives StreamEnded for stream 1; the subsequent send_data raises ProtocolError.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.18",
+      "lines": [
+        89,
+        89
+      ],
+      "title": "Next available stream ID parity and increment",
+      "scope": "unit",
+      "input": "On a handshaken client repeatedly call get_next_available_stream_id() and open the returned stream; on a handshaken server with a client request on stream 1, get an ID and push_stream with it, twice.",
+      "expected": "The client gets 1, 3, 5 as each returned ID is opened; the server gets 2 then 4.",
+      "write_scope": [
+        "h2/connection.py"
+      ],
+      "gaps": [
+        "Whether repeated calls without opening a stream return the same ID is unspecified."
+      ]
+    },
+    {
+      "id": "R06.19",
+      "lines": [
+        91,
+        91
+      ],
+      "title": "reset_stream emits RST_STREAM",
+      "scope": "integration",
+      "input": "Open streams 1 and 3; call reset_stream(1) and reset_stream(3, error_code=ErrorCodes.CANCEL); decode output and feed it to the peer.",
+      "expected": "One RST_STREAM frame per stream with error code 0 (default) and 8 (CANCEL); the peer receives StreamReset events with matching stream_id and error_code.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/errors.py"
+      ],
+      "gaps": [
+        "reset_stream refers to \"§6\" for ErrorCodes, which the text defines in §4."
+      ]
+    },
+    {
+      "id": "R06.20",
+      "lines": [
+        93,
+        93
+      ],
+      "title": "push_stream emits PUSH_PROMISE",
+      "scope": "integration",
+      "input": "Client sends a request on stream 1; server calls push_stream(1, server.get_next_available_stream_id(), [(\":method\",\"GET\"), (\":path\",\"/style.css\"), (\":scheme\",\"https\"), (\":authority\",\"example.com\")]); deliver to the client.",
+      "expected": "A PUSH_PROMISE frame on stream 1 promising even stream 2 with those headers; the client receives PushedStreamReceived with parent_stream_id 1, pushed_stream_id 2 and the promised headers.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.21",
+      "lines": [
+        93,
+        93
+      ],
+      "title": "push_stream refused after the peer disables push",
+      "scope": "integration",
+      "input": "Client calls update_settings({SettingCodes.ENABLE_PUSH: 0}) and the server receives it; client sends a request on stream 1; server calls push_stream(1, 2, headers).",
+      "expected": "push_stream raises ProtocolError and no PUSH_PROMISE frame is emitted.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ]
+    },
+    {
+      "id": "R06.22",
+      "lines": [
+        95,
+        95
+      ],
+      "title": "close_connection emits GOAWAY",
+      "scope": "integration",
+      "input": "Call close_connection() on one pair and close_connection(error_code=ErrorCodes.PROTOCOL_ERROR, last_stream_id=5) on another; decode output and feed it to the peer.",
+      "expected": "A GOAWAY frame with error code 0 by default and 1 / last stream id 5 in the explicit case; the peer receives ConnectionTerminated with matching error_code and last_stream_id.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/errors.py"
+      ],
+      "gaps": [
+        "The last_stream_id emitted when close_connection(last_stream_id=None) is unspecified."
+      ]
+    },
+    {
+      "id": "R06.23",
+      "lines": [
+        95,
+        95
+      ],
+      "title": "Received GOAWAY rejects new streams",
+      "scope": "integration",
+      "input": "Server calls close_connection(); the client receives it and then calls send_headers on a new stream ID.",
+      "expected": "The client refuses to open the new stream by raising an h2.exceptions error.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ],
+      "gaps": [
+        "How \"rejects new streams\" surfaces (exception type) is unspecified."
+      ]
+    },
+    {
+      "id": "R06.24",
+      "lines": [
+        97,
+        97
+      ],
+      "title": "prioritize emits PRIORITY; peer gets PriorityUpdated",
+      "scope": "integration",
+      "input": "Open streams 1 and 3; call prioritize(3, weight=32, depends_on=1, exclusive=True) and prioritize(1); decode and feed to the peer.",
+      "expected": "PRIORITY frames for streams 3 and 1; the peer receives PriorityUpdated with (stream 3, weight 32, depends_on 1, exclusive True) and (stream 1, weight 16, depends_on 0). The default exclusive value and out-of-range weights are unspecified.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/events.py"
+      ]
+    },
+    {
+      "id": "R06.25",
+      "lines": [
+        101,
+        101
+      ],
+      "title": "local_flow_control_window tracks sendable bytes",
+      "scope": "integration",
+      "input": "After a default handshake, open stream 1, read local_flow_control_window(1), send_data 1000 bytes, read it again.",
+      "expected": "65535, then 64535.",
+      "write_scope": [
+        "h2/connection.py"
+      ],
+      "gaps": [
+        "Whether the value is the stream window alone or the minimum of stream and connection windows is unspecified."
+      ]
+    },
+    {
+      "id": "R06.26",
+      "lines": [
+        101,
+        101
+      ],
+      "title": "local_flow_control_window on an unknown stream",
+      "scope": "unit",
+      "input": "On a handshaken connection call local_flow_control_window(7) for a stream never opened.",
+      "expected": "NoSuchStreamError is raised.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/exceptions.py"
+      ]
+    },
+    {
+      "id": "R06.27",
+      "lines": [
+        103,
+        103
+      ],
+      "title": "remote_flow_control_window reports the peer's window",
+      "scope": "integration",
+      "input": "Client opens stream 1 and reads remote_flow_control_window(1); the server sends 1000 bytes of DATA on stream 1; the client receives it without acknowledging and reads again.",
+      "expected": "Initially 65535 (the client's default INITIAL_WINDOW_SIZE); after the 1000 unacknowledged bytes, 64535.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.28",
+      "lines": [
+        105,
+        105
+      ],
+      "title": "acknowledge_received_data allows WINDOW_UPDATE",
+      "scope": "integration",
+      "input": "Server sends three 16384-byte DATA frames on stream 1; the client calls acknowledge_received_data(event.flow_controlled_length, 1) for each DataReceived, then data_to_send() and feeds the server.",
+      "expected": "Acknowledgement raises nothing; any WINDOW_UPDATE frames queued target stream 1 or the connection with increments totalling at most the acknowledged bytes, and the server's sending window grows by them.",
+      "write_scope": [
+        "h2/connection.py"
+      ],
+      "gaps": [
+        "When (threshold) and with what increment WINDOW_UPDATE is emitted after acknowledgement is unspecified."
+      ]
+    },
+    {
+      "id": "R06.29",
+      "lines": [
+        107,
+        107
+      ],
+      "title": "increment_flow_control_window emits WINDOW_UPDATE",
+      "scope": "integration",
+      "input": "Client opens stream 1; calls increment_flow_control_window(1000) and increment_flow_control_window(500, stream_id=1); decode output and feed it to the server.",
+      "expected": "A WINDOW_UPDATE on stream 0 with increment 1000 and one on stream 1 with increment 500; the server receives WindowUpdated events with delta 1000 (connection) and delta 500 (stream_id 1). The stream_id value of the connection-level event is unspecified.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/events.py"
+      ]
+    },
+    {
+      "id": "R06.30",
+      "lines": [
+        111,
+        111
+      ],
+      "title": "update_settings sends SETTINGS; peer gets RemoteSettingsChanged",
+      "scope": "integration",
+      "input": "After a handshake, client.update_settings({SettingCodes.MAX_CONCURRENT_STREAMS: 50}); decode output; feed it to the server.",
+      "expected": "A non-ACK SETTINGS frame containing MAX_CONCURRENT_STREAMS=50; the server receives RemoteSettingsChanged with changed_settings[SettingCodes.MAX_CONCURRENT_STREAMS].new_value == 50.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/settings.py",
+        "h2/events.py"
+      ]
+    },
+    {
+      "id": "R06.31",
+      "lines": [
+        113,
+        113
+      ],
+      "title": "ping and automatic PING ACK",
+      "scope": "integration",
+      "input": "Client ping(b\"12345678\"); feed to the server; feed the server's output back to the client.",
+      "expected": "A PING frame carrying the 8 bytes; the server returns PingReceived(ping_data=b\"12345678\") and automatically queues a PING ACK with the same data; the client receives PingAckReceived(ping_data=b\"12345678\"). Behaviour for non-8-byte data is unspecified.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/events.py"
+      ]
+    },
+    {
+      "id": "R06.32",
+      "lines": [
+        117,
+        117
+      ],
+      "title": "advertise_alternative_service emits ALTSVC",
+      "scope": "integration",
+      "input": "After a handshake and a client request on stream 1, the server calls advertise_alternative_service(b'h2=\":8000\"') and advertise_alternative_service(b'h2=\":8000\"', stream_id=1); feed to the client.",
+      "expected": "ALTSVC frames on stream 0 and on stream 1 carrying the field value; the client receives AlternativeServiceAvailable events with field_value b'h2=\":8000\"'.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/events.py"
+      ],
+      "gaps": [
+        "No origin parameter exists, so the origin of a connection-level ALTSVC frame and the event's origin value are unspecified, as is which side may send ALTSVC."
+      ]
+    },
+    {
+      "id": "R06.33",
+      "lines": [
+        121,
+        122
+      ],
+      "title": "open_outbound_streams and open_inbound_streams",
+      "scope": "integration",
+      "input": "Client opens streams 1 and 3; server receives them; client ends stream 1 (server not yet ended), then the server ends 1; client resets 3.",
+      "expected": "client.open_outbound_streams and server.open_inbound_streams rise to 2, keep counting the half-closed stream 1, and drop as stream 1 closes on both sides and stream 3 is reset; client.open_inbound_streams and server.open_outbound_streams stay 0.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R06.34",
+      "lines": [
+        123,
+        123
+      ],
+      "title": "inbound_flow_control_window",
+      "scope": "unit",
+      "input": "Read inbound_flow_control_window on a fresh handshaken connection; receive 1000 bytes of DATA without acknowledging; read again.",
+      "expected": "65535 initially; 64535 after the unacknowledged 1000 bytes.",
+      "write_scope": [
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R07.01",
+      "lines": [
+        131,
+        147
+      ],
+      "title": "Event classes and attributes",
+      "scope": "integration",
+      "input": "Drive scenarios producing every listed event (request, response, data, end, reset, trailers via a second send_headers with end_stream=True, settings change/ack, window update, ping/ack, push, GOAWAY, priority, ALTSVC) and inspect each returned object.",
+      "expected": "Each event is an instance of the named h2.events class and exposes the listed attributes with values from the triggering frame (stream_id where applicable; DataReceived.data is bytes with flow_controlled_length >= len(data); ConnectionTerminated has error_code, last_stream_id, additional_data). Order across frames follows the wire; extra attributes are allowed.",
+      "write_scope": [
+        "h2/events.py",
+        "h2/connection.py"
+      ],
+      "context_lines": [
+        [
+          129,
+          129
+        ]
+      ],
+      "gaps": [
+        "Types and semantics of stream_ended, priority_updated and remote_reset beyond their names are unspecified."
+      ]
+    },
+    {
+      "id": "R07.02",
+      "lines": [
+        149,
+        149
+      ],
+      "title": "Event header value types",
+      "scope": "unit",
+      "input": "Inspect headers on RequestReceived, ResponseReceived, TrailersReceived and PushedStreamReceived under header_encoding None and \"utf-8\".",
+      "expected": "headers is a list of (name, value) 2-tuples of bytes under None and of str under \"utf-8\".",
+      "write_scope": [
+        "h2/events.py",
+        "h2/connection.py"
+      ]
+    },
+    {
+      "id": "R08.01",
+      "lines": [
+        157,
+        169
+      ],
+      "title": "ErrorCodes integer constants",
+      "scope": "unit",
+      "input": "Import h2.errors.ErrorCodes, read every listed member, compare with integers, and pass ErrorCodes.CANCEL to reset_stream.",
+      "expected": "NO_ERROR 0, PROTOCOL_ERROR 1, INTERNAL_ERROR 2, FLOW_CONTROL_ERROR 3, SETTINGS_TIMEOUT 4, STREAM_CLOSED 5, FRAME_SIZE_ERROR 6, REFUSED_STREAM 7, CANCEL 8, COMPRESSION_ERROR 9, ENHANCE_YOUR_CALM 11; each compares equal to its integer. Codes absent from the table are unspecified.",
+      "write_scope": [
+        "h2/errors.py"
+      ],
+      "context_lines": [
+        [
+          155,
+          155
+        ]
+      ]
+    },
+    {
+      "id": "R09.01",
+      "lines": [
+        177,
+        184
+      ],
+      "title": "SettingCodes integer constants",
+      "scope": "unit",
+      "input": "Import h2.settings.SettingCodes, read every listed member, compare with integers, and use members as keys in update_settings and changed_settings.",
+      "expected": "HEADER_TABLE_SIZE 1, ENABLE_PUSH 2, MAX_CONCURRENT_STREAMS 3, INITIAL_WINDOW_SIZE 4, MAX_FRAME_SIZE 5, MAX_HEADER_LIST_SIZE 6; each compares equal to its integer and works as a dict key.",
+      "write_scope": [
+        "h2/settings.py"
+      ],
+      "context_lines": [
+        [
+          175,
+          175
+        ]
+      ]
+    },
+    {
+      "id": "R09.02",
+      "lines": [
+        188,
+        188
+      ],
+      "title": "Local setting defaults",
+      "scope": "integration",
+      "input": "Decode the SETTINGS frame a fresh connection emits from initiate_connection, and feed a fresh connection a peer SETTINGS advertising HEADER_TABLE_SIZE, INITIAL_WINDOW_SIZE, MAX_FRAME_SIZE and MAX_CONCURRENT_STREAMS.",
+      "expected": "Local settings start at HEADER_TABLE_SIZE 4096, INITIAL_WINDOW_SIZE 65535, MAX_FRAME_SIZE 16384 and MAX_CONCURRENT_STREAMS 100 (not unlimited): any of these the initial SETTINGS frame advertises carries that value, and the handshake RemoteSettingsChanged original_value for each equals it.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/settings.py"
+      ],
+      "gaps": [
+        "Whether the initial SETTINGS frame must explicitly advertise MAX_CONCURRENT_STREAMS=100 (\"the baseline a peer sees\") is unspecified."
+      ]
+    },
+    {
+      "id": "R09.03",
+      "lines": [
+        188,
+        188
+      ],
+      "title": "Local default does not constrain peer settings",
+      "scope": "integration",
+      "input": "A peer advertises MAX_CONCURRENT_STREAMS=200 (above the local default 100) in its SETTINGS; the receiver processes it.",
+      "expected": "The value is accepted without error and RemoteSettingsChanged reports new_value 200; the remote setting is what the peer advertised, not capped by the local default.",
+      "write_scope": [
+        "h2/connection.py",
+        "h2/settings.py"
+      ]
+    },
+    {
+      "id": "R10.01",
+      "lines": [
+        194,
+        199
+      ],
+      "title": "Exception classes in h2.exceptions",
+      "scope": "unit",
+      "input": "Import ProtocolError, TooManyStreamsError, FlowControlError, FrameTooLargeError, NoSuchStreamError and StreamClosedError from h2.exceptions and trigger the documented conditions.",
+      "expected": "All six exist as Exception subclasses; exceeding MAX_CONCURRENT_STREAMS raises TooManyStreamsError, exceeding a window FlowControlError, an oversize DATA payload FrameTooLargeError, an unknown stream NoSuchStreamError, and protocol violations ProtocolError.",
+      "write_scope": [
+        "h2/exceptions.py"
+      ],
+      "gaps": [
+        "Inheritance among the six exceptions, and when StreamClosedError rather than ProtocolError is raised for closed streams, is unspecified."
+      ]
+    }
+  ],
+  "integration": [
+    {
+      "id": "T.integration.get-round-trip",
+      "refs": [
+        "R02.01",
+        "R02.02",
+        "R02.03",
+        "R02.04",
+        "R05.03",
+        "R06.02",
+        "R06.09",
+        "R06.12",
+        "R07.02"
+      ],
+      "scenario": "Run the Usage example end to end under both header encodings.",
+      "input": "Execute the Usage code verbatim against the installed package, once with default configurations and once with header_encoding=\"utf-8\" on both sides, decoding every data_to_send() buffer with hyperframe and hpack.",
+      "expected": "The handshake completes; the server sees RequestReceived and StreamEnded for stream 1 with the four request headers; the client sees ResponseReceived (:status 200), DataReceived(b\"hello\") and StreamEnded in order; header tuples are bytes by default and str under \"utf-8\"; every emitted buffer parses as HTTP/2 frames after the client magic."
+    },
+    {
+      "id": "T.integration.settings-negotiation",
+      "refs": [
+        "R06.05",
+        "R06.06",
+        "R06.11",
+        "R06.30",
+        "R07.01",
+        "R09.01",
+        "R09.02",
+        "R09.03"
+      ],
+      "scenario": "Negotiate settings from preface to enforcement.",
+      "input": "Feed a server a client preface whose hyperframe SETTINGS advertises the documented defaults; the server calls update_settings({SettingCodes.MAX_CONCURRENT_STREAMS: 1}), the client receives it and returns its queued bytes; the client opens one stream and attempts a second; separately a peer advertises MAX_CONCURRENT_STREAMS=200.",
+      "expected": "The handshake RemoteSettingsChanged lists every advertised setting with original_value = documented default and new_value = advertised; the client acknowledges automatically and the server receives SettingsAcknowledged; the client raises TooManyStreamsError on the second concurrent stream; the 200 advertisement is reported as advertised."
+    },
+    {
+      "id": "T.integration.flow-control-recovery",
+      "refs": [
+        "R06.12",
+        "R06.13",
+        "R06.25",
+        "R06.27",
+        "R06.29",
+        "R06.34",
+        "R07.01"
+      ],
+      "scenario": "Exhaust a stream window, observe the error, then recover through WINDOW_UPDATE.",
+      "input": "The server sends 16384-byte DATA frames on the client's stream 1 until local_flow_control_window(1) is below 16384, then attempts another 16384-byte send; the client calls increment_flow_control_window(65535) and increment_flow_control_window(65535, stream_id=1); bytes are exchanged and the server retries.",
+      "expected": "The over-window send raises FlowControlError; the client's inbound_flow_control_window and remote_flow_control_window(1) fall by the received bytes; the server receives WindowUpdated events, its local_flow_control_window(1) increases, and the retried send succeeds and arrives as DataReceived."
+    },
+    {
+      "id": "T.integration.stream-termination",
+      "refs": [
+        "R06.16",
+        "R06.17",
+        "R06.19",
+        "R06.22",
+        "R06.23",
+        "R06.33",
+        "R07.01",
+        "R08.01"
+      ],
+      "scenario": "End, reset and shut down streams and the connection.",
+      "input": "Client opens streams 1, 3 and 5; ends 1 with end_stream(1) and the server answers with end_stream=True; client resets 3 with ErrorCodes.CANCEL; server calls close_connection(ErrorCodes.NO_ERROR, last_stream_id=5) and the client receives it; the client then calls send_data(1, b\"x\") and send_headers on stream 7.",
+      "expected": "The server sees StreamEnded(1) and StreamReset(3, error_code 8); open stream counters drop as streams close or reset; the client receives ConnectionTerminated(error_code 0, last_stream_id 5); send_data on closed stream 1 raises ProtocolError and opening stream 7 is rejected."
+    },
+    {
+      "id": "T.integration.control-frames",
+      "refs": [
+        "R06.20",
+        "R06.21",
+        "R06.24",
+        "R06.31",
+        "R06.32",
+        "R07.01"
+      ],
+      "scenario": "Exchange ping, push, priority and ALTSVC on one connection pair.",
+      "input": "On one handshaken pair with a client request on stream 1: client ping(b\"abcdefgh\"); server push_stream(1, 2, headers); client prioritize(1, weight=64); server advertise_alternative_service(b'h2=\":8000\"'). On a second pair the client disables push before the server tries push_stream.",
+      "expected": "PingReceived on the server and PingAckReceived on the client with the same 8 bytes; PushedStreamReceived(parent 1, pushed 2); PriorityUpdated(stream 1, weight 64) on the server; AlternativeServiceAvailable with the field value on the client; on the second pair push_stream raises ProtocolError."
+    },
+    {
+      "id": "T.integration.upgrade",
+      "refs": [
+        "R06.03",
+        "R06.04",
+        "R06.09",
+        "R06.12",
+        "R06.18"
+      ],
+      "scenario": "Complete an HTTP/1.1 upgrade and answer the upgraded request on stream 1.",
+      "input": "client.initiate_upgrade_connection() yields the HTTP2-Settings value; server.initiate_upgrade_connection(settings_header=value); the server sends send_headers(1, [(\":status\",\"200\")]) and send_data(1, b\"ok\", end_stream=True); both sides exchange queued bytes (client first); the client then asks for its next stream ID.",
+      "expected": "The client receives ResponseReceived, DataReceived(b\"ok\") and StreamEnded on stream 1 without having opened stream 1 with send_headers; the client's next available stream ID is 3."
+    }
+  ]
+}

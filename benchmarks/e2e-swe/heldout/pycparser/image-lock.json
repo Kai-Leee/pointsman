@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "image_tag": "ghcr.io/facebookresearch/e2e-swe:pycparser",
+  "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:65788667ee2dcbfec3210499f0635728ceec8dd7a31f6ffc150f639a6815dd97",
+  "image_id": "sha256:abc67defdbfd393a1f63c0a984506500e06035802e0284e4cde058b57fa0795f",
+  "architecture": "amd64",
+  "os": "linux",
+  "size_bytes": 228253910,
+  "locked_at": "2026-10-17T13:47:52.850868+00:00"
+}

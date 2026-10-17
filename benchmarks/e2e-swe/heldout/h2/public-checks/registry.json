@@ -1,0 +1,283 @@
+[
+  {
+    "id": "public.install-surface",
+    "version": "1",
+    "phase": "integration",
+    "artifact_ids": [
+      "candidate-source"
+    ],
+    "requirement_ids": [
+      "R01.01",
+      "R03.01",
+      "R03.02",
+      "R04.01",
+      "R08.01",
+      "R09.01",
+      "R10.01"
+    ],
+    "test_ids": [
+      "T.R01.01",
+      "T.R03.01",
+      "T.R03.02",
+      "T.R04.01",
+      "T.R08.01",
+      "T.R09.01",
+      "T.R10.01"
+    ],
+    "runner_ref": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+    "argv": [
+      "python3",
+      "run_public_checks.py",
+      "--suite",
+      "install-surface",
+      "--binding",
+      "bindings/normal.json"
+    ],
+    "cwd": "benchmarks/e2e-swe/heldout/h2/public-checks",
+    "environment_ref": "e2e-swe-public-h2/v1",
+    "source_ref": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+    "origin": "public_specification"
+  },
+  {
+    "id": "public.handshake-config",
+    "version": "1",
+    "phase": "integration",
+    "artifact_ids": [
+      "candidate-source"
+    ],
+    "requirement_ids": [
+      "R02.01",
+      "R02.02",
+      "R05.01",
+      "R05.02",
+      "R05.03",
+      "R06.01",
+      "R06.02",
+      "R06.05",
+      "R06.06",
+      "R06.07",
+      "R06.08",
+      "R07.02",
+      "R09.02",
+      "R09.03"
+    ],
+    "test_ids": [
+      "T.R02.01",
+      "T.R02.02",
+      "T.R05.01",
+      "T.R05.02",
+      "T.R05.03",
+      "T.R06.01",
+      "T.R06.02",
+      "T.R06.05",
+      "T.R06.06",
+      "T.R06.07",
+      "T.R06.08",
+      "T.R07.02",
+      "T.R09.02",
+      "T.R09.03"
+    ],
+    "runner_ref": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+    "argv": [
+      "python3",
+      "run_public_checks.py",
+      "--suite",
+      "handshake-config",
+      "--binding",
+      "bindings/normal.json"
+    ],
+    "cwd": "benchmarks/e2e-swe/heldout/h2/public-checks",
+    "environment_ref": "e2e-swe-public-h2/v1",
+    "source_ref": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+    "origin": "public_specification"
+  },
+  {
+    "id": "public.request-response",
+    "version": "1",
+    "phase": "integration",
+    "artifact_ids": [
+      "candidate-source"
+    ],
+    "requirement_ids": [
+      "R02.01",
+      "R02.02",
+      "R02.03",
+      "R02.04",
+      "R05.03",
+      "R06.02",
+      "R06.09",
+      "R06.10",
+      "R06.12",
+      "R06.17",
+      "R06.18",
+      "R06.33",
+      "R07.01",
+      "R07.02"
+    ],
+    "test_ids": [
+      "T.R02.03",
+      "T.R02.04",
+      "T.R06.09",
+      "T.R06.10",
+      "T.R06.12",
+      "T.R06.17",
+      "T.R06.18",
+      "T.R06.33",
+      "T.R07.01",
+      "T.integration.get-round-trip"
+    ],
+    "runner_ref": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+    "argv": [
+      "python3",
+      "run_public_checks.py",
+      "--suite",
+      "request-response",
+      "--binding",
+      "bindings/normal.json"
+    ],
+    "cwd": "benchmarks/e2e-swe/heldout/h2/public-checks",
+    "environment_ref": "e2e-swe-public-h2/v1",
+    "source_ref": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+    "origin": "public_specification"
+  },
+  {
+    "id": "public.flow-control",
+    "version": "1",
+    "phase": "integration",
+    "artifact_ids": [
+      "candidate-source"
+    ],
+    "requirement_ids": [
+      "R06.12",
+      "R06.13",
+      "R06.14",
+      "R06.15",
+      "R06.16",
+      "R06.25",
+      "R06.26",
+      "R06.27",
+      "R06.28",
+      "R06.29",
+      "R06.34",
+      "R07.01"
+    ],
+    "test_ids": [
+      "T.R06.13",
+      "T.R06.14",
+      "T.R06.15",
+      "T.R06.16",
+      "T.R06.25",
+      "T.R06.26",
+      "T.R06.27",
+      "T.R06.28",
+      "T.R06.29",
+      "T.R06.34",
+      "T.integration.flow-control-recovery"
+    ],
+    "runner_ref": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+    "argv": [
+      "python3",
+      "run_public_checks.py",
+      "--suite",
+      "flow-control",
+      "--binding",
+      "bindings/normal.json"
+    ],
+    "cwd": "benchmarks/e2e-swe/heldout/h2/public-checks",
+    "environment_ref": "e2e-swe-public-h2/v1",
+    "source_ref": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+    "origin": "public_specification"
+  },
+  {
+    "id": "public.stream-control-frames",
+    "version": "1",
+    "phase": "integration",
+    "artifact_ids": [
+      "candidate-source"
+    ],
+    "requirement_ids": [
+      "R06.16",
+      "R06.17",
+      "R06.19",
+      "R06.20",
+      "R06.21",
+      "R06.22",
+      "R06.23",
+      "R06.24",
+      "R06.31",
+      "R06.32",
+      "R06.33",
+      "R07.01",
+      "R08.01"
+    ],
+    "test_ids": [
+      "T.R06.19",
+      "T.R06.20",
+      "T.R06.21",
+      "T.R06.22",
+      "T.R06.23",
+      "T.R06.24",
+      "T.R06.31",
+      "T.R06.32",
+      "T.integration.stream-termination",
+      "T.integration.control-frames"
+    ],
+    "runner_ref": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+    "argv": [
+      "python3",
+      "run_public_checks.py",
+      "--suite",
+      "stream-control-frames",
+      "--binding",
+      "bindings/normal.json"
+    ],
+    "cwd": "benchmarks/e2e-swe/heldout/h2/public-checks",
+    "environment_ref": "e2e-swe-public-h2/v1",
+    "source_ref": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+    "origin": "public_specification"
+  },
+  {
+    "id": "public.settings-upgrade",
+    "version": "1",
+    "phase": "integration",
+    "artifact_ids": [
+      "candidate-source"
+    ],
+    "requirement_ids": [
+      "R06.03",
+      "R06.04",
+      "R06.05",
+      "R06.06",
+      "R06.09",
+      "R06.11",
+      "R06.12",
+      "R06.18",
+      "R06.30",
+      "R07.01",
+      "R09.01",
+      "R09.02",
+      "R09.03"
+    ],
+    "test_ids": [
+      "T.R06.03",
+      "T.R06.04",
+      "T.R06.11",
+      "T.R06.30",
+      "T.integration.settings-negotiation",
+      "T.integration.upgrade"
+    ],
+    "runner_ref": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+    "argv": [
+      "python3",
+      "run_public_checks.py",
+      "--suite",
+      "settings-upgrade",
+      "--binding",
+      "bindings/normal.json"
+    ],
+    "cwd": "benchmarks/e2e-swe/heldout/h2/public-checks",
+    "environment_ref": "e2e-swe-public-h2/v1",
+    "source_ref": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+    "origin": "public_specification"
+  }
+]

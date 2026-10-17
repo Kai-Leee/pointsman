@@ -1,0 +1,719 @@
+[
+  {
+    "suite": "packaging-imports",
+    "defect": "setup_uses_index",
+    "expected_failed_ids": [
+      "T.R02.01"
+    ],
+    "mutation": "setup.sh additionally runs pip install --force-reinstall django-taggit, which needs an index and fails offline."
+  },
+  {
+    "suite": "packaging-imports",
+    "defect": "removed_timezone_alias",
+    "expected_failed_ids": [
+      "T.R02.02"
+    ],
+    "mutation": "Datetime serialization in modelcluster.models uses the removed django.utils.timezone.utc alias instead of datetime.timezone.utc."
+  },
+  {
+    "suite": "packaging-imports",
+    "defect": "taggit_hard_dependency",
+    "expected_failed_ids": [
+      "T.R02.03"
+    ],
+    "mutation": "pyproject.toml lists django-taggit as an unconditional dependency and declares no extra."
+  },
+  {
+    "suite": "packaging-imports",
+    "defect": "utils_export_missing",
+    "expected_failed_ids": [
+      "T.R03.01"
+    ],
+    "mutation": "ManyToManyTraversalError is defined in modelcluster.queryset and modelcluster/utils.py does not exist."
+  },
+  {
+    "suite": "packaging-imports",
+    "defect": "private_name_collision",
+    "expected_failed_ids": [
+      "T.R03.02"
+    ],
+    "mutation": "The deferring managers' all() delegates to a private method named _items, so a checker subclass defining _items breaks all()."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "save_skips_children",
+    "expected_failed_ids": [
+      "T.R01.01",
+      "T.integration.cluster-lifecycle"
+    ],
+    "mutation": "ClusterableModel.save() saves the parent row and parental m2m but never commits child relations."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "default_do_nothing",
+    "expected_failed_ids": [
+      "T.R04.01"
+    ],
+    "mutation": "ParentalKey defaults on_delete to models.DO_NOTHING when omitted."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "assignment_appends",
+    "expected_failed_ids": [
+      "T.R04.02"
+    ],
+    "mutation": "Assigning parent.members = [...] appends to the in-memory set instead of replacing it."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "unsaved_all_queries_db",
+    "expected_failed_ids": [
+      "T.R04.03"
+    ],
+    "mutation": "all() on an unsaved, untouched parent delegates to the database related manager, which raises ValueError for an unsaved instance."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "add_keeps_duplicates",
+    "expected_failed_ids": [
+      "T.R04.04"
+    ],
+    "mutation": "add() appends every object without replacing an equal one already present."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "create_saves_child",
+    "expected_failed_ids": [
+      "T.R04.05"
+    ],
+    "mutation": "create(**kwargs) calls child.save() before appending it."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "count_reads_db",
+    "expected_failed_ids": [
+      "T.R04.06"
+    ],
+    "mutation": "The manager's count() returns the database row count instead of the in-memory set size."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "commit_keeps_removed",
+    "expected_failed_ids": [
+      "T.R04.07",
+      "T.integration.cluster-lifecycle"
+    ],
+    "mutation": "commit() saves current members but never deletes database rows missing from the in-memory set."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "commit_unsaved_silent",
+    "expected_failed_ids": [
+      "T.R04.07"
+    ],
+    "mutation": "commit() on a parent without a pk returns without raising."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "ignore_child_ordering",
+    "expected_failed_ids": [
+      "T.R04.08"
+    ],
+    "mutation": "The in-memory child set keeps insertion order and ignores the child's Meta.ordering."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "e001_message_drift",
+    "expected_failed_ids": [
+      "T.R04.09"
+    ],
+    "mutation": "The E001 message omits its trailing period."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "e002_missing",
+    "expected_failed_ids": [
+      "T.R04.10"
+    ],
+    "mutation": "ParentalKey.check() does not emit modelcluster.E002 for related_name='+'."
+  },
+  {
+    "suite": "parentalkey-deferring-manager",
+    "defect": "e001_on_unresolved",
+    "expected_failed_ids": [
+      "T.R04.11"
+    ],
+    "mutation": "E001 is emitted whenever the target is not a resolved ClusterableModel class, including an unresolved model name string."
+  },
+  {
+    "suite": "parental-m2m",
+    "defect": "m2m_writes_on_set",
+    "expected_failed_ids": [
+      "T.R05.01"
+    ],
+    "mutation": "The parental m2m manager writes through rows immediately on add/remove/set/clear when the parent has a pk."
+  },
+  {
+    "suite": "parental-m2m",
+    "defect": "m2m_assignment_needs_pk",
+    "expected_failed_ids": [
+      "T.R05.02"
+    ],
+    "mutation": "Assigning parent.authors = [...] on an unsaved parent raises ValueError."
+  },
+  {
+    "suite": "parental-m2m",
+    "defect": "m2m_manager_no_model",
+    "expected_failed_ids": [
+      "T.R05.03"
+    ],
+    "mutation": "The parental m2m manager does not expose a model attribute (it is stored as target_model)."
+  },
+  {
+    "suite": "parental-m2m",
+    "defect": "m2m_add_unsaved_accepted",
+    "expected_failed_ids": [
+      "T.R05.04"
+    ],
+    "mutation": "add() accepts related objects without a pk."
+  },
+  {
+    "suite": "parental-m2m",
+    "defect": "m2m_ignore_target_ordering",
+    "expected_failed_ids": [
+      "T.R05.05"
+    ],
+    "mutation": "The in-memory related set keeps insertion order and ignores the target model's Meta.ordering."
+  },
+  {
+    "suite": "parental-m2m",
+    "defect": "m2m_reverse_accessor_missing",
+    "expected_failed_ids": [
+      "T.R05.06"
+    ],
+    "mutation": "The field forces related_name='+', so no reverse accessor is created on the target model."
+  },
+  {
+    "suite": "parental-m2m",
+    "defect": "value_from_object_default",
+    "expected_failed_ids": [
+      "T.R05.07"
+    ],
+    "mutation": "value_from_object falls back to ManyToManyField's implementation, returning empty for unsaved instances."
+  },
+  {
+    "suite": "parental-m2m",
+    "defect": "update_fields_skips_m2m",
+    "expected_failed_ids": [
+      "T.R05.08"
+    ],
+    "mutation": "save(update_fields=[...]) ignores parental m2m names instead of committing them."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "results_reordered",
+    "expected_failed_ids": [
+      "T.R06.01"
+    ],
+    "mutation": "FakeQuerySet stores its results in reverse of the given list order."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "exclude_equals_filter",
+    "expected_failed_ids": [
+      "T.R06.02"
+    ],
+    "mutation": "exclude() returns the same rows as filter()."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "case_insensitive_ignored",
+    "expected_failed_ids": [
+      "T.R06.03"
+    ],
+    "mutation": "iexact, icontains, istartswith, iendswith and iregex compare case-sensitively."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "range_exclusive_upper",
+    "expected_failed_ids": [
+      "T.R06.04",
+      "T.integration.queryset-db-parity"
+    ],
+    "mutation": "range excludes its upper bound."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "no_value_coercion",
+    "expected_failed_ids": [
+      "T.R06.05"
+    ],
+    "mutation": "Lookup values are compared raw without conversion to the field's Python type, so id='2' does not match pk 2."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "in_sql_null_semantics",
+    "expected_failed_ids": [
+      "T.R06.05"
+    ],
+    "mutation": "in never matches a None field value even when None is in the list."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "lookup_token_shadows_field",
+    "expected_failed_ids": [
+      "T.R06.06"
+    ],
+    "mutation": "The last __ segment is parsed as a lookup when it names a lookup type, so a field named range is treated as the range lookup."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "none_intermediate_raises",
+    "expected_failed_ids": [
+      "T.R06.07"
+    ],
+    "mutation": "Relation traversal dereferences a None intermediate and raises AttributeError."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "unsaved_instances_equal",
+    "expected_failed_ids": [
+      "T.R06.08"
+    ],
+    "mutation": "Instance comparison uses pk only, so two distinct unsaved instances (pk None) match."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "xor_as_or",
+    "expected_failed_ids": [
+      "T.R06.09",
+      "T.integration.queryset-db-parity"
+    ],
+    "mutation": "Q objects combined with XOR are evaluated as OR."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "m2m_traversal_silent",
+    "expected_failed_ids": [
+      "T.R06.10"
+    ],
+    "mutation": "Traversing a many-to-many relation in filter() returns no rows instead of raising ManyToManyTraversalError."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "values_ignores_transforms",
+    "expected_failed_ids": [
+      "T.R06.11"
+    ],
+    "mutation": "values() and values_list() reject transform paths such as release_date__year."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "week_day_iso",
+    "expected_failed_ids": [
+      "T.R06.12"
+    ],
+    "mutation": "week_day is computed with isoweekday() (Monday = 1)."
+  },
+  {
+    "suite": "fakequeryset-filtering",
+    "defect": "none_component_raises",
+    "expected_failed_ids": [
+      "T.R06.12"
+    ],
+    "mutation": "Deriving a component from a None date raises AttributeError instead of yielding None."
+  },
+  {
+    "suite": "fakequeryset-retrieval",
+    "defect": "get_returns_first",
+    "expected_failed_ids": [
+      "T.R06.13"
+    ],
+    "mutation": "get() returns the first match when several rows match instead of raising MultipleObjectsReturned."
+  },
+  {
+    "suite": "fakequeryset-retrieval",
+    "defect": "none_sorts_last",
+    "expected_failed_ids": [
+      "T.R06.14"
+    ],
+    "mutation": "order_by() places rows with a None sort value last."
+  },
+  {
+    "suite": "fakequeryset-retrieval",
+    "defect": "values_fk_instance",
+    "expected_failed_ids": [
+      "T.R06.15"
+    ],
+    "mutation": "values('band') yields the related instance instead of its pk."
+  },
+  {
+    "suite": "fakequeryset-retrieval",
+    "defect": "flat_multi_allowed",
+    "expected_failed_ids": [
+      "T.R06.15"
+    ],
+    "mutation": "values_list(..., flat=True) with two fields yields the first field instead of raising TypeError."
+  },
+  {
+    "suite": "fakequeryset-retrieval",
+    "defect": "distinct_includes_pk",
+    "expected_failed_ids": [
+      "T.R06.16"
+    ],
+    "mutation": "distinct() without arguments compares all fields including the pk, so no rows are dropped."
+  },
+  {
+    "suite": "fakequeryset-retrieval",
+    "defect": "none_not_sticky",
+    "expected_failed_ids": [
+      "T.R06.17"
+    ],
+    "mutation": "filter() on a none() queryset re-reads the original results."
+  },
+  {
+    "suite": "fakequeryset-retrieval",
+    "defect": "prefetch_noop",
+    "expected_failed_ids": [
+      "T.R06.18"
+    ],
+    "mutation": "FakeQuerySet.prefetch_related returns self without calling prefetch_related_objects, and the deferring managers expose no prefetch support."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "constructor_drops_relations",
+    "expected_failed_ids": [
+      "T.R07.01"
+    ],
+    "mutation": "ClusterableModel.__init__ discards child-relation and parental-m2m keyword arguments."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "save_skips_m2m",
+    "expected_failed_ids": [
+      "T.R07.02",
+      "T.integration.copy-then-save"
+    ],
+    "mutation": "save() commits child relations but not parental m2m fields."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "update_fields_passthrough",
+    "expected_failed_ids": [
+      "T.R07.03"
+    ],
+    "mutation": "save(update_fields=...) passes relation names through to Django's save, which raises ValueError."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "child_relations_local_only",
+    "expected_failed_ids": [
+      "T.R07.04"
+    ],
+    "mutation": "get_all_child_relations inspects only relations declared against the model itself, omitting ancestors."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "m2m_relations_include_plain",
+    "expected_failed_ids": [
+      "T.R07.05"
+    ],
+    "mutation": "get_all_child_m2m_relations returns every ManyToManyField, including plain ones."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "copy_keeps_child_pks",
+    "expected_failed_ids": [
+      "T.R07.14",
+      "T.integration.copy-then-save"
+    ],
+    "mutation": "Copied children keep the original children's primary keys."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "copy_child_appends_default",
+    "expected_failed_ids": [
+      "T.R07.15"
+    ],
+    "mutation": "copy_child_relation keeps the target's existing children when append is False."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "map_none_scalar",
+    "expected_failed_ids": [
+      "T.R07.16"
+    ],
+    "mutation": "The (child_relation, None) map entry holds the last copied object instead of a list."
+  },
+  {
+    "suite": "clusterable-model-save-copy",
+    "defect": "copy_all_ignores_exclude",
+    "expected_failed_ids": [
+      "T.R07.17"
+    ],
+    "mutation": "copy_all_child_relations copies every relation regardless of exclude."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "shallow_children",
+    "expected_failed_ids": [
+      "T.R07.06"
+    ],
+    "mutation": "serializable_data serializes children's concrete fields only, without recursing into clusterable children's relations."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "local_fields_only",
+    "expected_failed_ids": [
+      "T.R07.07",
+      "T.integration.json-round-trip"
+    ],
+    "mutation": "serializable_data iterates local concrete fields, omitting fields inherited from a multi-table parent."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "attname_keys",
+    "expected_failed_ids": [
+      "T.R07.08"
+    ],
+    "mutation": "Fields are serialized under their attname, so foreign keys appear as band_id."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "root_pk_not_set",
+    "expected_failed_ids": [
+      "T.R07.09",
+      "T.integration.json-round-trip"
+    ],
+    "mutation": "from_serializable_data sets pk (the parent link) but not the root model's own primary-key attribute."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "strict_fks_ignored",
+    "expected_failed_ids": [
+      "T.R07.10"
+    ],
+    "mutation": "A dangling CASCADE FK on the base object is nullified even when strict_fks is True."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "cascade_child_kept",
+    "expected_failed_ids": [
+      "T.R07.10"
+    ],
+    "mutation": "A child with a dangling CASCADE FK is kept with that FK set to None instead of being dropped."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "children_not_resorted",
+    "expected_failed_ids": [
+      "T.R07.11"
+    ],
+    "mutation": "Deserialized children keep the order of the serialized list."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "naive_datetime_as_utc",
+    "expected_failed_ids": [
+      "T.R07.12"
+    ],
+    "mutation": "Naive datetimes are labelled UTC without interpreting them in the current time zone."
+  },
+  {
+    "suite": "clusterable-model-serialization",
+    "defect": "filefield_dropped",
+    "expected_failed_ids": [
+      "T.R07.13"
+    ],
+    "mutation": "FileFields are skipped by serializable_data."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "transient_commit_false_saves",
+    "expected_failed_ids": [
+      "T.R08.01"
+    ],
+    "mutation": "The transient formset's save(commit=False) saves each returned instance."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "fk_not_excluded",
+    "expected_failed_ids": [
+      "T.R08.02"
+    ],
+    "mutation": "childformset_factory does not exclude the ParentalKey, leaving it as a required form field."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "child_commit_false_writes",
+    "expected_failed_ids": [
+      "T.R08.03",
+      "T.integration.clusterform-nested-save"
+    ],
+    "mutation": "The child formset's save(commit=False) commits the relation to the database."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "max_num_always_enforced",
+    "expected_failed_ids": [
+      "T.R08.04"
+    ],
+    "mutation": "max_num and min_num are validated even when validate_max/validate_min are False."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "order_not_written",
+    "expected_failed_ids": [
+      "T.R08.05"
+    ],
+    "mutation": "Submitted ORDER values are not copied to the child's sort_order_field."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "nested_formsets_ignored",
+    "expected_failed_ids": [
+      "T.R08.06"
+    ],
+    "mutation": "childformset_factory ignores formsets=[...] when form is a ClusterForm."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "prefix_accessor_name",
+    "expected_failed_ids": [
+      "T.R08.07"
+    ],
+    "mutation": "childformset_factory formsets default their prefix to the relation accessor name."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "formsets_default_all",
+    "expected_failed_ids": [
+      "T.R08.08",
+      "T.R08.12"
+    ],
+    "mutation": "A ClusterForm with neither formsets nor exclude_formsets builds formsets for every child relation."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "exclude_formsets_ignored",
+    "expected_failed_ids": [
+      "T.R08.09"
+    ],
+    "mutation": "Meta.exclude_formsets is ignored."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "child_widgets_ignored",
+    "expected_failed_ids": [
+      "T.R08.10"
+    ],
+    "mutation": "A child-relation key in Meta.widgets is not passed to that formset."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "inherited_relations_skipped",
+    "expected_failed_ids": [
+      "T.R08.11"
+    ],
+    "mutation": "ClusterForm considers only child relations whose ParentalKey targets the form's model itself."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "extra_one",
+    "expected_failed_ids": [
+      "T.R08.12"
+    ],
+    "mutation": "ClusterForm child formsets default to one extra form."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "deleted_forms_validated",
+    "expected_failed_ids": [
+      "T.R08.13"
+    ],
+    "mutation": "Child forms marked for deletion are still validated."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "child_unique_unchecked",
+    "expected_failed_ids": [
+      "T.R08.13"
+    ],
+    "mutation": "unique_together and UniqueConstraint are not checked across submitted child forms."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "as_p_parent_only",
+    "expected_failed_ids": [
+      "T.R08.14"
+    ],
+    "mutation": "as_p() renders only the parent form."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "kwargs_always_inherited",
+    "expected_failed_ids": [
+      "T.R08.15"
+    ],
+    "mutation": "Every ClusterForm constructor kwarg is forwarded to child forms regardless of inherit_kwargs."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "commit_false_defers_parental",
+    "expected_failed_ids": [
+      "T.R08.16"
+    ],
+    "mutation": "ClusterForm.save() applies parental m2m and tag fields only in the deferred save_m2m(), never at save time."
+  },
+  {
+    "suite": "cluster-forms",
+    "defect": "no_clusterform_factory",
+    "expected_failed_ids": [
+      "T.R08.17"
+    ],
+    "mutation": "modelcluster.forms does not define clusterform_factory (it is renamed private)."
+  },
+  {
+    "suite": "taggit-cluster",
+    "defect": "plain_taggable_manager",
+    "expected_failed_ids": [
+      "T.R09.01",
+      "T.R09.02",
+      "T.integration.tags-and-prefetch"
+    ],
+    "mutation": "ClusterTaggableManager is plain taggit TaggableManager, so tag changes on unsaved instances fail and saved ones write immediately."
+  },
+  {
+    "suite": "taggit-cluster",
+    "defect": "remove_noop",
+    "expected_failed_ids": [
+      "T.R09.02"
+    ],
+    "mutation": "tags.remove() leaves the in-memory set unchanged."
+  },
+  {
+    "suite": "taggit-cluster",
+    "defect": "int_tag_coerced",
+    "expected_failed_ids": [
+      "T.R09.03"
+    ],
+    "mutation": "tags.add(1) coerces the integer to the tag name '1'."
+  },
+  {
+    "suite": "taggit-cluster",
+    "defect": "tags_prefetch_unsupported",
+    "expected_failed_ids": [
+      "T.R09.04",
+      "T.integration.tags-and-prefetch"
+    ],
+    "mutation": "The tags manager does not support prefetching, so prefetch_related('tags') raises."
+  },
+  {
+    "suite": "taggit-cluster",
+    "defect": "form_tags_ignored",
+    "expected_failed_ids": [
+      "T.R09.05"
+    ],
+    "mutation": "ClusterForm drops submitted tag strings for ClusterTaggableManager fields."
+  }
+]

@@ -1,3 +1,10 @@
+R20261017-EVAL-PROTOCOL 완료: Harness A/B 연구와 평가 방법 비교, 평가 구조화. [구조·점검표·보류과제](orchestration/EVALUATION_PROTOCOL.md) · [결정](decisions/R20261017_EVAL_PROTOCOL.md). 정본 evaluation-protocol.v1(ITT·Wilson·14점검). pstack(cursor/plugins101b274) 병렬분석 추가, 점검 후보C15–C22는 사용자 검토 대기. 로컬+형제worktree arm54(집계44·제외10·미분류0): Jev 점검 yes9/14, Harness yes2/14. 같은 실행 쌍 claude_all대jev_all 2승1무0패, codex대jev 2승0무1패라 Jev 우위 미입증. 작업브랜치는 origin/research보다9커밋 뒤·미병합. 미충족 C06반복·C08후보1누락·C11과제1개·C12보류과제·C14재현. 보류과제15개 고정(실행 전 과제별 의무·카탈로그·공개검사 필요). 유료·Docker·재채점 없음. 아래는 당시 기록이다.
+
+## 2026-10-18 — 보류 과제 manifest를 적응 실행기에 연결
+[기록](decisions/HELDOUT-20261018.md). h2·pycparser·django-modelcluster의 `v12.draft.json`이 자기 공개 registry로 로더를 통과한다. registry는 `public-checks.plan.json`에서 생성했다. openapi(d056 input) manifest는 기존 registry.v4 규칙·93/85 수·감사 설정을 그대로 쓴다. 보류 manifest를 openapi registry로 돌리면 이제 `ADAPTIVE_PUBLIC_REGISTRY_BINDING`으로 거부된다(이전에는 수락). 카탈로그 해시가 모두 null이면 로드·probe만 허용하고, arm은 `ADAPTIVE_CATALOG_REUSE_UNPINNED`로 거부한다. 채점 스크립트에 `--image-lock`을 추가했고, 기대 검사 수는 grade manifest의 `test_case_count`에서 읽는다. runner가 바뀌어 전송 정책 v11을 고정하고 d076을 v11로 다시 묶었다. `--probe` ×3은 로더를 지나 각 과제의 `public-checks/inventory.json` 부재(ENOENT)에서 멈춘다. 유료·모델·Docker 호출 0, 공유 원장 무변경, 커밋 없음.
+## 2026-10-18 — 보류 과제 3개 과제별 공개 검사, --probe ready
+[기록](decisions/HELDOUT-20261018.md). h2·pycparser·django-modelcluster에 `public-checks/`를 만들었다(검사 58/62/88개, 공유 harness 1벌, 과제별 `cases.py`, `instruction.md`만으로 쓴 정상 대조 참조 구현과 결함 대조 52/53/88개). Docker 대조 고정 receipt는 세 과제 모두 정상 통과·결함 전부 거부·`verified`이고, `--probe` ×3은 `ready`(blocker 0, 유료 0, Jev 추론 0)다. 감사 스크립트를 고치자 openapi 고정 receipt가 `PUBLIC_CONTROL_FROZEN_SOURCE_DRIFT`로 깨지는 것을 측정했다. 그래서 원래 파일을 HEAD 바이트로 되돌리고 held-out 감사를 `scripts/audit-task-public-checks.mjs`로 분리했다. openapi receipt는 다시 `verified`다. 남은 것: 과제별 유료 카탈로그 준비(클라우드), 1단계 비교 조건 결정. 공유 원장 무변경, 커밋 없음.
+
 ## 2026-10-12 — D075 강제 전송 검사·복구 병렬 구현과 실제 비교
 
 - [결정](decisions/D075.md) · [결과와 명령](orchestration/D075_RESULTS.md). 전송 gate/복구/입력/보존 runner/측정/단일 스킬 관리자/독립 검토를 분리했다. 보존 CLI 기본v10, prompt v2, 3phase 실제 요청 검사와 근거 기반 복구를 연결했다.

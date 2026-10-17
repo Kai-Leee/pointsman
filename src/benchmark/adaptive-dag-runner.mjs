@@ -13,7 +13,7 @@ import {createMeasuredDecider, JEV_GET_RETRY_V1} from './telemetry.mjs';
 import {createTokenBudget, validateBudgetConfig, readTokenBudgetSnapshot} from './budget.mjs';
 import {acquireTokenBudget, createConcurrentTokenBudget} from './budget-acquire.mjs';
 import {preflightDagRun, runDagDockerCheck, validateDagPublicReport} from './dag-runner.mjs';
-import {loadPublicAuditInputs, publicSourceHashes} from '../../scripts/audit-dag-public-checks.mjs';
+import {loadPublicAuditInputs, manifestAuditOptions, publicSourceHashes, MANIFEST as OPENAPI_INPUT} from '../../scripts/audit-task-public-checks.mjs';
 import {prepareAdaptiveCatalog} from '../orchestration/adaptive-dag-planner.mjs';
 import {adaptiveOutcomeUncertain, adaptiveTerminalCause} from '../orchestration/adaptive-failure.mjs';
 import {assessJevTokenAdmission} from '../orchestration/jev-token-admission.mjs';
@@ -112,6 +112,36 @@ export const ADAPTIVE_ARMS = Object.freeze({claude_all: {split: 'claude', relati
   jev_split_relations: {split: 'jev', relations: 'jev', repair: 'claude'}, jev_all: {split: 'jev', relations: 'jev', repair: 'jev'},
   jev_profile: {split: 'jev', relations: 'jev', repair: 'jev', profiles: 'jev'}});
 
+const CATALOG_PIN_KEYS = Object.freeze(['result_sha256', 'catalog_file_sha256', 'source_pins_sha256', 'prepared_request_sha256',
+  'provider_request_sha256', 'original_manifest_sha256']);
+// A non-openapi task may load and probe before its catalog is prepared; loadAdaptiveSharedPreparation refuses any arm until all six are pinned.
+const catalogUnpinned = manifest => manifest.input !== OPENAPI_INPUT && object(manifest.catalog_reuse)
+  && CATALOG_PIN_KEYS.every(key => manifest.catalog_reuse[key] === null);
+// openapi: 85 d056 tests + 8 public v4 additions; any other task's registry declares exactly its input's tests.
+const publicTestCount = (rootDir, manifest) => manifest.input === OPENAPI_INPUT ? 93 : read(join(rootDir, manifest.input)).tests.length;
+
+/** A non-openapi task's registry must cover exactly its own input's tests from its own source, runner, checker root and environment. */
+function validateTaskPublicRegistry(manifest, rootDir) {
+  let input, registry;
+  try { input = read(join(rootDir, manifest.input)); registry = read(join(rootDir, manifest.public_registry)); }
+  catch { fail('ADAPTIVE_PUBLIC_REGISTRY_BINDING'); }
+  const tests = new Map((Array.isArray(input?.tests) ? input.tests : []).map(test => [test.id, test])), seen = new Set();
+  if (!Array.isArray(registry) || !registry.length || !tests.size) fail('ADAPTIVE_PUBLIC_REGISTRY_BINDING');
+  for (const check of registry) {
+    const argv = Array.isArray(check?.argv) ? check.argv : [];
+    if (!object(check) || check.id !== `public.${argv[argv.indexOf('--suite') + 1]}` || check.phase !== 'integration'
+        || check.source_ref !== input.source?.path || check.runner_ref !== manifest.public_runner || argv[1] !== basename(manifest.public_runner)
+        || check.cwd !== manifest.public_checker_root || check.environment_ref !== manifest.public_environment_ref
+        || !Array.isArray(check.test_ids) || !check.test_ids.length || !Array.isArray(check.requirement_ids)
+        || check.test_ids.some(id => !tests.has(id) || seen.has(id))
+        || !equal([...check.requirement_ids].sort(), unique(check.test_ids.flatMap(id => tests.get(id).requirement_refs)).sort())) {
+      fail('ADAPTIVE_PUBLIC_REGISTRY_BINDING');
+    }
+    for (const id of check.test_ids) seen.add(id);
+  }
+  if (seen.size !== tests.size) fail('ADAPTIVE_PUBLIC_REGISTRY_BINDING');
+}
+
 export function loadAdaptiveRunManifest(path = join(ROOT, 'benchmarks/e2e-swe/manifests/d066-adaptive.json'), rootDir = ROOT) {
   const value = read(path), limits = value.limits;
   const v8 = inferredManifest(value), v9 = focusedOwnerManifest(value), v10 = transmissionManifest(value), v11 = speedManifest(value),
@@ -128,8 +158,7 @@ export function loadAdaptiveRunManifest(path = join(ROOT, 'benchmarks/e2e-swe/ma
       || (v2 && (value.cohort_concurrency !== (v8 ? 1 : v7 ? 3 : v3 ? 1 : 4) || value.jev_budget?.schema_version !== (v11 || v12 ? 'jev-token-budget/v4' : 'jev-token-budget/v3')
         || value.jev_budget.max_input_tokens !== null || reuse?.schema_version !== (v7 ? 'adaptive-catalog-reuse/v4' : v4 ? 'adaptive-catalog-reuse/v3' : v3 ? 'adaptive-catalog-reuse/v2' : 'adaptive-catalog-reuse/v1')
         || !relativePath(reuse.preparation_directory) || !relativePath(reuse.original_manifest)
-        || !['result_sha256', 'catalog_file_sha256', 'source_pins_sha256', 'prepared_request_sha256', 'provider_request_sha256', 'original_manifest_sha256']
-          .every(key => /^[a-f0-9]{64}$/.test(reuse[key] ?? ''))
+        || !(CATALOG_PIN_KEYS.every(key => /^[a-f0-9]{64}$/.test(reuse[key] ?? '')) || catalogUnpinned(value))
         || !equal(reuse.allowed_changed_source_paths, reuseMutableSources(value))))
       || (v3 && !v4 && !equal(value.repair_policy, {projection_contract: 'docs/orchestration/contracts/adaptive-repair-projection.v1.json',
         failure_contract: 'adaptive-terminal-cause/v1', scope_contract: 'observed-failure-and-bound-blocker/v1'}))
@@ -142,8 +171,9 @@ export function loadAdaptiveRunManifest(path = join(ROOT, 'benchmarks/e2e-swe/ma
         scope_contract: ownerV3Manifest(value) ? 'public-inferred-owner-v3' : v9 ? 'public-inferred-owner-v2' : v8 ? 'public-inferred-owner-v1' : 'public-causal-v1',
         token_admission_contract: `docs/orchestration/contracts/jev-token-admission.${v8 ? 'v4' : 'v3'}.json`,
         ...(v8 ? {owner_inference_contract: ownerV3Manifest(value) ? OWNER_INFERENCE_V3 : `docs/orchestration/contracts/adaptive-inferred-repair.${v9 ? 'v2' : 'v1'}.json`} : {})})
-        || value.public_registry !== 'benchmarks/e2e-swe/public-checks/registry.v4.json'
-        || value.public_runner !== 'benchmarks/e2e-swe/public-checks/run_public_checks_v4.py'
+        || (value.input === OPENAPI_INPUT
+          ? value.public_registry !== 'benchmarks/e2e-swe/public-checks/registry.v4.json' || value.public_runner !== 'benchmarks/e2e-swe/public-checks/run_public_checks_v4.py'
+          : ![value.public_registry, value.public_runner].every(path => relativePath(path) && path.startsWith(value.public_checker_root + '/')))
         || !relativePath(value.public_controls_evidence)
         || value.profile_policy?.contract !== `docs/orchestration/contracts/adaptive-profile-selection.${v8 ? 'v2' : 'v1'}.json`
         || value.profile_policy?.candidate_contract !== 'docs/orchestration/contracts/adaptive-profiles.v1.json'
@@ -155,6 +185,7 @@ export function loadAdaptiveRunManifest(path = join(ROOT, 'benchmarks/e2e-swe/ma
       || value.max_repair_rounds !== 2 || value.automatic_retries !== 0
       || ![value.input, value.public_registry, value.public_checker_root, value.image_lock].every(relativePath)
       || !['max_file_bytes', 'max_total_bytes'].every(key => Number.isSafeInteger(limits[key]) && limits[key] > 0)) fail('ADAPTIVE_MANIFEST_INVALID');
+  if (v7 && value.input !== OPENAPI_INPUT) validateTaskPublicRegistry(value, rootDir);
   validateBudgetConfig(value.jev_budget, rootDir);
   if (v12) validateQuestionFormManifest(value, rootDir);
   if (value.repair_budget !== undefined) {
@@ -587,8 +618,8 @@ function createRunContext({rootDir, runDir, manifest, abortSignal}) {
       'src/benchmark/budget.mjs', 'src/benchmark/budget-acquire.mjs', 'bin/artifact-worker-mcp.mjs',
       'src/orchestration/artifact-transport.mjs', 'src/orchestration/dag-filesystem-runtime.mjs', 'src/orchestration/dag-contracts.mjs',
       'src/orchestration/artifact-dag.mjs', 'src/orchestration/dag-workflow.mjs', 'src/orchestration/dag-scheduler.mjs',
-      'src/orchestration/artifact-verification-gate.mjs', 'scripts/audit-dag-public-checks.mjs',
-      manifest.manifest_path, manifest.input, input.source_ref.path, manifest.image_lock, ...publicSourceHashes(rootDir).map(pin => pin.path), ...extra]);
+      'src/orchestration/artifact-verification-gate.mjs', 'scripts/audit-dag-public-checks.mjs', 'scripts/audit-task-public-checks.mjs',
+      manifest.manifest_path, manifest.input, input.source_ref.path, manifest.image_lock, ...publicSourceHashes(rootDir, manifestAuditOptions(manifest)).map(pin => pin.path), ...extra]);
     pins = paths.map((path, index) => {
       if (!relativePath(path)) fail('ADAPTIVE_SOURCE_PATH_INVALID');
       const bytes = readFileSync(join(rootDir, path)), snapshot = `sources/${String(index + 1).padStart(3, '0')}-${basename(path)}`;
@@ -761,6 +792,7 @@ export async function prepareAdaptiveSharedCatalog({rootDir = ROOT, manifest = l
 }
 
 export function loadAdaptiveSharedPreparation({rootDir = ROOT, manifest, preparationDirectory, input}) {
+  if (catalogUnpinned(manifest)) fail('ADAPTIVE_CATALOG_REUSE_UNPINNED');
   const directory = resolve(preparationDirectory), result = read(join(directory, 'result.json'));
   const catalogPath = join(directory, 'catalog.json'), bytes = readFileSync(catalogPath), catalog = JSON.parse(bytes);
   const reused = parallelManifest(manifest), reuse = manifest.catalog_reuse;
@@ -792,7 +824,7 @@ export function loadAdaptiveSharedPreparation({rootDir = ROOT, manifest, prepara
     if (sha(readFileSync(join(rootDir, reuse.original_manifest))) !== reuse.original_manifest_sha256
         || !pins.some(pin => pin.path === reuse.original_manifest && pin.sha256 === reuse.original_manifest_sha256)
         || !equal(originalManifest.worker_profile, manifest.worker_profile)
-        || ['input', ...(!causalManifest(manifest) ? ['public_registry'] : []), 'public_checker_root', 'public_environment_ref', 'image_lock'].some(key => originalManifest[key] !== manifest[key])
+        || ['input', ...(!causalManifest(manifest) || manifest.input !== OPENAPI_INPUT ? ['public_registry'] : []), 'public_checker_root', 'public_environment_ref', 'image_lock'].some(key => originalManifest[key] !== manifest[key])
         || Object.entries(originalManifest.limits).some(([key, value]) => !['planning_input_tokens',
           ...(inferredManifest(manifest) ? ['max_request_bytes'] : [])].includes(key) && manifest.limits[key] !== value)) {
       fail('ADAPTIVE_PREPARATION_REUSE_INVALID');
@@ -808,7 +840,8 @@ export function loadAdaptiveSharedPreparation({rootDir = ROOT, manifest, prepara
       ...(inferredManifest(manifest) ? {local_request_limit_change: {previous_bytes: originalManifest.limits.max_request_bytes,
         current_bytes: manifest.limits.max_request_bytes, catalog_generation_content_unchanged: true}} : {}),
       ...(causalManifest(manifest) ? {public_gate_upgrade: {previous_registry: originalManifest.public_registry,
-        current_registry: manifest.public_registry, original_test_count: 85, current_test_count: 93,
+        current_registry: manifest.public_registry, original_test_count: manifest.input === OPENAPI_INPUT ? 85 : publicTestCount(rootDir, manifest),
+        current_test_count: publicTestCount(rootDir, manifest),
         generation_input_unchanged: true}} : {}),
       accounting: 'Historical preparation is retained for full-preparation reference quantities; it is not a new invocation or current-cohort spend.'};
   }
@@ -818,9 +851,9 @@ export function loadAdaptiveSharedPreparation({rootDir = ROOT, manifest, prepara
 export function loadAdaptiveTestRequirements(rootDir, manifest) {
   const mapping = Object.fromEntries(read(join(rootDir, manifest.input)).tests.map(test => [test.id, test.requirement_refs]));
   if (causalManifest(manifest)) {
-    const {registry} = loadPublicAuditInputs(rootDir, {registryPath: manifest.public_registry, runnerPath: manifest.public_runner});
+    const {registry} = loadPublicAuditInputs(rootDir, manifestAuditOptions(manifest));
     for (const check of registry) for (const id of check.test_ids) if (!mapping[id]) mapping[id] = [...check.requirement_ids];
-    if (Object.keys(mapping).length !== 93) fail('ADAPTIVE_PUBLIC_REQUIREMENT_MAPPING');
+    if (Object.keys(mapping).length !== publicTestCount(rootDir, manifest)) fail('ADAPTIVE_PUBLIC_REQUIREMENT_MAPPING');
   }
   return mapping;
 }
@@ -1020,7 +1053,7 @@ export async function runAdaptiveArm({rootDir = ROOT, manifest = loadAdaptiveRun
       status: preflight.status, basis: 'common_preflight_completed_before_any_arm_dispatch'});
     context.save('preflight.json', preflight);
     if (!preflight.live_ready) fail('ADAPTIVE_PREFLIGHT_BLOCKED');
-    const registry = loadPublicAuditInputs(rootDir, {registryPath: manifest.public_registry, runnerPath: manifest.public_runner}).registry;
+    const registry = loadPublicAuditInputs(rootDir, manifestAuditOptions(manifest)).registry;
     const checks = buildAdaptiveChecks({catalog: prepared.catalog, registry, manifest, source_ref: input.source_ref});
     session = createAdaptiveProviderSession({rootDir, manifest, run_id: context.run_id, runDirectory: context.directory,
       remaining: context.remaining, record: context.record, abortSignal: context.signal, adapters, ...adaptiveSpeedSessionOptions(manifest)});

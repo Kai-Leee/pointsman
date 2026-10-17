@@ -1,0 +1,366 @@
+{
+ "setup_uses_build_isolation": [
+  {
+   "path": "setup.sh",
+   "old": "pip install -e . --no-build-isolation",
+   "new": "pip install -e ."
+  }
+ ],
+ "unavailable_runtime_import": [
+  {
+   "path": "h2/connection.py",
+   "old": "import base64\n",
+   "new": "import base64\nimport brotli  # third-party, not pre-installed\n"
+  }
+ ],
+ "socket_in_connection": [
+  {
+   "path": "h2/connection.py",
+   "old": "    def initiate_connection(self):\n",
+   "new": "    def initiate_connection(self):\n        import socket\n        socket.socket().close()\n"
+  }
+ ],
+ "error_code_renumbered": [
+  {
+   "path": "h2/errors.py",
+   "old": "ENHANCE_YOUR_CALM = 11",
+   "new": "ENHANCE_YOUR_CALM = 10"
+  }
+ ],
+ "setting_codes_swapped": [
+  {
+   "path": "h2/settings.py",
+   "old": "    MAX_FRAME_SIZE = 5\n    MAX_HEADER_LIST_SIZE = 6",
+   "new": "    MAX_FRAME_SIZE = 6\n    MAX_HEADER_LIST_SIZE = 5"
+  }
+ ],
+ "missing_stream_closed_error": [
+  {
+   "path": "h2/exceptions.py",
+   "old": "\n\nclass StreamClosedError(NoSuchStreamError):\n    pass\n",
+   "new": "\n"
+  }
+ ],
+ "receive_returns_generator": [
+  {
+   "path": "h2/connection.py",
+   "old": "            events.extend(self._handle(frame))\n        return events",
+   "new": "            events.extend(self._handle(frame))\n        return (event for event in events)"
+  }
+ ],
+ "missing_client_magic": [
+  {
+   "path": "h2/connection.py",
+   "old": "        if self.client_side:\n            self._out += MAGIC",
+   "new": "        if False:\n            self._out += MAGIC"
+  }
+ ],
+ "server_sends_magic": [
+  {
+   "path": "h2/connection.py",
+   "old": "        if self.client_side:\n            self._out += MAGIC",
+   "new": "        if True:\n            self._out += MAGIC"
+  }
+ ],
+ "config_default_server": [
+  {
+   "path": "h2/config.py",
+   "old": "client_side=True, header_encoding=None",
+   "new": "client_side=False, header_encoding=None"
+  }
+ ],
+ "config_none_rejected": [
+  {
+   "path": "h2/connection.py",
+   "old": "def __init__(self, config=None):",
+   "new": "def __init__(self, config):"
+  }
+ ],
+ "headers_always_str": [
+  {
+   "path": "h2/connection.py",
+   "old": "encoding = self.config.header_encoding",
+   "new": "encoding = self.config.header_encoding or \"utf-8\""
+  }
+ ],
+ "headers_ignore_utf8": [
+  {
+   "path": "h2/connection.py",
+   "old": "encoding = self.config.header_encoding",
+   "new": "encoding = None"
+  }
+ ],
+ "no_settings_ack": [
+  {
+   "path": "h2/connection.py",
+   "old": "        self._frame(SettingsFrame(0, flags=[\"ACK\"]))\n",
+   "new": ""
+  }
+ ],
+ "skip_default_valued_settings": [
+  {
+   "path": "h2/connection.py",
+   "old": "            changed[code] = ChangedSetting(code, self.remote_settings.get(code), value)",
+   "new": "            if self.remote_settings.get(code) == value:\n                continue\n            changed[code] = ChangedSetting(code, self.remote_settings.get(code), value)"
+  }
+ ],
+ "unlimited_max_streams_default": [
+  {
+   "path": "h2/connection.py",
+   "old": "SettingCodes.MAX_CONCURRENT_STREAMS: 100,",
+   "new": "SettingCodes.MAX_CONCURRENT_STREAMS: 2**32 - 1,"
+  }
+ ],
+ "cap_remote_at_local_default": [
+  {
+   "path": "h2/connection.py",
+   "old": "            changed[code] = ChangedSetting(code, self.remote_settings.get(code), value)",
+   "new": "            if code == SettingCodes.MAX_CONCURRENT_STREAMS:\n                value = min(value, self.local_settings[code])\n            changed[code] = ChangedSetting(code, self.remote_settings.get(code), value)"
+  }
+ ],
+ "output_not_drained": [
+  {
+   "path": "h2/connection.py",
+   "old": "data, self._out = bytes(self._out), bytearray()",
+   "new": "data = bytes(self._out)"
+  }
+ ],
+ "clear_buffer_noop": [
+  {
+   "path": "h2/connection.py",
+   "old": "    def clear_outbound_data_buffer(self):\n        self._out.clear()",
+   "new": "    def clear_outbound_data_buffer(self):\n        pass"
+  }
+ ],
+ "headers_ignore_end_stream": [
+  {
+   "path": "h2/connection.py",
+   "old": "flags = [\"END_HEADERS\"] + ([\"END_STREAM\"] if end_stream else [])",
+   "new": "flags = [\"END_HEADERS\"]"
+  }
+ ],
+ "no_stream_id_validation": [
+  {
+   "path": "h2/connection.py",
+   "old": "if not self._is_ours(stream_id) or stream_id <= self.highest_outbound or not self.client_side:",
+   "new": "if not self.client_side:"
+  }
+ ],
+ "data_split_in_two": [
+  {
+   "path": "h2/connection.py",
+   "old": "        self._frame(DataFrame(stream_id, data=data, flags=[\"END_STREAM\"] if end_stream else []))",
+   "new": "        half = len(data) // 2\n        self._frame(DataFrame(stream_id, data=data[:half]))\n        self._frame(DataFrame(stream_id, data=data[half:], flags=[\"END_STREAM\"] if end_stream else []))"
+  }
+ ],
+ "data_ignores_end_stream": [
+  {
+   "path": "h2/connection.py",
+   "old": "        self._frame(DataFrame(stream_id, data=data, flags=[\"END_STREAM\"] if end_stream else []))",
+   "new": "        self._frame(DataFrame(stream_id, data=data, flags=[]))"
+  }
+ ],
+ "end_stream_nonempty": [
+  {
+   "path": "h2/connection.py",
+   "old": "DataFrame(stream_id, data=b\"\", flags=[\"END_STREAM\"])",
+   "new": "DataFrame(stream_id, data=b\"\\x00\", flags=[\"END_STREAM\"])"
+  }
+ ],
+ "server_odd_stream_ids": [
+  {
+   "path": "h2/connection.py",
+   "old": "        return 1 if self.client_side else 2",
+   "new": "        return 1"
+  }
+ ],
+ "counters_drop_half_closed": [
+  {
+   "path": "h2/connection.py",
+   "old": "if s.outbound == outbound and not s.closed)",
+   "new": "if s.outbound == outbound and not (s.closed or s.local_closed or s.remote_closed))"
+  }
+ ],
+ "response_as_request_event": [
+  {
+   "path": "h2/connection.py",
+   "old": "cls = ev.ResponseReceived if self.client_side else ev.RequestReceived",
+   "new": "cls = ev.RequestReceived"
+  }
+ ],
+ "data_event_missing_flow_length": [
+  {
+   "path": "h2/events.py",
+   "old": "fields = (\"stream_id\", \"data\", \"flow_controlled_length\", \"stream_ended\")",
+   "new": "fields = (\"stream_id\", \"data\", \"stream_ended\")"
+  }
+ ],
+ "no_window_check": [
+  {
+   "path": "h2/connection.py",
+   "old": "        if len(data) > min(stream.send_window, self.send_window):\n",
+   "new": "        if False:\n"
+  }
+ ],
+ "no_frame_size_check": [
+  {
+   "path": "h2/connection.py",
+   "old": "        if len(data) > self.remote_settings[SettingCodes.MAX_FRAME_SIZE]:\n",
+   "new": "        if False:\n"
+  }
+ ],
+ "frame_size_checked_first": [
+  {
+   "path": "h2/connection.py",
+   "old": "        if len(data) > min(stream.send_window, self.send_window):\n            raise exc.FlowControlError(\"data exceeds the flow-control window\")\n        if len(data) > self.remote_settings[SettingCodes.MAX_FRAME_SIZE]:\n            raise exc.FrameTooLargeError(\"data exceeds MAX_FRAME_SIZE\")\n",
+   "new": "        if len(data) > self.remote_settings[SettingCodes.MAX_FRAME_SIZE]:\n            raise exc.FrameTooLargeError(\"data exceeds MAX_FRAME_SIZE\")\n        if len(data) > min(stream.send_window, self.send_window):\n            raise exc.FlowControlError(\"data exceeds the flow-control window\")\n"
+  }
+ ],
+ "closed_send_side_allowed": [
+  {
+   "path": "h2/connection.py",
+   "old": "        if stream.closed:\n            raise exc.StreamClosedError(f\"stream {stream_id} is closed\")\n        if stream.local_closed:\n            raise exc.ProtocolError(f\"stream {stream_id} send side is closed\")\n",
+   "new": ""
+  }
+ ],
+ "window_not_decremented": [
+  {
+   "path": "h2/connection.py",
+   "old": "        stream.send_window -= len(data)\n        self.send_window -= len(data)\n",
+   "new": ""
+  }
+ ],
+ "unknown_stream_window_zero": [
+  {
+   "path": "h2/connection.py",
+   "old": "            raise exc.NoSuchStreamError(f\"no local window: stream {stream_id} unknown\")",
+   "new": "            return 0"
+  }
+ ],
+ "remote_window_static": [
+  {
+   "path": "h2/connection.py",
+   "old": "        return stream.recv_window",
+   "new": "        return self.local_settings[IWS]"
+  }
+ ],
+ "ack_overcredits": [
+  {
+   "path": "h2/connection.py",
+   "old": "        increment = size\n",
+   "new": "        increment = 2 * size\n"
+  }
+ ],
+ "increment_ignores_stream": [
+  {
+   "path": "h2/connection.py",
+   "old": "if stream_id is None or stream_id == 0:",
+   "new": "if True:"
+  }
+ ],
+ "inbound_window_wrong_initial": [
+  {
+   "path": "h2/connection.py",
+   "old": "self.inbound_flow_control_window = 65535",
+   "new": "self.inbound_flow_control_window = 16384"
+  }
+ ],
+ "rst_default_cancel": [
+  {
+   "path": "h2/connection.py",
+   "old": "def reset_stream(self, stream_id, error_code=0):",
+   "new": "def reset_stream(self, stream_id, error_code=8):"
+  }
+ ],
+ "reset_event_code_zero": [
+  {
+   "path": "h2/connection.py",
+   "old": "error_code=frame.error_code, remote_reset=True",
+   "new": "error_code=0, remote_reset=True"
+  }
+ ],
+ "push_on_promised_stream": [
+  {
+   "path": "h2/connection.py",
+   "old": "self._frame(PushPromiseFrame(parent_stream_id, promised_stream_id",
+   "new": "self._frame(PushPromiseFrame(push_stream_id, promised_stream_id"
+  }
+ ],
+ "push_ignores_enable_push": [
+  {
+   "path": "h2/connection.py",
+   "old": "        if self.remote_settings.get(SettingCodes.ENABLE_PUSH, 1) == 0:\n",
+   "new": "        if False:\n"
+  }
+ ],
+ "goaway_error_code_dropped": [
+  {
+   "path": "h2/connection.py",
+   "old": "GoAwayFrame(0, last_stream_id=last_stream_id, error_code=error_code)",
+   "new": "GoAwayFrame(0, last_stream_id=last_stream_id, error_code=0)"
+  }
+ ],
+ "goaway_not_enforced": [
+  {
+   "path": "h2/connection.py",
+   "old": "            if self.goaway_received:\n",
+   "new": "            if False:\n"
+  }
+ ],
+ "priority_weight_raw": [
+  {
+   "path": "h2/connection.py",
+   "old": "weight=frame.stream_weight + 1,",
+   "new": "weight=frame.stream_weight,"
+  }
+ ],
+ "ping_no_auto_ack": [
+  {
+   "path": "h2/connection.py",
+   "old": "        self._frame(PingFrame(0, opaque_data=frame.opaque_data, flags=[\"ACK\"]))\n",
+   "new": ""
+  }
+ ],
+ "altsvc_dropped": [
+  {
+   "path": "h2/connection.py",
+   "old": "        return altsvc_events",
+   "new": "        return []"
+  }
+ ],
+ "upgrade_raw_settings": [
+  {
+   "path": "h2/connection.py",
+   "old": "            return base64.urlsafe_b64encode(payload).rstrip(b\"=\")",
+   "new": "            return payload"
+  }
+ ],
+ "upgrade_no_preface": [
+  {
+   "path": "h2/connection.py",
+   "old": "            payload = SettingsFrame(0, settings=dict(self.local_settings)).serialize_body()\n            self.initiate_connection()\n",
+   "new": "            payload = SettingsFrame(0, settings=dict(self.local_settings)).serialize_body()\n            self._pending_settings.append(dict(self.local_settings))\n"
+  }
+ ],
+ "server_upgrade_no_stream1": [
+  {
+   "path": "h2/connection.py",
+   "old": "        stream = self._open(1, outbound=False)\n        stream.remote_closed = stream.headers_received = True\n",
+   "new": ""
+  }
+ ],
+ "ignore_peer_max_streams": [
+  {
+   "path": "h2/connection.py",
+   "old": "if self.open_outbound_streams >= self.remote_settings[SettingCodes.MAX_CONCURRENT_STREAMS]:",
+   "new": "if self.open_outbound_streams >= self.local_settings[SettingCodes.MAX_CONCURRENT_STREAMS]:"
+  }
+ ],
+ "update_settings_silent": [
+  {
+   "path": "h2/connection.py",
+   "old": "    def update_settings(self, new_settings):\n        self._send_settings(dict(new_settings))",
+   "new": "    def update_settings(self, new_settings):\n        self.local_settings.update(new_settings)"
+  }
+ ]
+}

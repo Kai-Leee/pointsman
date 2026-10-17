@@ -1,0 +1,1779 @@
+{
+  "schema_version": "dag-public-check-inventory/v1",
+  "execution_target": "authored_local_control",
+  "public_source_sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+  "input_sha256": "e2811ffe2a15bbc02f3d88b2dee357f15d6e67ddcaf37a7b480f75ba05f2ae01",
+  "source_policy": "Cases are authored from the public instruction.md only; tests/, solution/ and environment/ of the task were never read.",
+  "rows": [
+    {
+      "test_id": "T.R01.01",
+      "scenario": "Pure-Python tokenize, parse and regenerate pipeline",
+      "requirement_ids": [
+        "R01.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 3,
+          "end_line": 3
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#install-surface:T.R01.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.01",
+      "scenario": "No third-party runtime dependencies",
+      "requirement_ids": [
+        "R02.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 7,
+          "end_line": 7
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#install-surface:T.R02.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.02",
+      "scenario": "Offline editable install via setup.sh",
+      "requirement_ids": [
+        "R02.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 9,
+          "end_line": 9
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#install-surface:T.R02.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R03.01",
+      "scenario": "Public import surface",
+      "requirement_ids": [
+        "R03.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 13,
+          "end_line": 19
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#install-surface:T.R03.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R03.02",
+      "scenario": "Top-level CParser re-export",
+      "requirement_ids": [
+        "R03.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 21,
+          "end_line": 21
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#install-surface:T.R03.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.01",
+      "scenario": "parse returns FileAST and records the filename",
+      "requirement_ids": [
+        "R04.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 25,
+          "end_line": 30
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.02",
+      "scenario": "Variable, function and K&R declarations",
+      "requirement_ids": [
+        "R04.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.03",
+      "scenario": "Multi-word specifiers, qualifiers and declarator chains",
+      "requirement_ids": [
+        "R04.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.04",
+      "scenario": "Struct, union and enum with bit-fields, flexible and anonymous members",
+      "requirement_ids": [
+        "R04.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.05",
+      "scenario": "Designated initializers and compound literals",
+      "requirement_ids": [
+        "R04.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.06",
+      "scenario": "Expression precedence and comma operator",
+      "requirement_ids": [
+        "R04.06"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-expressions-statements"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-expressions-statements:T.R04.06"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.07",
+      "scenario": "All statement kinds",
+      "requirement_ids": [
+        "R04.07"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-expressions-statements"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-expressions-statements:T.R04.07"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.08",
+      "scenario": "C11 keywords: _Static_assert, _Alignas, _Noreturn, _Atomic, _Pragma",
+      "requirement_ids": [
+        "R04.08"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.08"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.09",
+      "scenario": "Variable-length arrays and array parameter qualifiers",
+      "requirement_ids": [
+        "R04.09"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.09"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.10",
+      "scenario": "#line directives update Coord",
+      "requirement_ids": [
+        "R04.10"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.lexer-coords"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#lexer-coords:T.R04.10"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.11",
+      "scenario": "Empty external declaration",
+      "requirement_ids": [
+        "R04.11"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 34,
+          "end_line": 34
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.11"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.12",
+      "scenario": "Scoped typedef/identifier disambiguation",
+      "requirement_ids": [
+        "R04.12"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 36,
+          "end_line": 36
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-declarations"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-declarations:T.R04.12"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.13",
+      "scenario": "Dollar sign in identifiers",
+      "requirement_ids": [
+        "R04.13"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 38,
+          "end_line": 38
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.lexer-coords"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#lexer-coords:T.R04.13"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.14",
+      "scenario": "Coord attributes and string form",
+      "requirement_ids": [
+        "R04.14"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 40,
+          "end_line": 40
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.lexer-coords"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#lexer-coords:T.R04.14"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.01",
+      "scenario": "Node base class and coord attribute",
+      "requirement_ids": [
+        "R05.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 44,
+          "end_line": 45
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.02",
+      "scenario": "children() tuple with indexed sequence names",
+      "requirement_ids": [
+        "R05.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 46,
+          "end_line": 46
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.03",
+      "scenario": "attr_names is a class-level tuple of leaf names",
+      "requirement_ids": [
+        "R05.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 47,
+          "end_line": 47
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.04",
+      "scenario": "show() pretty-printer options",
+      "requirement_ids": [
+        "R05.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 48,
+          "end_line": 48
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.05",
+      "scenario": "Nodes iterate over their children",
+      "requirement_ids": [
+        "R05.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 49,
+          "end_line": 49
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.06",
+      "scenario": "Mutable nodes enable AST rewriting",
+      "requirement_ids": [
+        "R05.06"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 50,
+          "end_line": 50
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.06"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.07",
+      "scenario": "Programmatic AST construction feeds CGenerator",
+      "requirement_ids": [
+        "R05.07"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 51,
+          "end_line": 51
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.07"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.08",
+      "scenario": "JSON serialization via children() and attr_names",
+      "requirement_ids": [
+        "R05.08"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 52,
+          "end_line": 52
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.08"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.09",
+      "scenario": "Node class inventory with __slots__",
+      "requirement_ids": [
+        "R05.09"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 54,
+          "end_line": 62
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.09"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.10",
+      "scenario": "Positional/keyword constructors with keyword-only coord",
+      "requirement_ids": [
+        "R05.10"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 64,
+          "end_line": 64
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 54,
+          "end_line": 54
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.10"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.11",
+      "scenario": "Declaration-family attribute order and child/leaf split",
+      "requirement_ids": [
+        "R05.11"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 66,
+          "end_line": 84
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.11"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.12",
+      "scenario": "Statement, expression and other node attributes",
+      "requirement_ids": [
+        "R05.12"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 85,
+          "end_line": 111
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 66,
+          "end_line": 66
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.R05.12"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.13",
+      "scenario": "BinaryOp and Assignment operator strings",
+      "requirement_ids": [
+        "R05.13"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 114,
+          "end_line": 114
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-expressions-statements"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-expressions-statements:T.R05.13"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.14",
+      "scenario": "UnaryOp operator strings",
+      "requirement_ids": [
+        "R05.14"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 115,
+          "end_line": 115
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-expressions-statements"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-expressions-statements:T.R05.14"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.15",
+      "scenario": "StructRef access kind",
+      "requirement_ids": [
+        "R05.15"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 116,
+          "end_line": 116
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-expressions-statements"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-expressions-statements:T.R05.15"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.16",
+      "scenario": "Constant kind and source text",
+      "requirement_ids": [
+        "R05.16"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 117,
+          "end_line": 117
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-expressions-statements"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-expressions-statements:T.R05.16"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.17",
+      "scenario": "Unsized and flexible array dim is None",
+      "requirement_ids": [
+        "R05.17"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 118,
+          "end_line": 118
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.17"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.18",
+      "scenario": "Empty parameter and argument lists",
+      "requirement_ids": [
+        "R05.18"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 119,
+          "end_line": 119
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-expressions-statements"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-expressions-statements:T.R05.18"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.19",
+      "scenario": "Struct/union body states and bit-field width",
+      "requirement_ids": [
+        "R05.19"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 120,
+          "end_line": 120
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.19"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.20",
+      "scenario": "TypeDecl interposition rule",
+      "requirement_ids": [
+        "R05.20"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 121,
+          "end_line": 121
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.20"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.21",
+      "scenario": "quals, storage and funcspec are string lists",
+      "requirement_ids": [
+        "R05.21"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 122,
+          "end_line": 122
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.21"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.22",
+      "scenario": "Comma operator represented as ExprList",
+      "requirement_ids": [
+        "R05.22"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 123,
+          "end_line": 123
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parser-expressions-statements"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parser-expressions-statements:T.R05.22"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.23",
+      "scenario": "Pragma.string for operator and directive forms",
+      "requirement_ids": [
+        "R05.23"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 124,
+          "end_line": 124
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.23"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.24",
+      "scenario": "_Alignas captured as Alignas nodes and re-emitted",
+      "requirement_ids": [
+        "R05.24"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 125,
+          "end_line": 125
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.24"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.25",
+      "scenario": "Source-order specifier words and _Atomic spelling",
+      "requirement_ids": [
+        "R05.25"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 126,
+          "end_line": 126
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.25"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.26",
+      "scenario": "Qualifier placement on simple declarations",
+      "requirement_ids": [
+        "R05.26"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 127,
+          "end_line": 127
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.26"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.27",
+      "scenario": "Leading qualifiers on pointer and array declarations",
+      "requirement_ids": [
+        "R05.27"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 128,
+          "end_line": 128
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-shape-conventions"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-shape-conventions:T.R05.27"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.01",
+      "scenario": "Visitor dispatch and recursive generic_visit",
+      "requirement_ids": [
+        "R06.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 132,
+          "end_line": 136
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.visitor-generator"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#visitor-generator:T.R06.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.02",
+      "scenario": "Handled nodes are not auto-recursed",
+      "requirement_ids": [
+        "R06.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 138,
+          "end_line": 138
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.visitor-generator"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#visitor-generator:T.R06.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.01",
+      "scenario": "CLexer construction and token stream",
+      "requirement_ids": [
+        "R07.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 142,
+          "end_line": 142
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.lexer-coords"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#lexer-coords:T.R07.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.02",
+      "scenario": "Keyword, operator and literal token types",
+      "requirement_ids": [
+        "R07.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 144,
+          "end_line": 144
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.lexer-coords"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#lexer-coords:T.R07.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.03",
+      "scenario": "type_lookup_func selects TYPEID",
+      "requirement_ids": [
+        "R07.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 146,
+          "end_line": 146
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 144,
+          "end_line": 144
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.lexer-coords"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#lexer-coords:T.R07.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.01",
+      "scenario": "Generator API and conventional formatting",
+      "requirement_ids": [
+        "R08.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 150,
+          "end_line": 155
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.visitor-generator"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#visitor-generator:T.R08.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.02",
+      "scenario": "Default full parenthesization",
+      "requirement_ids": [
+        "R08.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 157,
+          "end_line": 157
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.visitor-generator"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#visitor-generator:T.R08.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.03",
+      "scenario": "reduce_parentheses omits only redundant parentheses",
+      "requirement_ids": [
+        "R08.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 157,
+          "end_line": 157
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.visitor-generator"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#visitor-generator:T.R08.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.04",
+      "scenario": "Round-trip fidelity in both modes",
+      "requirement_ids": [
+        "R08.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 159,
+          "end_line": 159
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.visitor-generator"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#visitor-generator:T.R08.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.01",
+      "scenario": "ParseError on structural errors with file:line prefix",
+      "requirement_ids": [
+        "R09.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 163,
+          "end_line": 169
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parse-errors"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parse-errors:T.R09.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.02",
+      "scenario": "Invalid type-specifier combinations rejected",
+      "requirement_ids": [
+        "R09.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 169,
+          "end_line": 169
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parse-errors"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#parse-errors:T.R09.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.parse-generate-reparse",
+      "scenario": "Round-trip a feature-rich translation unit through CGenerator in both parenthesization modes.",
+      "requirement_ids": [
+        "R04.02",
+        "R04.03",
+        "R04.04",
+        "R04.05",
+        "R04.07",
+        "R04.08",
+        "R04.09",
+        "R08.01",
+        "R08.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 150,
+          "end_line": 155
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 159,
+          "end_line": 159
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.visitor-generator"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#visitor-generator:T.integration.parse-generate-reparse"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.visitor-rewrite-generate",
+      "scenario": "Rewrite a parsed AST with a NodeVisitor, then regenerate and re-parse.",
+      "requirement_ids": [
+        "R06.01",
+        "R05.06",
+        "R05.13",
+        "R08.01",
+        "R08.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 132,
+          "end_line": 136
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 50,
+          "end_line": 50
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 114,
+          "end_line": 114
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 150,
+          "end_line": 155
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 157,
+          "end_line": 157
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.visitor-generator"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#visitor-generator:T.integration.visitor-rewrite-generate"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.build-from-scratch",
+      "scenario": "Construct a function definition programmatically and generate it without parsing.",
+      "requirement_ids": [
+        "R05.07",
+        "R05.10",
+        "R05.11",
+        "R05.12",
+        "R05.18",
+        "R05.20",
+        "R08.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 51,
+          "end_line": 51
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 64,
+          "end_line": 64
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 54,
+          "end_line": 54
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 66,
+          "end_line": 84
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 85,
+          "end_line": 111
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 66,
+          "end_line": 66
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 119,
+          "end_line": 119
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 121,
+          "end_line": 121
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 150,
+          "end_line": 155
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.integration.build-from-scratch"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.json-export",
+      "scenario": "Serialize a parsed AST to JSON using only children() and attr_names.",
+      "requirement_ids": [
+        "R05.08",
+        "R05.02",
+        "R05.03",
+        "R04.14",
+        "R04.10",
+        "R05.23"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 52,
+          "end_line": 52
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 46,
+          "end_line": 46
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 47,
+          "end_line": 47
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 40,
+          "end_line": 40
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 124,
+          "end_line": 124
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.ast-node-api"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#ast-node-api:T.integration.json-export"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.typedef-scope-lexer",
+      "scenario": "Track a typedef name through the lexer hook, parser scopes and generator.",
+      "requirement_ids": [
+        "R04.12",
+        "R07.01",
+        "R07.03",
+        "R08.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 36,
+          "end_line": 36
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 32,
+          "end_line": 32
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 142,
+          "end_line": 142
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 146,
+          "end_line": 146
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 144,
+          "end_line": 144
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+          "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+          "start_line": 159,
+          "end_line": 159
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.lexer-coords"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py#lexer-coords:T.integration.typedef-scope-lexer"
+      ],
+      "missing_reason": null
+    }
+  ]
+}

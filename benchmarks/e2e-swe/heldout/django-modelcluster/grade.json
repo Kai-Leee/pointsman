@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "adapter": "jev-router-standalone-docker-v1",
+  "upstream_url": "https://github.com/facebookresearch/E2E-SWE.git",
+  "upstream_commit": "b11ac067b1dfe8ce8b6db245d88756f426007797",
+  "upstream_license": "CC-BY-NC-4.0",
+  "task_id": "django-modelcluster",
+  "image_tag": "ghcr.io/facebookresearch/e2e-swe:django-modelcluster",
+  "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:129764af29be879898272cd749ac8b611a4ea13e7c8e0210f5e789a11cae473e",
+  "language": "Python",
+  "resources": {
+    "cpus": 6,
+    "memory_mb": 8192,
+    "storage_mb_declared_not_enforced": 51200
+  },
+  "agent_timeout_sec": 14400,
+  "verifier_timeout_sec": 900,
+  "test_case_count": 91,
+  "network_mode": "none",
+  "artifact_path": "/app",
+  "oracle_repository": null,
+  "oracle_commit": null,
+  "oracle_note": "Held-out: solution/ was not read, so no oracle control is pinned. Grading needs only tests/ (hash-pinned below) and the image digest.",
+  "upstream_sha256": {
+    "README.md": "cc5031f964216b8f6c2e0591cfba7b23fa9198c2bc6c3f573298673c0ca905c3",
+    "LICENSE": "41003d4a74749c0220e33dd415042164b5a1093ed401f36277234f772d22d3d0",
+    "tasks/django-modelcluster/task.toml": "b9ad57e91e224ee681ba88b0b3a27c0cbd0897ddd5fae060c89193de42e32fdd",
+    "tasks/django-modelcluster/instruction.md": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+    "tasks/django-modelcluster/environment/Dockerfile": "fcc0782dac43d1290e539b31a041069bdb1c9b054380639be3f1b7fe76dbae22",
+    "tasks/django-modelcluster/tests/conftest.py": "6fa3e50b0622eec872a2891a5a528eef1fa3feb35e11376f4c85d47766e3cf3a",
+    "tasks/django-modelcluster/tests/test.sh": "d18a0eb46206c96832d599b9a394e22cbc8ddd837a1010f9119877c1b71c613c",
+    "tasks/django-modelcluster/tests/test_django_modelcluster.py": "928c8a8f2ec671d6f6e24bd810b365292fda513c1a2ed521d79c237d28bd46bf",
+    "tasks/django-modelcluster/tests/test_settings.py": "c859aadcfef5c3457361f0e74c7ca0bf2d5bcaf0b934c0796828e898348b8aef",
+    "tasks/django-modelcluster/tests/tests_app/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tasks/django-modelcluster/tests/tests_app/apps.py": "f2819a03183493006b256eabf33c16c53404f1ed776a7a01b873bf6b17f14b13",
+    "tasks/django-modelcluster/tests/tests_app/models.py": "e9baa83fde338f222e83fb4e15199c29f2a91201361bfa012e7b8166255490a0"
+  }
+}

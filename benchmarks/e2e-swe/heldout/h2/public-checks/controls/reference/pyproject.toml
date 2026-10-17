@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "h2"
+version = "0.0.0"
+description = "Minimal sans-I/O HTTP/2 reference control written from the public instruction"
+requires-python = ">=3.10"
+dependencies = ["hyperframe", "hpack"]
+
+[tool.setuptools]
+packages = ["h2"]

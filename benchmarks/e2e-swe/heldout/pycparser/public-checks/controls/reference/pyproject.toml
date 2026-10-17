@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pycparser"
+version = "0.0.0"
+description = "Minimal C99 parser reference control authored from the public instruction"
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["pycparser"]

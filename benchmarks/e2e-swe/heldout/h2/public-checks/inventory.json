@@ -1,0 +1,1698 @@
+{
+  "schema_version": "dag-public-check-inventory/v1",
+  "execution_target": "authored_local_control",
+  "public_source_sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+  "input_sha256": "6ba98d3f1bb6dab23e159f4a7d6f30bd29006dcdf5fe3ac84017a407ecd607e2",
+  "source_policy": "Cases are authored from the public instruction.md only; tests/, solution/ and environment/ of the task were never read.",
+  "rows": [
+    {
+      "test_id": "T.R01.01",
+      "scenario": "Sans-I/O pure-Python HTTP/2 library",
+      "requirement_ids": [
+        "R01.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 3,
+          "end_line": 3
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#install-surface:T.R01.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.01",
+      "scenario": "Caller-driven bytes-in/bytes-out model",
+      "requirement_ids": [
+        "R02.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 7,
+          "end_line": 7
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R02.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.02",
+      "scenario": "Example construction and handshake",
+      "requirement_ids": [
+        "R02.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 10,
+          "end_line": 19
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R02.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.03",
+      "scenario": "Example GET delivered as RequestReceived",
+      "requirement_ids": [
+        "R02.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 20,
+          "end_line": 24
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R02.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.04",
+      "scenario": "Example response delivered as ResponseReceived, DataReceived, StreamEnded",
+      "requirement_ids": [
+        "R02.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 25,
+          "end_line": 29
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R02.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R03.01",
+      "scenario": "Offline: nothing installed, downloaded or fetched",
+      "requirement_ids": [
+        "R03.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 34,
+          "end_line": 35
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#install-surface:T.R03.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R03.02",
+      "scenario": "hyperframe and hpack runtime dependencies",
+      "requirement_ids": [
+        "R03.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 37,
+          "end_line": 38
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#install-surface:T.R03.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.01",
+      "scenario": "Offline editable install through setup.sh",
+      "requirement_ids": [
+        "R04.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 42,
+          "end_line": 45
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#install-surface:T.R04.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.01",
+      "scenario": "H2Configuration signature and defaults",
+      "requirement_ids": [
+        "R05.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 52,
+          "end_line": 52
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R05.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.02",
+      "scenario": "client_side selects stream parity and preface",
+      "requirement_ids": [
+        "R05.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 54,
+          "end_line": 54
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 52,
+          "end_line": 52
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R05.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.03",
+      "scenario": "header_encoding selects bytes or str headers",
+      "requirement_ids": [
+        "R05.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 55,
+          "end_line": 57
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 52,
+          "end_line": 52
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R05.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.01",
+      "scenario": "H2Connection constructor and external I/O",
+      "requirement_ids": [
+        "R06.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 63,
+          "end_line": 63
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R06.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.02",
+      "scenario": "initiate_connection preface per role",
+      "requirement_ids": [
+        "R06.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 67,
+          "end_line": 67
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R06.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.03",
+      "scenario": "Client HTTP/1.1 upgrade",
+      "requirement_ids": [
+        "R06.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 70,
+          "end_line": 70
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 69,
+          "end_line": 69
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.settings-upgrade"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#settings-upgrade:T.R06.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.04",
+      "scenario": "Server HTTP/1.1 upgrade",
+      "requirement_ids": [
+        "R06.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 71,
+          "end_line": 71
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 69,
+          "end_line": 69
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.settings-upgrade"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#settings-upgrade:T.R06.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.05",
+      "scenario": "receive_data returns events and queues automatic responses",
+      "requirement_ids": [
+        "R06.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 73,
+          "end_line": 73
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R06.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.06",
+      "scenario": "Handshake RemoteSettingsChanged enumerates advertised settings",
+      "requirement_ids": [
+        "R06.06"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 73,
+          "end_line": 73
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R06.06"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.07",
+      "scenario": "data_to_send returns and drains pending output",
+      "requirement_ids": [
+        "R06.07"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 75,
+          "end_line": 75
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R06.07"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.08",
+      "scenario": "clear_outbound_data_buffer discards output",
+      "requirement_ids": [
+        "R06.08"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 77,
+          "end_line": 77
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R06.08"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.09",
+      "scenario": "send_headers emits HEADERS and opens the stream",
+      "requirement_ids": [
+        "R06.09"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 81,
+          "end_line": 81
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R06.09"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.10",
+      "scenario": "Client stream ID rules and closed-stream send_headers",
+      "requirement_ids": [
+        "R06.10"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 81,
+          "end_line": 81
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R06.10"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.11",
+      "scenario": "TooManyStreamsError beyond MAX_CONCURRENT_STREAMS",
+      "requirement_ids": [
+        "R06.11"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 81,
+          "end_line": 81
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.settings-upgrade"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#settings-upgrade:T.R06.11"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.12",
+      "scenario": "send_data emits exactly one DATA frame",
+      "requirement_ids": [
+        "R06.12"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R06.12"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.13",
+      "scenario": "send_data FlowControlError beyond the window",
+      "requirement_ids": [
+        "R06.13"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.13"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.14",
+      "scenario": "send_data FrameTooLargeError beyond MAX_FRAME_SIZE",
+      "requirement_ids": [
+        "R06.14"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.14"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.15",
+      "scenario": "Flow-control check precedes frame-size check",
+      "requirement_ids": [
+        "R06.15"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.15"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.16",
+      "scenario": "send_data after the send side closed",
+      "requirement_ids": [
+        "R06.16"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.16"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.17",
+      "scenario": "end_stream sends an empty END_STREAM DATA frame",
+      "requirement_ids": [
+        "R06.17"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 85,
+          "end_line": 85
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R06.17"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.18",
+      "scenario": "Next available stream ID parity and increment",
+      "requirement_ids": [
+        "R06.18"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 89,
+          "end_line": 89
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R06.18"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.19",
+      "scenario": "reset_stream emits RST_STREAM",
+      "requirement_ids": [
+        "R06.19"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 91,
+          "end_line": 91
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.R06.19"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.20",
+      "scenario": "push_stream emits PUSH_PROMISE",
+      "requirement_ids": [
+        "R06.20"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 93,
+          "end_line": 93
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.R06.20"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.21",
+      "scenario": "push_stream refused after the peer disables push",
+      "requirement_ids": [
+        "R06.21"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 93,
+          "end_line": 93
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.R06.21"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.22",
+      "scenario": "close_connection emits GOAWAY",
+      "requirement_ids": [
+        "R06.22"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 95,
+          "end_line": 95
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.R06.22"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.23",
+      "scenario": "Received GOAWAY rejects new streams",
+      "requirement_ids": [
+        "R06.23"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 95,
+          "end_line": 95
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.R06.23"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.24",
+      "scenario": "prioritize emits PRIORITY; peer gets PriorityUpdated",
+      "requirement_ids": [
+        "R06.24"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 97,
+          "end_line": 97
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.R06.24"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.25",
+      "scenario": "local_flow_control_window tracks sendable bytes",
+      "requirement_ids": [
+        "R06.25"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 101,
+          "end_line": 101
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.25"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.26",
+      "scenario": "local_flow_control_window on an unknown stream",
+      "requirement_ids": [
+        "R06.26"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 101,
+          "end_line": 101
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.26"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.27",
+      "scenario": "remote_flow_control_window reports the peer's window",
+      "requirement_ids": [
+        "R06.27"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 103,
+          "end_line": 103
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.27"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.28",
+      "scenario": "acknowledge_received_data allows WINDOW_UPDATE",
+      "requirement_ids": [
+        "R06.28"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 105,
+          "end_line": 105
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.28"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.29",
+      "scenario": "increment_flow_control_window emits WINDOW_UPDATE",
+      "requirement_ids": [
+        "R06.29"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 107,
+          "end_line": 107
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.29"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.30",
+      "scenario": "update_settings sends SETTINGS; peer gets RemoteSettingsChanged",
+      "requirement_ids": [
+        "R06.30"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 111,
+          "end_line": 111
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.settings-upgrade"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#settings-upgrade:T.R06.30"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.31",
+      "scenario": "ping and automatic PING ACK",
+      "requirement_ids": [
+        "R06.31"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 113,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.R06.31"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.32",
+      "scenario": "advertise_alternative_service emits ALTSVC",
+      "requirement_ids": [
+        "R06.32"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 117,
+          "end_line": 117
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.R06.32"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.33",
+      "scenario": "open_outbound_streams and open_inbound_streams",
+      "requirement_ids": [
+        "R06.33"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 121,
+          "end_line": 122
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R06.33"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.34",
+      "scenario": "inbound_flow_control_window",
+      "requirement_ids": [
+        "R06.34"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 123,
+          "end_line": 123
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.R06.34"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.01",
+      "scenario": "Event classes and attributes",
+      "requirement_ids": [
+        "R07.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 131,
+          "end_line": 147
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 129,
+          "end_line": 129
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.R07.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.02",
+      "scenario": "Event header value types",
+      "requirement_ids": [
+        "R07.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 149,
+          "end_line": 149
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R07.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.01",
+      "scenario": "ErrorCodes integer constants",
+      "requirement_ids": [
+        "R08.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 157,
+          "end_line": 169
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 155,
+          "end_line": 155
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#install-surface:T.R08.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.01",
+      "scenario": "SettingCodes integer constants",
+      "requirement_ids": [
+        "R09.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 177,
+          "end_line": 184
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 175,
+          "end_line": 175
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#install-surface:T.R09.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.02",
+      "scenario": "Local setting defaults",
+      "requirement_ids": [
+        "R09.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 188,
+          "end_line": 188
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R09.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.03",
+      "scenario": "Local default does not constrain peer settings",
+      "requirement_ids": [
+        "R09.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 188,
+          "end_line": 188
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.handshake-config"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#handshake-config:T.R09.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R10.01",
+      "scenario": "Exception classes in h2.exceptions",
+      "requirement_ids": [
+        "R10.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 194,
+          "end_line": 199
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.install-surface"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#install-surface:T.R10.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.get-round-trip",
+      "scenario": "Run the Usage example end to end under both header encodings.",
+      "requirement_ids": [
+        "R02.01",
+        "R02.02",
+        "R02.03",
+        "R02.04",
+        "R05.03",
+        "R06.02",
+        "R06.09",
+        "R06.12",
+        "R07.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 7,
+          "end_line": 7
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 10,
+          "end_line": 19
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 20,
+          "end_line": 24
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 25,
+          "end_line": 29
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 55,
+          "end_line": 57
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 52,
+          "end_line": 52
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 67,
+          "end_line": 67
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 81,
+          "end_line": 81
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 149,
+          "end_line": 149
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.request-response"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#request-response:T.integration.get-round-trip"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.settings-negotiation",
+      "scenario": "Negotiate settings from preface to enforcement.",
+      "requirement_ids": [
+        "R06.05",
+        "R06.06",
+        "R06.11",
+        "R06.30",
+        "R07.01",
+        "R09.01",
+        "R09.02",
+        "R09.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 73,
+          "end_line": 73
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 73,
+          "end_line": 73
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 81,
+          "end_line": 81
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 111,
+          "end_line": 111
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 131,
+          "end_line": 147
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 129,
+          "end_line": 129
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 177,
+          "end_line": 184
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 175,
+          "end_line": 175
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 188,
+          "end_line": 188
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 188,
+          "end_line": 188
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.settings-upgrade"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#settings-upgrade:T.integration.settings-negotiation"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.flow-control-recovery",
+      "scenario": "Exhaust a stream window, observe the error, then recover through WINDOW_UPDATE.",
+      "requirement_ids": [
+        "R06.12",
+        "R06.13",
+        "R06.25",
+        "R06.27",
+        "R06.29",
+        "R06.34",
+        "R07.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 101,
+          "end_line": 101
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 103,
+          "end_line": 103
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 107,
+          "end_line": 107
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 123,
+          "end_line": 123
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 131,
+          "end_line": 147
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 129,
+          "end_line": 129
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.flow-control"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#flow-control:T.integration.flow-control-recovery"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.stream-termination",
+      "scenario": "End, reset and shut down streams and the connection.",
+      "requirement_ids": [
+        "R06.16",
+        "R06.17",
+        "R06.19",
+        "R06.22",
+        "R06.23",
+        "R06.33",
+        "R07.01",
+        "R08.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 85,
+          "end_line": 85
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 91,
+          "end_line": 91
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 95,
+          "end_line": 95
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 95,
+          "end_line": 95
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 121,
+          "end_line": 122
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 131,
+          "end_line": 147
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 129,
+          "end_line": 129
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 157,
+          "end_line": 169
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 155,
+          "end_line": 155
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.integration.stream-termination"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.control-frames",
+      "scenario": "Exchange ping, push, priority and ALTSVC on one connection pair.",
+      "requirement_ids": [
+        "R06.20",
+        "R06.21",
+        "R06.24",
+        "R06.31",
+        "R06.32",
+        "R07.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 93,
+          "end_line": 93
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 93,
+          "end_line": 93
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 97,
+          "end_line": 97
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 113,
+          "end_line": 113
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 117,
+          "end_line": 117
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 131,
+          "end_line": 147
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 129,
+          "end_line": 129
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.stream-control-frames"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#stream-control-frames:T.integration.control-frames"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.upgrade",
+      "scenario": "Complete an HTTP/1.1 upgrade and answer the upgraded request on stream 1.",
+      "requirement_ids": [
+        "R06.03",
+        "R06.04",
+        "R06.09",
+        "R06.12",
+        "R06.18"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 70,
+          "end_line": 70
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 69,
+          "end_line": 69
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 71,
+          "end_line": 71
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 69,
+          "end_line": 69
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 81,
+          "end_line": 81
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 83,
+          "end_line": 83
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+          "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+          "start_line": 89,
+          "end_line": 89
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.settings-upgrade"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py#settings-upgrade:T.integration.upgrade"
+      ],
+      "missing_reason": null
+    }
+  ]
+}
