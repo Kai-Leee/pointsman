@@ -20,10 +20,10 @@
 ```decision-record
 {
   "id": "R20261018-HELDOUT-PILOT",
-  "goal": "Run one held-out pilot (h2, one jev_profile arm, Claude workers) to check the Jev full-development path on a task it was not tuned on.",
+  "goal": "Run one held-out pilot (h2, one jev_profile arm, Claude workers) to check the Jev full-development path on a task it was not tuned on. Rerun 02 enables partial_repair local-readiness-v1.",
   "owner": "root",
   "status": "complete",
-  "next_trigger": "Fix partial-execution repair binding (repair owners must accept artifacts that never ran) before any further held-out run; decide whether a Claude-only baseline uses the v7 path or a ported D086 comparison runner.",
+  "next_trigger": "Run h2 once more on bdeb058+158c296 (partial repair and Jev 1.14 settlement both in); separately decide whether low-effort Haiku may be offered for implementation leaves.",
   "conditions": [
     "One sample, one task (h2), one arm (jev_profile); not a comparison and not a success-rate estimate.",
     "Catalog prepared fresh for h2 (heldout-h2-catalog-01); D083-derived v12 policies; Claude-only profiles.",
@@ -31,33 +31,178 @@
     "Claude CLI 2.1.299 used; manifests still record the historical 2.1.293 pin."
   ],
   "sources": [
-    {"id": "catalog", "path": "benchmark-runs/heldout-h2-catalog-01/result.json", "sha256": "bf49bbdfdca9020afadc0564471d26e6ecfb8ea4d9e7c04071c2492bacd9b433"},
-    {"id": "arm", "path": "benchmark-runs/heldout-h2-pilot-01/jev_profile/result.json", "sha256": "2854bd2082c5af80d9affbb7600bf0e010f4c87ae83f75bea9af6d67d3b6c203"},
-    {"id": "execution", "path": "benchmark-runs/heldout-h2-pilot-01/jev_profile/adaptive-execution/result.json", "sha256": "161fadc88fc2287736fdca7ae397b1fb340fd52e860a8d087f5bef93a65a6a70"},
-    {"id": "events", "path": "benchmark-runs/heldout-h2-pilot-01/jev_profile/events.jsonl", "sha256": "1635f5a86156b2bbf2380f26f85a7a38d042e3d8d06596febb6f0f1d7f005415"},
-    {"id": "report", "path": "benchmark-runs/heldout-h2-pilot-01/report.md", "sha256": "29170e535fcb8a962b29723407c6ccfc0d5e4294eb74dd1ed221cc40e4ad3678"}
+    {
+      "id": "catalog",
+      "path": "benchmark-runs/heldout-h2-catalog-01/result.json",
+      "sha256": "bf49bbdfdca9020afadc0564471d26e6ecfb8ea4d9e7c04071c2492bacd9b433"
+    },
+    {
+      "id": "arm",
+      "path": "benchmark-runs/heldout-h2-pilot-01/jev_profile/result.json",
+      "sha256": "2854bd2082c5af80d9affbb7600bf0e010f4c87ae83f75bea9af6d67d3b6c203"
+    },
+    {
+      "id": "execution",
+      "path": "benchmark-runs/heldout-h2-pilot-01/jev_profile/adaptive-execution/result.json",
+      "sha256": "161fadc88fc2287736fdca7ae397b1fb340fd52e860a8d087f5bef93a65a6a70"
+    },
+    {
+      "id": "events",
+      "path": "benchmark-runs/heldout-h2-pilot-01/jev_profile/events.jsonl",
+      "sha256": "1635f5a86156b2bbf2380f26f85a7a38d042e3d8d06596febb6f0f1d7f005415"
+    },
+    {
+      "id": "report",
+      "path": "benchmark-runs/heldout-h2-pilot-01/report.md",
+      "sha256": "29170e535fcb8a962b29723407c6ccfc0d5e4294eb74dd1ed221cc40e4ad3678"
+    },
+    {
+      "id": "run02_arm",
+      "path": "benchmark-runs/heldout-h2-pilot-02/jev_profile/result.json",
+      "sha256": "6e2fbf678942109465480f5c15727a980f7b7181d408a2ec7bca904ce8fd272a"
+    },
+    {
+      "id": "run02_events",
+      "path": "benchmark-runs/heldout-h2-pilot-02/jev_profile/events.jsonl",
+      "sha256": "738d9bc875239ca28ee612eb08f6c2c0824bb2f7445d9aff760986b555f0a621"
+    },
+    {
+      "id": "run02_reconcile",
+      "path": "benchmark-runs/heldout-h2-pilot-02/reconciliation-applied/audit.json",
+      "sha256": "58ce4021994d4a2ef9de67004c4ea7da8d1444e0823a2e447cf4908fd6115ab2"
+    },
+    {
+      "id": "run02_report",
+      "path": "benchmark-runs/heldout-h2-pilot-02/report.md",
+      "sha256": "fbac67e937e3384c02a74a7a67c77fe3708cdf1d909923c9819d243a3af9cafc"
+    },
+    {
+      "id": "v11_history",
+      "path": "benchmark-runs/heldout-h2-pilot-02/v11-reason-evidence.txt",
+      "sha256": "f6bee4c0653dc702110050aa43e48d21dede9174dbbc1f1dfb0e4d1dcc1ec01a"
+    }
   ],
   "claims": [
-    {"id": "catalog", "kind": "measured", "text": "h2 catalog: 1 Claude Opus medium call, 114.6 s, 13 artifacts, 12 units; Jev ledger unchanged.", "source_ids": ["catalog"]},
-    {"id": "outcome", "kind": "measured", "text": "Pilot arm failed after 855.6 s at stage repair_owners with ADAPTIVE_INFERRED_ARTIFACT_BINDING; public checks executed 0 times, repair rounds 0, not graded. Under evaluation-protocol.v1 it counts as 0 (ungraded system stop).", "source_ids": ["arm", "execution", "report"]},
-    {"id": "cause", "kind": "measured", "text": "Leaf n1 ran on Jev-selected claude_haiku55_low and failed its readiness check (ARTIFACT_CHECK_NOT_PASSED at 461 s); n3 and verify-public were blocked; n2/n5 ran on opus55_medium and n4 on sonnet55_medium.", "source_ids": ["events"]},
-    {"id": "usage", "kind": "measured", "text": "Claude 4 calls, API-equivalent USD 4.56 (known subtotal); Jev 5 calls, 86,374 input tokens settled (ledger 1544 -> 1549 settled, pending 0).", "source_ids": ["arm"]},
-    {"id": "recurrence", "kind": "measured", "text": "Third occurrence of ADAPTIVE_INFERRED_ARTIFACT_BINDING after partial execution (D086 jev_all, codex-e2e-mac Jev, this pilot).", "source_ids": ["report"]},
-    {"id": "fix_direction", "kind": "hypothesis", "text": "Accepting never-run artifacts in repair-owner binding, and/or not selecting low-effort Haiku for implementation leaves, would let this run reach public checks; unmeasured.", "source_ids": []}
+    {
+      "id": "catalog",
+      "kind": "measured",
+      "text": "h2 catalog: 1 Claude Opus medium call, 114.6 s, 13 artifacts, 12 units; Jev ledger unchanged.",
+      "source_ids": [
+        "catalog"
+      ]
+    },
+    {
+      "id": "outcome",
+      "kind": "measured",
+      "text": "Pilot arm failed after 855.6 s at stage repair_owners with ADAPTIVE_INFERRED_ARTIFACT_BINDING; public checks executed 0 times, repair rounds 0, not graded. Under evaluation-protocol.v1 it counts as 0 (ungraded system stop).",
+      "source_ids": [
+        "arm",
+        "execution",
+        "report"
+      ]
+    },
+    {
+      "id": "cause",
+      "kind": "measured",
+      "text": "Leaf n1 ran on Jev-selected claude_haiku55_low and failed its readiness check (ARTIFACT_CHECK_NOT_PASSED at 461 s); n3 and verify-public were blocked; n2/n5 ran on opus55_medium and n4 on sonnet55_medium.",
+      "source_ids": [
+        "events"
+      ]
+    },
+    {
+      "id": "usage",
+      "kind": "measured",
+      "text": "Claude 4 calls, API-equivalent USD 4.56 (known subtotal); Jev 5 calls, 86,374 input tokens settled (ledger 1544 -> 1549 settled, pending 0).",
+      "source_ids": [
+        "arm"
+      ]
+    },
+    {
+      "id": "recurrence",
+      "kind": "measured",
+      "text": "Third occurrence of ADAPTIVE_INFERRED_ARTIFACT_BINDING after partial execution (D086 jev_all, codex-e2e-mac Jev, this pilot).",
+      "source_ids": [
+        "report"
+      ]
+    },
+    {
+      "id": "fix_direction",
+      "kind": "hypothesis",
+      "text": "Accepting never-run artifacts in repair-owner binding, and/or not selecting low-effort Haiku for implementation leaves, would let this run reach public checks; unmeasured.",
+      "source_ids": []
+    },
+    {
+      "id": "run02_partial_repair",
+      "kind": "measured",
+      "text": "Rerun 02 (partial_repair on): Jev again chose claude_haiku55_low for n1, which again failed ARTIFACT_CHECK_NOT_PASSED; the partial readiness repair committed a scripted repair of n1 with 0 provider calls instead of the earlier binding stop.",
+      "source_ids": [
+        "run02_events"
+      ]
+    },
+    {
+      "id": "run02_outcome",
+      "kind": "measured",
+      "text": "Rerun 02 then stopped after 719.6 s at stage profiles with BUDGET_MODEL_UNSUPPORTED (uncertain): the repair-profile Jev call completed (HTTP 200, 8,444 input / 312 output tokens) but returned typesafe/jev-1.14-20261014, which the settlement whitelist did not include; public checks 0, not graded; counts 0 under evaluation-protocol.v1.",
+      "source_ids": [
+        "run02_arm",
+        "run02_events",
+        "run02_report"
+      ]
+    },
+    {
+      "id": "run02_reconcile",
+      "kind": "measured",
+      "text": "Offline reconciliation (scripts/reconcile-d086-response.mjs, ported from D086) applied once: 8,444 observed input tokens charged, ledger 27,928,205 -> 27,936,649, settled 1554 -> 1555, pending 1 -> 0; 0 model and 0 network calls.",
+      "source_ids": [
+        "run02_reconcile"
+      ]
+    },
+    {
+      "id": "run02_correction",
+      "kind": "correction",
+      "text": "Earlier v11 re-freeze commits 8651d0b and 9b59081 updated only the runner pin; their supersedes.reason text was not changed because the edit targeted a top-level field. bdeb058 records the reason.",
+      "source_ids": [
+        "v11_history"
+      ]
+    }
   ],
   "costs": [
-    {"role": "pilot Claude decisions and workers", "basis": "api_equivalent", "usd": 4.56265705, "source_ids": ["arm"]},
-    {"role": "catalog preparation", "basis": "unknown", "usd": null, "source_ids": ["catalog"]}
+    {
+      "role": "pilot Claude decisions and workers",
+      "basis": "api_equivalent",
+      "usd": 4.56265705,
+      "source_ids": [
+        "arm"
+      ]
+    },
+    {
+      "role": "catalog preparation",
+      "basis": "unknown",
+      "usd": null,
+      "source_ids": [
+        "catalog"
+      ]
+    },
+    {
+      "role": "rerun 02 Claude decisions and workers",
+      "basis": "api_equivalent",
+      "usd": 4.59092426,
+      "source_ids": [
+        "run02_arm"
+      ]
+    }
   ],
   "unresolved": [
-    "Partial-execution repair binding defect is unfixed on this branch; the uncommitted R20261015 partial-repair work in the main checkout was not ported and may address it.",
-    "No Claude-only baseline on h2 yet; the v8+ path admits only jev_profile.",
+    "Both runs stopped before public checks; no h2 grade exists yet.",
+    "Jev chose low-effort Haiku for leaf n1 in both runs and n1 failed both times; whether the profile catalog should offer it for implementation leaves is undecided.",
+    "No Claude-only baseline on h2; the v8+ path admits only jev_profile.",
     "pycparser and django-modelcluster catalogs are not prepared."
   ],
   "side_effects": [
     "New run folders benchmark-runs/heldout-h2-catalog-01 and heldout-h2-pilot-01 in the main checkout's benchmark-runs.",
     "Worktree /Users/lee/workspace/plugins/jev-router-heldout-20261018 with symlinks to the main checkout's benchmark-runs and .benchmarks.",
-    "Scratchpad PATH shim for Claude CLI 2.1.299; /opt/homebrew/bin/claude still points to the removed 2.1.293."
+    "Scratchpad PATH shim for Claude CLI 2.1.299; /opt/homebrew/bin/claude still points to the removed 2.1.293.",
+    "Shared ledger reconciled once for r1555 with before/after bytes in heldout-h2-pilot-02/reconciliation-applied."
   ]
 }
 ```
