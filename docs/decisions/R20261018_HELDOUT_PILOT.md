@@ -20,10 +20,10 @@
 ```decision-record
 {
   "id": "R20261018-HELDOUT-PILOT",
-  "goal": "Run one held-out pilot (h2, one jev_profile arm, Claude workers) to check the Jev full-development path on a task it was not tuned on. Rerun 02 enables partial_repair local-readiness-v1.",
+  "goal": "Run one held-out pilot (h2, one jev_profile arm, Claude workers) to check the Jev full-development path on a task it was not tuned on. Rerun 02 enables partial_repair local-readiness-v1. Rerun 03 adds Jev 1.14 settlement.",
   "owner": "root",
   "status": "complete",
-  "next_trigger": "Run h2 once more on bdeb058+158c296 (partial repair and Jev 1.14 settlement both in); separately decide whether low-effort Haiku may be offered for implementation leaves.",
+  "next_trigger": "Run h2 once more on ddbf44d (partial repair, Jev 1.14 settlement and the Python 3.10 TOML readiness fix all in); only then does a run measure Jev rather than harness defects.",
   "conditions": [
     "One sample, one task (h2), one arm (jev_profile); not a comparison and not a success-rate estimate.",
     "Catalog prepared fresh for h2 (heldout-h2-catalog-01); D083-derived v12 policies; Claude-only profiles.",
@@ -80,6 +80,26 @@
       "id": "v11_history",
       "path": "benchmark-runs/heldout-h2-pilot-02/v11-reason-evidence.txt",
       "sha256": "f6bee4c0653dc702110050aa43e48d21dede9174dbbc1f1dfb0e4d1dcc1ec01a"
+    },
+    {
+      "id": "run03_arm",
+      "path": "benchmark-runs/heldout-h2-pilot-03/jev_profile/result.json",
+      "sha256": "0055644a5123d58287436a0e761400cf0bbc1c09fb255aa88b2d35194a31aebd"
+    },
+    {
+      "id": "run03_events",
+      "path": "benchmark-runs/heldout-h2-pilot-03/jev_profile/events.jsonl",
+      "sha256": "1c1f6c88b97205a1d8db3a90dcfcd87a7e9cab11243a82d6214f9d057bb3eb64"
+    },
+    {
+      "id": "run03_report",
+      "path": "benchmark-runs/heldout-h2-pilot-03/report.md",
+      "sha256": "2fd56aee08c79782738744f5b6d5c7eee8e4332ef5978a762be218f1edae9ddc"
+    },
+    {
+      "id": "readiness_replay",
+      "path": "benchmark-runs/heldout-h2-pilot-03/readiness-replay.txt",
+      "sha256": "2f1ac7120e747e846210a1e3ac5e87445bbd07946cce11d42e2d0e0df356943f"
     }
   ],
   "claims": [
@@ -164,6 +184,33 @@
       "source_ids": [
         "v11_history"
       ]
+    },
+    {
+      "id": "run03_outcome",
+      "kind": "measured",
+      "text": "Rerun 03 (partial repair and Jev 1.14 settlement in): partial readiness repair committed twice; n1 ran on claude_haiku55_low, then repair profiles haiku55_medium and sonnet55_medium, and failed readiness every time with the same A01-packaging revision; stopped after 1187.9 s with ARTIFACT_CHECK_NOT_PASSED, repairs 2, public checks 0, not graded; counts 0. Claude USD 5.06 API-equivalent, Jev 7 calls, 104,008 input tokens; ledger 1562 settled, 0 pending.",
+      "source_ids": [
+        "run03_arm",
+        "run03_events",
+        "run03_report"
+      ]
+    },
+    {
+      "id": "readiness_root_cause",
+      "kind": "measured",
+      "text": "Root cause of n1 failures in all three runs: the generic readiness check imported tomllib, absent from the h2 public image (Python 3.10.20). Replaying pilot-03 round-0 n1 files in that image: old check ModuleNotFoundError; fixed check (ddbf44d, tomli fallback) passed with 6 assertions.",
+      "source_ids": [
+        "readiness_replay"
+      ]
+    },
+    {
+      "id": "cause_correction",
+      "kind": "correction",
+      "text": "The earlier claim that n1 failed after Jev chose claude_haiku55_low stated a sequence, not a cause: n1 would have failed on any profile because the readiness check could not parse TOML on Python 3.10. All three h2 runs stopped on harness defects (repair binding, Jev 1.14 settlement whitelist, TOML readiness) and are not evidence about Jev decision quality.",
+      "source_ids": [
+        "readiness_replay",
+        "run03_events"
+      ]
     }
   ],
   "costs": [
@@ -190,13 +237,21 @@
       "source_ids": [
         "run02_arm"
       ]
+    },
+    {
+      "role": "rerun 03 Claude decisions and workers",
+      "basis": "api_equivalent",
+      "usd": 5.06296865,
+      "source_ids": [
+        "run03_arm"
+      ]
     }
   ],
   "unresolved": [
-    "Both runs stopped before public checks; no h2 grade exists yet.",
-    "Jev chose low-effort Haiku for leaf n1 in both runs and n1 failed both times; whether the profile catalog should offer it for implementation leaves is undecided.",
+    "No h2 run has reached public checks; no grade exists yet.",
+    "Whether low-effort Haiku should be offered for implementation leaves is undecided and now unmeasured, since the observed n1 failures were not caused by it.",
     "No Claude-only baseline on h2; the v8+ path admits only jev_profile.",
-    "pycparser and django-modelcluster catalogs are not prepared."
+    "pycparser and django-modelcluster catalogs are not prepared; django-modelcluster and pycparser images also need a Python-version check against the readiness fix."
   ],
   "side_effects": [
     "New run folders benchmark-runs/heldout-h2-catalog-01 and heldout-h2-pilot-01 in the main checkout's benchmark-runs.",
