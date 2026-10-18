@@ -10,16 +10,32 @@ const need = (ok, code = 'ADAPTIVE_PARTIAL_REPAIR_BINDING') => {
   if (!ok) throw Object.assign(new Error(code), {code, outcome_uncertain: false});
 };
 export const PARTIAL_REPAIR_POLICY = 'local-readiness-v1';
+// The runtime output audit names the attempt's own task as owner when its declared outputs were never written.
+const MISSING_OUTPUT = new Set(['DAG_RUNTIME_ARTIFACT_MISSING', 'DAG_RUNTIME_ARTIFACT_EMPTY']);
 
-/** Only an exact runtime-local check owner is scripted. Public failures still
- * use provider owner decisions. Unpublished outputs are never made revisions. */
+/** Only an exact runtime-local check owner, or the exact task whose outputs were never
+ * produced, is scripted. Public failures still use provider owner decisions.
+ * Unpublished outputs are never made revisions. */
 export function buildPartialReadinessRepair({plan, failure, snapshots, artifactBindings}) {
-  if (failure.public_evidence?.length || !failure.local_evidence?.some(row => row.status === 'failed')) return null;
-  need(failure.outcome_uncertain === false && failure.code === 'ARTIFACT_CHECK_NOT_PASSED');
+  const missing = MISSING_OUTPUT.has(failure.code);
+  if (failure.public_evidence?.length || (!missing && !failure.local_evidence?.some(row => row.status === 'failed'))) return null;
+  need(failure.outcome_uncertain === false && (missing || failure.code === 'ARTIFACT_CHECK_NOT_PASSED'));
   need(sha(failure.binding_digest) && sha(failure.environment?.fingerprint));
   const tasks = plan.tasks.filter(task => task.kind === 'implementation');
   const rows = failure.local_evidence.filter(row => row.status === 'failed');
   const selected = new Set(), artifacts = new Set();
+  if (missing) {
+    // shortcut: one never-produced owner per round (failure.code names only the scheduler's first failure);
+    // carry per-task codes in the failure if concurrent missing outputs need repair.
+    need(failure.failed_task_ids.length === 1 && !rows.length, 'ADAPTIVE_PARTIAL_REPAIR_UNEXPLAINED_FAILURE');
+    const task = tasks.find(task => task.id === failure.failed_task_ids[0]);
+    need(task && typeof failure.task_attempt_ids?.[task.id] === 'string' && !snapshots.get(task.id)
+      && !failure.local_evidence.some(row => row.task_id === task.id) && task.output_artifact_ids.length
+      && task.output_artifact_ids.every(id => !Object.hasOwn(failure.artifact_revisions ?? {}, id)
+        && artifactBindings[id]?.paths?.length));
+    for (const id of task.output_artifact_ids) artifacts.add(id);
+    selected.add(task.id);
+  }
   for (const row of rows) {
     const task = tasks.find(task => task.id === row.task_id);
     const check = plan.checks.find(check => check.id === row.check_id);
@@ -45,7 +61,8 @@ export function buildPartialReadinessRepair({plan, failure, snapshots, artifactB
   need(failure.failed_task_ids.every(id => selected.has(id)), 'ADAPTIVE_PARTIAL_REPAIR_UNEXPLAINED_FAILURE');
   const states = tasks.map(task => {
     const snapshot = snapshots.get(task.id);
-    if (selected.has(task.id)) return {task_id: task.id, state: 'failed_local_check',
+    if (selected.has(task.id)) return missing ? {task_id: task.id, state: 'missing_output', artifact_revisions: {}}
+      : {task_id: task.id, state: 'failed_local_check',
       artifact_revisions: Object.fromEntries(Object.entries(snapshot.artifacts).map(([id, value]) => [id, value.revision]))};
     if (snapshot?.verified) {
       need(!task.input_artifact_ids.some(id => selected.has(plan.artifacts.find(item => item.id === id)?.producer_task_id)),
@@ -61,8 +78,9 @@ export function buildPartialReadinessRepair({plan, failure, snapshots, artifactB
     local_failures: clone(rows), task_ids: tasks.filter(task => selected.has(task.id)).map(task => task.id),
     artifact_ids: plan.artifacts.filter(item => artifacts.has(item.id)).map(item => item.id)};
   return {id: 'repair-local-readiness-owners', ...body, proof_sha256: digest(body),
-    reason: 'Repair exact output artifacts rejected by their owner-local readiness checks, then run every remaining DAG task and public check.',
-    evidence_refs: rows.map(row => `local:${row.check_id}:${row.evidence_key}`)};
+    reason: missing ? 'Produce the exact output artifacts their owner task never wrote, then run every remaining DAG task and public check.'
+      : 'Repair exact output artifacts rejected by their owner-local readiness checks, then run every remaining DAG task and public check.',
+    evidence_refs: missing ? [`task:${failure.failed_task_ids[0]}:${failure.code}`] : rows.map(row => `local:${row.check_id}:${row.evidence_key}`)};
 }
 
 export function buildPartialRepairWorkerContext({plan, failure, candidate, task, snapshots, artifactBindings}) {
@@ -73,7 +91,9 @@ export function buildPartialRepairWorkerContext({plan, failure, candidate, task,
   need(artifact_ids.length && paths.every(path => task.write_scope.includes(path)));
   return {task: {...clone(task), output_artifact_ids: artifact_ids, write_scope: paths},
     context: {schema_version: 'adaptive-local-readiness-repair/v1', instructions:
-      'Correct only the supplied local readiness failures in the writable artifacts. Preserve existing public behavior and interfaces. The remaining DAG tasks have not necessarily executed; missing artifacts are not successful outputs. Do not alter tests.',
+      candidate.task_states.find(row => row.task_id === task.id).state === 'missing_output'
+        ? 'The previous attempt never wrote these output artifacts. Write every allowed path as a complete implementation of the task. Preserve existing public behavior and interfaces. The remaining DAG tasks have not necessarily executed; missing artifacts are not successful outputs. Do not alter tests.'
+        : 'Correct only the supplied local readiness failures in the writable artifacts. Preserve existing public behavior and interfaces. The remaining DAG tasks have not necessarily executed; missing artifacts are not successful outputs. Do not alter tests.',
       artifact_ids, allowed_write_paths: paths, source_binding_digest: failure.binding_digest,
       source_proof_sha256: candidate.proof_sha256, local_failures: clone(candidate.local_failures.filter(row => row.task_id === task.id)),
       source_artifact_revisions: clone(candidate.task_states.find(row => row.task_id === task.id).artifact_revisions),

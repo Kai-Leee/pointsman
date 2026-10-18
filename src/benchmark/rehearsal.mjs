@@ -60,10 +60,13 @@ export function rehearsalAdapters({recorded, referenceRoots, fault = null, log =
     const mcp = read(args[args.indexOf('--mcp-config') + 1]), transport = read(mcp.mcpServers.artifact_worker.args.at(-1));
     const first = firstWorker, skip = fault === 'missing_output' && first, broken = fault === 'readiness_failure' && first;
     firstWorker = false;
-    for (const path of prompt.task?.write_scope ?? []) {
+    // A repair prompt's packet names its writable files; the transport is what a real worker's write_file would admit.
+    for (const path of prompt.artifact_repair?.allowed_write_paths ?? prompt.task?.write_scope ?? []) {
       const source = referenceRoots.map(root => join(root, path)).find(file => existsSync(file) && statSync(file).isFile());
-      log.push({boundary: 'claude_worker', task: prompt.task.id, path, source: skip ? 'skipped_fault' : broken ? 'broken_fault' : source ?? 'unmapped'});
-      if (skip) continue;
+      const denied = !transport.allowedPaths.includes(path);
+      log.push({boundary: 'claude_worker', task: prompt.task.id, operation: prompt.operation ?? null, path,
+        source: denied ? 'denied_by_transport' : skip ? 'skipped_fault' : broken ? 'broken_fault' : source ?? 'unmapped'});
+      if (skip || denied) continue;
       mkdirSync(dirname(join(transport.root, path)), {recursive: true});
       if (broken) writeFileSync(join(transport.root, path), '(((\n'); // fails ast/toml/bash -n readiness parsing
       else if (source) copyFileSync(source, join(transport.root, path)); else writeFileSync(join(transport.root, path), '');

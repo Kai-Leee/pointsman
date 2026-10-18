@@ -206,3 +206,35 @@ test('partial repair never inherits modified bytes from failed staged snapshot',
   assert.equal(f.calls.filter(row => row.context.operation === 'repair').length, 0);
   assert.equal(result.outcome_uncertain, true);
 });
+
+test('never-produced owner outputs are repaired locally with 0 provider calls', async t => {
+  const f = await partialFixture(t), gates = [];
+  f.options.beforeRepairDecision = async (_, metadata) => gates.push(metadata.stage);
+  f.options.decideRepairOwners = async () => assert.fail('Missing-output owner is exact; no paid owner inference');
+  f.options.decideRepair = async () => assert.fail('Missing-output owner is exact; no provider repair choice');
+  f.options.executeTask = async (task, ctx) => {
+    f.calls.push({task: structuredClone(task), context: structuredClone(ctx)});
+    if (task.id === 'build-core' && ctx.operation === 'implementation') return {status: 'completed', outcome_uncertain: false};
+    if (ctx.operation === 'repair') {
+      assert.deepEqual(task.write_scope, ['producer.py', 'ir.py']);
+      assert.deepEqual(ctx.repair_context.artifact_repair.local_failures, []);
+      assert.match(ctx.repair_context.artifact_repair.instructions, /never wrote/);
+    }
+    const session = createArtifactSession({root: ctx.stageDirectory, allowedPaths: task.write_scope,
+      readablePaths: [...task.read_scope, ...task.write_scope], journalPath: join(f.root, `worker-${ctx.attempt_id}.jsonl`)});
+    try {
+      for (const path of task.write_scope) session.writeFile({path, content: path === 'producer.py' ? 'description = "REQUEST"\n' : 'value = "unchanged"\n'});
+    } finally { session.close(); }
+    return {status: 'completed', outcome_uncertain: false};
+  };
+  const result = await runAdaptiveDagExecution(f.options);
+  assert.equal(result.status, 'completed', JSON.stringify(result.terminal_cause));
+  assert.equal(result.rounds[0].workflow.execution.failure.code, 'DAG_RUNTIME_ARTIFACT_MISSING');
+  assert.deepEqual(gates, ['local_readiness_repair']);
+  assert.equal(result.operations.repair, 1);
+  const action = result.repair_actions[0].candidate;
+  assert.deepEqual(action.task_states.find(row => row.task_id === 'build-core'), {task_id: 'build-core', state: 'missing_output', artifact_revisions: {}});
+  assert.deepEqual(action.artifact_ids, ['artifact-core', 'artifact-ir']);
+  assert.ok(f.events.some(row => row.event === 'adaptive_partial_repair_committed' && row.provider_calls === 0));
+  assert.equal(result.public_evidence.every(row => row.status === 'passed'), true);
+});

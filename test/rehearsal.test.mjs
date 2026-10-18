@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync, mkdirSync, writeFileSync} from 'node:fs';
+import {existsSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {assertRehearsal, loadRecordedJev, rehearsalAdapters, UNKNOWN_MODEL_BUILD} from '../src/benchmark/rehearsal.mjs';
@@ -38,4 +38,21 @@ test('recorded Jev answers and model ids drive the Jev double; unknown_model_bui
   assert.equal(replayed.billing.paidInputTokensUsed, String(replayed.usage.input_tokens));
   const unknown = await rehearsalAdapters({recorded, referenceRoots: [], fault: 'unknown_model_build'}).jevClientFactory().decide(body);
   assert.equal(unknown.model, UNKNOWN_MODEL_BUILD);
+});
+
+test('worker double writes exactly the files a repair packet allows, within the transport', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'rehearsal-worker-')), root = join(dir, 'stage'), ref = join(dir, 'ref');
+  mkdirSync(root); mkdirSync(join(ref, 'pkg'), {recursive: true});
+  for (const name of ['a.py', 'b.py', 'c.py']) writeFileSync(join(ref, 'pkg', name), `# reference ${name}\n`);
+  writeFileSync(join(dir, 'transport.json'), JSON.stringify({root, allowedPaths: ['pkg/a.py', 'pkg/b.py']}));
+  writeFileSync(join(dir, 'mcp.json'), JSON.stringify({mcpServers: {artifact_worker: {args: ['--config', join(dir, 'transport.json')]}}}));
+  const log = [], {runCommand} = rehearsalAdapters({recorded: {answers: new Map(), models: []}, referenceRoots: [ref], log});
+  const prompt = {task: {id: 't1', write_scope: ['pkg/a.py', 'pkg/b.py', 'pkg/c.py']}, operation: 'repair',
+    artifact_repair: {allowed_write_paths: ['pkg/b.py', 'pkg/c.py']}};
+  await runCommand('claude', ['-p', '--model', 'm', '--mcp-config', join(dir, 'mcp.json')], {input: JSON.stringify(prompt)});
+  assert.deepEqual(log.map(row => [row.path, row.source.startsWith(ref) ? 'reference' : row.source]),
+    [['pkg/b.py', 'reference'], ['pkg/c.py', 'denied_by_transport']]);
+  assert.equal(existsSync(join(root, 'pkg/a.py')), false); // in task scope but not in the repair packet
+  assert.equal(readFileSync(join(root, 'pkg/b.py'), 'utf8'), '# reference b.py\n');
+  assert.equal(existsSync(join(root, 'pkg/c.py')), false);
 });

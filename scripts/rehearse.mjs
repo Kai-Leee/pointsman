@@ -21,7 +21,7 @@ const git = (...args) => execFileSync('git', ['-C', root, ...args], {encoding: '
 export const FAULTS = {
   baseline: {status: 'completed'},
   readiness_failure: {status: 'completed'}, // R20261015 partial readiness repair must recover it
-  missing_output: {status: 'completed'}, // known gap 2026-10-18: DAG_RUNTIME_ARTIFACT_MISSING is not repaired yet
+  missing_output: {status: 'completed'}, // a never-produced output is repaired by its exact owner (R20261018-REHEARSAL-C)
   unknown_model_build: {stop_code: 'BUDGET_MODEL_UNSUPPORTED'},
 };
 
