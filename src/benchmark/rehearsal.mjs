@@ -31,12 +31,27 @@ export function loadRecordedJev(runDirectories) {
   return {answers, models: [...models].sort()};
 }
 
+/** The dated build the provider currently serves: the highest jev-X.Y[.Z] on the free model list, mapped to its
+ * typesafe/jev-X.Y-YYYYMMDD entry in the settlement contract (latest date). Null when no Jev version is listed;
+ * REHEARSAL_SERVED_MODEL_UNKNOWN when a listed version has no dated build to replay. */
+export function servedDatedBuild(listedNames, settlementIds) {
+  const version = name => /^jev-(\d+)\.(\d+)(?:\.\d+)?$/.exec(name)?.slice(1).map(Number);
+  const top = listedNames.map(version).filter(Boolean).sort((a, b) => b[0] - a[0] || b[1] - a[1])[0];
+  if (!top) return null;
+  const dated = settlementIds.map(id => [id, /^typesafe\/jev-(\d+)\.(\d+)-(\d{8})$/.exec(id)])
+    .filter(([, m]) => m && Number(m[1]) === top[0] && Number(m[2]) === top[1]).sort((a, b) => b[1][3].localeCompare(a[1][3]));
+  if (!dated.length) throw Object.assign(new Error('REHEARSAL_SERVED_MODEL_UNKNOWN'), {code: 'REHEARSAL_SERVED_MODEL_UNKNOWN', version: top.join('.')});
+  return dated[0][0];
+}
+
 /** Adapters for runAdaptiveArm. `fault` is one of null, 'readiness_failure' (first worker writes unparsable files), 'missing_output'
  * (first worker writes nothing), 'unknown_model_build'.
  * `freeClient` may serve only free GETs (listCredits); decide() always stays doubled. */
-export function rehearsalAdapters({recorded, referenceRoots, fault = null, log = [], freeClient = null}) {
+export function rehearsalAdapters({recorded, referenceRoots, fault = null, log = [], freeClient = null, servedModel = null}) {
   let modelIndex = 0, firstWorker = true;
-  const models = fault === 'unknown_model_build' ? [UNKNOWN_MODEL_BUILD] : recorded.models.length ? recorded.models : ['typesafe-ai/jev'];
+  // Every Jev answer reports the currently served dated build when known, so admission and settlement see it on each call.
+  const models = fault === 'unknown_model_build' ? [UNKNOWN_MODEL_BUILD] : servedModel ? [servedModel]
+    : recorded.models.length ? recorded.models : ['typesafe-ai/jev'];
   const answerFor = (id, question) => {
     const keys = Object.keys(question.criteria ?? {});
     const prior = recorded.answers.get(id);

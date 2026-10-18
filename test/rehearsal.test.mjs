@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {existsSync, mkdtempSync, mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {assertRehearsal, loadRecordedJev, rehearsalAdapters, UNKNOWN_MODEL_BUILD} from '../src/benchmark/rehearsal.mjs';
+import {assertRehearsal, loadRecordedJev, rehearsalAdapters, servedDatedBuild, UNKNOWN_MODEL_BUILD} from '../src/benchmark/rehearsal.mjs';
 
 const now = Date.parse('2026-10-18T12:00:00Z');
 const report = {schema_version: 'rehearsal/v1', created_at: '2026-10-18T06:00:00Z', passed: true, clean: true,
@@ -55,4 +55,19 @@ test('worker double writes exactly the files a repair packet allows, within the 
   assert.equal(existsSync(join(root, 'pkg/a.py')), false); // in task scope but not in the repair packet
   assert.equal(readFileSync(join(root, 'pkg/b.py'), 'utf8'), '# reference b.py\n');
   assert.equal(existsSync(join(root, 'pkg/c.py')), false);
+});
+
+test('the Jev double answers with the currently served dated build, and an unmapped served version fails loudly', async () => {
+  const ids = ['jev-1.13.0', 'typesafe/jev-1.13-20260917', 'typesafe-ai/jev', 'typesafe/jev-1.14-20261014'];
+  const listed = ['clef', 'jev-latest', 'jev-preview', 'jev-1.14.0', 'jev-1.13.0', 'mercury-decide'];
+  assert.equal(servedDatedBuild(listed, ids), 'typesafe/jev-1.14-20261014');
+  assert.equal(servedDatedBuild(['jev-1.13.0'], ids), 'typesafe/jev-1.13-20260917');
+  assert.equal(servedDatedBuild(['clef', 'jev-latest'], ids), null);
+  assert.throws(() => servedDatedBuild([...listed, 'jev-1.15.0'], ids), {code: 'REHEARSAL_SERVED_MODEL_UNKNOWN'});
+  const recorded = {answers: new Map(), models: ['jev-1.13.0', 'typesafe-ai/jev']};
+  const body = {questions: {q: {criteria: {a: 'x', b: 'y'}}}};
+  const decide = options => rehearsalAdapters({recorded, referenceRoots: [], ...options}).jevClientFactory().decide(body);
+  assert.equal((await decide({servedModel: 'typesafe/jev-1.14-20261014'})).model, 'typesafe/jev-1.14-20261014');
+  assert.equal((await decide({servedModel: 'typesafe/jev-1.14-20261014', fault: 'unknown_model_build'})).model, UNKNOWN_MODEL_BUILD);
+  assert.equal((await decide({})).model, 'jev-1.13.0'); // no served build known: recorded IDs, as before
 });

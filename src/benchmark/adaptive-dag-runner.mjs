@@ -20,6 +20,10 @@ import {assessJevTokenAdmission} from '../orchestration/jev-token-admission.mjs'
 import {assessJevTokenAdmission as assessJevTokenAdmissionV2} from '../orchestration/jev-token-admission-v2.mjs';
 import {assessJevTokenAdmission as assessJevTokenAdmissionV3} from '../orchestration/jev-token-admission-v3.mjs';
 import {assessJevTokenAdmission as assessJevTokenAdmissionV4} from '../orchestration/jev-token-admission-v4.mjs';
+import {assessJevTokenAdmission as assessJevTokenAdmissionV5} from '../orchestration/jev-token-admission-v5.mjs';
+// R20261019: opt-in v5 admits the documented jev-1.14 build on top of v4 for inferred-repair manifests.
+const TOKEN_ADMISSION_V5 = 'docs/orchestration/contracts/jev-token-admission.v5.json';
+const inferredAdmission = manifest => manifest.repair_policy.token_admission_contract === TOKEN_ADMISSION_V5 ? assessJevTokenAdmissionV5 : assessJevTokenAdmissionV4;
 import {loadAdaptiveProfileContract, resolveAdaptiveProfile, selectAdaptiveProfiles,
   applyAdaptiveProfileSelections} from '../orchestration/adaptive-profile-selection.mjs';
 import {assessJevTransmission, validateJevTransmissionBinding, validateJevRecoveryProof,
@@ -169,7 +173,8 @@ export function loadAdaptiveRunManifest(path = join(ROOT, 'benchmarks/e2e-swe/ma
       || (v7 && (!equal(value.repair_policy, {artifact_contract: 'docs/orchestration/contracts/adaptive-causal-repair.v1.json',
         assertion_contract: 'benchmarks/e2e-swe/public-checks/assertions.v2.json', failure_contract: 'adaptive-terminal-cause/v1',
         scope_contract: ownerV3Manifest(value) ? 'public-inferred-owner-v3' : v9 ? 'public-inferred-owner-v2' : v8 ? 'public-inferred-owner-v1' : 'public-causal-v1',
-        token_admission_contract: `docs/orchestration/contracts/jev-token-admission.${v8 ? 'v4' : 'v3'}.json`,
+        token_admission_contract: v8 && value.repair_policy?.token_admission_contract === TOKEN_ADMISSION_V5 ? TOKEN_ADMISSION_V5
+          : `docs/orchestration/contracts/jev-token-admission.${v8 ? 'v4' : 'v3'}.json`,
         ...(v8 ? {owner_inference_contract: ownerV3Manifest(value) ? OWNER_INFERENCE_V3 : `docs/orchestration/contracts/adaptive-inferred-repair.${v9 ? 'v2' : 'v1'}.json`} : {})})
         || (value.input === OPENAPI_INPUT
           ? value.public_registry !== 'benchmarks/e2e-swe/public-checks/registry.v4.json' || value.public_runner !== 'benchmarks/e2e-swe/public-checks/run_public_checks_v4.py'
@@ -465,7 +470,7 @@ export function createAdaptiveProviderSession({rootDir = ROOT, run_id, runDirect
       try {
         if (transmission) {checkTransmission('initial'); await drainTransmissionEvents();}
         if (artifactRepairManifest(manifest)) {
-          const assess = inferredManifest(manifest) ? assessJevTokenAdmissionV4 : causalManifest(manifest) ? assessJevTokenAdmissionV3 : compactRepairManifest(manifest) ? assessJevTokenAdmissionV2 : assessJevTokenAdmission;
+          const assess = inferredManifest(manifest) ? inferredAdmission(manifest) : causalManifest(manifest) ? assessJevTokenAdmissionV3 : compactRepairManifest(manifest) ? assessJevTokenAdmissionV2 : assessJevTokenAdmission;
           admission = assess(prepared.body, {stage: context.stage, observedModel: observedJevModel,
             expectedRequestSha256: sha(prepared.serialized),
             expectedPolicySha256: sha(readFileSync(join(rootDir, manifest.repair_policy.token_admission_contract)))});
@@ -607,6 +612,7 @@ function createRunContext({rootDir, runDir, manifest, abortSignal}) {
       ...(inferredManifest(manifest) ? ['src/orchestration/adaptive-inferred-repair.mjs',
         'src/orchestration/adaptive-inferred-repair-projection.mjs',
         'src/orchestration/jev-token-admission-v4.mjs', manifest.repair_policy.owner_inference_contract,
+        ...(manifest.repair_policy.token_admission_contract === TOKEN_ADMISSION_V5 ? ['src/orchestration/jev-token-admission-v5.mjs'] : []),
         'docs/orchestration/contracts/adaptive-inferred-repair.v1.json',
         'docs/orchestration/contracts/adaptive-inferred-repair.v2.json',
         'docs/orchestration/contracts/adaptive-profile-selection.v1.json',
@@ -1011,7 +1017,7 @@ export function createAdaptiveProfilePreparer({rootDir = ROOT, manifest, context
         allowed_profile_ids: manifest.profile_policy.allowed_profile_ids,
         profilePolicy: profileOptions(manifest).profilePolicy,
         admitBatch: (request, metadata) => {
-          const assess = inferredManifest(manifest) ? assessJevTokenAdmissionV4 : assessJevTokenAdmissionV3;
+          const assess = inferredManifest(manifest) ? inferredAdmission(manifest) : assessJevTokenAdmissionV3;
           const admission = assess(request, {stage: 'profiles',
             expectedRequestSha256: sha(prepareDecision(request).serialized),
             expectedPolicySha256: sha(readFileSync(join(rootDir, manifest.repair_policy.token_admission_contract)))});

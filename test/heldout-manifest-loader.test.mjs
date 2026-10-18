@@ -62,6 +62,11 @@ test('a held-out manifest pointed at another task\'s public registry is rejected
   // R20261015 partial readiness repair is a v12-only opt-in with one allowed value.
   assert.equal(load(paths('h2').manifest, value => ({...value, partial_repair: 'local-readiness-v1'})).partial_repair, 'local-readiness-v1');
   assert.throws(() => load(paths('h2').manifest, value => ({...value, partial_repair: 'other'})), {code: 'ADAPTIVE_PARTIAL_REPAIR_BINDING'});
+  // R20261019 token admission: v4 or the jev-1.14 v5 contract only.
+  const admission = contract => value => ({...value, repair_policy: {...value.repair_policy, token_admission_contract: contract}});
+  for (const version of ['v4', 'v5']) assert.equal(load(paths('h2').manifest, admission(`docs/orchestration/contracts/jev-token-admission.${version}.json`))
+    .repair_policy.token_admission_contract, `docs/orchestration/contracts/jev-token-admission.${version}.json`);
+  assert.throws(() => load(paths('h2').manifest, admission('docs/orchestration/contracts/jev-token-admission.v3.json')), {code: 'ADAPTIVE_MANIFEST_INVALID'});
   // A registry outside the manifest's own checker root fails the path rule.
   assert.throws(() => load(paths('h2').manifest, value => ({...value, public_registry: paths('pycparser').registry})),
     {code: 'ADAPTIVE_MANIFEST_INVALID'});

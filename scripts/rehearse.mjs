@@ -9,7 +9,8 @@ import {join, relative, resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {loadAdaptiveRunManifest, runAdaptiveArm} from '../src/benchmark/adaptive-dag-runner.mjs';
-import {loadRecordedJev, rehearsalAdapters, rehearsalManifest, writeJson} from '../src/benchmark/rehearsal.mjs';
+import {loadRecordedJev, rehearsalAdapters, rehearsalManifest, servedDatedBuild, writeJson} from '../src/benchmark/rehearsal.mjs';
+import {loadSettlementModels} from '../src/benchmark/budget.mjs';
 import {useAppClaudeCli} from '../src/benchmark/claude-cli.mjs';
 import {createJevClient} from '../src/client.mjs';
 import {loadConfig} from '../src/config.mjs';
@@ -39,6 +40,9 @@ const recorded = loadRecordedJev(take('--record').map(dir => resolve(root, dir))
 const referenceRoots = take('--reference').map(dir => resolve(root, dir));
 // Free GETs only (credits); the double never forwards decide().
 const real = createJevClient({apiKey: loadConfig().apiKey}), freeClient = {listCredits: () => real.listCredits()};
+// The Jev double answers with the dated build served now (free GET /v1/models), not only the recorded IDs.
+const listedModels = (await real.listModels()).models.map(model => model.name);
+const servedModel = servedDatedBuild(listedModels, [...loadSettlementModels()]);
 const rows = [];
 mkdirSync(out, {recursive: true});
 for (const fault of faults) {
@@ -46,7 +50,7 @@ for (const fault of faults) {
   copyFileSync(sharedLedger, ledgerCopy);
   const result = await runAdaptiveArm({rootDir: root, manifest: rehearsalManifest(manifest, relative(root, ledgerCopy)), runDir: directory,
     arm: manifest.arms[0], preparationDirectory: resolve(root, preparation), spend: true,
-    adapters: rehearsalAdapters({recorded, referenceRoots, fault: fault === 'baseline' ? null : fault, log, freeClient})});
+    adapters: rehearsalAdapters({recorded, referenceRoots, fault: fault === 'baseline' ? null : fault, log, freeClient, servedModel})});
   const expect = FAULTS[fault];
   const matched = expect.status ? result.status === expect.status : result.stop_code === expect.stop_code;
   rows.push({fault, arm: manifest.arms[0], status: result.status, stop_code: result.stop_code ?? null,
@@ -60,7 +64,7 @@ const report = {schema_version: 'rehearsal/v1', created_at: new Date().toISOStri
   head: git('rev-parse', 'HEAD'), git_tree: git('rev-parse', 'HEAD^{tree}'), clean: git('status', '--porcelain', '--untracked-files=no') === '',
   manifest_path: manifestPath, manifest_sha256: sha(resolve(root, manifestPath)),
   image_id: JSON.parse(readFileSync(resolve(root, manifest.image_lock), 'utf8')).image_id, cli,
-  recorded_models: recorded.models, record_runs: take('--record'), reference_roots: take('--reference'),
+  recorded_models: recorded.models, listed_models: listedModels, served_model: servedModel, record_runs: take('--record'), reference_roots: take('--reference'),
   shared_ledger_sha256_before: sharedBefore, shared_ledger_sha256_after: sharedAfter, rows,
   passed: rows.every(row => row.matched) && sharedBefore === sharedAfter};
 writeJson(join(out, 'rehearsal.json'), report);

@@ -85,7 +85,7 @@
     "assertion_contract": "benchmarks/e2e-swe/public-checks/assertions.v2.json",
     "failure_contract": "adaptive-terminal-cause/v1",
     "scope_contract": "public-inferred-owner-v3",
-    "token_admission_contract": "docs/orchestration/contracts/jev-token-admission.v4.json",
+    "token_admission_contract": "docs/orchestration/contracts/jev-token-admission.v5.json",
     "owner_inference_contract": "docs/orchestration/contracts/adaptive-inferred-repair.v3.json"
   },
   "decomposition_policy": {
