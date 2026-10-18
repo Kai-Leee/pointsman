@@ -3,7 +3,7 @@
   "policy_id": "d085-required-pre-send-v11",
   "supersedes": {
     "path": "docs/orchestration/contracts/jev-transmission-preflight.v10.json",
-    "reason": "D085 adds repair_feedback.owner_alternatives owner-probability-v1 check_error_repair generation-direct-v1 and owner_tiebreak flat-reask-v2 (its second owner question) (with its local diagnosis callback) as opt-in manifest bindings in adaptive-dag-runner.mjs, and points the gate default at v11. The Jev request format, prompt policy and connection rules are unchanged. Pins frozen on 2026-10-14. v1-v10 are unchanged. Re-frozen 2026-10-18 on feat/heldout-eval-20261018 (R20261017-EVAL-PROTOCOL held-out): adaptive-dag-runner.mjs binds a non-openapi input to its own public registry and derives its public test count; the v1 cohort check accepts an unlimited v3/v4 ledger so a held-out catalog can be prepared; opt-in manifest key partial_repair: local-readiness-v1 enables the R20261015 partial readiness repair. openapi manifests keep the registry.v4 rule. The readiness check falls back to tomli when tomllib is absent (Python 3.10 task images such as h2)."
+    "reason": "D085 adds repair_feedback.owner_alternatives owner-probability-v1 check_error_repair generation-direct-v1 and owner_tiebreak flat-reask-v2 (its second owner question) (with its local diagnosis callback) as opt-in manifest bindings in adaptive-dag-runner.mjs, and points the gate default at v11. The Jev request format, prompt policy and connection rules are unchanged. Pins frozen on 2026-10-14. v1-v10 are unchanged. Re-frozen 2026-10-18 on feat/heldout-eval-20261018 (R20261017-EVAL-PROTOCOL held-out): adaptive-dag-runner.mjs binds a non-openapi input to its own public registry and derives its public test count; the v1 cohort check accepts an unlimited v3/v4 ledger so a held-out catalog can be prepared; opt-in manifest key partial_repair: local-readiness-v1 enables the R20261015 partial readiness repair. openapi manifests keep the registry.v4 rule. The readiness check falls back to tomli when tomllib is absent (Python 3.10 task images such as h2). Catalog reuse compares catalog paths by realpath so a preparation reached through another checkout or a benchmark-runs symlink is accepted; budget.mjs reads the settlement whitelist from jev-settlement-models.v1.json."
   },
   "enforcement": "required",
   "input_policy": "v4",
@@ -57,7 +57,7 @@
     },
     {
       "path": "src/benchmark/adaptive-dag-runner.mjs",
-      "sha256": "1aa22d5f5f481687c6d010835a96dc54b5a9e677d65b8122514582ce3d2ee76a"
+      "sha256": "4fbdb824cbef4802395679e33f094c2637180d8f93a9b894304a1f6dacbc9811"
     },
     {
       "path": "src/benchmark/telemetry.mjs",

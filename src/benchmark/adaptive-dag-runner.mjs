@@ -1,5 +1,5 @@
 import {readFileSync, writeFileSync, mkdirSync, mkdtempSync, readdirSync, lstatSync, existsSync,
-  openSync, closeSync, fsyncSync, rmSync} from 'node:fs';
+  openSync, closeSync, fsyncSync, rmSync, realpathSync} from 'node:fs';
 import {resolve, join, relative, basename, dirname} from 'node:path';
 import {tmpdir} from 'node:os';
 import {createHash, randomUUID} from 'node:crypto';
@@ -797,13 +797,16 @@ export async function prepareAdaptiveSharedCatalog({rootDir = ROOT, manifest = l
   return result;
 }
 
+// A catalog prepared in another checkout (or reached through a benchmark-runs symlink) is the same file when both paths resolve alike.
+const samePath = (a, b) => { try { return realpathSync(a) === realpathSync(b); } catch { return false; } };
+
 export function loadAdaptiveSharedPreparation({rootDir = ROOT, manifest, preparationDirectory, input}) {
   if (catalogUnpinned(manifest)) fail('ADAPTIVE_CATALOG_REUSE_UNPINNED');
   const directory = resolve(preparationDirectory), result = read(join(directory, 'result.json'));
   const catalogPath = join(directory, 'catalog.json'), bytes = readFileSync(catalogPath), catalog = JSON.parse(bytes);
   const reused = parallelManifest(manifest), reuse = manifest.catalog_reuse;
   if (result.schema_version !== 'adaptive-catalog-preparation/v1' || result.status !== 'prepared' || result.outcome_uncertain !== false
-      || (!reused && result.manifest_sha256 !== manifest.manifest_sha256) || result.catalog_path !== catalogPath || result.catalog_file_sha256 !== sha(bytes)
+      || (!reused && result.manifest_sha256 !== manifest.manifest_sha256) || !samePath(result.catalog_path, catalogPath) || result.catalog_file_sha256 !== sha(bytes)
       || result.catalog_sha256 !== sha(catalog) || result.receipts?.length !== 1 || result.receipts[0].provider !== 'claude'
       || result.receipts[0].purpose !== 'catalog' || result.receipts[0].status !== 'completed' || !result.receipts[0].model_identity_verified
       || catalog.source_sha256 !== input.source_ref.sha256) fail('ADAPTIVE_PREPARATION_INVALID');

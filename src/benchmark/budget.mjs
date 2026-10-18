@@ -13,16 +13,21 @@ export const BUDGET_ERROR_CODES = Object.freeze([
 ]);
 const TOKEN_LIMIT = 1_666_666; // floor(1 USD / (3 / 5,000,000 USD per token)); comparisons stay integer.
 const RESERVATION = 65_536;
-// Exact equivalence documented at https://jev-ai.pro/model/jev-1.13, "Dated snapshot"
-// (verified 2026-10-09). No moving alias, prefix match, or future dated build is allowed.
-// Jev AI may return the Vercel provider ID even for jev-latest. Verified
-// 2026-10-09: https://jev-ai.pro/where-to-run-jev and Vercel's official 32K
-// catalog https://vercel.com/ai-gateway/models/labs/typesafe-ai . This provider
-// alias is not a dated revision; preserve it verbatim in provenance.
-// Verified 2026-10-16: https://jev-ai.pro/docs#models lists Jev1.14 multiplier1.
-// Accept this observed dated build only; do not accept moving1.14 aliases or future builds.
-const SETTLEMENT_MODELS = Object.freeze(['jev-1.13.0', 'typesafe/jev-1.13-20260917', 'typesafe-ai/jev',
-  'typesafe/jev-1.14-20261014']);
+// Settleable model IDs live in a versioned contract with per-entry evidence; refresh it with
+// scripts/jev-model-check.mjs before paid runs. Exact string match only: no alias, prefix or future build.
+export const JEV_SETTLEMENT_MODELS_CONTRACT = new URL('../../docs/orchestration/contracts/jev-settlement-models.v1.json', import.meta.url);
+export function loadSettlementModels(path = JEV_SETTLEMENT_MODELS_CONTRACT) {
+  const contract = JSON.parse(readFileSync(path, 'utf8'));
+  const models = contract?.models;
+  if (contract?.schema_version !== 'jev-settlement-models/v1' || contract.matching !== 'exact' || !Array.isArray(models) || !models.length
+    || !models.every(m => typeof m?.model_id === 'string' && /^[A-Za-z0-9][A-Za-z0-9_./:-]{0,159}$/.test(m.model_id)
+      && ['dated_build', 'provider_alias', 'legacy_id'].includes(m.kind) && m.multiplier === 1
+      && /^\d{4}-\d{2}-\d{2}$/.test(m.verified_at) && /^https:\/\//.test(m.evidence_url)
+      && (/^[0-9a-f]{64}$/.test(m.evidence_sha256) || (m.evidence_sha256 === null && typeof m.evidence_note === 'string')))
+    || new Set(models.map(m => m.model_id)).size !== models.length) throw new Error('JEV_SETTLEMENT_MODELS_CONTRACT_INVALID');
+  return Object.freeze(models.map(m => m.model_id));
+}
+const SETTLEMENT_MODELS = loadSettlementModels();
 export const JEV_SETTLEMENT_MODELS = SETTLEMENT_MODELS;
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const integer = value => Number.isSafeInteger(value) && value >= 0;
