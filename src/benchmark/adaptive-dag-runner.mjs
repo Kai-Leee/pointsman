@@ -709,7 +709,8 @@ try:
   text=p.read_text()
   if p.suffix=='.py': ast.parse(text); assertions+=1
   elif p.suffix=='.toml':
-   import tomllib
+   try: import tomllib
+   except ModuleNotFoundError: import tomli as tomllib
    tomllib.loads(text); assertions+=1
   elif p.suffix=='.sh':
    assert subprocess.run(['bash','-n',str(p)],capture_output=True).returncode==0
@@ -717,7 +718,7 @@ try:
 except Exception as exc: error={'code':type(exc).__name__,'message':str(exc)}
 print(json.dumps({'status':'passed' if error is None else 'failed','executed':True,'exit_code':0 if error is None else 1,'assertions':assertions,'skipped':0,'outcome_uncertain':False,'error':error}))
 sys.exit(0 if error is None else 1)`;
-const READINESS_CODE = `exec(${JSON.stringify(READINESS)})`;
+export const READINESS_CODE = `exec(${JSON.stringify(READINESS)})`;
 // Opt-in batch: run the exact `python3 -c READINESS_CODE <paths>` program once per
 // check inside one interpreter, capturing each program's own report and exit code.
 const READINESS_BATCH = `import contextlib,io,json,sys

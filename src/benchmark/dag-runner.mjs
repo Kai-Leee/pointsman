@@ -58,7 +58,10 @@ else:
     assert text.strip()
     assertions+=1
     if p.suffix=='.toml':
-        import tomllib
+        try:
+            import tomllib
+        except ModuleNotFoundError:
+            import tomli as tomllib
         tomllib.loads(text)
         assertions+=1
     elif p.suffix=='.sh':
