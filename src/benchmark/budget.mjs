@@ -19,7 +19,10 @@ const RESERVATION = 65_536;
 // 2026-10-09: https://jev-ai.pro/where-to-run-jev and Vercel's official 32K
 // catalog https://vercel.com/ai-gateway/models/labs/typesafe-ai . This provider
 // alias is not a dated revision; preserve it verbatim in provenance.
-const SETTLEMENT_MODELS = Object.freeze(['jev-1.13.0', 'typesafe/jev-1.13-20260917', 'typesafe-ai/jev']);
+// Verified 2026-10-16: https://jev-ai.pro/docs#models lists Jev1.14 multiplier1.
+// Accept this observed dated build only; do not accept moving1.14 aliases or future builds.
+const SETTLEMENT_MODELS = Object.freeze(['jev-1.13.0', 'typesafe/jev-1.13-20260917', 'typesafe-ai/jev',
+  'typesafe/jev-1.14-20261014']);
 export const JEV_SETTLEMENT_MODELS = SETTLEMENT_MODELS;
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const integer = value => Number.isSafeInteger(value) && value >= 0;
