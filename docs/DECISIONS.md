@@ -1,3 +1,5 @@
+R20261018-DESIGN-SELECTION: 반복 실행경로 결함 원인 분석·재설계안 선정. 실패 arm 41개 중 30개(73%)가 품질이 아닌 경로·환경·인프라 원인, 최근 결함7개 중3개는 수정이 다른 곳에 있었음(브랜치 세갈래). 설계안3개(계약·무과금 리허설·단일줄기) 블라인드 판정: 리허설58·계약56·단일줄기48/70. 리허설 안 선정 + 계약안의 단일줄기 검사·종료원인 분류 완전성·공통함수 통합 병합. 추정배율 정산·작업폴더 삭제는 거부. 구현 미착수. [기록](decisions/R20261018_DESIGN_SELECTION.md). 아래는 당시 기록이다.
+
 R20261018-HELDOUT-PILOT 3회차: 부분수리·1.14정산 반영 후 h2 재실행도 n1이 3번(haiku low→haiku medium→sonnet medium) 모두 준비검사 실패, 수리2회 소진·1187.9초 ARTIFACT_CHECK_NOT_PASSED, 공개검사0·0점. 원인은 모델이 아니라 검사기: h2 이미지 Python3.10에 tomllib 없음→pyproject.toml 검사 항상 실패. 같은 파일 재생 시 수정 전 실패·수정 후 통과(ddbf44d, tomli 대체). 세 번 모두 실행경로 결함으로 멈췄고 Jev 판단 품질의 근거 아님(앞선 Haiku 원인 서술 정정). [기록](decisions/R20261018_HELDOUT_PILOT.md). 아래는 당시 기록이다.
 
 R20261018-HELDOUT-PILOT 2회차: partial_repair(local-readiness-v1) 켜고 h2 재실행. Jev가 n1에 또 haiku55_low 선택→n1 준비검사 재실패, 이번엔 부분실행 수리가 모델호출0으로 n1 수리를 확정(이전 binding 거부 해소). 이어 수리 프로필 단계 719.6초에 BUDGET_MODEL_UNSUPPORTED(불확실): Jev 응답이 typesafe/jev-1.14-20261014였고 정산 허용목록에 없었음(D086과 같은 원인). D086 오프라인 정산도구로 8,444토큰 1회 정산(장부1555·pending0). 공개검사0·미채점, 프로토콜상 0점. 1.14 허용·부분수리 모두 반영됨. [기록](decisions/R20261018_HELDOUT_PILOT.md). 아래는 당시 기록이다.
