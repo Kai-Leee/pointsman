@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {chmod, lstat, mkdir, mkdtemp, readFile, readdir, realpath, rm, writeFile} from 'node:fs/promises';
-import {existsSync} from 'node:fs';
+import {existsSync, readFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {tmpdir} from 'node:os';
 import {runAdaptiveDagExecution} from '../src/orchestration/adaptive-dag-execution.mjs';
@@ -237,4 +237,47 @@ test('never-produced owner outputs are repaired locally with 0 provider calls', 
   assert.deepEqual(action.artifact_ids, ['artifact-core', 'artifact-ir']);
   assert.ok(f.events.some(row => row.event === 'adaptive_partial_repair_committed' && row.provider_calls === 0));
   assert.equal(result.public_evidence.every(row => row.status === 'passed'), true);
+});
+
+test('every broken readiness artifact of a task is reported in one round and repaired together', async t => {
+  const f = await partialFixture(t), gates = [];
+  const plan = f.options.plan, core = plan.tasks.find(row => row.id === 'build-core');
+  core.write_scope.push('extra.py'); core.output_artifact_ids.push('artifact-extra'); core.check_ids.push('check-extra');
+  plan.artifacts.push({id: 'artifact-extra', producer_task_id: core.id});
+  plan.checks.push({...structuredClone(plan.checks.find(row => row.id === 'check-ir')), id: 'check-extra', artifact_ids: ['artifact-extra']});
+  const aggregate = plan.tasks.find(row => row.kind === 'verification');
+  aggregate.input_artifact_ids.push('artifact-extra'); aggregate.read_scope.push('extra.py');
+  plan.checks.find(row => row.phase === 'integration').artifact_ids.push('artifact-extra');
+  f.options.artifactBindings['artifact-extra'] = {paths: ['extra.py']};
+  f.options.beforeRepairDecision = async (_, metadata) => gates.push(metadata.stage);
+  f.options.decideRepairOwners = async () => assert.fail('Local owner is exact; no paid owner inference');
+  f.options.decideRepair = async () => assert.fail('Local owner is exact; no provider repair choice');
+  const local = f.options.checkTask;
+  f.options.checkTask = async (definition, ctx) => {
+    if (definition.phase === 'integration') return local(definition, ctx);
+    const broken = definition.artifact_ids.some(id => readFileSync(join(ctx.candidateDirectory,
+      f.options.artifactBindings[id].paths[0]), 'utf8').includes('BROKEN'));
+    const report = {check_id: definition.id, check_version: definition.version, environment_ref: definition.environment_ref,
+      status: broken ? 'failed' : 'passed', executed: true, exit_code: broken ? 1 : 0, assertions: 1, skipped: 0,
+      outcome_uncertain: false, error: broken ? {code: 'SyntaxError', message: 'unparsable'} : null, unexecuted_test_ids: [], cases: []};
+    return {...report, evidence: report};
+  };
+  f.options.executeTask = async (task, ctx) => {
+    f.calls.push({task: structuredClone(task), context: structuredClone(ctx)});
+    const session = createArtifactSession({root: ctx.stageDirectory, allowedPaths: task.write_scope,
+      readablePaths: [...task.read_scope, ...task.write_scope], journalPath: join(f.root, `worker-${ctx.attempt_id}.jsonl`)});
+    try {
+      for (const path of task.write_scope) session.writeFile({path, content: task.id === 'build-core' && ctx.operation === 'implementation'
+        ? '(((BROKEN\n' : path === 'producer.py' ? 'description = "REQUEST"\n' : 'value = "unchanged"\n'});
+    } finally { session.close(); }
+    return {status: 'completed', outcome_uncertain: false};
+  };
+  const result = await runAdaptiveDagExecution(f.options);
+  assert.equal(result.status, 'completed', JSON.stringify(result.terminal_cause));
+  assert.deepEqual(result.rounds[0].local_evidence.filter(row => row.status === 'failed').map(row => row.check_id),
+    ['check-core', 'check-ir', 'check-extra']);
+  assert.deepEqual(gates, ['local_readiness_repair']);
+  assert.equal(result.rounds.length, 2);
+  assert.equal(result.operations.repair, 1);
+  assert.deepEqual(result.repair_actions[0].candidate.artifact_ids, ['artifact-core', 'artifact-ir', 'artifact-extra']);
 });

@@ -859,6 +859,19 @@ export async function runAdaptiveDagExecution(options) {
             const evidence = await runtime.runCheck(check, context);
             if (check.phase !== 'integration') localEvidence.push(clone({...evidence, task_id: context.task.id,
               attempt_id: context.attempt_id}));
+            // The gate stops at the first failed check. For local readiness repair, run the task's
+            // remaining local checks on the same attempt so one round reports every broken artifact;
+            // the returned first failure still fails the task, and any thrown continuation stays fatal.
+            if (options.partialRepairPolicy === PARTIAL_REPAIR_POLICY && check.phase !== 'integration'
+                && evidence.status === 'failed' && evidence.outcome_uncertain === false && !uncertain(evidence)) {
+              const ids = context.task.check_ids.slice(context.task.check_ids.indexOf(check.id) + 1);
+              for (const next of ids.map(id => plan.checks.find(row => row.id === id)).filter(row => row.phase !== 'integration')) {
+                const more = await runtime.runCheck(clone(next), context);
+                localEvidence.push(clone({...more, task_id: context.task.id, attempt_id: context.attempt_id}));
+              }
+              if (ids.length) await record({event: 'adaptive_local_checks_continued', round_index: roundIndex,
+                task_id: context.task.id, attempt_id: context.attempt_id, after_check_id: check.id, check_ids: ids});
+            }
             return evidence;
           }});
         runtimeJournal = await runtime.journalState();
