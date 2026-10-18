@@ -1,3 +1,5 @@
+R20261018-REHEARSAL-C: 무료 리허설 공백 보완(2d75833). 결과물 미작성(DAG_RUNTIME_ARTIFACT_MISSING)을 정확한 소유자 1개가 무호출로 수리, 가짜 작업자는 수리 묶음의 허용 경로만 씀, openapi-partial-repair-v12.json 추가(d085 불변). 고정 파일 변화 없음(v11·d076 불변), 테스트 1416/1417. 재리허설(깨끗한 트리, 장부 불변): h2·openapi missing_output 해결, readiness_failure는 둘 다 ARTIFACT_CHECK_NOT_PASSED. 원인은 가짜 쪽이 아니라 readiness 검사 첫 실패 중단+수리 2라운드 고정(REHEARSAL-B double_limit 정정). 관문은 계속 닫힘. [기록](../decisions/R20261018_REHEARSAL_C.md). 아래는 당시 기록이다.
+
 R20261018-REHEARSAL-B: 기록 기반 무료 리허설·유료 실행 관문·Jev 모델 사전점검·앱 CLI(2.1.299)·카탈로그 realpath 비교 구현(f9d32e4), 테스트 1414/1415. 리허설(무료, 장부 불변): h2·openapi baseline 완료, 미지 모델은 장부 복사본에서만 차단. 새 결함 발견: 작업자 무출력(DAG_RUNTIME_ARTIFACT_MISSING)은 부분수리 대상 아님. openapi 기본 manifest는 부분수리 꺼짐. 관문이 두 과제 유료실행을 막는 상태. 과제조사: openapi보다 작은 과제64개, 후보6. [기록](../decisions/R20261018_REHEARSAL_B.md). 아래는 당시 기록이다.
 
 R20261018-DESIGN-SELECTION: 반복 실행경로 결함 원인 분석·재설계안 선정. 실패 arm 41개 중 30개(73%)가 품질이 아닌 경로·환경·인프라 원인, 최근 결함7개 중3개는 수정이 다른 곳에 있었음(브랜치 세갈래). 설계안3개(계약·무과금 리허설·단일줄기) 블라인드 판정: 리허설58·계약56·단일줄기48/70. 리허설 안 선정 + 계약안의 단일줄기 검사·종료원인 분류 완전성·공통함수 통합 병합. 추정배율 정산·작업폴더 삭제는 거부. 구현 미착수. [기록](../decisions/R20261018_DESIGN_SELECTION.md). 아래는 당시 기록이다.
