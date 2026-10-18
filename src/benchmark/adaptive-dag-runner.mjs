@@ -197,6 +197,8 @@ export function loadAdaptiveRunManifest(path = join(ROOT, 'benchmarks/e2e-swe/ma
   if (value.repair_feedback !== undefined && ((!v11 && !v12) || !object(value.repair_feedback) || !Object.keys(value.repair_feedback).length
     || Object.entries(value.repair_feedback).some(([key, item]) => REPAIR_FEEDBACK_VALUES[key] !== item)
     || (value.repair_feedback.scope_expansion && !value.repair_feedback.worker_diagnostics))) fail('ADAPTIVE_REPAIR_FEEDBACK_BINDING');
+  // R20261015 partial readiness repair: a failed local readiness check repairs its exact owner without a model call.
+  if (value.partial_repair !== undefined && (!v12 || value.partial_repair !== 'local-readiness-v1')) fail('ADAPTIVE_PARTIAL_REPAIR_BINDING');
   if (v10) {
     const gate = validateJevTransmissionBinding(value.transmission_preflight);
     // v10 keeps policy v1; v11 binds a later frozen policy (v2+).
@@ -619,6 +621,7 @@ function createRunContext({rootDir, runDir, manifest, abortSignal}) {
       'src/orchestration/artifact-transport.mjs', 'src/orchestration/dag-filesystem-runtime.mjs', 'src/orchestration/dag-contracts.mjs',
       'src/orchestration/artifact-dag.mjs', 'src/orchestration/dag-workflow.mjs', 'src/orchestration/dag-scheduler.mjs',
       'src/orchestration/artifact-verification-gate.mjs', 'scripts/audit-dag-public-checks.mjs', 'scripts/audit-task-public-checks.mjs',
+      'src/orchestration/adaptive-partial-repair.mjs', 'src/orchestration/adaptive-public-owner-evidence.mjs',
       manifest.manifest_path, manifest.input, input.source_ref.path, manifest.image_lock, ...publicSourceHashes(rootDir, manifestAuditOptions(manifest)).map(pin => pin.path), ...extra]);
     pins = paths.map((path, index) => {
       if (!relativePath(path)) fail('ADAPTIVE_SOURCE_PATH_INVALID');
@@ -1100,6 +1103,7 @@ export async function runAdaptiveArm({rootDir = ROOT, manifest = loadAdaptiveRun
         ...filesUnder(join(rootDir, manifest.public_checker_root))], environment: {id: manifest.public_environment_ref},
       ...callbacks, testRequirements, maxRepairRounds: manifest.max_repair_rounds, record: context.record,
       publicCheckConcurrency: adaptiveRuntimeSpeed(manifest).public_check_concurrency, ...adaptiveRepairBudgetOption(manifest), ...adaptiveRepairFeedbackOption(manifest),
+      ...(manifest.partial_repair ? {partialRepairPolicy: manifest.partial_repair} : {}),
       ...(arm === 'jev_profile' ? {prepareRoundPlan: selectProfiles} : {}),
       ...(inferredManifest(manifest) ? {decideRepairOwners: forms?.decideRepairOwners ?? ((request, metadata) => session.decide('jev', request, metadata))} : {}),
       // D085 owner_tiebreak: the second owner question has its own shape, so it bypasses the owner-criteria labelling.

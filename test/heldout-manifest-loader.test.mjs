@@ -59,6 +59,9 @@ test('a held-out manifest pointed at another task\'s public registry is rejected
   // Before R20261017-EVAL-PROTOCOL this combination loaded and would have run 93 openapi checks on an h2 candidate.
   assert.throws(() => load(paths('h2').manifest, openapi), {code: 'ADAPTIVE_PUBLIC_REGISTRY_BINDING'});
   assert.throws(() => load(paths('h2').manifest, value => pointAt('pycparser', value)), {code: 'ADAPTIVE_PUBLIC_REGISTRY_BINDING'});
+  // R20261015 partial readiness repair is a v12-only opt-in with one allowed value.
+  assert.equal(load(paths('h2').manifest, value => ({...value, partial_repair: 'local-readiness-v1'})).partial_repair, 'local-readiness-v1');
+  assert.throws(() => load(paths('h2').manifest, value => ({...value, partial_repair: 'other'})), {code: 'ADAPTIVE_PARTIAL_REPAIR_BINDING'});
   // A registry outside the manifest's own checker root fails the path rule.
   assert.throws(() => load(paths('h2').manifest, value => ({...value, public_registry: paths('pycparser').registry})),
     {code: 'ADAPTIVE_MANIFEST_INVALID'});

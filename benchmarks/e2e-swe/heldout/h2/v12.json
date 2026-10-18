@@ -74,7 +74,7 @@
   },
   "preparation_accounting": "New source-only catalog for held-out task h2 (one Claude catalog call, prepared before the cohort and reported separately). The openapi D066 catalog is not reused.",
   "deadline_basis": "Retain the existing 14400-second total deadline and no separate worker cap. Cumulative and per-arm token spending caps are null. v4 input estimates are observational; official 256000-byte body, structural and uncertainty checks can block.",
-  "session_semantics": "R20261017-EVAL-PROTOCOL stage-1 pilot: one jev_profile arm on held-out h2 with the D083 default policies, Claude workers only, catalog from heldout-h2-catalog-01. Held-out stage 1 (R20261017-EVAL-PROTOCOL), task h2: D083 cloud defaults (d083-repair-fixes.json) with task-bound inputs replaced. Condition jev_profile only; the claude_all control condition cannot be expressed in v12 (arms fixed to [jev_profile]).",
+  "session_semantics": "R20261017-EVAL-PROTOCOL stage-1 pilot (rerun 02 adds partial_repair local-readiness-v1): one jev_profile arm on held-out h2 with the D083 default policies, Claude workers only, catalog from heldout-h2-catalog-01. Held-out stage 1 (R20261017-EVAL-PROTOCOL), task h2: D083 cloud defaults (d083-repair-fixes.json) with task-bound inputs replaced. Condition jev_profile only; the claude_all control condition cannot be expressed in v12 (arms fixed to [jev_profile]).",
   "claude_auth_methods": [
     "claude.ai",
     "oauth_token"
@@ -163,5 +163,6 @@
     "policy": "spec-review-v1",
     "contract": "docs/orchestration/contracts/adaptive-spec-review.v1.json",
     "sha256": "fcb81c6fd247d5fc14177de9fccf9cd5d6a24424f44e9f5a0d22e66f14a2f769"
-  }
+  },
+  "partial_repair": "local-readiness-v1"
 }
