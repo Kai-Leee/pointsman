@@ -75,14 +75,19 @@ function passedAfter(failure, prior) {
 }
 
 /** Derive a bounded semantic history from controller observations, never worker claims. */
-export function buildCausalRepairHistory({planning, artifactBindings, attempts = []}) {
-  need(Array.isArray(attempts), 'ADAPTIVE_CAUSAL_HISTORY_INVALID');
+export function buildCausalRepairHistory({planning, artifactBindings, attempts = [], localRounds = []}) {
+  need(Array.isArray(attempts) && Array.isArray(localRounds) && localRounds.every((round, i) => Number.isInteger(round) && round >= 0
+    && (i === 0 || round > localRounds[i - 1])), 'ADAPTIVE_CAUSAL_HISTORY_INVALID');
+  // Local readiness repair rounds (scripted, 0 provider calls) have no full revision vector, so they are
+  // listed by round index instead of as entries; causal attempts take the remaining round indices in order.
+  const causalRounds = [];
+  for (let round = 0; causalRounds.length < attempts.length; round++) if (!localRounds.includes(round)) causalRounds.push(round);
   const owners = ownerMap(planning.plan, artifactBindings), allIds = [...owners.keys()];
-  let previousAfter = null;
+  let previousAfter = null, previousRound = null;
   const entries = attempts.map((attempt, index) => {
     const action = attempt.action?.candidate ?? attempt.action, before = attempt.before_failure,
       after = attempt.after_failure ?? null, afterRevisions = attempt.after_artifact_revisions ?? after?.artifact_revisions;
-    need(attempt.round_index === index && ['completed', 'failed', 'uncertain'].includes(attempt.status)
+    need(attempt.round_index === causalRounds[index] && ['completed', 'failed', 'uncertain'].includes(attempt.status)
       && object(before) && ids(action?.task_ids) && ids(action?.artifact_ids) && action.artifact_ids.length
       && action.artifact_ids.every(id => owners.has(id) && action.task_ids.includes(owners.get(id)))
       && action.task_ids.every(id => action.artifact_ids.some(artifact => owners.get(artifact) === id)), 'ADAPTIVE_CAUSAL_HISTORY_INVALID');
@@ -93,9 +98,9 @@ export function buildCausalRepairHistory({planning, artifactBindings, attempts =
     need(object(beforeRevisions) && object(afterRevisions) && allIds.every(id => sha(beforeRevisions[id]) && sha(afterRevisions[id]))
       && Object.keys(beforeRevisions).length === allIds.length && Object.keys(afterRevisions).length === allIds.length,
     'ADAPTIVE_CAUSAL_HISTORY_REVISION');
-    if (previousAfter) need(same(previousAfter, beforeRevisions), 'ADAPTIVE_CAUSAL_HISTORY_DISCONTINUITY');
+    if (previousAfter && previousRound === attempt.round_index - 1) need(same(previousAfter, beforeRevisions), 'ADAPTIVE_CAUSAL_HISTORY_DISCONTINUITY');
     if (after) need(same(afterRevisions, after.artifact_revisions), 'ADAPTIVE_CAUSAL_HISTORY_REVISION');
-    previousAfter = afterRevisions;
+    previousAfter = afterRevisions; previousRound = attempt.round_index;
     const changedIds = allIds.filter(id => beforeRevisions[id] !== afterRevisions[id]);
     need(changedIds.every(id => action.artifact_ids.includes(id)), 'ADAPTIVE_CAUSAL_HISTORY_OUTSIDE_WRITE');
     need(Array.isArray(attempt.changed_files), 'ADAPTIVE_CAUSAL_HISTORY_FILES');
@@ -112,7 +117,7 @@ export function buildCausalRepairHistory({planning, artifactBindings, attempts =
     const beforeKeys = failedBefore.map(failureKey), afterKeys = failedAfter.map(failureKey);
     const relevantIds = ordered(planning.plan, unique([...action.artifact_ids, ...(action.read_artifact_ids ?? [])]));
     need(relevantIds.length === unique([...action.artifact_ids, ...(action.read_artifact_ids ?? [])]).length, 'ADAPTIVE_CAUSAL_HISTORY_INVALID');
-    return {round_index: index, status: attempt.status, selected_candidate_id: action.id,
+    return {round_index: attempt.round_index, status: attempt.status, selected_candidate_id: action.id,
       selected_task_ids: clone(action.task_ids), selected_artifact_ids: clone(action.artifact_ids),
       read_artifact_ids: clone(action.read_artifact_ids ?? []), changed_artifact_ids: changedIds,
       selected_but_unchanged_artifact_ids: action.artifact_ids.filter(id => !changedIds.includes(id)),
@@ -128,7 +133,8 @@ export function buildCausalRepairHistory({planning, artifactBindings, attempts =
       observation_boundary: 'Public assertion observations and actual changed file hashes; no inference of which branch caused the failure.'};
   });
   const history = {schema_version: 'adaptive-causal-repair-history/v1', source_sha256: planning.source_sha256,
-    catalog_sha256: planning.catalog_sha256, entries, final_artifact_revisions_sha256: previousAfter ? digest(previousAfter) : null};
+    catalog_sha256: planning.catalog_sha256, entries, final_artifact_revisions_sha256: previousAfter ? digest(previousAfter) : null,
+    ...(localRounds.length ? {local_repair_round_indices: [...localRounds]} : {})};
   return {...history, sha256: digest(history)};
 }
 
@@ -141,8 +147,12 @@ function checkedHistory(history, failure) {
   const {sha256, ...value} = history;
   need(value.schema_version === 'adaptive-causal-repair-history/v1' && sha256 === digest(value)
     && value.source_sha256 === failure.source_sha256 && value.catalog_sha256 === failure.catalog_sha256
-    && Array.isArray(value.entries) && value.entries.length === (failure.round_index ?? 0), 'ADAPTIVE_CAUSAL_HISTORY_INVALID');
-  if (value.entries.length) need(value.final_artifact_revisions_sha256 === digest(failure.artifact_revisions), 'ADAPTIVE_CAUSAL_HISTORY_REVISION');
+    && Array.isArray(value.entries) && value.entries.length + (value.local_repair_round_indices?.length ?? 0) === (failure.round_index ?? 0),
+  'ADAPTIVE_CAUSAL_HISTORY_INVALID');
+  // A later local repair round legitimately changes revisions after the last causal entry.
+  if (value.entries.length && value.entries.at(-1).round_index === (failure.round_index ?? 0) - 1) {
+    need(value.final_artifact_revisions_sha256 === digest(failure.artifact_revisions), 'ADAPTIVE_CAUSAL_HISTORY_REVISION');
+  }
   return clone(history);
 }
 

@@ -281,3 +281,32 @@ test('every broken readiness artifact of a task is reported in one round and rep
   assert.equal(result.operations.repair, 1);
   assert.deepEqual(result.repair_actions[0].candidate.artifact_ids, ['artifact-core', 'artifact-ir', 'artifact-extra']);
 });
+
+test('a public failure after a local readiness repair round is repaired through causal owner repair', async t => {
+  const f = await partialFixture(t), gates = [], histories = [];
+  f.options.maxRepairRounds = 2;
+  f.options.beforeRepairDecision = async (request, metadata) => gates.push(metadata.stage);
+  const owners = f.options.decideRepairOwners;
+  f.options.decideRepairOwners = async request => { histories.push(request); return owners(request); };
+  f.options.executeTask = async (task, ctx) => {
+    f.calls.push({task: structuredClone(task), context: structuredClone(ctx)});
+    const local = ctx.repair_context?.artifact_repair?.schema_version === 'adaptive-local-readiness-repair/v1';
+    const session = createArtifactSession({root: ctx.stageDirectory, allowedPaths: task.write_scope,
+      readablePaths: [...task.read_scope, ...task.write_scope], journalPath: join(f.root, `worker-${ctx.attempt_id}.jsonl`)});
+    try {
+      // Local repair satisfies readiness (contains REQUEST) but not the public assertion ("REQUEST").
+      for (const path of task.write_scope) session.writeFile({path, content: path !== 'producer.py' ? 'value = "unchanged"\n'
+        : ctx.operation !== 'repair' ? 'description = "SCHEMA"\n' : local ? 'description = REQUEST_DRAFT\n' : 'description = "REQUEST"\n'});
+    } finally { session.close(); }
+    return {status: 'completed', outcome_uncertain: false};
+  };
+  const result = await runAdaptiveDagExecution(f.options);
+  assert.equal(result.status, 'completed', JSON.stringify(result.terminal_cause));
+  assert.equal(result.rounds.length, 3);
+  assert.equal(gates[0], 'local_readiness_repair');
+  assert.equal(result.operations.repair, 2);
+  assert.equal(histories.length, 1);
+  assert.ok(result.rounds[1].public_evidence.some(row => row.status === 'failed'));
+  assert.ok(f.events.some(row => row.event === 'adaptive_causal_repair_history_updated'
+    && row.history.local_repair_round_indices?.[0] === 0 && row.history.entries[0]?.round_index === 1));
+});

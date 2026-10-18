@@ -439,7 +439,7 @@ export async function runAdaptiveDagExecution(options) {
     queue = append.catch(() => {});
     return append;
   }
-  const rounds = [], actions = [], snapshots = new Map(), attempted = new Set(), repairAttempts = [];
+  const rounds = [], actions = [], snapshots = new Map(), attempted = new Set(), repairAttempts = [], localRepairRounds = [];
   const recoveryEnabled = options.failureRecoveryPolicy === 'evidence-loop-v1';
   const recoveryActions = [], workerInputs = new Set(), recoveryAttempts = new Set();
   const inferredPolicy = INFERRED_SCOPE_POLICIES.includes(options.repairScopePolicy);
@@ -948,7 +948,7 @@ export async function runAdaptiveDagExecution(options) {
             after_failure: clone(failure), after_artifact_revisions: clone(failure.artifact_revisions),
             changed_files: repairFileChanges(previousSnapshots, snapshots, plan), status};
           repairAttempts.push(attempt);
-          repairHistory = buildCausalRepairHistory({planning, artifactBindings: bindings, attempts: repairAttempts});
+          repairHistory = buildCausalRepairHistory({planning, artifactBindings: bindings, attempts: repairAttempts, localRounds: localRepairRounds});
           round.repair_history = clone(repairHistory);
           await record({event: 'adaptive_causal_repair_history_updated', round_index: roundIndex, history: repairHistory});
         } catch (error) {
@@ -994,6 +994,10 @@ export async function runAdaptiveDagExecution(options) {
             {stage: 'local_readiness_repair', round_index: roundIndex});
             await record({event: 'adaptive_partial_repair_committed', round_index: roundIndex,
               candidate, provider_calls: 0, reason: 'exact_runtime_local_check_owner'});
+            if (causalPolicy) {
+              localRepairRounds.push(roundIndex);
+              repairHistory = buildCausalRepairHistory({planning, artifactBindings: bindings, attempts: repairAttempts, localRounds: localRepairRounds});
+            }
             selectedAction = clone(candidate); selected = new Set(candidate.task_ids); previousFailure = failure;
             previousRepairInputContext = null; round.prior_public_failure = clone(failure);
             actions.push({round_index: roundIndex, status: 'selected', candidate_id: candidate.id, candidate: clone(candidate)});
