@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "adapter": "jev-router-standalone-docker-v1",
+  "upstream_url": "https://github.com/facebookresearch/E2E-SWE.git",
+  "upstream_commit": "b11ac067b1dfe8ce8b6db245d88756f426007797",
+  "upstream_license": "CC-BY-NC-4.0",
+  "task_id": "pycparser",
+  "image_tag": "ghcr.io/facebookresearch/e2e-swe:pycparser",
+  "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:65788667ee2dcbfec3210499f0635728ceec8dd7a31f6ffc150f639a6815dd97",
+  "language": "Python",
+  "resources": {
+    "cpus": 6,
+    "memory_mb": 8192,
+    "storage_mb_declared_not_enforced": 51200
+  },
+  "agent_timeout_sec": 14400,
+  "verifier_timeout_sec": 900,
+  "test_case_count": 38,
+  "network_mode": "none",
+  "artifact_path": "/app",
+  "oracle_repository": null,
+  "oracle_commit": null,
+  "oracle_note": "Held-out: solution/ was not read, so no oracle control is pinned. Grading needs only tests/ (hash-pinned below) and the image digest.",
+  "upstream_sha256": {
+    "README.md": "cc5031f964216b8f6c2e0591cfba7b23fa9198c2bc6c3f573298673c0ca905c3",
+    "LICENSE": "41003d4a74749c0220e33dd415042164b5a1093ed401f36277234f772d22d3d0",
+    "tasks/pycparser/task.toml": "3eabac65d3514f1004b782c394a697fd4f37bf435bf7bbe5d893b34f24bc8901",
+    "tasks/pycparser/instruction.md": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+    "tasks/pycparser/environment/Dockerfile": "942423916a7230276c42df024c8bf18dce5f3c89fec23b7aa70c83d558feee22",
+    "tasks/pycparser/tests/test.sh": "3b1fa4cb62959f017a89e1c9d482b46175652b17db4d898c0d4f013c2589577f",
+    "tasks/pycparser/tests/test_pycparser.py": "535820acadd0a3626ba0356c8afee45531af7f9478b61476afc3148dcd95c73b"
+  }
+}

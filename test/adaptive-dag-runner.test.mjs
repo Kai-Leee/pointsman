@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import {mkdtempSync, mkdirSync, readFileSync, writeFileSync, readdirSync, lstatSync, chmodSync, rmSync} from 'node:fs';
 import {join, resolve, dirname, relative} from 'node:path';
 import {tmpdir} from 'node:os';
+import {spawnSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {loadAdaptiveRunManifest, adaptivePublicInput, ADAPTIVE_ARMS, adaptiveDecisionSchema, createAdaptiveProviderSession,
   validateAdaptivePublicReport, assertAdaptiveCohortCapacity, buildAdaptiveChecks, prepareAdaptiveSharedCatalog,
-  runAdaptiveArm, runAdaptiveComparison, loadAdaptiveSharedPreparation, adaptiveUsageSummary} from '../src/benchmark/adaptive-dag-runner.mjs';
+  runAdaptiveArm, runAdaptiveComparison, loadAdaptiveSharedPreparation, adaptiveUsageSummary, READINESS_CODE} from '../src/benchmark/adaptive-dag-runner.mjs';
 import {processResult} from '../src/benchmark/docker.mjs';
 import {createTokenBudget} from '../src/benchmark/budget.mjs';
 import {createJevClient} from '../src/client.mjs';
@@ -67,6 +68,11 @@ test('Claude and measured Jev receive identical typed decisions; receipts and ar
     assert.equal(receipts[0].actual_billed_usd, null);
     assert.equal(assertAdaptiveCohortCapacity({manifest, snapshot: {remaining_input_tokens: 2366258, reservations_pending: 0, blocked_code: null}}).required_input_tokens, 2165536);
     assert.throws(() => assertAdaptiveCohortCapacity({manifest, snapshot: {remaining_input_tokens: 2100000, reservations_pending: 0, blocked_code: null}}), {code: 'ADAPTIVE_COHORT_BUDGET_INSUFFICIENT'});
+    // v1 catalog preparation against today's unlimited ledger: no count to compare, pending/blocked still refuse.
+    const unlimited = {unlimited: true, token_limit: null, remaining_input_tokens: null, reservations_pending: 0, blocked_code: null};
+    assert.equal(assertAdaptiveCohortCapacity({manifest, snapshot: unlimited}).required_input_tokens, 2165536);
+    assert.throws(() => assertAdaptiveCohortCapacity({manifest, snapshot: {...unlimited, reservations_pending: 1}}), {code: 'ADAPTIVE_COHORT_BUDGET_INSUFFICIENT'});
+    assert.throws(() => assertAdaptiveCohortCapacity({manifest, snapshot: {...unlimited, unlimited: false}}), {code: 'ADAPTIVE_COHORT_BUDGET_INSUFFICIENT'});
     assert.deepEqual(Object.values(ADAPTIVE_ARMS.jev_split_relations), ['jev', 'jev', 'claude']);
     assert.equal(JSON.stringify(input).includes('write_scope'), false);
     assert.equal(JSON.stringify(input).includes('artifact_interfaces'), false);
@@ -473,4 +479,17 @@ test('known provider cause reaches arm result independently of its pending reser
     assert.equal(result.settlement_status.reservations_pending, 1); assert.equal(result.usage.jev.api_equivalent_usd, null);
     assert.equal(result.automatic_retries, 0); assert.equal(result.replay_allowed, false); assert.equal(posts, 1); assert.equal(settlements, 0);
   } finally { cleanup(parent); }
+});
+
+test('readiness check parses TOML on Python 3.10 images through tomli (held-out h2 image has no tomllib)', () => {
+  const directory = mkdtempSync(join(tmpdir(), 'readiness-toml-'));
+  try {
+    writeFileSync(join(directory, 'pyproject.toml'), '[project]\nname = "h2"\nversion = "4.1.0"\n');
+    const run = spawnSync('python3', ['-c', READINESS_CODE, JSON.stringify(['pyproject.toml'])], {cwd: directory, encoding: 'utf8'});
+    const report = JSON.parse(run.stdout);
+    assert.equal(report.status, 'passed', JSON.stringify(report.error));
+    assert.equal(report.assertions, 2);
+    writeFileSync(join(directory, 'pyproject.toml'), '[project\n');
+    assert.equal(JSON.parse(spawnSync('python3', ['-c', READINESS_CODE, JSON.stringify(['pyproject.toml'])], {cwd: directory, encoding: 'utf8'}).stdout).status, 'failed');
+  } finally { rmSync(directory, {recursive: true, force: true}); }
 });

@@ -1,0 +1,564 @@
+{
+  "schema_version": "heldout-public-check-plan/v1",
+  "task": "h2",
+  "status": "plan_only_not_executable",
+  "suites": [
+    {
+      "suite": "install-surface",
+      "test_ids": [
+        "T.R01.01",
+        "T.R03.01",
+        "T.R03.02",
+        "T.R04.01",
+        "T.R08.01",
+        "T.R09.01",
+        "T.R10.01"
+      ],
+      "observable_behavior": "The real setup.sh installs the candidate offline; the six public modules import without network or sockets; ErrorCodes, SettingCodes and the six exception classes exist with the documented names and integer values.",
+      "case_design": "Copy the candidate to a fresh venv in the pinned offline image (network none, PIP_NO_INDEX=1, hyperframe/hpack pre-installed with system site packages), run its setup.sh and record argv/exit status, then from an empty cwd import each module in a subprocess whose socket.socket is patched to raise; compare enum members with ints and check exception classes by issubclass(Exception) and by triggering the documented conditions."
+    },
+    {
+      "suite": "handshake-config",
+      "test_ids": [
+        "T.R02.01",
+        "T.R02.02",
+        "T.R05.01",
+        "T.R05.02",
+        "T.R05.03",
+        "T.R06.01",
+        "T.R06.02",
+        "T.R06.05",
+        "T.R06.06",
+        "T.R06.07",
+        "T.R06.08",
+        "T.R07.02",
+        "T.R09.02",
+        "T.R09.03"
+      ],
+      "observable_behavior": "Configuration parsing, the connection preface per role, the handshake event list including RemoteSettingsChanged original/new values, automatic SETTINGS/PING ACKs, output buffer draining and clearing, header value types and local setting defaults, all through H2Connection/H2Configuration calls and the bytes they emit.",
+      "case_design": "In-process client/server H2Connection pairs plus a scripted peer: hand-built client magic and SETTINGS/PING frames serialized with hyperframe are fed to receive_data, and every data_to_send() buffer is split after the magic and parsed with hyperframe (Frame.parse_frame_header/parse_body). Assertions compare event classes, attribute values and frame types/flags; unspecified items (config=None role, ENABLE_PUSH original_value, whether 100 is advertised) are never asserted."
+    },
+    {
+      "suite": "request-response",
+      "test_ids": [
+        "T.R02.03",
+        "T.R02.04",
+        "T.R06.09",
+        "T.R06.10",
+        "T.R06.12",
+        "T.R06.17",
+        "T.R06.18",
+        "T.R06.33",
+        "T.R07.01",
+        "T.integration.get-round-trip"
+      ],
+      "observable_behavior": "HEADERS/DATA/END_STREAM emission, stream ID parity and monotonicity, stream counters and the event classes produced by request, response, trailers and end of stream, including the verbatim Usage example.",
+      "case_design": "Run the Usage example verbatim and variants on in-process pairs; decode HEADERS blocks with hpack.Decoder and DATA frames with hyperframe to check frame count, stream id, payload and END_STREAM flag; check event lists with ordered subsequence matching where the instruction allows extra events (the \"...\" comment) and exact order where it lists the events."
+    },
+    {
+      "suite": "flow-control",
+      "test_ids": [
+        "T.R06.13",
+        "T.R06.14",
+        "T.R06.15",
+        "T.R06.16",
+        "T.R06.25",
+        "T.R06.26",
+        "T.R06.27",
+        "T.R06.28",
+        "T.R06.29",
+        "T.R06.34",
+        "T.integration.flow-control-recovery"
+      ],
+      "observable_behavior": "send_data error selection (FlowControlError, FrameTooLargeError, their order, closed send side), window accessors, acknowledgement and explicit WINDOW_UPDATE emission and recovery after exhaustion.",
+      "case_design": "Default-settings pairs only, so window and frame-size limits are known (65535/16384); exhaust windows with 16384-byte frames, assert exception classes with type checks (isinstance of the expected class and not of the competing one), parse WINDOW_UPDATE frames with hyperframe to read stream id and increment, and assert acknowledge_received_data only through the bounded outcome (increments never exceed acknowledged bytes)."
+    },
+    {
+      "suite": "stream-control-frames",
+      "test_ids": [
+        "T.R06.19",
+        "T.R06.20",
+        "T.R06.21",
+        "T.R06.22",
+        "T.R06.23",
+        "T.R06.24",
+        "T.R06.31",
+        "T.R06.32",
+        "T.integration.stream-termination",
+        "T.integration.control-frames"
+      ],
+      "observable_behavior": "RST_STREAM, PUSH_PROMISE (and its refusal when push is disabled), GOAWAY and its effect on new streams, PRIORITY, PING and ALTSVC frames and the peer events they produce.",
+      "case_design": "In-process pairs; each call's output is parsed with hyperframe (RstStreamFrame.error_code, PushPromiseFrame.promised_stream_id, GoAwayFrame.last_stream_id/error_code, PriorityFrame.stream_weight+1/depends_on/exclusive, PingFrame.opaque_data and ACK flag, AltSvcFrame.field) and fed to the peer to check the matching event; GOAWAY rejection and push refusal assert an h2.exceptions error (ProtocolError for push)."
+    },
+    {
+      "suite": "settings-upgrade",
+      "test_ids": [
+        "T.R06.03",
+        "T.R06.04",
+        "T.R06.11",
+        "T.R06.30",
+        "T.integration.settings-negotiation",
+        "T.integration.upgrade"
+      ],
+      "observable_behavior": "update_settings emission and peer RemoteSettingsChanged/SettingsAcknowledged, MAX_CONCURRENT_STREAMS enforcement with TooManyStreamsError, and the client/server HTTP/1.1 upgrade path ending in a response on stream 1.",
+      "case_design": "In-process pairs; the upgrade value is decoded with padding-tolerant base64.urlsafe_b64decode and parsed as 6-byte SETTINGS entries; a hand-built settings header is also passed to the server; upgraded pairs exchange data_to_send() buffers client first and the client's events are checked; settings changes are verified both on the wire (hyperframe SettingsFrame.settings) and through peer events."
+    }
+  ],
+  "normal_control": {
+    "kind": "authored_public_reference",
+    "description": "A minimal reference package written only from instruction.md: h2/config.py, connection.py, events.py, errors.py, settings.py, exceptions.py on top of hyperframe/hpack, plus pyproject.toml and a setup.sh running `pip install -e . --no-build-isolation`. It must implement every clause the cases assert (role-specific preface, handshake RemoteSettingsChanged with documented-default original values, automatic SETTINGS/PING ACKs, stream ID rules, MAX_CONCURRENT_STREAMS, window-before-frame-size send_data checks, all control frames and events, upgrade, documented defaults). Where the text is silent it may choose freely and no case asserts that choice. Passing it shows each case is satisfiable and the checker accepts a conforming implementation; it validates the checker and never certifies a candidate."
+  },
+  "defective_controls": [
+    {
+      "suite": "install-surface",
+      "defect": "setup_uses_build_isolation",
+      "mutation": "setup.sh drops --no-build-isolation, so pip tries to fetch build requirements from an index.",
+      "expected_failed_ids": [
+        "T.R03.01",
+        "T.R04.01"
+      ]
+    },
+    {
+      "suite": "install-surface",
+      "defect": "unavailable_runtime_import",
+      "mutation": "h2/connection.py imports a third-party module that is not pre-installed.",
+      "expected_failed_ids": [
+        "T.R01.01",
+        "T.R03.02"
+      ]
+    },
+    {
+      "suite": "install-surface",
+      "defect": "socket_in_connection",
+      "mutation": "H2Connection.initiate_connection opens a socket.",
+      "expected_failed_ids": [
+        "T.R01.01",
+        "T.R03.01"
+      ]
+    },
+    {
+      "suite": "install-surface",
+      "defect": "error_code_renumbered",
+      "mutation": "ErrorCodes.ENHANCE_YOUR_CALM is 10 instead of 11.",
+      "expected_failed_ids": [
+        "T.R08.01"
+      ]
+    },
+    {
+      "suite": "install-surface",
+      "defect": "setting_codes_swapped",
+      "mutation": "SettingCodes.MAX_FRAME_SIZE and MAX_HEADER_LIST_SIZE values are swapped.",
+      "expected_failed_ids": [
+        "T.R09.01"
+      ]
+    },
+    {
+      "suite": "install-surface",
+      "defect": "missing_stream_closed_error",
+      "mutation": "h2.exceptions does not define StreamClosedError.",
+      "expected_failed_ids": [
+        "T.R10.01"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "receive_returns_generator",
+      "mutation": "receive_data returns a generator instead of a list.",
+      "expected_failed_ids": [
+        "T.R02.01",
+        "T.R02.02",
+        "T.R06.05"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "missing_client_magic",
+      "mutation": "Client initiate_connection queues SETTINGS without the 24-byte magic.",
+      "expected_failed_ids": [
+        "T.R05.02",
+        "T.R06.02"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "server_sends_magic",
+      "mutation": "Server initiate_connection also queues the 24-byte magic.",
+      "expected_failed_ids": [
+        "T.R05.02",
+        "T.R06.02"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "config_default_server",
+      "mutation": "H2Configuration defaults client_side to False.",
+      "expected_failed_ids": [
+        "T.R05.01"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "config_none_rejected",
+      "mutation": "H2Connection() without a config raises TypeError.",
+      "expected_failed_ids": [
+        "T.R06.01"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "headers_always_str",
+      "mutation": "Event headers are decoded to str regardless of header_encoding.",
+      "expected_failed_ids": [
+        "T.R05.01",
+        "T.R05.03",
+        "T.R07.02"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "headers_ignore_utf8",
+      "mutation": "header_encoding=\"utf-8\" is ignored and bytes are returned.",
+      "expected_failed_ids": [
+        "T.R05.03",
+        "T.R07.02"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "no_settings_ack",
+      "mutation": "receive_data does not queue a SETTINGS ACK for a received SETTINGS frame.",
+      "expected_failed_ids": [
+        "T.R06.05"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "skip_default_valued_settings",
+      "mutation": "Handshake RemoteSettingsChanged omits advertised settings equal to the receiver default.",
+      "expected_failed_ids": [
+        "T.R06.06"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "unlimited_max_streams_default",
+      "mutation": "Local MAX_CONCURRENT_STREAMS default is unlimited, so original_value is not 100.",
+      "expected_failed_ids": [
+        "T.R06.06",
+        "T.R09.02"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "cap_remote_at_local_default",
+      "mutation": "Remote MAX_CONCURRENT_STREAMS is clamped to the local default 100.",
+      "expected_failed_ids": [
+        "T.R09.03"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "output_not_drained",
+      "mutation": "data_to_send returns pending bytes without clearing them.",
+      "expected_failed_ids": [
+        "T.R02.01",
+        "T.R06.07"
+      ]
+    },
+    {
+      "suite": "handshake-config",
+      "defect": "clear_buffer_noop",
+      "mutation": "clear_outbound_data_buffer leaves the buffer intact.",
+      "expected_failed_ids": [
+        "T.R06.08"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "headers_ignore_end_stream",
+      "mutation": "send_headers never sets END_STREAM.",
+      "expected_failed_ids": [
+        "T.R02.03",
+        "T.R06.09",
+        "T.integration.get-round-trip"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "no_stream_id_validation",
+      "mutation": "send_headers accepts even and decreasing client stream IDs.",
+      "expected_failed_ids": [
+        "T.R06.10"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "data_split_in_two",
+      "mutation": "send_data splits its payload into two DATA frames.",
+      "expected_failed_ids": [
+        "T.R06.12"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "data_ignores_end_stream",
+      "mutation": "send_data never sets END_STREAM.",
+      "expected_failed_ids": [
+        "T.R02.04",
+        "T.R06.12",
+        "T.integration.get-round-trip"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "end_stream_nonempty",
+      "mutation": "end_stream sends a DATA frame with a 1-byte payload.",
+      "expected_failed_ids": [
+        "T.R06.17"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "server_odd_stream_ids",
+      "mutation": "Server get_next_available_stream_id returns odd IDs.",
+      "expected_failed_ids": [
+        "T.R06.18"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "counters_drop_half_closed",
+      "mutation": "open_outbound_streams/open_inbound_streams stop counting half-closed streams.",
+      "expected_failed_ids": [
+        "T.R06.33"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "response_as_request_event",
+      "mutation": "A client receiving response HEADERS emits RequestReceived instead of ResponseReceived.",
+      "expected_failed_ids": [
+        "T.R02.04",
+        "T.R07.01",
+        "T.integration.get-round-trip"
+      ]
+    },
+    {
+      "suite": "request-response",
+      "defect": "data_event_missing_flow_length",
+      "mutation": "DataReceived lacks flow_controlled_length.",
+      "expected_failed_ids": [
+        "T.R07.01"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "no_window_check",
+      "mutation": "send_data never checks the flow-control window.",
+      "expected_failed_ids": [
+        "T.R06.13",
+        "T.R06.15",
+        "T.integration.flow-control-recovery"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "no_frame_size_check",
+      "mutation": "send_data never checks MAX_FRAME_SIZE.",
+      "expected_failed_ids": [
+        "T.R06.14"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "frame_size_checked_first",
+      "mutation": "send_data checks MAX_FRAME_SIZE before the window.",
+      "expected_failed_ids": [
+        "T.R06.15"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "closed_send_side_allowed",
+      "mutation": "send_data succeeds after the send side is closed.",
+      "expected_failed_ids": [
+        "T.R06.16"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "window_not_decremented",
+      "mutation": "Sending DATA does not reduce the local window.",
+      "expected_failed_ids": [
+        "T.R06.13",
+        "T.R06.25",
+        "T.integration.flow-control-recovery"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "unknown_stream_window_zero",
+      "mutation": "local_flow_control_window returns 0 for an unknown stream.",
+      "expected_failed_ids": [
+        "T.R06.26"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "remote_window_static",
+      "mutation": "remote_flow_control_window ignores received DATA.",
+      "expected_failed_ids": [
+        "T.R06.27"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "ack_overcredits",
+      "mutation": "acknowledge_received_data emits a WINDOW_UPDATE twice the acknowledged size.",
+      "expected_failed_ids": [
+        "T.R06.28"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "increment_ignores_stream",
+      "mutation": "increment_flow_control_window always targets stream 0.",
+      "expected_failed_ids": [
+        "T.R06.29",
+        "T.integration.flow-control-recovery"
+      ]
+    },
+    {
+      "suite": "flow-control",
+      "defect": "inbound_window_wrong_initial",
+      "mutation": "inbound_flow_control_window starts at 16384.",
+      "expected_failed_ids": [
+        "T.R06.34"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "rst_default_cancel",
+      "mutation": "reset_stream defaults error_code to CANCEL (8).",
+      "expected_failed_ids": [
+        "T.R06.19"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "reset_event_code_zero",
+      "mutation": "Received RST_STREAM yields StreamReset with error_code 0.",
+      "expected_failed_ids": [
+        "T.R06.19",
+        "T.integration.stream-termination"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "push_on_promised_stream",
+      "mutation": "PUSH_PROMISE is sent on the promised stream instead of the parent.",
+      "expected_failed_ids": [
+        "T.R06.20",
+        "T.integration.control-frames"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "push_ignores_enable_push",
+      "mutation": "push_stream ignores a peer ENABLE_PUSH=0.",
+      "expected_failed_ids": [
+        "T.R06.21",
+        "T.integration.control-frames"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "goaway_error_code_dropped",
+      "mutation": "close_connection always sends error code 0.",
+      "expected_failed_ids": [
+        "T.R06.22"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "goaway_not_enforced",
+      "mutation": "New streams are allowed after receiving GOAWAY.",
+      "expected_failed_ids": [
+        "T.R06.23",
+        "T.integration.stream-termination"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "priority_weight_raw",
+      "mutation": "PriorityUpdated.weight reports the wire value (weight - 1).",
+      "expected_failed_ids": [
+        "T.R06.24",
+        "T.integration.control-frames"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "ping_no_auto_ack",
+      "mutation": "A received PING is not answered with a PING ACK.",
+      "expected_failed_ids": [
+        "T.R06.31",
+        "T.integration.control-frames"
+      ]
+    },
+    {
+      "suite": "stream-control-frames",
+      "defect": "altsvc_dropped",
+      "mutation": "A received ALTSVC frame produces no event.",
+      "expected_failed_ids": [
+        "T.R06.32",
+        "T.integration.control-frames"
+      ]
+    },
+    {
+      "suite": "settings-upgrade",
+      "defect": "upgrade_raw_settings",
+      "mutation": "Client initiate_upgrade_connection returns the raw SETTINGS payload instead of base64url.",
+      "expected_failed_ids": [
+        "T.R06.03",
+        "T.integration.upgrade"
+      ]
+    },
+    {
+      "suite": "settings-upgrade",
+      "defect": "upgrade_no_preface",
+      "mutation": "Client initiate_upgrade_connection does not queue the preface.",
+      "expected_failed_ids": [
+        "T.R06.03",
+        "T.integration.upgrade"
+      ]
+    },
+    {
+      "suite": "settings-upgrade",
+      "defect": "server_upgrade_no_stream1",
+      "mutation": "Server initiate_upgrade_connection does not open stream 1.",
+      "expected_failed_ids": [
+        "T.R06.04",
+        "T.integration.upgrade"
+      ]
+    },
+    {
+      "suite": "settings-upgrade",
+      "defect": "ignore_peer_max_streams",
+      "mutation": "Outbound stream limit ignores the peer MAX_CONCURRENT_STREAMS.",
+      "expected_failed_ids": [
+        "T.R06.11",
+        "T.integration.settings-negotiation"
+      ]
+    },
+    {
+      "suite": "settings-upgrade",
+      "defect": "update_settings_silent",
+      "mutation": "update_settings changes local state but emits no SETTINGS frame.",
+      "expected_failed_ids": [
+        "T.R06.30",
+        "T.integration.settings-negotiation"
+      ]
+    }
+  ]
+}

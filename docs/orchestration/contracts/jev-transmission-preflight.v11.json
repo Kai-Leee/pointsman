@@ -3,7 +3,7 @@
   "policy_id": "d085-required-pre-send-v11",
   "supersedes": {
     "path": "docs/orchestration/contracts/jev-transmission-preflight.v10.json",
-    "reason": "D085 adds repair_feedback.owner_alternatives owner-probability-v1 check_error_repair generation-direct-v1 and owner_tiebreak flat-reask-v2 (its second owner question) (with its local diagnosis callback) as opt-in manifest bindings in adaptive-dag-runner.mjs, and points the gate default at v11. The Jev request format, prompt policy and connection rules are unchanged. Pins frozen on 2026-10-14. v1-v10 are unchanged."
+    "reason": "D085 adds repair_feedback.owner_alternatives owner-probability-v1 check_error_repair generation-direct-v1 and owner_tiebreak flat-reask-v2 (its second owner question) (with its local diagnosis callback) as opt-in manifest bindings in adaptive-dag-runner.mjs, and points the gate default at v11. The Jev request format, prompt policy and connection rules are unchanged. Pins frozen on 2026-10-14. v1-v10 are unchanged. Re-frozen 2026-10-18 on feat/heldout-eval-20261018 (R20261017-EVAL-PROTOCOL held-out): adaptive-dag-runner.mjs binds a non-openapi input to its own public registry and derives its public test count; the v1 cohort check accepts an unlimited v3/v4 ledger so a held-out catalog can be prepared; opt-in manifest key partial_repair: local-readiness-v1 enables the R20261015 partial readiness repair. openapi manifests keep the registry.v4 rule. The readiness check falls back to tomli when tomllib is absent (Python 3.10 task images such as h2). Catalog reuse compares catalog paths by realpath so a preparation reached through another checkout or a benchmark-runs symlink is accepted; budget.mjs reads the settlement whitelist from jev-settlement-models.v1.json. Re-frozen 2026-10-19 (R20261019-ADMISSION-V5): adaptive-dag-runner.mjs accepts the opt-in token admission contract jev-token-admission.v5.json for inferred-repair manifests, which adds the documented jev-1.14 build (typesafe/jev-1.14-20261014, same 64k/32k default limits) to v4's accepted observed models; v4 and every earlier admission policy are unchanged. Re-frozen 2026-10-19 at the merge of research-d095-final-20261017 (D087-D095) into feat/heldout-eval-20261018: adaptive-dag-runner.mjs also binds the D087-D095 Pointsman gateway manifests (D088 registry token admission, renamed from jev-token-admission.v5.json to jev-token-admission.v6.json because this line's v5 is the R20261019 jev-1.14 build policy; D095 v5 public registry and runner for openapi manifests under the D095 routing contracts) and keeps its held-out, partial-repair, realpath catalog and v5 admission bindings; partial_repair local-readiness-v1 manifests may now reuse a catalog across the D094 WORKER_PROFILE_BLOCKED changes to dag-filesystem-runtime.mjs and dag-scheduler.mjs. The research line's own v11 (policy_id r20261014-required-pre-send-v11, pinned no further than the runner) is superseded by this one."
   },
   "enforcement": "required",
   "input_policy": "v4",
@@ -57,7 +57,7 @@
     },
     {
       "path": "src/benchmark/adaptive-dag-runner.mjs",
-      "sha256": "64d2b5e184eabce880fa570671f73ad29e515ee4dedf2a7098c9bf9337c58997"
+      "sha256": "b7393483225dd3fbc55ef45f417ca54bc17eb979e7b0547bd8a7cc64af73c387"
     },
     {
       "path": "src/benchmark/telemetry.mjs",

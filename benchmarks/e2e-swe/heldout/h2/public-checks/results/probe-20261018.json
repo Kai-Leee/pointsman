@@ -1,0 +1,1856 @@
+{
+  "status": "ready",
+  "mode": "preflight",
+  "paid_calls": 0,
+  "blockers": [],
+  "live_ready": true,
+  "mapping": {
+    "schema_version": "dag-public-check-audit/v1",
+    "status": "mapped",
+    "mapping_only": true,
+    "product_execution_ready": false,
+    "source_test_count": 58,
+    "original_test_count": 58,
+    "additional_test_count": 0,
+    "public_gate_version": "1",
+    "implemented_test_count": 58,
+    "missing_test_count": 0,
+    "missing_test_ids": [],
+    "missing_requirement_ids": [],
+    "missing": [],
+    "check_count": 6,
+    "checks": [
+      {
+        "id": "public.install-surface",
+        "phase": "integration",
+        "test_ids": [
+          "T.R01.01",
+          "T.R03.01",
+          "T.R03.02",
+          "T.R04.01",
+          "T.R08.01",
+          "T.R09.01",
+          "T.R10.01"
+        ]
+      },
+      {
+        "id": "public.handshake-config",
+        "phase": "integration",
+        "test_ids": [
+          "T.R02.01",
+          "T.R02.02",
+          "T.R05.01",
+          "T.R05.02",
+          "T.R05.03",
+          "T.R06.01",
+          "T.R06.02",
+          "T.R06.05",
+          "T.R06.06",
+          "T.R06.07",
+          "T.R06.08",
+          "T.R07.02",
+          "T.R09.02",
+          "T.R09.03"
+        ]
+      },
+      {
+        "id": "public.request-response",
+        "phase": "integration",
+        "test_ids": [
+          "T.R02.03",
+          "T.R02.04",
+          "T.R06.09",
+          "T.R06.10",
+          "T.R06.12",
+          "T.R06.17",
+          "T.R06.18",
+          "T.R06.33",
+          "T.R07.01",
+          "T.integration.get-round-trip"
+        ]
+      },
+      {
+        "id": "public.flow-control",
+        "phase": "integration",
+        "test_ids": [
+          "T.R06.13",
+          "T.R06.14",
+          "T.R06.15",
+          "T.R06.16",
+          "T.R06.25",
+          "T.R06.26",
+          "T.R06.27",
+          "T.R06.28",
+          "T.R06.29",
+          "T.R06.34",
+          "T.integration.flow-control-recovery"
+        ]
+      },
+      {
+        "id": "public.stream-control-frames",
+        "phase": "integration",
+        "test_ids": [
+          "T.R06.19",
+          "T.R06.20",
+          "T.R06.21",
+          "T.R06.22",
+          "T.R06.23",
+          "T.R06.24",
+          "T.R06.31",
+          "T.R06.32",
+          "T.integration.stream-termination",
+          "T.integration.control-frames"
+        ]
+      },
+      {
+        "id": "public.settings-upgrade",
+        "phase": "integration",
+        "test_ids": [
+          "T.R06.03",
+          "T.R06.04",
+          "T.R06.11",
+          "T.R06.30",
+          "T.integration.settings-negotiation",
+          "T.integration.upgrade"
+        ]
+      }
+    ],
+    "blockers": [
+      "REAL_CANDIDATE_ENVIRONMENT_NOT_VALIDATED",
+      "ARTIFACT_REVISION_ADAPTER_NOT_BOUND"
+    ],
+    "controls": {
+      "status": "not_run"
+    },
+    "source_integrity": {
+      "input_path": "benchmarks/e2e-swe/heldout/h2/obligations.json",
+      "input_sha256": "6ba98d3f1bb6dab23e159f4a7d6f30bd29006dcdf5fe3ac84017a407ecd607e2",
+      "public_source_sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62",
+      "verified": true
+    },
+    "audit_inputs": {
+      "publicGateVersion": "1",
+      "inputPath": "benchmarks/e2e-swe/heldout/h2/obligations.json",
+      "checkerRoot": "benchmarks/e2e-swe/heldout/h2/public-checks",
+      "registryPath": "benchmarks/e2e-swe/heldout/h2/public-checks/registry.json",
+      "runnerPath": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+      "inventoryPath": "benchmarks/e2e-swe/heldout/h2/public-checks/inventory.json",
+      "controlRunnerPath": "benchmarks/e2e-swe/heldout/h2/public-checks/run_control_batch.py",
+      "controlCatalogPath": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/catalog.json",
+      "assertionContractPath": "benchmarks/e2e-swe/heldout/h2/public-checks/assertions.json"
+    }
+  },
+  "controls": {
+    "status": "passed",
+    "evidence_level": "authored_local_controls_only",
+    "normal_count": 6,
+    "defective_count": 0,
+    "normal": [
+      {
+        "check_id": "public.install-surface",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 94,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 22,
+              "status": "passed",
+              "test_id": "T.R01.01"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R03.01"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R03.02"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R04.01"
+            },
+            {
+              "assertions": 23,
+              "status": "passed",
+              "test_id": "T.R08.01"
+            },
+            {
+              "assertions": 20,
+              "status": "passed",
+              "test_id": "T.R09.01"
+            },
+            {
+              "assertions": 13,
+              "status": "passed",
+              "test_id": "T.R10.01"
+            }
+          ],
+          "check_id": "public.install-surface",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-h2/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.341,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-8k55uqt3/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2649 sha256=71ec3a790eb0cf02b9de624994871e84440b1ca6cb6b2d59a385da5a6288658d\n  Stored in directory: /tmp/pip-ephem-wheel-cache-ia4l85p8/wheels/de/e6/f3/aa0c0e3d3223227e45a32cb7b735ad92bf351d6f6c6b9d9a6e\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R01.01",
+            "T.R03.01",
+            "T.R03.02",
+            "T.R04.01",
+            "T.R08.01",
+            "T.R09.01",
+            "T.R10.01"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 8.139951253000618
+      },
+      {
+        "check_id": "public.handshake-config",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 115,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R02.01"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R02.02"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R05.01"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R05.02"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R05.03"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.01"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R06.02"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.05"
+            },
+            {
+              "assertions": 23,
+              "status": "passed",
+              "test_id": "T.R06.06"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.07"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.08"
+            },
+            {
+              "assertions": 24,
+              "status": "passed",
+              "test_id": "T.R07.02"
+            },
+            {
+              "assertions": 20,
+              "status": "passed",
+              "test_id": "T.R09.02"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R09.03"
+            }
+          ],
+          "check_id": "public.handshake-config",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-h2/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.448,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-qf5nqxbd/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2647 sha256=3aaa389baa2a66f796006cf1ffb1ed9315f704baec406320fb7abd1090dab29e\n  Stored in directory: /tmp/pip-ephem-wheel-cache-rnuzxva4/wheels/62/3a/2f/a42912169e2f53e8ad1c111dbe1d0f170c710022bc8ac5cedf\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R02.01",
+            "T.R02.02",
+            "T.R05.01",
+            "T.R05.02",
+            "T.R05.03",
+            "T.R06.01",
+            "T.R06.02",
+            "T.R06.05",
+            "T.R06.06",
+            "T.R06.07",
+            "T.R06.08",
+            "T.R07.02",
+            "T.R09.02",
+            "T.R09.03"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 7.678759836999234
+      },
+      {
+        "check_id": "public.request-response",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 105,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R02.03"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R02.04"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R06.09"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.10"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R06.12"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.17"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R06.18"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.33"
+            },
+            {
+              "assertions": 38,
+              "status": "passed",
+              "test_id": "T.R07.01"
+            },
+            {
+              "assertions": 26,
+              "status": "passed",
+              "test_id": "T.integration.get-round-trip"
+            }
+          ],
+          "check_id": "public.request-response",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-h2/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.401,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-jabcobgx/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2646 sha256=161d0d31f8d9328aeee99653f2cd49b51fce1f03807905bcb4900dbeac195e85\n  Stored in directory: /tmp/pip-ephem-wheel-cache-qzd9ndl3/wheels/30/13/63/dcca2567bb9c8fddb2b0089c32fd6bb4d5e4c80967a28c3631\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R02.03",
+            "T.R02.04",
+            "T.R06.09",
+            "T.R06.10",
+            "T.R06.12",
+            "T.R06.17",
+            "T.R06.18",
+            "T.R06.33",
+            "T.R07.01",
+            "T.integration.get-round-trip"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 7.545624294998561
+      },
+      {
+        "check_id": "public.flow-control",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 34,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.13"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.14"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.15"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.16"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.25"
+            },
+            {
+              "assertions": 1,
+              "status": "passed",
+              "test_id": "T.R06.26"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.27"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.28"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.29"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.34"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.integration.flow-control-recovery"
+            }
+          ],
+          "check_id": "public.flow-control",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-h2/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 2.428,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-dh6i712c/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2649 sha256=30d456b4e41b3a4d3b0e0245bef80c11feccd37d31746e5c79871012ebedcbcb\n  Stored in directory: /tmp/pip-ephem-wheel-cache-0l66lr_a/wheels/4d/0b/a8/c3eaeb41eb745ae124933ba7ed27b6b192f915ec68e0f534c2\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R06.13",
+            "T.R06.14",
+            "T.R06.15",
+            "T.R06.16",
+            "T.R06.25",
+            "T.R06.26",
+            "T.R06.27",
+            "T.R06.28",
+            "T.R06.29",
+            "T.R06.34",
+            "T.integration.flow-control-recovery"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 7.562305961997481
+      },
+      {
+        "check_id": "public.stream-control-frames",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 48,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R06.19"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R06.20"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.21"
+            },
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.R06.22"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.23"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.24"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.31"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.32"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.integration.stream-termination"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.integration.control-frames"
+            }
+          ],
+          "check_id": "public.stream-control-frames",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-h2/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 3.196,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-66696fe8/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2650 sha256=76bd09e854716cd8344183721e066367b0b4a7556794c3677295375d55fad4d1\n  Stored in directory: /tmp/pip-ephem-wheel-cache-nicvu5_x/wheels/13/44/0e/3a0a9c1c737a7e8066b2b45f8e0ef3550643fb24adf2926d21\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R06.19",
+            "T.R06.20",
+            "T.R06.21",
+            "T.R06.22",
+            "T.R06.23",
+            "T.R06.24",
+            "T.R06.31",
+            "T.R06.32",
+            "T.integration.stream-termination",
+            "T.integration.control-frames"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 8.289064086999133
+      },
+      {
+        "check_id": "public.settings-upgrade",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 36,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R06.03"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R06.04"
+            },
+            {
+              "assertions": 1,
+              "status": "passed",
+              "test_id": "T.R06.11"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R06.30"
+            },
+            {
+              "assertions": 11,
+              "status": "passed",
+              "test_id": "T.integration.settings-negotiation"
+            },
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.integration.upgrade"
+            }
+          ],
+          "check_id": "public.settings-upgrade",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-h2/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 3.255,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-tqtzcyby/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2645 sha256=db34350e8a3a181386dca25e2a4aeb37fe70526551beb31516d51456a80d88ef\n  Stored in directory: /tmp/pip-ephem-wheel-cache-bbvvn3um/wheels/54/80/a2/0d6451ba4c3773da64e9b26013c82a4b20e29580cc50f23847\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R06.03",
+            "T.R06.04",
+            "T.R06.11",
+            "T.R06.30",
+            "T.integration.settings-negotiation",
+            "T.integration.upgrade"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 8.290054920998955
+      }
+    ],
+    "negative": [],
+    "product_execution_ready": false,
+    "schema_version": "dag-public-control-receipt/v2",
+    "recorded_at": "2026-10-17T17:11:35.683Z",
+    "source_hashes": [
+      {
+        "path": ".benchmarks/E2E-SWE/tasks/h2/instruction.md",
+        "sha256": "1fed1f3f2c587c46f56893d3379bfaf27691abfa7b9819959cb391242d443d62"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/obligations.json",
+        "sha256": "6ba98d3f1bb6dab23e159f4a7d6f30bd29006dcdf5fe3ac84017a407ecd607e2"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/assertions.json",
+        "sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/cases.py",
+        "sha256": "e7203c6840a193b139317e651758e29e8456dc28f5cdb591c2bdba9b09d2e0ac"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/catalog.json",
+        "sha256": "1ab06bcdd6c7799ae3e15574f3d73ae5208614969b123886612d4b7e607c6b21"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/defects.json",
+        "sha256": "e3cbca075cd1f06c894cda464a932981fdc3ff8dcb850ec01e7ae72042a0dbaf"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/h2/__init__.py",
+        "sha256": "44b3c8da6d97d8428e46dde9765118faa7381a84869de2c296250257e04f65af"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/h2/config.py",
+        "sha256": "e847a6d165b71eb84415b7de477e7a855d5564ebe83a454e196af295a46f62cd"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/h2/connection.py",
+        "sha256": "adf6ce9275b795ea69b6d3a78830674e5614bab77556523db7de0ece740b03b2"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/h2/errors.py",
+        "sha256": "5dc6c2d4fd590c789a40b3f394fe71566ebedb38f917ab6c6e470cb40f2f9289"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/h2/events.py",
+        "sha256": "e153a9d69501bfe80e313b3c7e3410e49a50f37eed6eec475f02e75637c36136"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/h2/exceptions.py",
+        "sha256": "6b19e92e64a1a26745dcad82897f18e0aee1ebf73fce01835fd09dc299258e8d"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/h2/settings.py",
+        "sha256": "51d8568c218f0e3c223b00783b2beca26a1349be4eb3ee21167c6abc49d94ad9"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/pyproject.toml",
+        "sha256": "8ea8d1f3e8498cb0e77a4b361294506386d0c1bb1d1fdf7bc7d69898574a1eaf"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/reference/setup.sh",
+        "sha256": "197f96b354f11afed64aa876b4af58ff16632d5285287fe2f3f6621de7df7310"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/environment.json",
+        "sha256": "055403956ef15c30f8431e3dcc0143dc1b4717e4b8547bf1aae6d3d85440f3bd"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/harness.py",
+        "sha256": "7c6fa3400d5fce1e426f26eb8bb28324fe5e6398dd914fd025e0688e20761c9f"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/inventory.json",
+        "sha256": "eedffcf3e37e2b52f12ffdb78b46e09c9e8574e641278368dd6fb6cc63366407"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/registry.json",
+        "sha256": "dd4a71f1eb51464027a857d38f7104a11582819687adf616daf6fc5163f2c27c"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/run_control_batch.py",
+        "sha256": "61aaf1fe1512c532b1603bc4ebb9109618066609d0770456d8d9752f169ac173"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+        "sha256": "55e74f12f1cc95fc7d21c1b9da2d0e44253c73e8533df538df648df75d4cb9c7"
+      },
+      {
+        "path": "scripts/audit-dag-public-checks.mjs",
+        "sha256": "28455e43394405e69fc6a1d42d4db1ac19c815a880c7519ff189a88ecb7b05c2"
+      },
+      {
+        "path": "scripts/audit-task-public-checks.mjs",
+        "sha256": "64c571de483c0a365848baa1ac5dfe877ba8f0ab51fb667766decc747e9ecee4"
+      },
+      {
+        "path": "src/orchestration/dag-contracts.mjs",
+        "sha256": "363c2a7469326600e61b164ccff60490e193b7580602b76aba470de7ccd79adb"
+      }
+    ],
+    "public_gate_version": "1",
+    "audit_inputs": {
+      "publicGateVersion": "1",
+      "inputPath": "benchmarks/e2e-swe/heldout/h2/obligations.json",
+      "checkerRoot": "benchmarks/e2e-swe/heldout/h2/public-checks",
+      "registryPath": "benchmarks/e2e-swe/heldout/h2/public-checks/registry.json",
+      "runnerPath": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+      "inventoryPath": "benchmarks/e2e-swe/heldout/h2/public-checks/inventory.json",
+      "controlRunnerPath": "benchmarks/e2e-swe/heldout/h2/public-checks/run_control_batch.py",
+      "controlCatalogPath": "benchmarks/e2e-swe/heldout/h2/public-checks/controls/catalog.json",
+      "assertionContractPath": "benchmarks/e2e-swe/heldout/h2/public-checks/assertions.json"
+    },
+    "container": {
+      "image_id": "sha256:cf7083591cfd95037aba6c4cd5328112f24844bc3e771dc7dbc6b074e43e64e3",
+      "platform": "linux/amd64",
+      "network_mode": "none",
+      "readonly_rootfs": true,
+      "checker_mount_readonly": true,
+      "exit_code": 0,
+      "command": [
+        "create",
+        "--name",
+        "heldout-public-controls-9bc698cb-c5db-4ad6-8f68-d9a7f4e65eb6",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--read-only",
+        "--tmpfs",
+        "/tmp:rw,exec,size=2g",
+        "--mount",
+        "type=bind,src=/Users/lee/workspace/plugins/jev-router/.claude/worktrees/charming-mirzakhani-20f856,dst=/checker,readonly",
+        "--workdir",
+        "/checker",
+        "--entrypoint",
+        "python3",
+        "sha256:cf7083591cfd95037aba6c4cd5328112f24844bc3e771dc7dbc6b074e43e64e3",
+        "/checker/benchmarks/e2e-swe/heldout/h2/public-checks/run_control_batch.py",
+        "--normal-only"
+      ],
+      "cleanup_confirmed": true
+    },
+    "batch": {
+      "complete_catalog": false,
+      "elapsed_seconds": 15.932045424000535,
+      "environment": {
+        "dependencies": {
+          "hpack": "4.2.0",
+          "hyperframe": "6.1.0",
+          "pip": "23.0.1",
+          "setuptools": "83.0.0",
+          "wheel": "0.46.3"
+        },
+        "python": "3.10.20"
+      },
+      "results": [
+        {
+          "defect": "none",
+          "elapsed_seconds": 8.139951253000618,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 94,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 22,
+                "status": "passed",
+                "test_id": "T.R01.01"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R03.01"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R03.02"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R04.01"
+              },
+              {
+                "assertions": 23,
+                "status": "passed",
+                "test_id": "T.R08.01"
+              },
+              {
+                "assertions": 20,
+                "status": "passed",
+                "test_id": "T.R09.01"
+              },
+              {
+                "assertions": 13,
+                "status": "passed",
+                "test_id": "T.R10.01"
+              }
+            ],
+            "check_id": "public.install-surface",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-h2/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.341,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-8k55uqt3/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2649 sha256=71ec3a790eb0cf02b9de624994871e84440b1ca6cb6b2d59a385da5a6288658d\n  Stored in directory: /tmp/pip-ephem-wheel-cache-ia4l85p8/wheels/de/e6/f3/aa0c0e3d3223227e45a32cb7b735ad92bf351d6f6c6b9d9a6e\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R01.01",
+              "T.R03.01",
+              "T.R03.02",
+              "T.R04.01",
+              "T.R08.01",
+              "T.R09.01",
+              "T.R10.01"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "install-surface",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/h2/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 7.678759836999234,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 115,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R02.01"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R02.02"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R05.01"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R05.02"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R05.03"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.01"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R06.02"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.05"
+              },
+              {
+                "assertions": 23,
+                "status": "passed",
+                "test_id": "T.R06.06"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.07"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.08"
+              },
+              {
+                "assertions": 24,
+                "status": "passed",
+                "test_id": "T.R07.02"
+              },
+              {
+                "assertions": 20,
+                "status": "passed",
+                "test_id": "T.R09.02"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R09.03"
+              }
+            ],
+            "check_id": "public.handshake-config",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-h2/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.448,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-qf5nqxbd/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2647 sha256=3aaa389baa2a66f796006cf1ffb1ed9315f704baec406320fb7abd1090dab29e\n  Stored in directory: /tmp/pip-ephem-wheel-cache-rnuzxva4/wheels/62/3a/2f/a42912169e2f53e8ad1c111dbe1d0f170c710022bc8ac5cedf\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R02.01",
+              "T.R02.02",
+              "T.R05.01",
+              "T.R05.02",
+              "T.R05.03",
+              "T.R06.01",
+              "T.R06.02",
+              "T.R06.05",
+              "T.R06.06",
+              "T.R06.07",
+              "T.R06.08",
+              "T.R07.02",
+              "T.R09.02",
+              "T.R09.03"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "handshake-config",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/h2/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 7.545624294998561,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 105,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R02.03"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R02.04"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R06.09"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.10"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R06.12"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.17"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R06.18"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.33"
+              },
+              {
+                "assertions": 38,
+                "status": "passed",
+                "test_id": "T.R07.01"
+              },
+              {
+                "assertions": 26,
+                "status": "passed",
+                "test_id": "T.integration.get-round-trip"
+              }
+            ],
+            "check_id": "public.request-response",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-h2/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.401,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-jabcobgx/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2646 sha256=161d0d31f8d9328aeee99653f2cd49b51fce1f03807905bcb4900dbeac195e85\n  Stored in directory: /tmp/pip-ephem-wheel-cache-qzd9ndl3/wheels/30/13/63/dcca2567bb9c8fddb2b0089c32fd6bb4d5e4c80967a28c3631\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R02.03",
+              "T.R02.04",
+              "T.R06.09",
+              "T.R06.10",
+              "T.R06.12",
+              "T.R06.17",
+              "T.R06.18",
+              "T.R06.33",
+              "T.R07.01",
+              "T.integration.get-round-trip"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "request-response",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/h2/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 7.562305961997481,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 34,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.13"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.14"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.15"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.16"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.25"
+              },
+              {
+                "assertions": 1,
+                "status": "passed",
+                "test_id": "T.R06.26"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.27"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.28"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.29"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.34"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.integration.flow-control-recovery"
+              }
+            ],
+            "check_id": "public.flow-control",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-h2/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 2.428,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-dh6i712c/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2649 sha256=30d456b4e41b3a4d3b0e0245bef80c11feccd37d31746e5c79871012ebedcbcb\n  Stored in directory: /tmp/pip-ephem-wheel-cache-0l66lr_a/wheels/4d/0b/a8/c3eaeb41eb745ae124933ba7ed27b6b192f915ec68e0f534c2\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R06.13",
+              "T.R06.14",
+              "T.R06.15",
+              "T.R06.16",
+              "T.R06.25",
+              "T.R06.26",
+              "T.R06.27",
+              "T.R06.28",
+              "T.R06.29",
+              "T.R06.34",
+              "T.integration.flow-control-recovery"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "flow-control",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/h2/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 8.289064086999133,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 48,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R06.19"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R06.20"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.21"
+              },
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.R06.22"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.23"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.24"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.31"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.32"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.integration.stream-termination"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.integration.control-frames"
+              }
+            ],
+            "check_id": "public.stream-control-frames",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-h2/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 3.196,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-66696fe8/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2650 sha256=76bd09e854716cd8344183721e066367b0b4a7556794c3677295375d55fad4d1\n  Stored in directory: /tmp/pip-ephem-wheel-cache-nicvu5_x/wheels/13/44/0e/3a0a9c1c737a7e8066b2b45f8e0ef3550643fb24adf2926d21\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R06.19",
+              "T.R06.20",
+              "T.R06.21",
+              "T.R06.22",
+              "T.R06.23",
+              "T.R06.24",
+              "T.R06.31",
+              "T.R06.32",
+              "T.integration.stream-termination",
+              "T.integration.control-frames"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "stream-control-frames",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/h2/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 8.290054920998955,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 36,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R06.03"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R06.04"
+              },
+              {
+                "assertions": 1,
+                "status": "passed",
+                "test_id": "T.R06.11"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R06.30"
+              },
+              {
+                "assertions": 11,
+                "status": "passed",
+                "test_id": "T.integration.settings-negotiation"
+              },
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.integration.upgrade"
+              }
+            ],
+            "check_id": "public.settings-upgrade",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-h2/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 3.255,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-tqtzcyby/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: hpack in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (4.2.0)\nRequirement already satisfied: hyperframe in /usr/local/lib/python3.10/site-packages (from h2==0.0.0) (6.1.0)\nBuilding wheels for collected packages: h2\n  Building editable for h2 (pyproject.toml): started\n  Building editable for h2 (pyproject.toml): finished with status 'done'\n  Created wheel for h2: filename=h2-0.0.0-0.editable-py3-none-any.whl size=2645 sha256=db34350e8a3a181386dca25e2a4aeb37fe70526551beb31516d51456a80d88ef\n  Stored in directory: /tmp/pip-ephem-wheel-cache-bbvvn3um/wheels/54/80/a2/0d6451ba4c3773da64e9b26013c82a4b20e29580cc50f23847\nSuccessfully built h2\nInstalling collected packages: h2\nSuccessfully installed h2-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R06.03",
+              "T.R06.04",
+              "T.R06.11",
+              "T.R06.30",
+              "T.integration.settings-negotiation",
+              "T.integration.upgrade"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "settings-upgrade",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/h2/public-checks"
+        }
+      ],
+      "schema_version": "dag-public-control-batch/v1"
+    },
+    "elapsed_seconds": 15.932045424000535
+  },
+  "frozen_controls": {
+    "status": "verified",
+    "evidence_level": "historical_authored_controls_at_exact_current_sources",
+    "path": "benchmarks/e2e-swe/heldout/h2/public-checks/results/controls.json",
+    "receipt_sha256": "365abe8cfae98679409121636e459e15b5b0c04387a867ba95f6de3ab6549d59",
+    "source_count": 24,
+    "normal_count": 6,
+    "defective_count": 52,
+    "recorded_at": "2026-10-17T17:06:57.988Z"
+  },
+  "budget": {
+    "schema_version": "jev-token-budget-snapshot/v4",
+    "budget_id": "8f256409-1245-4f32-ba67-d3fb2fddf6e4",
+    "limit_usd": null,
+    "rate_usd_per_million": 0.6,
+    "token_limit": null,
+    "charged_input_tokens": 27755457,
+    "reserved_input_tokens": 0,
+    "estimated_spent_usd": 16.6532742,
+    "estimated_reserved_usd": 0,
+    "remaining_usd": null,
+    "actual_billed_usd": null,
+    "reservations_pending": 0,
+    "pending_reservation_id": null,
+    "blocked_code": null,
+    "closed": false,
+    "pending_reservation_ids": [],
+    "reservations_in_flight": 0,
+    "remaining_input_tokens": null,
+    "settled_requests": 1544,
+    "budget_unit": "input_tokens",
+    "unlimited": true
+  },
+  "connection": {
+    "baseURL": "https://jev-ai.pro/api",
+    "modelsURL": "https://jev-ai.pro/api/v1/models",
+    "decisionURL": "https://jev-ai.pro/api/v1/systemone",
+    "defaultModel": "jev-latest",
+    "transport": "Node.js fetch (no SDK)",
+    "automaticRetries": 0,
+    "redirects": "blocked",
+    "envFile": "/Users/lee/workspace/.env",
+    "keyConfigured": true,
+    "keySource": "env-file"
+  },
+  "auth": {
+    "logged_in": true,
+    "auth_method": "claude.ai",
+    "accepted_methods": [
+      "claude.ai",
+      "oauth_token"
+    ]
+  },
+  "image": {
+    "schema_version": 1,
+    "image_tag": "ghcr.io/facebookresearch/e2e-swe:h2",
+    "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:2910551f9dd9ef0a3985471ce3f1ff8c525332984ae184b1f87fcbb2ce3bc958",
+    "image_id": "sha256:cf7083591cfd95037aba6c4cd5328112f24844bc3e771dc7dbc6b074e43e64e3",
+    "architecture": "amd64",
+    "os": "linux",
+    "size_bytes": 234853188,
+    "locked_at": "2026-10-17T13:47:52.531961+00:00"
+  },
+  "environment": {
+    "image_id": "sha256:cf7083591cfd95037aba6c4cd5328112f24844bc3e771dc7dbc6b074e43e64e3",
+    "python": "3.10.20 (main, Jul  6 2026, 21:47:22) [GCC 12.2.0]",
+    "modules": {
+      "hyperframe": {
+        "available": true,
+        "version": "6.1.0"
+      },
+      "hpack": {
+        "available": true,
+        "version": "4.2.0"
+      },
+      "setuptools": {
+        "available": true,
+        "version": "83.0.0"
+      },
+      "pip": {
+        "available": true,
+        "version": "23.0.1"
+      },
+      "wheel": {
+        "available": true,
+        "version": "0.46.3"
+      }
+    },
+    "network": "none",
+    "read_only": true,
+    "tmpfs": "/tmp:rw,exec,size=2g"
+  },
+  "model_lookup": {
+    "jev_latest_available": true,
+    "inference_calls": 0
+  },
+  "cohort_capacity": {
+    "snapshot": {
+      "schema_version": "jev-token-budget-snapshot/v4",
+      "budget_id": "8f256409-1245-4f32-ba67-d3fb2fddf6e4",
+      "limit_usd": null,
+      "rate_usd_per_million": 0.6,
+      "token_limit": null,
+      "charged_input_tokens": 27755457,
+      "reserved_input_tokens": 0,
+      "estimated_spent_usd": 16.6532742,
+      "estimated_reserved_usd": 0,
+      "remaining_usd": null,
+      "actual_billed_usd": null,
+      "reservations_pending": 0,
+      "pending_reservation_id": null,
+      "blocked_code": null,
+      "closed": false,
+      "pending_reservation_ids": [],
+      "reservations_in_flight": 0,
+      "remaining_input_tokens": null,
+      "settled_requests": 1544,
+      "budget_unit": "input_tokens",
+      "unlimited": true
+    },
+    "remaining_jev_arms": 1,
+    "required_input_tokens": null,
+    "token_capacity_unlimited": true
+  },
+  "schema_version": "adaptive-preflight/v2",
+  "arms": [
+    "jev_profile"
+  ],
+  "protocol": {
+    "draft": {
+      "status": "draft_not_runnable",
+      "protocol": "docs/orchestration/contracts/evaluation-protocol.v1.json",
+      "task": "h2",
+      "derived_from": "benchmarks/e2e-swe/manifests/d083-repair-fixes.json",
+      "blockers": [
+        "catalog_reuse hashes are null until a new catalog is prepared with a v1 catalog-prep manifest (scripts/adaptive-dag-comparison.mjs forbids --prepare-catalog on a manifest with catalog_reuse). --probe is ready (2026-10-18); every arm refuses with ADAPTIVE_CATALOG_REUSE_UNPINNED until all six hashes are pinned.",
+        "repair_policy.assertion_contract is still the openapi benchmarks/e2e-swe/public-checks/assertions.v2.json, which the v7+ loader requires verbatim; the held-out checks declare no assertion-level attributions (public-checks/assertions.json is empty), so repair attribution falls back to the conservative rule."
+      ]
+    },
+    "schema_version": "adaptive-dag-comparison/v12",
+    "input": "benchmarks/e2e-swe/heldout/h2/obligations.json",
+    "public_registry": "benchmarks/e2e-swe/heldout/h2/public-checks/registry.json",
+    "public_checker_root": "benchmarks/e2e-swe/heldout/h2/public-checks",
+    "public_environment_ref": "e2e-swe-public-h2/v1",
+    "image_lock": "benchmarks/e2e-swe/heldout/h2/image-lock.json",
+    "worker_profile": {
+      "id": "opus55-medium",
+      "model": "claude-opus-5-5",
+      "effort": "medium"
+    },
+    "arms": [
+      "jev_profile"
+    ],
+    "cohort_concurrency": 1,
+    "limits": {
+      "max_units": 30,
+      "max_artifacts": 60,
+      "max_files": 60,
+      "max_leaves": 30,
+      "max_depth": 3,
+      "max_nodes": 59,
+      "max_relation_pairs": 435,
+      "max_decisions": 128,
+      "relation_batch_size": 32,
+      "max_request_bytes": 256000,
+      "max_concurrency": 2,
+      "maximum_workers": 30,
+      "minimum_workers": 2,
+      "wall_timeout_seconds": 14400,
+      "planning_input_tokens": null,
+      "max_file_bytes": 262144,
+      "max_total_bytes": 4194304
+    },
+    "max_repair_rounds": 2,
+    "automatic_retries": 0,
+    "jev_budget": {
+      "schema_version": "jev-token-budget/v4",
+      "ledger_path": "benchmark-runs/jev-usd1-budget.json",
+      "max_input_tokens": null,
+      "reserve_input_tokens": 65536
+    },
+    "valuation": {
+      "usd_per_million_input_tokens": 0.6,
+      "basis": "informational_token_pack_equivalent_not_monthly_invoice",
+      "actual_billed_usd": null
+    },
+    "catalog_reuse": {
+      "schema_version": "adaptive-catalog-reuse/v4",
+      "preparation_directory": "benchmark-runs/heldout-h2-catalog-01",
+      "original_manifest": "benchmarks/e2e-swe/heldout/h2/catalog-prep.v1.json",
+      "original_manifest_sha256": null,
+      "result_sha256": null,
+      "catalog_file_sha256": null,
+      "source_pins_sha256": null,
+      "prepared_request_sha256": null,
+      "provider_request_sha256": null,
+      "allowed_changed_source_paths": [
+        "src/benchmark/adaptive-dag-runner.mjs",
+        "scripts/adaptive-dag-comparison.mjs",
+        "src/benchmark/budget.mjs",
+        "src/benchmark/budget-acquire.mjs",
+        "src/benchmark/dag-runner.mjs",
+        "src/orchestration/adaptive-dag-planner.mjs",
+        "src/orchestration/adaptive-dag-execution.mjs",
+        "scripts/audit-dag-public-checks.mjs",
+        "benchmarks/e2e-swe/public-checks/run_public_checks.py",
+        "benchmarks/e2e-swe/public-checks/extensions/cli_config.py",
+        "src/orchestration/artifact-transport.mjs",
+        "src/orchestration/adaptive-failure.mjs",
+        "src/benchmark/telemetry.mjs"
+      ]
+    },
+    "preparation_accounting": "New source-only catalog for held-out task h2 (one Claude catalog call, prepared before the cohort and reported separately). The openapi D066 catalog is not reused.",
+    "deadline_basis": "Retain the existing 14400-second total deadline and no separate worker cap. Cumulative and per-arm token spending caps are null. v4 input estimates are observational; official 256000-byte body, structural and uncertainty checks can block.",
+    "session_semantics": "Held-out stage 1 (R20261017-EVAL-PROTOCOL), task h2: D083 cloud defaults (d083-repair-fixes.json) with task-bound inputs replaced. Condition jev_profile only; the claude_all control condition cannot be expressed in v12 (arms fixed to [jev_profile]).",
+    "claude_auth_methods": [
+      "claude.ai",
+      "oauth_token"
+    ],
+    "independent_grade": "Root-owned after candidate freeze with benchmarks/e2e-swe/heldout/h2/grade.json and benchmarks/e2e-swe/heldout/h2/image-lock.json; hidden tests never enter planning, implementation or public repair.",
+    "repair_policy": {
+      "artifact_contract": "docs/orchestration/contracts/adaptive-causal-repair.v1.json",
+      "assertion_contract": "benchmarks/e2e-swe/public-checks/assertions.v2.json",
+      "failure_contract": "adaptive-terminal-cause/v1",
+      "scope_contract": "public-inferred-owner-v3",
+      "token_admission_contract": "docs/orchestration/contracts/jev-token-admission.v4.json",
+      "owner_inference_contract": "docs/orchestration/contracts/adaptive-inferred-repair.v3.json"
+    },
+    "decomposition_policy": {
+      "id": "layered-v2",
+      "contract": "docs/orchestration/contracts/adaptive-layered-decomposition.v2.json"
+    },
+    "public_runner": "benchmarks/e2e-swe/heldout/h2/public-checks/run_public_checks.py",
+    "public_controls_evidence": "benchmarks/e2e-swe/heldout/h2/public-checks/results/controls.json",
+    "profile_policy": {
+      "contract": "docs/orchestration/contracts/adaptive-profile-selection.v2.json",
+      "candidate_contract": "docs/orchestration/contracts/adaptive-profiles.v1.json",
+      "phase_policy": "initial_and_selected_repairs",
+      "cli_version": "2.1.293",
+      "account_probe": "benchmark-runs/d071-model-probes-01/result.json",
+      "account_probe_sha256": "4201fa4fe2df4b9caea6db759e5609e892605ba99c7bd4afc45b4c59e85b691a",
+      "allowed_profile_ids": [
+        "claude_opus55_low",
+        "claude_opus55_medium",
+        "claude_opus55_high",
+        "claude_opus55_xhigh",
+        "claude_opus55_max",
+        "claude_sonnet55_low",
+        "claude_sonnet55_medium",
+        "claude_sonnet55_high",
+        "claude_sonnet55_xhigh",
+        "claude_sonnet55_max",
+        "claude_haiku55_low",
+        "claude_haiku55_medium",
+        "claude_haiku55_high",
+        "claude_haiku55_xhigh",
+        "claude_haiku55_max",
+        "claude_fable51_low",
+        "claude_fable51_medium",
+        "claude_fable51_high",
+        "claude_fable51_xhigh",
+        "claude_fable51_max"
+      ]
+    },
+    "runtime_speed": {
+      "model_lookup": "per_session",
+      "budget_lock": "ledger_op",
+      "public_check_concurrency": 2,
+      "readiness_batch": true
+    },
+    "question_forms": {
+      "decomposition": {
+        "contract": "docs/orchestration/contracts/adaptive-layered-decomposition.v2.json",
+        "sha256": "595deea341fe26ccd62cca511637c31130e33bad64ae27cfed811120dd6c9d6a"
+      },
+      "owner_criteria": {
+        "contract": "docs/orchestration/contracts/adaptive-owner-criteria.v2.json",
+        "sha256": "6051be503b9484b34e0a77720fec1929d600d955cc858d411337da79b4403ebe"
+      },
+      "inferred_scope": {
+        "contract": "docs/orchestration/contracts/adaptive-inferred-scope.v1.json",
+        "sha256": "8ea862295bc2f6460b003e6b124a509ebf1e5a01a22747579c679511aa05870e"
+      }
+    },
+    "repair_budget": {
+      "policy": "repair-budget-v3",
+      "contract": "docs/orchestration/contracts/adaptive-repair-budget.v3.json",
+      "sha256": "ded35d2885352386e4a13dc948a40cb9b542c4f1d01422d630c2fa74d31171b3"
+    },
+    "repair_feedback": {
+      "read_scope": "candidate-v1",
+      "worker_diagnostics": "report-v1",
+      "scope_expansion": "worker-mentioned-v1"
+    },
+    "schedule_policy": {
+      "policy": "critical-path-v1",
+      "contract": "docs/orchestration/contracts/adaptive-critical-path-schedule.v1.json",
+      "sha256": "66205dc51d05b4a714677c4c8d23de1b104f35371ee493515e47ed20cdb97af0"
+    },
+    "spec_review": {
+      "policy": "spec-review-v1",
+      "contract": "docs/orchestration/contracts/adaptive-spec-review.v1.json",
+      "sha256": "fcb81c6fd247d5fc14177de9fccf9cd5d6a24424f44e9f5a0d22e66f14a2f769"
+    },
+    "manifest_path": "benchmarks/e2e-swe/heldout/h2/v12.draft.json",
+    "manifest_sha256": "7feb006389b8699c4291da7521acdbb7b33f23f8cbd40775856b0202184d9ed9"
+  }
+}

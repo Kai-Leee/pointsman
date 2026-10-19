@@ -1,0 +1,2353 @@
+{
+  "schema_version": "dag-public-check-inventory/v1",
+  "execution_target": "authored_local_control",
+  "public_source_sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+  "input_sha256": "9e482b4f1427c64dc0b0b47d5bdee26e16a617d6996d8098bec23f45de291692",
+  "source_policy": "Cases are authored from the public instruction.md only; tests/, solution/ and environment/ of the task were never read.",
+  "rows": [
+    {
+      "test_id": "T.R01.01",
+      "scenario": "Band cluster is queryable in memory and written only on save",
+      "requirement_ids": [
+        "R01.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 15,
+          "end_line": 31
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 3,
+          "end_line": 13
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R01.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.01",
+      "scenario": "Offline editable install via setup.sh",
+      "requirement_ids": [
+        "R02.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 35,
+          "end_line": 38
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.packaging-imports"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#packaging-imports:T.R02.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.02",
+      "scenario": "Python 3.10 and Django 5.2 API compatibility",
+      "requirement_ids": [
+        "R02.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 39,
+          "end_line": 40
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.packaging-imports"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#packaging-imports:T.R02.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R02.03",
+      "scenario": "django-taggit used directly and declared as an extra",
+      "requirement_ids": [
+        "R02.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 41,
+          "end_line": 43
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.packaging-imports"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#packaging-imports:T.R02.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R03.01",
+      "scenario": "Exact public import paths",
+      "requirement_ids": [
+        "R03.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 47,
+          "end_line": 57
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.packaging-imports"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#packaging-imports:T.R03.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R03.02",
+      "scenario": "Managers and fields are safe to subclass",
+      "requirement_ids": [
+        "R03.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 59,
+          "end_line": 61
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.packaging-imports"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#packaging-imports:T.R03.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.01",
+      "scenario": "ParentalKey is a ForeignKey defaulting to CASCADE",
+      "requirement_ids": [
+        "R04.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 67,
+          "end_line": 69
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.02",
+      "scenario": "Assigning children replaces the in-memory set",
+      "requirement_ids": [
+        "R04.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 75,
+          "end_line": 76
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.03",
+      "scenario": "all() over touched, unsaved and saved parents",
+      "requirement_ids": [
+        "R04.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 77,
+          "end_line": 79
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.04",
+      "scenario": "add() appends, replaces equal objects and de-duplicates",
+      "requirement_ids": [
+        "R04.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 80,
+          "end_line": 81
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.05",
+      "scenario": "remove(), clear(), create() and set() act in memory",
+      "requirement_ids": [
+        "R04.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 82,
+          "end_line": 83
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.06",
+      "scenario": "count() and the delegated FakeQuerySet read API",
+      "requirement_ids": [
+        "R04.06"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 84,
+          "end_line": 85
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.06"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.07",
+      "scenario": "commit() syncs rows and requires a saved parent",
+      "requirement_ids": [
+        "R04.07"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 86,
+          "end_line": 88
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.07"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.08",
+      "scenario": "In-memory children follow child Meta.ordering",
+      "requirement_ids": [
+        "R04.08"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 90,
+          "end_line": 91
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.08"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.09",
+      "scenario": "System check modelcluster.E001",
+      "requirement_ids": [
+        "R04.09"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 95,
+          "end_line": 99
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.09"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.10",
+      "scenario": "System check modelcluster.E002",
+      "requirement_ids": [
+        "R04.10"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 100,
+          "end_line": 102
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 95,
+          "end_line": 95
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.10"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R04.11",
+      "scenario": "Unresolvable target defers to fields.E300",
+      "requirement_ids": [
+        "R04.11"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 104,
+          "end_line": 105
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 95,
+          "end_line": 95
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.R04.11"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.01",
+      "scenario": "ParentalManyToManyField holds the related set in memory",
+      "requirement_ids": [
+        "R05.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 111,
+          "end_line": 113
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parental-m2m"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parental-m2m:T.R05.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.02",
+      "scenario": "Assigning a parental m2m acts like set() on unsaved parents",
+      "requirement_ids": [
+        "R05.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 115,
+          "end_line": 118
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parental-m2m"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parental-m2m:T.R05.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.03",
+      "scenario": "Manager model attribute and empty fresh read",
+      "requirement_ids": [
+        "R05.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 119,
+          "end_line": 121
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parental-m2m"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parental-m2m:T.R05.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.04",
+      "scenario": "add() rejects unsaved related objects",
+      "requirement_ids": [
+        "R05.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 122,
+          "end_line": 123
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parental-m2m"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parental-m2m:T.R05.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.05",
+      "scenario": "Parental m2m set follows target Meta.ordering",
+      "requirement_ids": [
+        "R05.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 124,
+          "end_line": 124
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parental-m2m"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parental-m2m:T.R05.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.06",
+      "scenario": "Reverse accessor reflects only saved parents",
+      "requirement_ids": [
+        "R05.06"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 125,
+          "end_line": 127
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parental-m2m"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parental-m2m:T.R05.06"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.07",
+      "scenario": "value_from_object returns the in-memory set",
+      "requirement_ids": [
+        "R05.07"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 128,
+          "end_line": 130
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parental-m2m"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parental-m2m:T.R05.07"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R05.08",
+      "scenario": "save(update_fields) naming a parental m2m commits it",
+      "requirement_ids": [
+        "R05.08"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 131,
+          "end_line": 131
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parental-m2m"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parental-m2m:T.R05.08"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.01",
+      "scenario": "Direct FakeQuerySet construction",
+      "requirement_ids": [
+        "R06.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 137,
+          "end_line": 142
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.02",
+      "scenario": "filter() and exclude() are complementary",
+      "requirement_ids": [
+        "R06.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 146,
+          "end_line": 147
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.03",
+      "scenario": "Text and pattern lookups",
+      "requirement_ids": [
+        "R06.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 148,
+          "end_line": 152
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.04",
+      "scenario": "Comparison, range, in and isnull lookups",
+      "requirement_ids": [
+        "R06.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 148,
+          "end_line": 152
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.05",
+      "scenario": "Value coercion, None/empty values and None inside in",
+      "requirement_ids": [
+        "R06.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 153,
+          "end_line": 161
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.06",
+      "scenario": "Field named like a lookup token is a field",
+      "requirement_ids": [
+        "R06.06"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 162,
+          "end_line": 163
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.06"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.07",
+      "scenario": "Relation traversal with None intermediates",
+      "requirement_ids": [
+        "R06.07"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 164,
+          "end_line": 168
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.07"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.08",
+      "scenario": "Matching relations against model instances",
+      "requirement_ids": [
+        "R06.08"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 169,
+          "end_line": 172
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.08"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.09",
+      "scenario": "Q objects with AND, OR, XOR and negation",
+      "requirement_ids": [
+        "R06.09"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 173,
+          "end_line": 174
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.09"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.10",
+      "scenario": "Many-to-many traversal raises ManyToManyTraversalError",
+      "requirement_ids": [
+        "R06.10"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 175,
+          "end_line": 176
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.10"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.11",
+      "scenario": "Date/time transforms in filter, get, values and values_list",
+      "requirement_ids": [
+        "R06.11"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 180,
+          "end_line": 187
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.11"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.12",
+      "scenario": "Weekday and ISO conventions and None datetimes",
+      "requirement_ids": [
+        "R06.12"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 189,
+          "end_line": 191
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.R06.12"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.13",
+      "scenario": "get(), count(), exists(), first() and last()",
+      "requirement_ids": [
+        "R06.13"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 195,
+          "end_line": 198
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-retrieval"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-retrieval:T.R06.13"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.14",
+      "scenario": "order_by(): multi-key, descending, relations, None first, random",
+      "requirement_ids": [
+        "R06.14"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 199,
+          "end_line": 201
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-retrieval"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-retrieval:T.R06.14"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.15",
+      "scenario": "values() and values_list() shaping",
+      "requirement_ids": [
+        "R06.15"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 202,
+          "end_line": 205
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-retrieval"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-retrieval:T.R06.15"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.16",
+      "scenario": "distinct() by fields or by all non-pk fields",
+      "requirement_ids": [
+        "R06.16"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 206,
+          "end_line": 207
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-retrieval"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-retrieval:T.R06.16"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.17",
+      "scenario": "none(), all(), chaining and sequence protocol",
+      "requirement_ids": [
+        "R06.17"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 208,
+          "end_line": 211
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-retrieval"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-retrieval:T.R06.17"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R06.18",
+      "scenario": "select_related/only/defer accepted; prefetch_related effective",
+      "requirement_ids": [
+        "R06.18"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 212,
+          "end_line": 216
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-retrieval"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-retrieval:T.R06.18"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.01",
+      "scenario": "Abstract base with cluster keyword constructor",
+      "requirement_ids": [
+        "R07.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 222,
+          "end_line": 227
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.02",
+      "scenario": "save() commits every child relation and parental m2m",
+      "requirement_ids": [
+        "R07.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 228,
+          "end_line": 229
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.03",
+      "scenario": "save(update_fields) partitions relations and fields",
+      "requirement_ids": [
+        "R07.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 229,
+          "end_line": 231
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.04",
+      "scenario": "get_all_child_relations includes inherited ParentalKey relations",
+      "requirement_ids": [
+        "R07.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 235,
+          "end_line": 238
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.05",
+      "scenario": "get_all_child_m2m_relations lists ParentalManyToManyFields",
+      "requirement_ids": [
+        "R07.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 239,
+          "end_line": 240
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.06",
+      "scenario": "serializable_data structure with recursive children and m2m pks",
+      "requirement_ids": [
+        "R07.06"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 244,
+          "end_line": 247
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.R07.06"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.07",
+      "scenario": "Multi-table inheritance fields and shared pk in serialization",
+      "requirement_ids": [
+        "R07.07"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 247,
+          "end_line": 256
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.R07.07"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.08",
+      "scenario": "serialize=False omission and field-name keys for foreign keys",
+      "requirement_ids": [
+        "R07.08"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 251,
+          "end_line": 255
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.R07.08"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.09",
+      "scenario": "to_json and from_json / from_serializable_data rebuild",
+      "requirement_ids": [
+        "R07.09"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 257,
+          "end_line": 263
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.R07.09"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.10",
+      "scenario": "check_fks resolution of dangling foreign keys",
+      "requirement_ids": [
+        "R07.10"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 263,
+          "end_line": 268
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.R07.10"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.11",
+      "scenario": "Deserialized children re-sorted by Meta.ordering",
+      "requirement_ids": [
+        "R07.11"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 268,
+          "end_line": 268
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.R07.11"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.12",
+      "scenario": "Datetimes serialized as UTC and restored to local time",
+      "requirement_ids": [
+        "R07.12"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 269,
+          "end_line": 272
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.R07.12"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.13",
+      "scenario": "FileField survives a JSON round-trip",
+      "requirement_ids": [
+        "R07.13"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 273,
+          "end_line": 273
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.R07.13"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.14",
+      "scenario": "copy_cluster returns an unsaved deep copy and a map",
+      "requirement_ids": [
+        "R07.14"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 277,
+          "end_line": 281
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.14"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.15",
+      "scenario": "copy_child_relation overwrite, append and commit",
+      "requirement_ids": [
+        "R07.15"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 282,
+          "end_line": 287
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.15"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.16",
+      "scenario": "copy_child_relation returned object map",
+      "requirement_ids": [
+        "R07.16"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 287,
+          "end_line": 290
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.16"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R07.17",
+      "scenario": "copy_all_child_relations with exclude",
+      "requirement_ids": [
+        "R07.17"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 291,
+          "end_line": 293
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.R07.17"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.01",
+      "scenario": "transientmodelformset_factory tolerates absent pks",
+      "requirement_ids": [
+        "R08.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 299,
+          "end_line": 302
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.02",
+      "scenario": "childformset_factory binds to a parent via ParentalKey",
+      "requirement_ids": [
+        "R08.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 303,
+          "end_line": 306
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.03",
+      "scenario": "Child formset save stages to memory or commits",
+      "requirement_ids": [
+        "R08.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 306,
+          "end_line": 308
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.04",
+      "scenario": "max_num/min_num enforced only with validate flags",
+      "requirement_ids": [
+        "R08.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 308,
+          "end_line": 310
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.05",
+      "scenario": "sort_order_field enables ORDER and writes it",
+      "requirement_ids": [
+        "R08.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 310,
+          "end_line": 312
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.06",
+      "scenario": "Nested child formsets via form=ClusterForm",
+      "requirement_ids": [
+        "R08.06"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 313,
+          "end_line": 313
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.06"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.07",
+      "scenario": "Default 'form' prefix for standalone child formsets",
+      "requirement_ids": [
+        "R08.07"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 314,
+          "end_line": 319
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.07"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.08",
+      "scenario": "Meta.formsets as a list or a dict of options; none by default",
+      "requirement_ids": [
+        "R08.08"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 322,
+          "end_line": 327
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 320,
+          "end_line": 321
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.08"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.09",
+      "scenario": "Meta.exclude_formsets",
+      "requirement_ids": [
+        "R08.09"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 328,
+          "end_line": 328
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.09"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.10",
+      "scenario": "Meta.widgets child-relation key",
+      "requirement_ids": [
+        "R08.10"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 329,
+          "end_line": 330
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.10"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.11",
+      "scenario": "Inherited child relations get formsets",
+      "requirement_ids": [
+        "R08.11"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 331,
+          "end_line": 331
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.11"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.12",
+      "scenario": "formsets attribute on class and instance; three extra forms",
+      "requirement_ids": [
+        "R08.12"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 332,
+          "end_line": 338
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.12"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.13",
+      "scenario": "Composite validation, child uniqueness and deleted forms",
+      "requirement_ids": [
+        "R08.13"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 339,
+          "end_line": 342
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.13"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.14",
+      "scenario": "as_p, media and is_multipart aggregate children",
+      "requirement_ids": [
+        "R08.14"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 343,
+          "end_line": 345
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.14"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.15",
+      "scenario": "Constructor kwargs reach child forms only via inherit_kwargs",
+      "requirement_ids": [
+        "R08.15"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 346,
+          "end_line": 347
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.15"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.16",
+      "scenario": "ClusterForm.save with commit=True/False and save_m2m",
+      "requirement_ids": [
+        "R08.16"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 348,
+          "end_line": 352
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.16"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R08.17",
+      "scenario": "clusterform_factory helper",
+      "requirement_ids": [
+        "R08.17"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 353,
+          "end_line": 354
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.R08.17"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.01",
+      "scenario": "ClusterTaggableManager declared with a ParentalKey through model",
+      "requirement_ids": [
+        "R09.01"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 360,
+          "end_line": 364
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.taggit-cluster"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#taggit-cluster:T.R09.01"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.02",
+      "scenario": "Tag operations in memory on unsaved and saved instances",
+      "requirement_ids": [
+        "R09.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 366,
+          "end_line": 370
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.taggit-cluster"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#taggit-cluster:T.R09.02"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.03",
+      "scenario": "Non-string, non-Tag values rejected",
+      "requirement_ids": [
+        "R09.03"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 371,
+          "end_line": 371
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.taggit-cluster"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#taggit-cluster:T.R09.03"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.04",
+      "scenario": "prefetch_related('tags') over owners",
+      "requirement_ids": [
+        "R09.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 372,
+          "end_line": 372
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.taggit-cluster"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#taggit-cluster:T.R09.04"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.R09.05",
+      "scenario": "Tag fields through ClusterForm, cluster-aware and plain",
+      "requirement_ids": [
+        "R09.05"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 373,
+          "end_line": 375
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.taggit-cluster"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#taggit-cluster:T.R09.05"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.cluster-lifecycle",
+      "scenario": "Build a cluster in memory, query it, save it, mutate it and save again.",
+      "requirement_ids": [
+        "R01.01",
+        "R04.02",
+        "R04.05",
+        "R04.06",
+        "R04.07",
+        "R05.01",
+        "R07.01",
+        "R07.02"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 15,
+          "end_line": 31
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 3,
+          "end_line": 13
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 75,
+          "end_line": 76
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 82,
+          "end_line": 83
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 84,
+          "end_line": 85
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 86,
+          "end_line": 88
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 71,
+          "end_line": 73
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 111,
+          "end_line": 113
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 222,
+          "end_line": 227
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 228,
+          "end_line": 229
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.parentalkey-deferring-manager"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#parentalkey-deferring-manager:T.integration.cluster-lifecycle"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.queryset-db-parity",
+      "scenario": "In-memory FakeQuerySet results match Django's database results for the same chains.",
+      "requirement_ids": [
+        "R06.02",
+        "R06.03",
+        "R06.04",
+        "R06.07",
+        "R06.09",
+        "R06.11",
+        "R06.14",
+        "R06.15"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 146,
+          "end_line": 147
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 148,
+          "end_line": 152
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 148,
+          "end_line": 152
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 164,
+          "end_line": 168
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 173,
+          "end_line": 174
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 180,
+          "end_line": 187
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 199,
+          "end_line": 201
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 202,
+          "end_line": 205
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.fakequeryset-filtering"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#fakequeryset-filtering:T.integration.queryset-db-parity"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.json-round-trip",
+      "scenario": "Serialize a multi-table-inheritance cluster with nested children, m2m and datetimes, rebuild it and compare.",
+      "requirement_ids": [
+        "R07.06",
+        "R07.07",
+        "R07.08",
+        "R07.09",
+        "R07.11",
+        "R07.12"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 244,
+          "end_line": 247
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 247,
+          "end_line": 256
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 251,
+          "end_line": 255
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 257,
+          "end_line": 263
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 268,
+          "end_line": 268
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 269,
+          "end_line": 272
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-serialization"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-serialization:T.integration.json-round-trip"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.copy-then-save",
+      "scenario": "Copy a saved cluster and save the copy as an independent cluster.",
+      "requirement_ids": [
+        "R07.02",
+        "R07.14",
+        "R07.15",
+        "R07.16",
+        "R07.17"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 228,
+          "end_line": 229
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 277,
+          "end_line": 281
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 282,
+          "end_line": 287
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 287,
+          "end_line": 290
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 291,
+          "end_line": 293
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.clusterable-model-save-copy"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#clusterable-model-save-copy:T.integration.copy-then-save"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.clusterform-nested-save",
+      "scenario": "Edit a two-level cluster through a ClusterForm with nested formsets and save in two phases.",
+      "requirement_ids": [
+        "R08.03",
+        "R08.06",
+        "R08.08",
+        "R08.12",
+        "R08.13",
+        "R08.16"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 306,
+          "end_line": 308
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 313,
+          "end_line": 313
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 322,
+          "end_line": 327
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 320,
+          "end_line": 321
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 332,
+          "end_line": 338
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 339,
+          "end_line": 342
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 348,
+          "end_line": 352
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.cluster-forms"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#cluster-forms:T.integration.clusterform-nested-save"
+      ],
+      "missing_reason": null
+    },
+    {
+      "test_id": "T.integration.tags-and-prefetch",
+      "scenario": "A tagged cluster is saved and read back with prefetching.",
+      "requirement_ids": [
+        "R06.18",
+        "R07.02",
+        "R09.01",
+        "R09.02",
+        "R09.04"
+      ],
+      "source_refs": [
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 212,
+          "end_line": 216
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 228,
+          "end_line": 229
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 360,
+          "end_line": 364
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 366,
+          "end_line": 370
+        },
+        {
+          "path": ".benchmarks/E2E-SWE/tasks/django-modelcluster/instruction.md",
+          "sha256": "96680d4716af43d5f7b4cf5b1cce9a04f57b219e86340bc7d7e75e1e3566b20b",
+          "start_line": 372,
+          "end_line": 372
+        }
+      ],
+      "mapping_status": "implemented",
+      "check_ids": [
+        "public.taggit-cluster"
+      ],
+      "case_refs": [
+        "benchmarks/e2e-swe/heldout/django-modelcluster/public-checks/cases.py#taggit-cluster:T.integration.tags-and-prefetch"
+      ],
+      "missing_reason": null
+    }
+  ]
+}

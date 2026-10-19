@@ -1,0 +1,179 @@
+{
+  "draft": {
+    "status": "draft_not_runnable",
+    "protocol": "docs/orchestration/contracts/evaluation-protocol.v1.json",
+    "task": "pycparser",
+    "derived_from": "benchmarks/e2e-swe/manifests/d083-repair-fixes.json",
+    "blockers": [
+      "catalog_reuse hashes are null until a new catalog is prepared with a v1 catalog-prep manifest (scripts/adaptive-dag-comparison.mjs forbids --prepare-catalog on a manifest with catalog_reuse). --probe is ready (2026-10-18); every arm refuses with ADAPTIVE_CATALOG_REUSE_UNPINNED until all six hashes are pinned.",
+      "repair_policy.assertion_contract is still the openapi benchmarks/e2e-swe/public-checks/assertions.v2.json, which the v7+ loader requires verbatim; the held-out checks declare no assertion-level attributions (public-checks/assertions.json is empty), so repair attribution falls back to the conservative rule."
+    ]
+  },
+  "schema_version": "adaptive-dag-comparison/v12",
+  "input": "benchmarks/e2e-swe/heldout/pycparser/obligations.json",
+  "public_registry": "benchmarks/e2e-swe/heldout/pycparser/public-checks/registry.json",
+  "public_checker_root": "benchmarks/e2e-swe/heldout/pycparser/public-checks",
+  "public_environment_ref": "e2e-swe-public-pycparser/v1",
+  "image_lock": "benchmarks/e2e-swe/heldout/pycparser/image-lock.json",
+  "worker_profile": {
+    "id": "opus55-medium",
+    "model": "claude-opus-5-5",
+    "effort": "medium"
+  },
+  "arms": [
+    "jev_profile"
+  ],
+  "cohort_concurrency": 1,
+  "limits": {
+    "max_units": 30,
+    "max_artifacts": 60,
+    "max_files": 60,
+    "max_leaves": 30,
+    "max_depth": 3,
+    "max_nodes": 59,
+    "max_relation_pairs": 435,
+    "max_decisions": 128,
+    "relation_batch_size": 32,
+    "max_request_bytes": 256000,
+    "max_concurrency": 2,
+    "maximum_workers": 30,
+    "minimum_workers": 2,
+    "wall_timeout_seconds": 14400,
+    "planning_input_tokens": null,
+    "max_file_bytes": 262144,
+    "max_total_bytes": 4194304
+  },
+  "max_repair_rounds": 2,
+  "automatic_retries": 0,
+  "jev_budget": {
+    "schema_version": "jev-token-budget/v4",
+    "ledger_path": "benchmark-runs/jev-usd1-budget.json",
+    "max_input_tokens": null,
+    "reserve_input_tokens": 65536
+  },
+  "valuation": {
+    "usd_per_million_input_tokens": 0.6,
+    "basis": "informational_token_pack_equivalent_not_monthly_invoice",
+    "actual_billed_usd": null
+  },
+  "catalog_reuse": {
+    "schema_version": "adaptive-catalog-reuse/v4",
+    "preparation_directory": "benchmark-runs/heldout-pycparser-catalog-01",
+    "original_manifest": "benchmarks/e2e-swe/heldout/pycparser/catalog-prep.v1.json",
+    "original_manifest_sha256": null,
+    "result_sha256": null,
+    "catalog_file_sha256": null,
+    "source_pins_sha256": null,
+    "prepared_request_sha256": null,
+    "provider_request_sha256": null,
+    "allowed_changed_source_paths": [
+      "src/benchmark/adaptive-dag-runner.mjs",
+      "scripts/adaptive-dag-comparison.mjs",
+      "src/benchmark/budget.mjs",
+      "src/benchmark/budget-acquire.mjs",
+      "src/benchmark/dag-runner.mjs",
+      "src/orchestration/adaptive-dag-planner.mjs",
+      "src/orchestration/adaptive-dag-execution.mjs",
+      "scripts/audit-dag-public-checks.mjs",
+      "benchmarks/e2e-swe/public-checks/run_public_checks.py",
+      "benchmarks/e2e-swe/public-checks/extensions/cli_config.py",
+      "src/orchestration/artifact-transport.mjs",
+      "src/orchestration/adaptive-failure.mjs",
+      "src/benchmark/telemetry.mjs",
+      "src/orchestration/dag-filesystem-runtime.mjs",
+      "src/orchestration/dag-scheduler.mjs"
+    ]
+  },
+  "preparation_accounting": "New source-only catalog for held-out task pycparser (one Claude catalog call, prepared before the cohort and reported separately). The openapi D066 catalog is not reused.",
+  "deadline_basis": "Retain the existing 14400-second total deadline and no separate worker cap. Cumulative and per-arm token spending caps are null. v4 input estimates are observational; official 256000-byte body, structural and uncertainty checks can block.",
+  "session_semantics": "Held-out stage 1 (R20261017-EVAL-PROTOCOL), task pycparser: D083 cloud defaults (d083-repair-fixes.json) with task-bound inputs replaced. Condition jev_profile only; the claude_all control condition cannot be expressed in v12 (arms fixed to [jev_profile]).",
+  "claude_auth_methods": [
+    "claude.ai",
+    "oauth_token"
+  ],
+  "independent_grade": "Root-owned after candidate freeze with benchmarks/e2e-swe/heldout/pycparser/grade.json and benchmarks/e2e-swe/heldout/pycparser/image-lock.json; hidden tests never enter planning, implementation or public repair.",
+  "repair_policy": {
+    "artifact_contract": "docs/orchestration/contracts/adaptive-causal-repair.v1.json",
+    "assertion_contract": "benchmarks/e2e-swe/public-checks/assertions.v2.json",
+    "failure_contract": "adaptive-terminal-cause/v1",
+    "scope_contract": "public-inferred-owner-v3",
+    "token_admission_contract": "docs/orchestration/contracts/jev-token-admission.v4.json",
+    "owner_inference_contract": "docs/orchestration/contracts/adaptive-inferred-repair.v3.json"
+  },
+  "decomposition_policy": {
+    "id": "layered-v2",
+    "contract": "docs/orchestration/contracts/adaptive-layered-decomposition.v2.json"
+  },
+  "public_runner": "benchmarks/e2e-swe/heldout/pycparser/public-checks/run_public_checks.py",
+  "public_controls_evidence": "benchmarks/e2e-swe/heldout/pycparser/public-checks/results/controls.json",
+  "profile_policy": {
+    "contract": "docs/orchestration/contracts/adaptive-profile-selection.v2.json",
+    "candidate_contract": "docs/orchestration/contracts/adaptive-profiles.v1.json",
+    "phase_policy": "initial_and_selected_repairs",
+    "cli_version": "2.1.293",
+    "account_probe": "benchmark-runs/d071-model-probes-01/result.json",
+    "account_probe_sha256": "4201fa4fe2df4b9caea6db759e5609e892605ba99c7bd4afc45b4c59e85b691a",
+    "allowed_profile_ids": [
+      "claude_opus55_low",
+      "claude_opus55_medium",
+      "claude_opus55_high",
+      "claude_opus55_xhigh",
+      "claude_opus55_max",
+      "claude_sonnet55_low",
+      "claude_sonnet55_medium",
+      "claude_sonnet55_high",
+      "claude_sonnet55_xhigh",
+      "claude_sonnet55_max",
+      "claude_haiku55_low",
+      "claude_haiku55_medium",
+      "claude_haiku55_high",
+      "claude_haiku55_xhigh",
+      "claude_haiku55_max",
+      "claude_fable51_low",
+      "claude_fable51_medium",
+      "claude_fable51_high",
+      "claude_fable51_xhigh",
+      "claude_fable51_max"
+    ]
+  },
+  "runtime_speed": {
+    "model_lookup": "per_session",
+    "budget_lock": "ledger_op",
+    "public_check_concurrency": 2,
+    "readiness_batch": true
+  },
+  "question_forms": {
+    "decomposition": {
+      "contract": "docs/orchestration/contracts/adaptive-layered-decomposition.v2.json",
+      "sha256": "595deea341fe26ccd62cca511637c31130e33bad64ae27cfed811120dd6c9d6a"
+    },
+    "owner_criteria": {
+      "contract": "docs/orchestration/contracts/adaptive-owner-criteria.v2.json",
+      "sha256": "6051be503b9484b34e0a77720fec1929d600d955cc858d411337da79b4403ebe"
+    },
+    "inferred_scope": {
+      "contract": "docs/orchestration/contracts/adaptive-inferred-scope.v1.json",
+      "sha256": "8ea862295bc2f6460b003e6b124a509ebf1e5a01a22747579c679511aa05870e"
+    }
+  },
+  "repair_budget": {
+    "policy": "repair-budget-v3",
+    "contract": "docs/orchestration/contracts/adaptive-repair-budget.v3.json",
+    "sha256": "ded35d2885352386e4a13dc948a40cb9b542c4f1d01422d630c2fa74d31171b3"
+  },
+  "repair_feedback": {
+    "read_scope": "candidate-v1",
+    "worker_diagnostics": "report-v1",
+    "scope_expansion": "worker-mentioned-v1"
+  },
+  "schedule_policy": {
+    "policy": "critical-path-v1",
+    "contract": "docs/orchestration/contracts/adaptive-critical-path-schedule.v1.json",
+    "sha256": "66205dc51d05b4a714677c4c8d23de1b104f35371ee493515e47ed20cdb97af0"
+  },
+  "spec_review": {
+    "policy": "spec-review-v1",
+    "contract": "docs/orchestration/contracts/adaptive-spec-review.v1.json",
+    "sha256": "fcb81c6fd247d5fc14177de9fccf9cd5d6a24424f44e9f5a0d22e66f14a2f769"
+  }
+}

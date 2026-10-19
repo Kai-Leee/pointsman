@@ -16,7 +16,8 @@ import {createJevClient, prepareDecision} from '../client.mjs';
 import {createMeasuredDecider} from './telemetry.mjs';
 import {createTokenBudget, validateBudgetConfig, readTokenBudgetSnapshot} from './budget.mjs';
 import {acquireTokenBudget} from './budget-acquire.mjs';
-import {auditPublicChecks, loadPublicAuditInputs, verifyFrozenControlEvidence} from '../../scripts/audit-dag-public-checks.mjs';
+import {auditPublicChecks, loadPublicAuditInputs, manifestAuditOptions, verifyFrozenControlEvidence,
+  MANIFEST as OPENAPI_INPUT} from '../../scripts/audit-task-public-checks.mjs';
 
 const fail = (code, details = {}) => { throw Object.assign(new Error(code), {code, ...details}); };
 const sha = value => createHash('sha256').update(typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)).digest('hex');
@@ -57,7 +58,10 @@ else:
     assert text.strip()
     assertions+=1
     if p.suffix=='.toml':
-        import tomllib
+        try:
+            import tomllib
+        except ModuleNotFoundError:
+            import tomli as tomllib
         tomllib.loads(text)
         assertions+=1
     elif p.suffix=='.sh':
@@ -66,6 +70,10 @@ else:
 print(json.dumps({'assertions':assertions}))`;
 const READINESS = `exec(${JSON.stringify(READINESS_SOURCE)})`;
 const PROBE = "import sys,json,importlib.util,importlib.metadata as m; names=['httpx','attrs','jinja2','typer','ruamel.yaml','setuptools','pip']; print(json.dumps({'python':sys.version,'modules':{n:{'available':importlib.util.find_spec(n) is not None,'version':m.version(n)} for n in names}}))";
+// Non-openapi tasks: the distributions their public environment.json declares as preinstalled (argv[1], JSON list).
+const PROBE_DISTRIBUTIONS = "import sys,json,importlib.metadata as m\ndef v(n):\n try: return m.version(n)\n except m.PackageNotFoundError: return None\nprint(json.dumps({'python':sys.version,'modules':{n:{'available':v(n) is not None,'version':v(n)} for n in json.loads(sys.argv[1])}}))";
+const probeArgv = (manifest, publicEnvironment) => manifest.input === OPENAPI_INPUT ? ['python3', '-c', PROBE]
+  : ['python3', '-c', PROBE_DISTRIBUTIONS, JSON.stringify(Object.keys(publicEnvironment.preinstalled_dependencies ?? {}))];
 
 function filesUnder(path) {
   const result = [];
@@ -132,11 +140,11 @@ async function runNamedContainer({image, argv, createArgs = [], runCommand, rema
   return raw;
 }
 
-async function probeDagEnvironment({image, runCommand, remaining, record, abortSignal}) {
+async function probeDagEnvironment({image, argv = ['python3', '-c', PROBE], runCommand, remaining, record, abortSignal}) {
   const inspected = await checkedProcess('docker', ['image', 'inspect', image.image_id],
     {timeoutMs: Math.min(remaining(), 15000), killProcessTree: true, abortSignal}, runCommand);
   if (JSON.parse(inspected.stdout)[0]?.Id !== image.image_id) fail('DAG_IMAGE_PIN_MISMATCH');
-  const raw = await runNamedContainer({image, argv: ['python3', '-c', PROBE], runCommand, remaining,
+  const raw = await runNamedContainer({image, argv, runCommand, remaining,
     record, abortSignal, eventPrefix: 'dag_environment_container'});
   if (raw.exit_code !== 0) fail('DAG_DEPENDENCY_PROBE_FAILED');
   return {image_id: image.image_id, ...JSON.parse(raw.stdout), network: 'none', read_only: true, tmpfs: CHECK_TMPFS};
@@ -148,7 +156,7 @@ export async function preflightDagRun({rootDir = ROOT, manifest, probe = false, 
   manifest ??= loadDagRunManifest(undefined, rootDir);
   if (manifest.public_controls_evidence !== undefined && !safeRelative(manifest.public_controls_evidence)) fail('DAG_INVALID_PUBLIC_EVIDENCE_PATH');
   const authMethods = claudeAuthMethods(manifest);
-  const publicAuditOptions = {registryPath: manifest.public_registry, runnerPath: manifest.public_runner};
+  const publicAuditOptions = manifestAuditOptions(manifest);
   const audit = auditPublicChecks({root: rootDir, controls: false, ...publicAuditOptions});
   const budget = readTokenBudgetSnapshot(validateBudgetConfig(manifest.jev_budget, rootDir));
   const config = loadConfig(), blockers = [];
@@ -179,7 +187,7 @@ export async function preflightDagRun({rootDir = ROOT, manifest, probe = false, 
     auth = {logged_in: parsed.loggedIn === true, auth_method: parsed.authMethod ?? null, accepted_methods: authMethods};
     if (!claudeAuthAccepted(manifest, parsed)) blockers.push('CLAUDE_AUTH_REQUIRED');
     const probeBegan = performance.now();
-    environment = await probeDagEnvironment({image, runCommand, remaining: () => Math.max(1, 30000 - Math.floor(performance.now() - probeBegan)), record, abortSignal});
+    environment = await probeDagEnvironment({image, argv: probeArgv(manifest, publicEnvironment), runCommand, remaining: () => Math.max(1, 30000 - Math.floor(performance.now() - probeBegan)), record, abortSignal});
     if (Object.values(environment.modules).some(module => !module.available)) blockers.push('DAG_DEPENDENCY_UNAVAILABLE');
     controls = auditPublicChecks({root: rootDir, controls: 'normal', ...publicAuditOptions}).controls;
     if (controls.status !== 'passed') blockers.push('PUBLIC_CHECK_CONTROLS_FAILED');
@@ -446,7 +454,7 @@ export async function runDagBenchmark({rootDir = ROOT, manifest, runDir, mode, s
       checkerFiles = [join(rootDir, manifest.mock_fixture)]; environment = {id: plan.checks[0].environment_ref};
       save('planning.json', {mode: 'mock', model_calls: 0, fixture: manifest.mock_fixture, status: 'fixture_loaded'});
     } else {
-      const publicData = loadPublicAuditInputs(rootDir, {registryPath: manifest.public_registry, runnerPath: manifest.public_runner});
+      const publicData = loadPublicAuditInputs(rootDir, manifestAuditOptions(manifest));
       publicRegistry = publicData.registry;
       const assembled = await prepareDagAllocation({input, registry: publicRegistry, manifest, decide, record,
         commit: async value => save('semantic-commit.json', value)});

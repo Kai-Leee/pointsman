@@ -1,0 +1,164 @@
+{
+  "schema_version": "evaluation-tasks/v1",
+  "protocol": "R20261017-EVAL-PROTOCOL",
+  "rule": {
+    "source": ".benchmarks/E2E-SWE/tasks (upstream b11ac067b1dfe8ce8b6db245d88756f426007797)",
+    "population": "Python tasks, excluding tuning_tasks",
+    "tier_metric": "instruction.md bytes; tertile cut points of the population, computed before any run",
+    "tiers": [
+      "basic",
+      "advanced",
+      "expert"
+    ],
+    "per_tier": 5,
+    "order": "ascending sha256(seed + ':' + task name)",
+    "seed": "jev-eval-v1",
+    "output": "benchmarks/e2e-swe/manifests/evaluation-tasks.v1.json"
+  },
+  "excluded_tuning_tasks": [
+    "openapi_python_client"
+  ],
+  "upstream_tasks": 186,
+  "population": 102,
+  "tier_cut_bytes": [
+    13737,
+    19271
+  ],
+  "tasks": [
+    {
+      "task": "h2",
+      "category": "web-and-network",
+      "spec_bytes": 11977,
+      "hidden_tests": 25,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:h2",
+      "tier": "basic",
+      "order_sha256": "03f6a665831f5d4f9065fb641199241b6d90a174bc91ef152e88ba970032f38c"
+    },
+    {
+      "task": "git-code-debt",
+      "category": "devtools-and-analysis",
+      "spec_bytes": 8619,
+      "hidden_tests": 33,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:git-code-debt",
+      "tier": "basic",
+      "order_sha256": "06aa0fae803edc72e1ce48034b2af5627b789530fc0ee4b906cd1b3776c07bf9"
+    },
+    {
+      "task": "beaker",
+      "category": "query-and-database",
+      "spec_bytes": 7032,
+      "hidden_tests": 37,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:beaker",
+      "tier": "basic",
+      "order_sha256": "198caf48003db04588419282ff8bcd1df2b37563b72b06fd4e9a878659ca2b3d"
+    },
+    {
+      "task": "nose2",
+      "category": "devtools-and-analysis",
+      "spec_bytes": 13276,
+      "hidden_tests": 37,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:nose2",
+      "tier": "basic",
+      "order_sha256": "222b5fa3f6b60345e640952b1633482edb28be414dca4825f72ef874196d6341"
+    },
+    {
+      "task": "monkeytype",
+      "category": "devtools-and-analysis",
+      "spec_bytes": 10203,
+      "hidden_tests": 23,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:monkeytype",
+      "tier": "basic",
+      "order_sha256": "23e5e3ef0d3cf47307a37887ca0bd0d3424be7397fa2019e7c5ebfebba846762"
+    },
+    {
+      "task": "pycparser",
+      "category": "parsers-and-languages",
+      "spec_bytes": 17390,
+      "hidden_tests": 38,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:pycparser",
+      "tier": "advanced",
+      "order_sha256": "0083afa1ca9044cc69d28daec9b592b2858b8e210e03a391fab14a75e1631633"
+    },
+    {
+      "task": "playback",
+      "category": "devtools-and-analysis",
+      "spec_bytes": 17746,
+      "hidden_tests": 51,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:playback",
+      "tier": "advanced",
+      "order_sha256": "09d5c2844b0f813ecdca7048d545c315e184ca5b0b137717c72f5caa5f61292a"
+    },
+    {
+      "task": "tremolo",
+      "category": "web-and-network",
+      "spec_bytes": 13799,
+      "hidden_tests": 33,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:tremolo",
+      "tier": "advanced",
+      "order_sha256": "0a23a7ce41df79e4767c336542145a84fcab5dace7e118e4e39990ec0f102aeb"
+    },
+    {
+      "task": "deepdiff",
+      "category": "data-structures-and-algorithms",
+      "spec_bytes": 14747,
+      "hidden_tests": 29,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:deepdiff",
+      "tier": "advanced",
+      "order_sha256": "157b18298afbadfb099b1c215f998e21ac3f20be89de3b0781dfbf17f706812d"
+    },
+    {
+      "task": "sqlparse",
+      "category": "query-and-database",
+      "spec_bytes": 18388,
+      "hidden_tests": 38,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:sqlparse",
+      "tier": "advanced",
+      "order_sha256": "1b961afb3de52b2c3b5541f5055be4f3598036ebe06723e0322b9dc4b23e5bf6"
+    },
+    {
+      "task": "django-modelcluster",
+      "category": "query-and-database",
+      "spec_bytes": 21509,
+      "hidden_tests": 91,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:django-modelcluster",
+      "tier": "expert",
+      "order_sha256": "035168182c31d531f0bcf992d3b5bbcc5f25926668419485180a28985d2c96b6"
+    },
+    {
+      "task": "kcwarden",
+      "category": "security-and-crypto",
+      "spec_bytes": 29213,
+      "hidden_tests": 46,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:kcwarden",
+      "tier": "expert",
+      "order_sha256": "0ed4a33f1f462d269e2d003bd3d0a46051edeb01e670888e15977ab2ba46ce6b"
+    },
+    {
+      "task": "yamlpath",
+      "category": "query-and-database",
+      "spec_bytes": 19746,
+      "hidden_tests": 111,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:yamlpath",
+      "tier": "expert",
+      "order_sha256": "0f29b9104d45e8806d5e379cd1d83d8584a150f7bc362da5d487e06174a6c0a6"
+    },
+    {
+      "task": "water",
+      "category": "concurrency-and-systems",
+      "spec_bytes": 27076,
+      "hidden_tests": 77,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:water",
+      "tier": "expert",
+      "order_sha256": "11255499899c93d57032942633113786d8335bdd7bb8f2b08b885633157bbf8c"
+    },
+    {
+      "task": "mapillary_tools",
+      "category": "serialization-and-formats",
+      "spec_bytes": 45030,
+      "hidden_tests": 54,
+      "docker_image": "ghcr.io/facebookresearch/e2e-swe:mapillary_tools",
+      "tier": "expert",
+      "order_sha256": "1aa088d605fce4b9a47c379a04b2c2532531c2584a767c41233631c7caea890b"
+    }
+  ]
+}

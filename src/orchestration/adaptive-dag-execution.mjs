@@ -22,6 +22,10 @@ import {CHECK_ERROR_CANDIDATE_ID, blockedCheckErrors, checkErrorCandidate, withC
   loadCheckErrorRepairContract} from './adaptive-check-error-repair.mjs';
 import {workerMentionedExpansion, ownerProbabilityAlternatives, EXPANDED_UNION_ID, ALTERNATIVES_UNION_ID, TIEBREAK_UNION_ID} from './adaptive-inferred-scope.mjs';
 import {flatAssignments, buildOwnerTiebreakRequest, resolveOwnerTiebreak, loadOwnerTiebreakContract} from './adaptive-owner-tiebreak.mjs';
+import {collectPublicOwnerEvidence, attachPublicOwnerEvidence, applyPublicOwnerEvidenceScope, assertPublicOwnerEvidenceCoverage} from './adaptive-public-owner-evidence.mjs';
+import {PARTIAL_REPAIR_POLICY, buildPartialReadinessRepair, buildPartialRepairWorkerContext} from './adaptive-partial-repair.mjs';
+import {VERIFIED_REPAIR_CONTEXT_POLICY, buildVerifiedRepairContext,
+  attachVerifiedRepairContext} from './adaptive-verified-repair-context.mjs';
 
 const clone = value => structuredClone(value);
 const canonical = value => Array.isArray(value) ? value.map(canonical) : value && typeof value === 'object'
@@ -82,7 +86,7 @@ async function scopedManifest(root, scopes) {
   return {files: files.sort((a, b) => a.path.localeCompare(b.path)), directories: directories.sort()};
 }
 
-async function repairSourceFiles(exported, bindings, plan, {recovery = false} = {}) {
+async function repairSourceFiles(exported, bindings, plan, {recovery = false, includeTemplates = false} = {}) {
   if (!exported?.candidateDirectory) return [];
   const sources = [];
   for (const artifact of plan.artifacts) {
@@ -90,7 +94,8 @@ async function repairSourceFiles(exported, bindings, plan, {recovery = false} = 
     if (!revision) continue;
     const manifest = await scopedManifest(exported.candidateDirectory, bindings[artifact.id].paths);
     if (digest(manifest) !== revision) fail('ADAPTIVE_REPAIR_SCOPE_REVISION_DRIFT');
-    for (const file of manifest.files.filter(file => recovery || file.path.endsWith('.py'))) {
+    for (const file of manifest.files.filter(file => recovery || file.path.endsWith('.py')
+      || includeTemplates && /\.(?:jinja|j2|jinja2)$/.test(file.path))) {
       if (!recovery && file.size > 262144) fail('ADAPTIVE_REPAIR_SCOPE_SOURCE_LIMIT');
       const content = await readFile(join(exported.candidateDirectory, file.path));
       if (bytesDigest(content) !== file.sha256) fail('ADAPTIVE_REPAIR_SCOPE_REVISION_DRIFT');
@@ -386,6 +391,10 @@ export async function runAdaptiveDagExecution(options) {
       ((options.repairScopePolicy === 'public-inferred-owner-v2') !== (options.artifactRepairPolicy === 'inferred-v2')) ||
       ((options.repairScopePolicy === 'public-inferred-owner-v3') !== (options.artifactRepairPolicy === 'inferred-v3')) ||
       (INFERRED_SCOPE_POLICIES.includes(options.repairScopePolicy) && typeof options.decideRepairOwners !== 'function') ||
+      (options.publicOwnerEvidencePolicy !== undefined && (options.publicOwnerEvidencePolicy !== 'public-source-v1' || !INFERRED_SCOPE_POLICIES.includes(options.repairScopePolicy))) ||
+      (options.partialRepairPolicy !== undefined && options.partialRepairPolicy !== PARTIAL_REPAIR_POLICY) ||
+      (options.repairDispatchPolicy !== undefined && (options.repairDispatchPolicy !== VERIFIED_REPAIR_CONTEXT_POLICY
+        || !INFERRED_SCOPE_POLICIES.includes(options.repairScopePolicy))) ||
       (options.beforeRepairDecision !== undefined && typeof options.beforeRepairDecision !== 'function') ||
       (options.prepareRoundPlan !== undefined && typeof options.prepareRoundPlan !== 'function') ||
       (options.projectRepairFailure !== undefined && typeof options.projectRepairFailure !== 'function') ||
@@ -435,7 +444,7 @@ export async function runAdaptiveDagExecution(options) {
     queue = append.catch(() => {});
     return append;
   }
-  const rounds = [], actions = [], snapshots = new Map(), attempted = new Set(), repairAttempts = [];
+  const rounds = [], actions = [], snapshots = new Map(), attempted = new Set(), repairAttempts = [], localRepairRounds = [];
   const recoveryEnabled = options.failureRecoveryPolicy === 'evidence-loop-v1';
   const recoveryActions = [], workerInputs = new Set(), recoveryAttempts = new Set();
   const inferredPolicy = INFERRED_SCOPE_POLICIES.includes(options.repairScopePolicy);
@@ -634,13 +643,19 @@ export async function runAdaptiveDagExecution(options) {
         await record({event: 'adaptive_round_started', phase: 'started', round_index: roundIndex, graph_revision: plan.graph_revision,
           selected_action: selectedAction, plan, artifact_bindings: bindings});
         const artifactWorkers = new Map();
+        const partialRepair = selectedAction?.policy === PARTIAL_REPAIR_POLICY;
         if (previousFailure && options.artifactRepairPolicy) {
           const unready = plan.tasks.filter(task => task.kind === 'implementation' && !selected.has(task.id) && !snapshots.get(task.id)?.verified);
-          if (unready.length) fail('ADAPTIVE_ARTIFACT_REPAIR_UNREADY_UNSELECTED_TASK', {task_ids: unready.map(task => task.id)});
+          if (unready.length && !partialRepair) fail('ADAPTIVE_ARTIFACT_REPAIR_UNREADY_UNSELECTED_TASK', {task_ids: unready.map(task => task.id)});
           for (const id of selected) {
             if (selectedAction?.id === CHECK_ERROR_CANDIDATE_ID && checkErrorContext) {
               artifactWorkers.set(id, buildCheckErrorWorkerContext({planning, failure: previousFailure, candidate: selectedAction,
                 task: plan.tasks.find(task => task.id === id), artifactBindings: bindings, checkError: checkErrorContext}));
+              continue;
+            }
+            if (partialRepair) {
+              artifactWorkers.set(id, buildPartialRepairWorkerContext({plan, failure: previousFailure, candidate: selectedAction,
+                task: plan.tasks.find(task => task.id === id), snapshots, artifactBindings: bindings}));
               continue;
             }
             const buildWorkerContext = inferredPolicy ? buildInferredRepairWorkerContext : causalPolicy ? buildCausalRepairWorkerContext
@@ -849,6 +864,19 @@ export async function runAdaptiveDagExecution(options) {
             const evidence = await runtime.runCheck(check, context);
             if (check.phase !== 'integration') localEvidence.push(clone({...evidence, task_id: context.task.id,
               attempt_id: context.attempt_id}));
+            // The gate stops at the first failed check. For local readiness repair, run the task's
+            // remaining local checks on the same attempt so one round reports every broken artifact;
+            // the returned first failure still fails the task, and any thrown continuation stays fatal.
+            if (options.partialRepairPolicy === PARTIAL_REPAIR_POLICY && check.phase !== 'integration'
+                && evidence.status === 'failed' && evidence.outcome_uncertain === false && !uncertain(evidence)) {
+              const ids = context.task.check_ids.slice(context.task.check_ids.indexOf(check.id) + 1);
+              for (const next of ids.map(id => plan.checks.find(row => row.id === id)).filter(row => row.phase !== 'integration')) {
+                const more = await runtime.runCheck(clone(next), context);
+                localEvidence.push(clone({...more, task_id: context.task.id, attempt_id: context.attempt_id}));
+              }
+              if (ids.length) await record({event: 'adaptive_local_checks_continued', round_index: roundIndex,
+                task_id: context.task.id, attempt_id: context.attempt_id, after_check_id: check.id, check_ids: ids});
+            }
             return evidence;
           }});
         runtimeJournal = await runtime.journalState();
@@ -919,13 +947,13 @@ export async function runAdaptiveDagExecution(options) {
         artifact_revisions: clone(exported?.artifact_revisions ?? {}),
         ...(recoveryEnabled && previousFailure?.recovery_evidence ? {recovery_evidence: clone(previousFailure.recovery_evidence
           .filter(item => (item.revision ?? item.artifact_revision) === exported?.artifact_revisions?.[item.artifact_id]))} : {})};
-      if (causalPolicy && previousFailure && selectedAction && !profilePreparationFailed) {
+      if (causalPolicy && previousFailure && selectedAction && selectedAction.policy !== PARTIAL_REPAIR_POLICY && !profilePreparationFailed) {
         try {
           const attempt = {round_index: roundIndex - 1, action: clone(selectedAction), before_failure: clone(previousFailure),
             after_failure: clone(failure), after_artifact_revisions: clone(failure.artifact_revisions),
             changed_files: repairFileChanges(previousSnapshots, snapshots, plan), status};
           repairAttempts.push(attempt);
-          repairHistory = buildCausalRepairHistory({planning, artifactBindings: bindings, attempts: repairAttempts});
+          repairHistory = buildCausalRepairHistory({planning, artifactBindings: bindings, attempts: repairAttempts, localRounds: localRepairRounds});
           round.repair_history = clone(repairHistory);
           await record({event: 'adaptive_causal_repair_history_updated', round_index: roundIndex, history: repairHistory});
         } catch (error) {
@@ -962,6 +990,30 @@ export async function runAdaptiveDagExecution(options) {
       }
       if (status === 'completed' || status === 'uncertain' || status === 'blocked' || round.fatal || roundIndex === maxRepairRounds + extraRounds ||
           !knownFailure.has(workflow?.execution?.failure?.code)) break;
+      if (options.partialRepairPolicy === PARTIAL_REPAIR_POLICY) {
+        try {
+          const candidate = buildPartialReadinessRepair({plan, failure, snapshots, artifactBindings: bindings});
+          if (candidate) {
+            await options.beforeRepairDecision?.({planning: clone(planning), failure: clone(failure),
+              candidates: [clone(candidate)], repair_history: clone(repairHistory)},
+            {stage: 'local_readiness_repair', round_index: roundIndex});
+            await record({event: 'adaptive_partial_repair_committed', round_index: roundIndex,
+              candidate, provider_calls: 0, reason: 'exact_runtime_local_check_owner'});
+            if (causalPolicy) {
+              localRepairRounds.push(roundIndex);
+              repairHistory = buildCausalRepairHistory({planning, artifactBindings: bindings, attempts: repairAttempts, localRounds: localRepairRounds});
+            }
+            selectedAction = clone(candidate); selected = new Set(candidate.task_ids); previousFailure = failure;
+            previousRepairInputContext = null; round.prior_public_failure = clone(failure);
+            actions.push({round_index: roundIndex, status: 'selected', candidate_id: candidate.id, candidate: clone(candidate)});
+            continue;
+          }
+        } catch (error) {
+          round.fatal = {code: error.code ?? 'ADAPTIVE_PARTIAL_REPAIR_FAILED', outcome_uncertain: false};
+          round.terminal_cause = adaptiveTerminalCause(round.fatal, {stage: 'repair', outcome_uncertain: false});
+          round.prior_public_failure = clone(failure); break;
+        }
+      }
       let candidates;
       if (['minimal-public-v1', 'public-causal-v1', ...INFERRED_SCOPE_POLICIES].includes(options.repairScopePolicy)) {
         try {
@@ -1032,8 +1084,19 @@ export async function runAdaptiveDagExecution(options) {
       }
       // Preserved-candidate authorization must precede both paid inference and
       // repair selection. A known failed gate is not a provider uncertainty.
-      let repairInputContext = null;
+      let repairInputContext = null, publicOwnerEvidence = null, verifiedRepairContext = null;
       try {
+        if (options.publicOwnerEvidencePolicy) {
+          publicOwnerEvidence = await collectPublicOwnerEvidence({planning, failure, candidateDirectory: exported.candidateDirectory,
+            assertionContract: options.assertionContract, runtimeBinding: JSON.parse(await readFile(join(initialization.root, 'binding.json'), 'utf8'))});
+          await record({event: 'adaptive_public_owner_evidence_committed', round_index: roundIndex, evidence: publicOwnerEvidence});
+        }
+        if (options.repairDispatchPolicy) {
+          verifiedRepairContext = buildVerifiedRepairContext({planning, failure, repairHistory, workerReports,
+            sources: await repairSourceFiles(exported, bindings, plan, {includeTemplates: true})});
+          await record({event: 'adaptive_verified_repair_context_committed', round_index: roundIndex,
+            policy: options.repairDispatchPolicy, context: verifiedRepairContext});
+        }
         if (options.beforeRepairDecision) await options.beforeRepairDecision({planning: clone(planning),
           failure: clone(failure), candidates: clone(candidates), repair_history: clone(repairHistory)},
         {stage: inferredPolicy ? 'repair_owners' : 'repair', round_index: roundIndex});
@@ -1051,6 +1114,17 @@ export async function runAdaptiveDagExecution(options) {
               decide: async (body, metadata) => {
                 failedRequest = clone(body);
                 let sent = body;
+                if (publicOwnerEvidence && !requestOverride) sent = attachPublicOwnerEvidence(sent, publicOwnerEvidence);
+                if (verifiedRepairContext && !requestOverride) {
+                  sent = attachVerifiedRepairContext(sent, verifiedRepairContext);
+                  const projection = sent.state.verified_repair_context;
+                  await record({event: 'adaptive_verified_repair_context_attached', round_index: roundIndex,
+                    context_sha256: verifiedRepairContext.sha256, attached: !!projection,
+                    model_projection_bytes: projection ? Buffer.byteLength(JSON.stringify(projection)) : 0,
+                    model_projection_sha256: projection ? digest(projection) : null,
+                    reason: projection ? 'bounded_source_identifier_hints' : 'no_case_level_source_hints_original_evidence_retained',
+                    question_sha256: digest(sent.questions), automatic_owner_additions: 0, skipped_workers: 0});
+                }
                 // A recovery override is bound to its exact request hash, so it never gains diagnostics or repacking.
                 if (options.repairFeedback?.worker_diagnostics && workerReports.length && !requestOverride) {
                   const diagnostics = workerDiagnostics(workerReports, snapshots);
@@ -1146,6 +1220,7 @@ export async function runAdaptiveDagExecution(options) {
           if (options.repairFeedback?.owner_alternatives) inferred = withOwnerAlternativesScope(inferred, {plan: planning.plan,
             skipQuestionIds: flat.map(row => row.question_id)});
           if (scopeExpansion) inferred = withWorkerMentionedScope(inferred, {plan: planning.plan, ...scopeExpansion});
+          if (publicOwnerEvidence) inferred = applyPublicOwnerEvidenceScope(inferred, {plan: planning.plan, evidence: publicOwnerEvidence, failure});
           candidates = inferred.candidates;
           failure.repair_scope = clone(inferred.analysis);
           round.repair_scope = clone(inferred.analysis);
@@ -1208,6 +1283,13 @@ export async function runAdaptiveDagExecution(options) {
           (decision.candidate !== undefined && !isDeepStrictEqual(decision.candidate, chosen))) {
         round.fatal = {code: 'ADAPTIVE_EXECUTION_INVALID_REPAIR_SELECTION', outcome_uncertain: false};
         round.terminal_cause = adaptiveTerminalCause(round.fatal, {stage: 'repair', outcome_uncertain: false}); break;
+      }
+      if (publicOwnerEvidence) {
+        try { assertPublicOwnerEvidenceCoverage(chosen, publicOwnerEvidence); }
+        catch (error) {
+          round.fatal = {code: error.code, outcome_uncertain: false};
+          round.terminal_cause = adaptiveTerminalCause(round.fatal, {stage: 'repair', outcome_uncertain: false}); break;
+        }
       }
       if (chosen.scope_expansion) await record({event: 'adaptive_repair_scope_expanded', round_index: roundIndex,
         expansion: clone(chosen.scope_expansion), artifact_ids: clone(chosen.artifact_ids), task_ids: clone(chosen.task_ids)});

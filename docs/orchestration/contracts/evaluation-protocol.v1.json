@@ -1,0 +1,81 @@
+{
+  "schema_version": "evaluation-protocol/v1",
+  "id": "R20261017-EVAL-PROTOCOL",
+  "purpose": "Fix, before any new run, how Jev/Pointsman conditions are scored, which runs count, and which credibility criteria a claimed improvement must meet. Compared against revfactory/claude-code-harness (Hwang 2026).",
+  "unit": "one arm = one condition run on one task from one starting state",
+  "outcomes": {
+    "primary": {"id": "resolved", "definition": "binary upstream E2E-SWE result: every independent hidden test passes", "report": "k/n with Wilson 95% interval"},
+    "secondary": [
+      {"id": "independent_pass_pct", "definition": "100 * passed / tests of the independent hidden tests; a diagnostic, not the benchmark score (partial_pass_fraction_is_benchmark_score=false)", "report": "mean, sample SD, min, max per condition"},
+      {"id": "paired_win_rate", "definition": "arms of the same run directory compared on independent_pass_pct; wins/ties/losses per arm pair", "report": "counts and the per-run scores"},
+      {"id": "failure_dimensions", "definition": "hidden-test classes (pytest class names) failed at least once, counted once per graded arm", "report": "failed arms / graded arms"},
+      {"id": "wall_ms_and_usage", "definition": "arm wall time and recorded usage under the arm's own measurement boundary", "report": "per arm; unknown stays null"}
+    ]
+  },
+  "inclusion": {
+    "rule": "Intention-to-treat. A graded arm counts with its grade whatever its stop code, because the candidate exists and the hidden tests ran. An ungraded arm counts as 0 when the system under test caused the stop, because no candidate passes any hidden test. Infrastructure and user stops are excluded and listed with their reason; nothing is dropped silently. An unknown stop code without a grade is excluded as unclassified and must be classified before the report is cited.",
+    "ungraded_stop_codes": {
+      "system_failure_counted_as_zero": [
+        "ADAPTIVE_ARM_TOKEN_LIMIT",
+        "ADAPTIVE_INFERRED_ARTIFACT_BINDING",
+        "BUDGET_MODEL_UNSUPPORTED",
+        "ADAPTIVE_REPAIR_BUDGET_EXCEEDED",
+        "ADAPTIVE_TOKEN_PREFLIGHT_BLOCKED",
+        "ARTIFACT_CHECK_NOT_PASSED",
+        "HTTP_ERROR",
+        "REPAIR_INPUT_OWNER_SCHEMA"
+      ],
+      "excluded_infrastructure": ["BUDGET_LOCKED", "BUDGET_OUTSTANDING", "PROVIDER_FAILED", "CODEX_PROVIDER_FAILED", "CODEX_CHECK_IMAGE_PIN_MISMATCH"],
+      "excluded_user_or_uncertain": ["ADAPTIVE_CANCELLED"],
+      "excluded_not_started": ["NO_ARM_RESULT"]
+    },
+    "provider_rule": "PROVIDER_FAILED (decision provider failed without an HTTP status, e.g. D086 claude_all split) is excluded for every condition alike, as a Jev provider outage is; HTTP_ERROR caused by the system's own oversized request stays a system failure. BUDGET_MODEL_UNSUPPORTED (D086 jev_profile, runner telemetry rejected the chosen profile's request) is the system's own defect and counts as 0 although marked uncertain. CODEX_CHECK_IMAGE_PIN_MISMATCH followed the user's Docker shutdown (CODEX_REPAIR_HOLD_20261015) and is excluded.",
+    "not_started_rule":"A protocol.json lists the arm but no arm result file exists, so the arm stopped before it started and its cause is not in the run data. It is listed, never silently dropped; the cause must come from the run's STATE/decision record."
+  },
+  "credibility_checklist": [
+    {"id": "C01", "criterion": "Score comes from executing hidden tests, not an LLM judge.", "auto": "execution_graded",
+     "harness": {"status": "no", "evidence": "10-dimension LLM rubric (.claude/skills/output-evaluator.md); case-011 baseline rationale estimates behaviour without an artifact ('5개 시나리오 중 1-2개만 동작 예상')"}},
+    {"id": "C02", "criterion": "The grader makes no model calls.", "auto": "grader_model_calls_zero",
+     "harness": {"status": "no", "evidence": "GitHub commit fdc3ad74 message: evaluation performed by 5 parallel agent teams"}},
+    {"id": "C03", "criterion": "The agent under test never sees the grading tests.", "auto": null,
+     "harness": {"status": "not_applicable", "evidence": "no hidden tests exist; quality is judged from the output"},
+     "jev": {"status": "yes", "evidence": "scripts/grade-adaptive-arm.mjs:4 grades in a separate offline container; worker input in src/benchmark/adaptive-dag-runner.mjs:883-897 carries no check bodies"}},
+    {"id": "C04", "criterion": "The grader does not know which condition produced the output.", "auto": null,
+     "harness": {"status": "no", "evidence": "one evaluation file scores baseline and harness side by side and names the winner"},
+     "jev": {"status": "yes", "evidence": "the adapter grades a candidate directory only; the condition label is not an input"}},
+    {"id": "C05", "criterion": "The scoring rule was fixed before outputs were seen.", "auto": null,
+     "harness": {"status": "no", "evidence": "experiments/calibration-rubric.md rewrites anchors after reviewing outputs ('편향 2: Harness 사소한 결함에 과도한 감점')"},
+     "jev": {"status": "yes", "evidence": "upstream tests pinned at E2E-SWE b11ac067b1dfe8ce8b6db245d88756f426007797 with an image digest lock"}},
+    {"id": "C06", "criterion": "At least 3 counted runs per compared condition.", "auto": "repeats_at_least_3",
+     "harness": {"status": "no", "evidence": "1 run per case per condition (summary-15cases.json)"}},
+    {"id": "C07", "criterion": "Every started run is reported; exclusions carry a reason.", "auto": "intention_to_treat",
+     "harness": {"status": "unknown", "evidence": "no failed or aborted runs are reported"}},
+    {"id": "C08", "criterion": "The scored output is retained for every reported score.", "auto": "artifacts_retained",
+     "harness": {"status": "partial", "evidence": "cases 001-010 keep outputs; 011-015 have 0 baseline files and only .claude configuration on the harness side"}},
+    {"id": "C09", "criterion": "Compared conditions share task, starting state and time window.", "auto": "paired_runs",
+     "harness": {"status": "yes", "evidence": "same case definition per pair"}},
+    {"id": "C10", "criterion": "Uncertainty is reported as an interval, not only a mean.", "auto": "interval_reported",
+     "harness": {"status": "no", "evidence": "means and an SD across different tasks only"}},
+    {"id": "C11", "criterion": "At least 3 distinct tasks per difficulty tier.", "auto": "distinct_tasks",
+     "harness": {"status": "yes", "evidence": "15 tasks in 3 tiers of 5"}},
+    {"id": "C12", "criterion": "Evaluation tasks were not used to tune the system.", "auto": "held_out_tasks",
+     "harness": {"status": "unknown", "evidence": "each case has its own hand-built .claude configuration written with knowledge of that task"}},
+    {"id": "C13", "criterion": "Time, tokens and cost are measured per arm under one boundary.", "auto": null,
+     "harness": {"status": "no", "evidence": "not reported"},
+     "jev": {"status": "yes", "evidence": "adaptive-arm-result/v1 wall_ms, usage, budget_before/after"}},
+    {"id": "C14", "criterion": "An independent party reproduced the result.", "auto": null,
+     "harness": {"status": "no", "evidence": "README states third-party replication is in progress"},
+     "jev": {"status": "no", "evidence": "all runs by the repository owner"}}
+  ],
+  "tuning_tasks": ["openapi_python_client"],
+  "task_selection": {
+    "source": ".benchmarks/E2E-SWE/tasks (upstream b11ac067b1dfe8ce8b6db245d88756f426007797)",
+    "population": "Python tasks, excluding tuning_tasks",
+    "tier_metric": "instruction.md bytes; tertile cut points of the population, computed before any run",
+    "tiers": ["basic", "advanced", "expert"],
+    "per_tier": 5,
+    "order": "ascending sha256(seed + ':' + task name)",
+    "seed": "jev-eval-v1",
+    "output": "benchmarks/e2e-swe/manifests/evaluation-tasks.v1.json"
+  }
+}

@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-modelcluster"
+version = "0.0.0"
+description = "Authored public reference control for the held-out modelcluster checks"
+requires-python = ">=3.10"
+dependencies = ["Django>=5.2,<5.3"]
+
+[project.optional-dependencies]
+taggit = ["django-taggit>=6.1"]
+
+[tool.setuptools.packages.find]
+include = ["modelcluster*"]

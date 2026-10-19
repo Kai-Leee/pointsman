@@ -1,0 +1,43 @@
+{
+  "schema_version": "jev-settlement-models/v1",
+  "matching": "exact",
+  "description": "Provider model IDs the token-budget ledger may settle. Exact string match only: no prefix, alias or future-build matching. The ledger valuation assumes a 1x multiplier, so every entry must have multiplier 1. New dated builds are added by scripts/jev-model-check.mjs --update only when the public docs give the exact dated ID and its multiplier; evidence_sha256 is the sha256 of the saved docs bytes. Seed entries predate saved evidence files, so their evidence_sha256 is null and evidence_note keeps the original verification record.",
+  "models": [
+    {
+      "model_id": "jev-1.13.0",
+      "kind": "legacy_id",
+      "multiplier": 1,
+      "verified_at": "2026-10-09",
+      "evidence_url": "https://jev-ai.pro/model/jev-1.13",
+      "evidence_sha256": null,
+      "evidence_note": "Exact equivalence documented in the 'Dated snapshot' section (verified 2026-10-09). No moving alias, prefix match, or future dated build is allowed."
+    },
+    {
+      "model_id": "typesafe/jev-1.13-20260917",
+      "kind": "dated_build",
+      "multiplier": 1,
+      "verified_at": "2026-10-09",
+      "evidence_url": "https://jev-ai.pro/model/jev-1.13",
+      "evidence_sha256": null,
+      "evidence_note": "Dated snapshot of jev-1.13.0 documented in the 'Dated snapshot' section (verified 2026-10-09)."
+    },
+    {
+      "model_id": "typesafe-ai/jev",
+      "kind": "provider_alias",
+      "multiplier": 1,
+      "verified_at": "2026-10-09",
+      "evidence_url": "https://jev-ai.pro/where-to-run-jev",
+      "evidence_sha256": null,
+      "evidence_note": "Jev AI may return the Vercel provider ID even for jev-latest. Also verified in Vercel's official 32K catalog https://vercel.com/ai-gateway/models/labs/typesafe-ai . This provider alias is not a dated revision; preserve it verbatim in provenance."
+    },
+    {
+      "model_id": "typesafe/jev-1.14-20261014",
+      "kind": "dated_build",
+      "multiplier": 1,
+      "verified_at": "2026-10-16",
+      "evidence_url": "https://jev-ai.pro/docs#models",
+      "evidence_sha256": null,
+      "evidence_note": "Docs list Jev 1.14 multiplier 1 (verified 2026-10-16). The dated ID itself was observed in the D086 provider response for jev-latest. Accept this observed dated build only; do not accept moving 1.14 aliases or future builds."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "jev-token-admission-contract/v5",
+  "policy_id": "r20261019-jev114-observed-build-v5",
+  "checked_on": "2026-10-19",
+  "inherits": {
+    "contract_path": "docs/orchestration/contracts/jev-token-admission.v4.json",
+    "contract_sha256": "bb268037a56b183732c41d10098bb5b449d7c34e03fd95f7262c2f4198e428f9",
+    "module_path": "src/orchestration/jev-token-admission-v4.mjs",
+    "module_sha256": "125b05957a7c8c6ef85c1f55551dbb701135fa8520222fdae6727b4abf00551d",
+    "scope": "Keep v4 and everything it inherits immutable: schema, official 256000-byte body validation, trusted stages, null local caps, request and policy binding. v5 only adds the observed model labels below to the inherited accepted_observed_model_labels."
+  },
+  "additional_accepted_observed_model_labels": [
+    "jev-1.14.0",
+    "typesafe/jev-1.14-20261014"
+  ],
+  "additional_model_context_assumption": "jev-1.14.0",
+  "context_evidence": [
+    {
+      "url": "https://jev-ai.pro/model/jev-1.14",
+      "read_on": "2026-10-19",
+      "saved_path": "benchmark-runs/jev-114-admission-evidence-20261019/jev-ai.pro_model_jev-1.14.html",
+      "sha256": "e3da7984abbf03aba9a05059be778b1d2ce1f1efa52f663a6559c0e1ee5d056d",
+      "statement": "jev-1.14.0 default limits are unchanged from 1.13: 64k tokens per request and 32k for state plus the longest question; 262k only with an explicit long-context opt-in, which this project does not send. Released 2026-10-14 as jev-preview; jev-latest moves to 1.14.0 about a week later."
+    },
+    {
+      "url": "https://jev-ai.pro/jev-api",
+      "read_on": "2026-10-19",
+      "saved_path": "benchmark-runs/jev-114-admission-evidence-20261019/jev-ai.pro_jev-api.html",
+      "sha256": "8e6346e7ba55f6d01a2733d795a327f7a7f1628f1e9d7599e31fbaa5af83eb4f",
+      "statement": "Lists jev-1.14.0 among Jev models with the same Jev model context (64k tokens) and state-plus-longest-question (32k tokens) limits."
+    },
+    {
+      "url": "https://jev-ai.pro/docs",
+      "read_on": "2026-10-19",
+      "saved_path": "benchmark-runs/jev-114-admission-evidence-20261019/jev-ai.pro_docs.html",
+      "sha256": "e59a4b20bd2df701daa47c23e57a6ee45db38f4d9e5a9a3ec8e87c3d23802f20",
+      "statement": "jev-preview resolves to jev-1.14.0 since 2026-10-14; the validator limits are separate from model context limits."
+    }
+  ],
+  "dated_build_basis": "typesafe/jev-1.14-20261014 is not named in the docs; it was returned by the provider for requests to jev-latest (D086, R20261019-PAID-H2-OPENAPI jev-0014) and is the only 1.14 dated build in jev-settlement-models.v1.json. Future builds and moving 1.14 aliases are not accepted.",
+  "long_context": false,
+  "automatic_retries": 0,
+  "proven_token_upper_bound": false,
+  "provider_acceptance_guaranteed": false
+}

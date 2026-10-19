@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "image_tag": "ghcr.io/facebookresearch/e2e-swe:django-modelcluster",
+  "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:129764af29be879898272cd749ac8b611a4ea13e7c8e0210f5e789a11cae473e",
+  "image_id": "sha256:a6b66b76cef5dc83d9dd1aec0f5d81bce368857f3c2685e9c25cfa3f5bed3cf2",
+  "architecture": "amd64",
+  "os": "linux",
+  "size_bytes": 257061519,
+  "locked_at": "2026-10-17T13:47:53.141260+00:00"
+}

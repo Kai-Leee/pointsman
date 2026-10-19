@@ -1,0 +1,451 @@
+[
+ {
+  "suite": "install-surface",
+  "defect": "setup_requires_network",
+  "expected_failed_ids": [
+   "T.R01.01",
+   "T.R02.01",
+   "T.R02.02",
+   "T.R03.01",
+   "T.R03.02"
+  ],
+  "mutation": "setup.sh installs with build isolation from a package index URL, so the offline build cannot fetch its backend and the install fails."
+ },
+ {
+  "suite": "install-surface",
+  "defect": "missing_top_level_reexport",
+  "expected_failed_ids": [
+   "T.R03.01",
+   "T.R03.02"
+  ],
+  "mutation": "pycparser/__init__.py no longer imports CParser from c_parser."
+ },
+ {
+  "suite": "install-surface",
+  "defect": "third_party_runtime_import",
+  "expected_failed_ids": [
+   "T.R01.01",
+   "T.R02.01",
+   "T.R03.01"
+  ],
+  "mutation": "c_parser.py adds a top-level 'import ply.yacc' that is absent from the image."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "filename_ignored",
+  "expected_failed_ids": [
+   "T.R04.01"
+  ],
+  "mutation": "parse() ignores its filename argument and always stamps '<unknown>' into Coord.file."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "kr_param_decls_dropped",
+  "expected_failed_ids": [
+   "T.R04.02"
+  ],
+  "mutation": "K&R parameter declarations are consumed but FuncDef.param_decls is left None."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "specifier_words_sorted",
+  "expected_failed_ids": [
+   "T.R04.03"
+  ],
+  "mutation": "IdentifierType.names is sorted alphabetically instead of kept in source order."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "anonymous_member_rejected",
+  "expected_failed_ids": [
+   "T.R04.04"
+  ],
+  "mutation": "A struct member without a declarator raises ParseError."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "designators_dropped",
+  "expected_failed_ids": [
+   "T.R04.05"
+  ],
+  "mutation": "Designators are skipped, so '.y = 2' becomes a plain Constant in the InitList instead of a NamedInitializer."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "c11_keywords_as_identifiers",
+  "expected_failed_ids": [
+   "T.R04.08"
+  ],
+  "mutation": "_Static_assert, _Alignas and _Noreturn are lexed as ordinary identifiers."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "vla_dimension_rejected",
+  "expected_failed_ids": [
+   "T.R04.09"
+  ],
+  "mutation": "A non-constant array dimension or a qualifier inside array brackets raises ParseError."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "empty_external_decl_error",
+  "expected_failed_ids": [
+   "T.R04.11"
+  ],
+  "mutation": "A lone ';' at file scope raises ParseError."
+ },
+ {
+  "suite": "parser-declarations",
+  "defect": "typedef_shadow_ignored",
+  "expected_failed_ids": [
+   "T.R04.12"
+  ],
+  "mutation": "Typedef names are global and never shadowed, so 'int T = 3;' inside a block leaves T a type name and 'T = T + 1;' fails to parse."
+ },
+ {
+  "suite": "parser-expressions-statements",
+  "defect": "flat_precedence",
+  "expected_failed_ids": [
+   "T.R04.06"
+  ],
+  "mutation": "All binary operators share one precedence level, left-associative."
+ },
+ {
+  "suite": "parser-expressions-statements",
+  "defect": "do_while_as_while",
+  "expected_failed_ids": [
+   "T.R04.07"
+  ],
+  "mutation": "do-while statements are built as While nodes."
+ },
+ {
+  "suite": "parser-expressions-statements",
+  "defect": "compound_assign_op_truncated",
+  "expected_failed_ids": [
+   "T.R05.13"
+  ],
+  "mutation": "Assignment.op stores '+' for '+=' (the trailing '=' is dropped)."
+ },
+ {
+  "suite": "parser-expressions-statements",
+  "defect": "postfix_op_unprefixed",
+  "expected_failed_ids": [
+   "T.R05.14"
+  ],
+  "mutation": "Postfix increment/decrement store '++'/'--' instead of 'p++'/'p--'."
+ },
+ {
+  "suite": "parser-expressions-statements",
+  "defect": "arrow_as_dot",
+  "expected_failed_ids": [
+   "T.R05.15"
+  ],
+  "mutation": "StructRef.type is '.' for both '.' and '->'."
+ },
+ {
+  "suite": "parser-expressions-statements",
+  "defect": "constant_suffix_ignored",
+  "expected_failed_ids": [
+   "T.R05.16"
+  ],
+  "mutation": "Constant.type ignores literal suffixes ('10u' gives 'int', '2.5f' gives 'double')."
+ },
+ {
+  "suite": "parser-expressions-statements",
+  "defect": "empty_parens_make_nodes",
+  "expected_failed_ids": [
+   "T.R05.18"
+  ],
+  "mutation": "'()' yields an empty ParamList and 'foo()' an empty ExprList instead of None."
+ },
+ {
+  "suite": "parser-expressions-statements",
+  "defect": "comma_as_binaryop",
+  "expected_failed_ids": [
+   "T.R05.22"
+  ],
+  "mutation": "The comma operator is built as BinaryOp ',' instead of ExprList."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "coord_as_tuple",
+  "expected_failed_ids": [
+   "T.R05.01",
+   "T.R05.08",
+   "T.integration.json-export"
+  ],
+  "mutation": "The parser stores coord as a (file, line) tuple instead of a Coord."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "sequence_children_unindexed",
+  "expected_failed_ids": [
+   "T.R05.02",
+   "T.integration.json-export"
+  ],
+  "mutation": "children() names list elements 'ext' and 'block_items' without the [i] index."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "attr_names_include_children",
+  "expected_failed_ids": [
+   "T.R05.03",
+   "T.R05.11",
+   "T.R05.12"
+  ],
+  "mutation": "attr_names lists starred child names as well as leaf names."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "show_ignores_nodenames",
+  "expected_failed_ids": [
+   "T.R05.04"
+  ],
+  "mutation": "show(nodenames=True) omits child names such as 'ext[0]'."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "node_not_iterable",
+  "expected_failed_ids": [
+   "T.R05.05"
+  ],
+  "mutation": "Node defines no __iter__."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "frozen_nodes",
+  "expected_failed_ids": [
+   "T.R05.06"
+  ],
+  "mutation": "Node.__setattr__ raises AttributeError for an attribute that already holds a value, so rewriting a parsed node fails."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "generator_requires_coord",
+  "expected_failed_ids": [
+   "T.R05.07",
+   "T.integration.build-from-scratch"
+  ],
+  "mutation": "CGenerator reads node.coord.line unconditionally and crashes on coord None."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "missing_node_classes",
+  "expected_failed_ids": [
+   "T.R05.09",
+   "T.R05.12"
+  ],
+  "mutation": "c_ast lacks the EmptyStatement and Alignas classes."
+ },
+ {
+  "suite": "ast-node-api",
+  "defect": "coord_positional",
+  "expected_failed_ids": [
+   "T.R05.10",
+   "T.R05.11"
+  ],
+  "mutation": "coord is also accepted as a trailing positional argument and Decl's storage/align parameters swap order."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "unsized_dim_zero",
+  "expected_failed_ids": [
+   "T.R05.17"
+  ],
+  "mutation": "An unsized or flexible array gets dim Constant '0' instead of None."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "forward_struct_empty_list",
+  "expected_failed_ids": [
+   "T.R05.19"
+  ],
+  "mutation": "Forward 'struct S;' gets decls [] instead of None."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "typedecl_always_interposed",
+  "expected_failed_ids": [
+   "T.R05.20"
+  ],
+  "mutation": "Standalone struct/union/enum declarations wrap the type in TypeDecl(declname=None)."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "storage_as_string",
+  "expected_failed_ids": [
+   "T.R05.21"
+  ],
+  "mutation": "Decl.storage and funcspec hold a single str instead of a list."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "pragma_operator_unquoted",
+  "expected_failed_ids": [
+   "T.R05.23"
+  ],
+  "mutation": "The _Pragma payload Constant value has its surrounding quotes stripped."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "alignas_not_emitted",
+  "expected_failed_ids": [
+   "T.R05.24"
+  ],
+  "mutation": "Decl.align holds plain strings and the generator omits _Alignas."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "atomic_specifier_dropped",
+  "expected_failed_ids": [
+   "T.R05.25",
+   "T.R05.26"
+  ],
+  "mutation": "The _Atomic(...) specifier form contributes no '_Atomic' qualifier."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "trailing_atomic_not_on_typedecl",
+  "expected_failed_ids": [
+   "T.R05.26"
+  ],
+  "mutation": "A trailing '_Atomic' after the base type is recorded nowhere on TypeDecl.quals."
+ },
+ {
+  "suite": "ast-shape-conventions",
+  "defect": "pointer_quals_on_ptrdecl",
+  "expected_failed_ids": [
+   "T.R05.27"
+  ],
+  "mutation": "Leading const/volatile on a pointer or array declaration go to PtrDecl.quals / ArrayDecl.dim_quals."
+ },
+ {
+  "suite": "lexer-coords",
+  "defect": "line_directive_ignored",
+  "expected_failed_ids": [
+   "T.R04.10"
+  ],
+  "mutation": "#line directives are skipped without updating file or line."
+ },
+ {
+  "suite": "lexer-coords",
+  "defect": "dollar_not_leading",
+  "expected_failed_ids": [
+   "T.R04.13"
+  ],
+  "mutation": "'$' is accepted only after the first identifier character."
+ },
+ {
+  "suite": "lexer-coords",
+  "defect": "coord_str_always_column",
+  "expected_failed_ids": [
+   "T.R04.14"
+  ],
+  "mutation": "str(Coord) always appends ':<column>', yielding 'c.c:1:None' when unset."
+ },
+ {
+  "suite": "lexer-coords",
+  "defect": "token_missing_column",
+  "expected_failed_ids": [
+   "T.R07.01"
+  ],
+  "mutation": "Token objects lack the column attribute."
+ },
+ {
+  "suite": "lexer-coords",
+  "defect": "literal_kinds_merged",
+  "expected_failed_ids": [
+   "T.R07.02"
+  ],
+  "mutation": "Binary integers lex as INT_CONST_DEC and hex floats as FLOAT_CONST."
+ },
+ {
+  "suite": "lexer-coords",
+  "defect": "lookup_never_called",
+  "expected_failed_ids": [
+   "T.R07.03",
+   "T.integration.typedef-scope-lexer"
+  ],
+  "mutation": "The lexer never calls type_lookup_func and always emits ID."
+ },
+ {
+  "suite": "visitor-generator",
+  "defect": "generic_visit_not_recursive",
+  "expected_failed_ids": [
+   "T.R06.01",
+   "T.R06.02",
+   "T.integration.visitor-rewrite-generate"
+  ],
+  "mutation": "generic_visit returns without visiting children."
+ },
+ {
+  "suite": "visitor-generator",
+  "defect": "always_generic_visit",
+  "expected_failed_ids": [
+   "T.R06.02"
+  ],
+  "mutation": "visit() calls generic_visit after every visit_XXX method."
+ },
+ {
+  "suite": "visitor-generator",
+  "defect": "unspaced_operators",
+  "expected_failed_ids": [
+   "T.R08.01",
+   "T.R08.02",
+   "T.R08.03"
+  ],
+  "mutation": "The generator emits binary operators, assignment operators and initializer '=' without surrounding spaces."
+ },
+ {
+  "suite": "visitor-generator",
+  "defect": "default_mode_minimal_parens",
+  "expected_failed_ids": [
+   "T.R08.02"
+  ],
+  "mutation": "The default mode behaves like reduce_parentheses=True."
+ },
+ {
+  "suite": "visitor-generator",
+  "defect": "reduce_mode_drops_all_parens",
+  "expected_failed_ids": [
+   "T.R08.03",
+   "T.R08.04",
+   "T.integration.parse-generate-reparse"
+  ],
+  "mutation": "reduce_parentheses=True never parenthesizes a binary operand, including required ones."
+ },
+ {
+  "suite": "visitor-generator",
+  "defect": "unary_minus_merged",
+  "expected_failed_ids": [
+   "T.R08.04",
+   "T.integration.parse-generate-reparse"
+  ],
+  "mutation": "A unary operand that is itself a unary operation is not parenthesized, so '- -x' is emitted as '--x', which re-parses as a decrement."
+ },
+ {
+  "suite": "parse-errors",
+  "defect": "message_without_filename",
+  "expected_failed_ids": [
+   "T.R09.01"
+  ],
+  "mutation": "ParseError messages omit the 'file:line: ' prefix."
+ },
+ {
+  "suite": "parse-errors",
+  "defect": "duplicate_specifier_accepted",
+  "expected_failed_ids": [
+   "T.R09.02"
+  ],
+  "mutation": "Repeated or conflicting base specifiers accumulate into IdentifierType.names."
+ },
+ {
+  "suite": "parse-errors",
+  "defect": "errors_return_none",
+  "expected_failed_ids": [
+   "T.R09.01",
+   "T.R09.02"
+  ],
+  "mutation": "parse() returns None instead of raising on a syntax error."
+ }
+]

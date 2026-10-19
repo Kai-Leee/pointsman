@@ -1,0 +1,2083 @@
+{
+  "status": "ready",
+  "mode": "preflight",
+  "paid_calls": 0,
+  "blockers": [],
+  "live_ready": true,
+  "mapping": {
+    "schema_version": "dag-public-check-audit/v1",
+    "status": "mapped",
+    "mapping_only": true,
+    "product_execution_ready": false,
+    "source_test_count": 62,
+    "original_test_count": 62,
+    "additional_test_count": 0,
+    "public_gate_version": "1",
+    "implemented_test_count": 62,
+    "missing_test_count": 0,
+    "missing_test_ids": [],
+    "missing_requirement_ids": [],
+    "missing": [],
+    "check_count": 8,
+    "checks": [
+      {
+        "id": "public.install-surface",
+        "phase": "integration",
+        "test_ids": [
+          "T.R01.01",
+          "T.R02.01",
+          "T.R02.02",
+          "T.R03.01",
+          "T.R03.02"
+        ]
+      },
+      {
+        "id": "public.parser-declarations",
+        "phase": "integration",
+        "test_ids": [
+          "T.R04.01",
+          "T.R04.02",
+          "T.R04.03",
+          "T.R04.04",
+          "T.R04.05",
+          "T.R04.08",
+          "T.R04.09",
+          "T.R04.11",
+          "T.R04.12"
+        ]
+      },
+      {
+        "id": "public.parser-expressions-statements",
+        "phase": "integration",
+        "test_ids": [
+          "T.R04.06",
+          "T.R04.07",
+          "T.R05.13",
+          "T.R05.14",
+          "T.R05.15",
+          "T.R05.16",
+          "T.R05.18",
+          "T.R05.22"
+        ]
+      },
+      {
+        "id": "public.ast-node-api",
+        "phase": "integration",
+        "test_ids": [
+          "T.R05.01",
+          "T.R05.02",
+          "T.R05.03",
+          "T.R05.04",
+          "T.R05.05",
+          "T.R05.06",
+          "T.R05.07",
+          "T.R05.08",
+          "T.R05.09",
+          "T.R05.10",
+          "T.R05.11",
+          "T.R05.12",
+          "T.integration.json-export",
+          "T.integration.build-from-scratch"
+        ]
+      },
+      {
+        "id": "public.ast-shape-conventions",
+        "phase": "integration",
+        "test_ids": [
+          "T.R05.17",
+          "T.R05.19",
+          "T.R05.20",
+          "T.R05.21",
+          "T.R05.23",
+          "T.R05.24",
+          "T.R05.25",
+          "T.R05.26",
+          "T.R05.27"
+        ]
+      },
+      {
+        "id": "public.lexer-coords",
+        "phase": "integration",
+        "test_ids": [
+          "T.R04.10",
+          "T.R04.13",
+          "T.R04.14",
+          "T.R07.01",
+          "T.R07.02",
+          "T.R07.03",
+          "T.integration.typedef-scope-lexer"
+        ]
+      },
+      {
+        "id": "public.visitor-generator",
+        "phase": "integration",
+        "test_ids": [
+          "T.R06.01",
+          "T.R06.02",
+          "T.R08.01",
+          "T.R08.02",
+          "T.R08.03",
+          "T.R08.04",
+          "T.integration.parse-generate-reparse",
+          "T.integration.visitor-rewrite-generate"
+        ]
+      },
+      {
+        "id": "public.parse-errors",
+        "phase": "integration",
+        "test_ids": [
+          "T.R09.01",
+          "T.R09.02"
+        ]
+      }
+    ],
+    "blockers": [
+      "REAL_CANDIDATE_ENVIRONMENT_NOT_VALIDATED",
+      "ARTIFACT_REVISION_ADAPTER_NOT_BOUND"
+    ],
+    "controls": {
+      "status": "not_run"
+    },
+    "source_integrity": {
+      "input_path": "benchmarks/e2e-swe/heldout/pycparser/obligations.json",
+      "input_sha256": "e2811ffe2a15bbc02f3d88b2dee357f15d6e67ddcaf37a7b480f75ba05f2ae01",
+      "public_source_sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7",
+      "verified": true
+    },
+    "audit_inputs": {
+      "publicGateVersion": "1",
+      "inputPath": "benchmarks/e2e-swe/heldout/pycparser/obligations.json",
+      "checkerRoot": "benchmarks/e2e-swe/heldout/pycparser/public-checks",
+      "registryPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/registry.json",
+      "runnerPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/run_public_checks.py",
+      "inventoryPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/inventory.json",
+      "controlRunnerPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/run_control_batch.py",
+      "controlCatalogPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/catalog.json",
+      "assertionContractPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/assertions.json"
+    }
+  },
+  "controls": {
+    "status": "passed",
+    "evidence_level": "authored_local_controls_only",
+    "normal_count": 8,
+    "defective_count": 0,
+    "normal": [
+      {
+        "check_id": "public.install-surface",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 17,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R01.01"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R02.01"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R02.02"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R03.01"
+            },
+            {
+              "assertions": 1,
+              "status": "passed",
+              "test_id": "T.R03.02"
+            }
+          ],
+          "check_id": "public.install-surface",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-pycparser/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 1.92,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-t909jcau/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2737 sha256=21f6ff5a65040170f1f74e8ef3bae5e6e63f27dc336b718cfd0257cf7195e53a\n  Stored in directory: /tmp/pip-ephem-wheel-cache-im604owg/wheels/7a/03/db/f3e030cdd97e73e1cd578eee701aabfdfc06d6c41fbff01d00\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R01.01",
+            "T.R02.01",
+            "T.R02.02",
+            "T.R03.01",
+            "T.R03.02"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 7.504365962002339
+      },
+      {
+        "check_id": "public.parser-declarations",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 71,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R04.01"
+            },
+            {
+              "assertions": 10,
+              "status": "passed",
+              "test_id": "T.R04.02"
+            },
+            {
+              "assertions": 10,
+              "status": "passed",
+              "test_id": "T.R04.03"
+            },
+            {
+              "assertions": 12,
+              "status": "passed",
+              "test_id": "T.R04.04"
+            },
+            {
+              "assertions": 13,
+              "status": "passed",
+              "test_id": "T.R04.05"
+            },
+            {
+              "assertions": 9,
+              "status": "passed",
+              "test_id": "T.R04.08"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R04.09"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R04.11"
+            },
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.R04.12"
+            }
+          ],
+          "check_id": "public.parser-declarations",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-pycparser/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 1.87,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-1pkncaz7/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2737 sha256=6892cbdf52cf9174c21253847e40cef8cf4a76f33db3b3a3af30001fff2e3d4c\n  Stored in directory: /tmp/pip-ephem-wheel-cache-2i7envji/wheels/64/03/6a/ec85240a0197e643becdc3fab10335b31692f542053a73f92b\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R04.01",
+            "T.R04.02",
+            "T.R04.03",
+            "T.R04.04",
+            "T.R04.05",
+            "T.R04.08",
+            "T.R04.09",
+            "T.R04.11",
+            "T.R04.12"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 6.842710169999918
+      },
+      {
+        "check_id": "public.parser-expressions-statements",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 56,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R04.06"
+            },
+            {
+              "assertions": 13,
+              "status": "passed",
+              "test_id": "T.R04.07"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R05.13"
+            },
+            {
+              "assertions": 1,
+              "status": "passed",
+              "test_id": "T.R05.14"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R05.15"
+            },
+            {
+              "assertions": 18,
+              "status": "passed",
+              "test_id": "T.R05.16"
+            },
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.R05.18"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R05.22"
+            }
+          ],
+          "check_id": "public.parser-expressions-statements",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-pycparser/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 1.91,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-oackkgdn/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2734 sha256=79200687b86c0df0806349f32e870905542f528e111a1e8722d241d644eb3bc0\n  Stored in directory: /tmp/pip-ephem-wheel-cache-bhlh4erp/wheels/19/5d/41/5556cfacd9d98f45b06ebf4e6f7262a8183d4714a7fcdf5585\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R04.06",
+            "T.R04.07",
+            "T.R05.13",
+            "T.R05.14",
+            "T.R05.15",
+            "T.R05.16",
+            "T.R05.18",
+            "T.R05.22"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 6.873833628000284
+      },
+      {
+        "check_id": "public.ast-node-api",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 535,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 28,
+              "status": "passed",
+              "test_id": "T.R05.01"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R05.02"
+            },
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.R05.03"
+            },
+            {
+              "assertions": 6,
+              "status": "passed",
+              "test_id": "T.R05.04"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R05.05"
+            },
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R05.06"
+            },
+            {
+              "assertions": 1,
+              "status": "passed",
+              "test_id": "T.R05.07"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R05.08"
+            },
+            {
+              "assertions": 99,
+              "status": "passed",
+              "test_id": "T.R05.09"
+            },
+            {
+              "assertions": 19,
+              "status": "passed",
+              "test_id": "T.R05.10"
+            },
+            {
+              "assertions": 133,
+              "status": "passed",
+              "test_id": "T.R05.11"
+            },
+            {
+              "assertions": 216,
+              "status": "passed",
+              "test_id": "T.R05.12"
+            },
+            {
+              "assertions": 10,
+              "status": "passed",
+              "test_id": "T.integration.json-export"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.integration.build-from-scratch"
+            }
+          ],
+          "check_id": "public.ast-node-api",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-pycparser/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 1.921,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-s1mz11tr/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2736 sha256=976626fe0a81f844bcade97de00cbf6960794c7a519b29dcdf1d77a2f4a4d863\n  Stored in directory: /tmp/pip-ephem-wheel-cache-2qtw9ea6/wheels/f4/a8/09/38c2c1aded5eed8f39411e54da7f7f46611bcd7c5d73940478\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R05.01",
+            "T.R05.02",
+            "T.R05.03",
+            "T.R05.04",
+            "T.R05.05",
+            "T.R05.06",
+            "T.R05.07",
+            "T.R05.08",
+            "T.R05.09",
+            "T.R05.10",
+            "T.R05.11",
+            "T.R05.12",
+            "T.integration.json-export",
+            "T.integration.build-from-scratch"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 6.883247294998
+      },
+      {
+        "check_id": "public.ast-shape-conventions",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 63,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 3,
+              "status": "passed",
+              "test_id": "T.R05.17"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.R05.19"
+            },
+            {
+              "assertions": 10,
+              "status": "passed",
+              "test_id": "T.R05.20"
+            },
+            {
+              "assertions": 16,
+              "status": "passed",
+              "test_id": "T.R05.21"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R05.23"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R05.24"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R05.25"
+            },
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.R05.26"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R05.27"
+            }
+          ],
+          "check_id": "public.ast-shape-conventions",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-pycparser/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 1.986,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-9r3h2h_t/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2738 sha256=61395c460da04e6aabd6fe083dc3bef9a986888609e1ef9964a20aad88b2a9b8\n  Stored in directory: /tmp/pip-ephem-wheel-cache-eo_ha29m/wheels/8c/59/24/d71c3114dc3fdbbe75ae42c7e513c5b28dec3220f90fe0ef36\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R05.17",
+            "T.R05.19",
+            "T.R05.20",
+            "T.R05.21",
+            "T.R05.23",
+            "T.R05.24",
+            "T.R05.25",
+            "T.R05.26",
+            "T.R05.27"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 6.268562294000731
+      },
+      {
+        "check_id": "public.lexer-coords",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 25,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 1,
+              "status": "passed",
+              "test_id": "T.R04.10"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R04.13"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R04.14"
+            },
+            {
+              "assertions": 10,
+              "status": "passed",
+              "test_id": "T.R07.01"
+            },
+            {
+              "assertions": 1,
+              "status": "passed",
+              "test_id": "T.R07.02"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R07.03"
+            },
+            {
+              "assertions": 7,
+              "status": "passed",
+              "test_id": "T.integration.typedef-scope-lexer"
+            }
+          ],
+          "check_id": "public.lexer-coords",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-pycparser/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 1.965,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-lhaj73e5/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2739 sha256=74a44ad8b691a4065f1c2a7ea29213d0914b29dab3be68523f123e4fb8214a0e\n  Stored in directory: /tmp/pip-ephem-wheel-cache-qrqv2hfp/wheels/74/f0/65/8dbfd099aead5a77b1461eb13dd1fb7a362b79c0af1699efcf\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R04.10",
+            "T.R04.13",
+            "T.R04.14",
+            "T.R07.01",
+            "T.R07.02",
+            "T.R07.03",
+            "T.integration.typedef-scope-lexer"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 6.312069710998912
+      },
+      {
+        "check_id": "public.visitor-generator",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 44,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 1,
+              "status": "passed",
+              "test_id": "T.R06.01"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R06.02"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R08.01"
+            },
+            {
+              "assertions": 2,
+              "status": "passed",
+              "test_id": "T.R08.02"
+            },
+            {
+              "assertions": 4,
+              "status": "passed",
+              "test_id": "T.R08.03"
+            },
+            {
+              "assertions": 21,
+              "status": "passed",
+              "test_id": "T.R08.04"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.integration.parse-generate-reparse"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.integration.visitor-rewrite-generate"
+            }
+          ],
+          "check_id": "public.visitor-generator",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-pycparser/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 1.983,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-kj9cbcit/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2735 sha256=918b3892adde64edd358e57fd4d173ab6e2efceeba151fa27f068585aae890c6\n  Stored in directory: /tmp/pip-ephem-wheel-cache-f_g9ojwi/wheels/eb/6b/f9/662275b7e0b518cee0ebe07c1a9782206c23ee06cb069a6e59\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R06.01",
+            "T.R06.02",
+            "T.R08.01",
+            "T.R08.02",
+            "T.R08.03",
+            "T.R08.04",
+            "T.integration.parse-generate-reparse",
+            "T.integration.visitor-rewrite-generate"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 6.251568503001181
+      },
+      {
+        "check_id": "public.parse-errors",
+        "passed": true,
+        "report": {
+          "artifact_revisions": null,
+          "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+          "assertions": 13,
+          "binding_kind": "authored_local_control",
+          "candidate_invocations": [],
+          "cases": [
+            {
+              "assertions": 8,
+              "status": "passed",
+              "test_id": "T.R09.01"
+            },
+            {
+              "assertions": 5,
+              "status": "passed",
+              "test_id": "T.R09.02"
+            }
+          ],
+          "check_id": "public.parse-errors",
+          "check_version": "1",
+          "environment_evidence": {},
+          "environment_ref": "e2e-swe-public-pycparser/v1",
+          "error": null,
+          "executed": true,
+          "exit_code": 0,
+          "outcome_uncertain": false,
+          "product_certified": false,
+          "python_version": "3.10.20",
+          "schema_version": "dag-public-check-evidence/v1",
+          "scope": "complete_suite",
+          "setup_evidence": {
+            "argv": [
+              "bash",
+              "setup.sh"
+            ],
+            "elapsed_seconds": 1.849,
+            "pip_no_index": "1",
+            "returncode": 0,
+            "stderr_tail": "",
+            "stdout_tail": "Obtaining file:///tmp/heldout-public-check-snxp53kc/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2737 sha256=046f12116233bf894befbce7cb4b1615ce166ae37791ae2683b12485291480f3\n  Stored in directory: /tmp/pip-ephem-wheel-cache-7ur7jdsn/wheels/b0/47/01/58ff31439519cd2ec24142027fe37e9ba09bc8c8700986fc22\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+            "used_candidate_setup_sh": true
+          },
+          "skipped": 0,
+          "status": "passed",
+          "test_ids": [
+            "T.R09.01",
+            "T.R09.02"
+          ],
+          "unexecuted_test_ids": []
+        },
+        "elapsed_seconds": 6.242838169000606
+      }
+    ],
+    "negative": [],
+    "product_execution_ready": false,
+    "schema_version": "dag-public-control-receipt/v2",
+    "recorded_at": "2026-10-17T16:50:28.842Z",
+    "source_hashes": [
+      {
+        "path": ".benchmarks/E2E-SWE/tasks/pycparser/instruction.md",
+        "sha256": "b772c3b5303d25ed2c784c8ea53b5aab88e52d2b0e0c855699cf3db3ac44ead7"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/obligations.json",
+        "sha256": "e2811ffe2a15bbc02f3d88b2dee357f15d6e67ddcaf37a7b480f75ba05f2ae01"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/assertions.json",
+        "sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/cases.py",
+        "sha256": "e5339b1be646662927d9bf2982d460e26243507df5d0db487f7c236a7fe3bdd7"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/catalog.json",
+        "sha256": "22ec15c5807fa8cf5604d139b695cbf8d420867e4cc177ffd1d0327bdcee9526"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/defects.json",
+        "sha256": "b094b92d40c6c3d641834927e3be1b67bcd46568906daa1b2e34890362b3486d"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/reference/pycparser/__init__.py",
+        "sha256": "fbeccbfca03d76c59e553673199e0c158a4a67946a3cb585883caa580888bab4"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/reference/pycparser/c_ast.py",
+        "sha256": "4fa2204a709dee1a9501bf17168c1fd300e36d9f535940e6d004372b3bfe779b"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/reference/pycparser/c_generator.py",
+        "sha256": "55ce96448f701e5a5c8eb2e62583ea4930a494fd67a6c0bd267b5537ae80fedb"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/reference/pycparser/c_lexer.py",
+        "sha256": "bd779ba6d16b06dd382ff072b3f9d528f7c7da7fa80f32f81456437abf5476be"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/reference/pycparser/c_parser.py",
+        "sha256": "541328b463d10e2aed657082fc00ac21c7c49020b292c7a37c81e5e52b8d6cd7"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/reference/pyproject.toml",
+        "sha256": "cbde69707b9bf17f76a11f6d7e94fdda504aa2ab3788e177c7cdb60f7df493e3"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/reference/setup.sh",
+        "sha256": "4501f25a8ca4223eb2b55b4446b4bfe4791452ce3deb83fe07e04c44ef9fc4c7"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/environment.json",
+        "sha256": "e34014a5cfa7c7bff6dcc51f7619542f92a7fb8efd80277762b448c83fc93b5a"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/harness.py",
+        "sha256": "7c6fa3400d5fce1e426f26eb8bb28324fe5e6398dd914fd025e0688e20761c9f"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/inventory.json",
+        "sha256": "e03fb97c65a20e53287fcb9a3742164969e3b3cb8fdc58be2e5678aa2da5b9f2"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/registry.json",
+        "sha256": "c52179dcff83019c8fe14917d66c45601257b9f6d3ca4b3a03def7882e3a2a62"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/run_control_batch.py",
+        "sha256": "61aaf1fe1512c532b1603bc4ebb9109618066609d0770456d8d9752f169ac173"
+      },
+      {
+        "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/run_public_checks.py",
+        "sha256": "55e74f12f1cc95fc7d21c1b9da2d0e44253c73e8533df538df648df75d4cb9c7"
+      },
+      {
+        "path": "scripts/audit-dag-public-checks.mjs",
+        "sha256": "9a36dfcd5ff79647489a4d1b50b5207a57469cb5b35b5a8b9e6df19672cff4bf"
+      },
+      {
+        "path": "src/orchestration/dag-contracts.mjs",
+        "sha256": "363c2a7469326600e61b164ccff60490e193b7580602b76aba470de7ccd79adb"
+      },
+      {
+        "path": "src/orchestration/public-audit-v4.mjs",
+        "sha256": "b197e32c76806778e0b6b4903250475d7a7f85c9415415b74e26c92a175ab756"
+      }
+    ],
+    "public_gate_version": "1",
+    "audit_inputs": {
+      "publicGateVersion": "1",
+      "inputPath": "benchmarks/e2e-swe/heldout/pycparser/obligations.json",
+      "checkerRoot": "benchmarks/e2e-swe/heldout/pycparser/public-checks",
+      "registryPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/registry.json",
+      "runnerPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/run_public_checks.py",
+      "inventoryPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/inventory.json",
+      "controlRunnerPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/run_control_batch.py",
+      "controlCatalogPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/controls/catalog.json",
+      "assertionContractPath": "benchmarks/e2e-swe/heldout/pycparser/public-checks/assertions.json"
+    },
+    "container": {
+      "image_id": "sha256:abc67defdbfd393a1f63c0a984506500e06035802e0284e4cde058b57fa0795f",
+      "platform": "linux/amd64",
+      "network_mode": "none",
+      "readonly_rootfs": true,
+      "checker_mount_readonly": true,
+      "exit_code": 0,
+      "command": [
+        "create",
+        "--name",
+        "d065-public-controls-fed0cbea-2e6f-4154-be42-d5ae79f59ddd",
+        "--platform",
+        "linux/amd64",
+        "--network",
+        "none",
+        "--read-only",
+        "--tmpfs",
+        "/tmp:rw,exec,size=2g",
+        "--mount",
+        "type=bind,src=/Users/lee/workspace/plugins/jev-router/.claude/worktrees/charming-mirzakhani-20f856,dst=/checker,readonly",
+        "--workdir",
+        "/checker",
+        "--entrypoint",
+        "python3",
+        "sha256:abc67defdbfd393a1f63c0a984506500e06035802e0284e4cde058b57fa0795f",
+        "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks/run_control_batch.py",
+        "--normal-only"
+      ],
+      "cleanup_confirmed": true
+    },
+    "batch": {
+      "complete_catalog": false,
+      "elapsed_seconds": 13.782098840001709,
+      "environment": {
+        "dependencies": {
+          "pip": "23.0.1",
+          "setuptools": "79.0.1",
+          "wheel": "0.46.3"
+        },
+        "python": "3.10.20"
+      },
+      "results": [
+        {
+          "defect": "none",
+          "elapsed_seconds": 7.504365962002339,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 17,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R01.01"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R02.01"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R02.02"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R03.01"
+              },
+              {
+                "assertions": 1,
+                "status": "passed",
+                "test_id": "T.R03.02"
+              }
+            ],
+            "check_id": "public.install-surface",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-pycparser/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 1.92,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-t909jcau/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2737 sha256=21f6ff5a65040170f1f74e8ef3bae5e6e63f27dc336b718cfd0257cf7195e53a\n  Stored in directory: /tmp/pip-ephem-wheel-cache-im604owg/wheels/7a/03/db/f3e030cdd97e73e1cd578eee701aabfdfc06d6c41fbff01d00\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R01.01",
+              "T.R02.01",
+              "T.R02.02",
+              "T.R03.01",
+              "T.R03.02"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "install-surface",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 6.842710169999918,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 71,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R04.01"
+              },
+              {
+                "assertions": 10,
+                "status": "passed",
+                "test_id": "T.R04.02"
+              },
+              {
+                "assertions": 10,
+                "status": "passed",
+                "test_id": "T.R04.03"
+              },
+              {
+                "assertions": 12,
+                "status": "passed",
+                "test_id": "T.R04.04"
+              },
+              {
+                "assertions": 13,
+                "status": "passed",
+                "test_id": "T.R04.05"
+              },
+              {
+                "assertions": 9,
+                "status": "passed",
+                "test_id": "T.R04.08"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R04.09"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R04.11"
+              },
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.R04.12"
+              }
+            ],
+            "check_id": "public.parser-declarations",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-pycparser/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 1.87,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-1pkncaz7/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2737 sha256=6892cbdf52cf9174c21253847e40cef8cf4a76f33db3b3a3af30001fff2e3d4c\n  Stored in directory: /tmp/pip-ephem-wheel-cache-2i7envji/wheels/64/03/6a/ec85240a0197e643becdc3fab10335b31692f542053a73f92b\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R04.01",
+              "T.R04.02",
+              "T.R04.03",
+              "T.R04.04",
+              "T.R04.05",
+              "T.R04.08",
+              "T.R04.09",
+              "T.R04.11",
+              "T.R04.12"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "parser-declarations",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 6.873833628000284,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 56,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R04.06"
+              },
+              {
+                "assertions": 13,
+                "status": "passed",
+                "test_id": "T.R04.07"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R05.13"
+              },
+              {
+                "assertions": 1,
+                "status": "passed",
+                "test_id": "T.R05.14"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R05.15"
+              },
+              {
+                "assertions": 18,
+                "status": "passed",
+                "test_id": "T.R05.16"
+              },
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.R05.18"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R05.22"
+              }
+            ],
+            "check_id": "public.parser-expressions-statements",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-pycparser/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 1.91,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-oackkgdn/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2734 sha256=79200687b86c0df0806349f32e870905542f528e111a1e8722d241d644eb3bc0\n  Stored in directory: /tmp/pip-ephem-wheel-cache-bhlh4erp/wheels/19/5d/41/5556cfacd9d98f45b06ebf4e6f7262a8183d4714a7fcdf5585\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R04.06",
+              "T.R04.07",
+              "T.R05.13",
+              "T.R05.14",
+              "T.R05.15",
+              "T.R05.16",
+              "T.R05.18",
+              "T.R05.22"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "parser-expressions-statements",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 6.883247294998,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 535,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 28,
+                "status": "passed",
+                "test_id": "T.R05.01"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R05.02"
+              },
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.R05.03"
+              },
+              {
+                "assertions": 6,
+                "status": "passed",
+                "test_id": "T.R05.04"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R05.05"
+              },
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R05.06"
+              },
+              {
+                "assertions": 1,
+                "status": "passed",
+                "test_id": "T.R05.07"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R05.08"
+              },
+              {
+                "assertions": 99,
+                "status": "passed",
+                "test_id": "T.R05.09"
+              },
+              {
+                "assertions": 19,
+                "status": "passed",
+                "test_id": "T.R05.10"
+              },
+              {
+                "assertions": 133,
+                "status": "passed",
+                "test_id": "T.R05.11"
+              },
+              {
+                "assertions": 216,
+                "status": "passed",
+                "test_id": "T.R05.12"
+              },
+              {
+                "assertions": 10,
+                "status": "passed",
+                "test_id": "T.integration.json-export"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.integration.build-from-scratch"
+              }
+            ],
+            "check_id": "public.ast-node-api",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-pycparser/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 1.921,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-s1mz11tr/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2736 sha256=976626fe0a81f844bcade97de00cbf6960794c7a519b29dcdf1d77a2f4a4d863\n  Stored in directory: /tmp/pip-ephem-wheel-cache-2qtw9ea6/wheels/f4/a8/09/38c2c1aded5eed8f39411e54da7f7f46611bcd7c5d73940478\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R05.01",
+              "T.R05.02",
+              "T.R05.03",
+              "T.R05.04",
+              "T.R05.05",
+              "T.R05.06",
+              "T.R05.07",
+              "T.R05.08",
+              "T.R05.09",
+              "T.R05.10",
+              "T.R05.11",
+              "T.R05.12",
+              "T.integration.json-export",
+              "T.integration.build-from-scratch"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "ast-node-api",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 6.268562294000731,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 63,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 3,
+                "status": "passed",
+                "test_id": "T.R05.17"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.R05.19"
+              },
+              {
+                "assertions": 10,
+                "status": "passed",
+                "test_id": "T.R05.20"
+              },
+              {
+                "assertions": 16,
+                "status": "passed",
+                "test_id": "T.R05.21"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R05.23"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R05.24"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R05.25"
+              },
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.R05.26"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R05.27"
+              }
+            ],
+            "check_id": "public.ast-shape-conventions",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-pycparser/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 1.986,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-9r3h2h_t/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2738 sha256=61395c460da04e6aabd6fe083dc3bef9a986888609e1ef9964a20aad88b2a9b8\n  Stored in directory: /tmp/pip-ephem-wheel-cache-eo_ha29m/wheels/8c/59/24/d71c3114dc3fdbbe75ae42c7e513c5b28dec3220f90fe0ef36\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R05.17",
+              "T.R05.19",
+              "T.R05.20",
+              "T.R05.21",
+              "T.R05.23",
+              "T.R05.24",
+              "T.R05.25",
+              "T.R05.26",
+              "T.R05.27"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "ast-shape-conventions",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 6.312069710998912,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 25,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 1,
+                "status": "passed",
+                "test_id": "T.R04.10"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R04.13"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R04.14"
+              },
+              {
+                "assertions": 10,
+                "status": "passed",
+                "test_id": "T.R07.01"
+              },
+              {
+                "assertions": 1,
+                "status": "passed",
+                "test_id": "T.R07.02"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R07.03"
+              },
+              {
+                "assertions": 7,
+                "status": "passed",
+                "test_id": "T.integration.typedef-scope-lexer"
+              }
+            ],
+            "check_id": "public.lexer-coords",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-pycparser/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 1.965,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-lhaj73e5/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2739 sha256=74a44ad8b691a4065f1c2a7ea29213d0914b29dab3be68523f123e4fb8214a0e\n  Stored in directory: /tmp/pip-ephem-wheel-cache-qrqv2hfp/wheels/74/f0/65/8dbfd099aead5a77b1461eb13dd1fb7a362b79c0af1699efcf\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R04.10",
+              "T.R04.13",
+              "T.R04.14",
+              "T.R07.01",
+              "T.R07.02",
+              "T.R07.03",
+              "T.integration.typedef-scope-lexer"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "lexer-coords",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 6.251568503001181,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 44,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 1,
+                "status": "passed",
+                "test_id": "T.R06.01"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R06.02"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R08.01"
+              },
+              {
+                "assertions": 2,
+                "status": "passed",
+                "test_id": "T.R08.02"
+              },
+              {
+                "assertions": 4,
+                "status": "passed",
+                "test_id": "T.R08.03"
+              },
+              {
+                "assertions": 21,
+                "status": "passed",
+                "test_id": "T.R08.04"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.integration.parse-generate-reparse"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.integration.visitor-rewrite-generate"
+              }
+            ],
+            "check_id": "public.visitor-generator",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-pycparser/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 1.983,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-kj9cbcit/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2735 sha256=918b3892adde64edd358e57fd4d173ab6e2efceeba151fa27f068585aae890c6\n  Stored in directory: /tmp/pip-ephem-wheel-cache-f_g9ojwi/wheels/eb/6b/f9/662275b7e0b518cee0ebe07c1a9782206c23ee06cb069a6e59\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R06.01",
+              "T.R06.02",
+              "T.R08.01",
+              "T.R08.02",
+              "T.R08.03",
+              "T.R08.04",
+              "T.integration.parse-generate-reparse",
+              "T.integration.visitor-rewrite-generate"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "visitor-generator",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks"
+        },
+        {
+          "defect": "none",
+          "elapsed_seconds": 6.242838169000606,
+          "expected_failed_ids": [],
+          "kind": "normal",
+          "report": {
+            "artifact_revisions": null,
+            "assertion_contract_sha256": "6df985439da2c42489555b25069dcb95a939bdd0c0b8a39c10a6a2dcbd24f8d5",
+            "assertions": 13,
+            "binding_kind": "authored_local_control",
+            "candidate_invocations": [],
+            "cases": [
+              {
+                "assertions": 8,
+                "status": "passed",
+                "test_id": "T.R09.01"
+              },
+              {
+                "assertions": 5,
+                "status": "passed",
+                "test_id": "T.R09.02"
+              }
+            ],
+            "check_id": "public.parse-errors",
+            "check_version": "1",
+            "environment_evidence": {},
+            "environment_ref": "e2e-swe-public-pycparser/v1",
+            "error": null,
+            "executed": true,
+            "exit_code": 0,
+            "outcome_uncertain": false,
+            "product_certified": false,
+            "python_version": "3.10.20",
+            "schema_version": "dag-public-check-evidence/v1",
+            "scope": "complete_suite",
+            "setup_evidence": {
+              "argv": [
+                "bash",
+                "setup.sh"
+              ],
+              "elapsed_seconds": 1.849,
+              "pip_no_index": "1",
+              "returncode": 0,
+              "stderr_tail": "",
+              "stdout_tail": "Obtaining file:///tmp/heldout-public-check-snxp53kc/project\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nBuilding wheels for collected packages: pycparser\n  Building editable for pycparser (pyproject.toml): started\n  Building editable for pycparser (pyproject.toml): finished with status 'done'\n  Created wheel for pycparser: filename=pycparser-0.0.0-0.editable-py3-none-any.whl size=2737 sha256=046f12116233bf894befbce7cb4b1615ce166ae37791ae2683b12485291480f3\n  Stored in directory: /tmp/pip-ephem-wheel-cache-7ur7jdsn/wheels/b0/47/01/58ff31439519cd2ec24142027fe37e9ba09bc8c8700986fc22\nSuccessfully built pycparser\nInstalling collected packages: pycparser\nSuccessfully installed pycparser-0.0.0\n",
+              "used_candidate_setup_sh": true
+            },
+            "skipped": 0,
+            "status": "passed",
+            "test_ids": [
+              "T.R09.01",
+              "T.R09.02"
+            ],
+            "unexecuted_test_ids": []
+          },
+          "returncode": 0,
+          "suite": "parse-errors",
+          "working_directory": "/checker/benchmarks/e2e-swe/heldout/pycparser/public-checks"
+        }
+      ],
+      "schema_version": "dag-public-control-batch/v1"
+    },
+    "elapsed_seconds": 13.782098840001709
+  },
+  "frozen_controls": {
+    "status": "verified",
+    "evidence_level": "historical_authored_controls_at_exact_current_sources",
+    "path": "benchmarks/e2e-swe/heldout/pycparser/public-checks/results/controls.json",
+    "receipt_sha256": "dc7accc9d5549f8bfdf3659dac12ae27b24fabc092ea61c8d74d0441765b27d0",
+    "source_count": 22,
+    "normal_count": 8,
+    "defective_count": 53,
+    "recorded_at": "2026-10-17T16:34:24.230Z"
+  },
+  "budget": {
+    "schema_version": "jev-token-budget-snapshot/v4",
+    "budget_id": "8f256409-1245-4f32-ba67-d3fb2fddf6e4",
+    "limit_usd": null,
+    "rate_usd_per_million": 0.6,
+    "token_limit": null,
+    "charged_input_tokens": 27755457,
+    "reserved_input_tokens": 0,
+    "estimated_spent_usd": 16.6532742,
+    "estimated_reserved_usd": 0,
+    "remaining_usd": null,
+    "actual_billed_usd": null,
+    "reservations_pending": 0,
+    "pending_reservation_id": null,
+    "blocked_code": null,
+    "closed": false,
+    "pending_reservation_ids": [],
+    "reservations_in_flight": 0,
+    "remaining_input_tokens": null,
+    "settled_requests": 1544,
+    "budget_unit": "input_tokens",
+    "unlimited": true
+  },
+  "connection": {
+    "baseURL": "https://jev-ai.pro/api",
+    "modelsURL": "https://jev-ai.pro/api/v1/models",
+    "decisionURL": "https://jev-ai.pro/api/v1/systemone",
+    "defaultModel": "jev-latest",
+    "transport": "Node.js fetch (no SDK)",
+    "automaticRetries": 0,
+    "redirects": "blocked",
+    "envFile": "/Users/lee/workspace/.env",
+    "keyConfigured": true,
+    "keySource": "env-file"
+  },
+  "auth": {
+    "logged_in": true,
+    "auth_method": "claude.ai",
+    "accepted_methods": [
+      "claude.ai",
+      "oauth_token"
+    ]
+  },
+  "image": {
+    "schema_version": 1,
+    "image_tag": "ghcr.io/facebookresearch/e2e-swe:pycparser",
+    "image_digest": "ghcr.io/facebookresearch/e2e-swe@sha256:65788667ee2dcbfec3210499f0635728ceec8dd7a31f6ffc150f639a6815dd97",
+    "image_id": "sha256:abc67defdbfd393a1f63c0a984506500e06035802e0284e4cde058b57fa0795f",
+    "architecture": "amd64",
+    "os": "linux",
+    "size_bytes": 228253910,
+    "locked_at": "2026-10-17T13:47:52.850868+00:00"
+  },
+  "environment": {
+    "image_id": "sha256:abc67defdbfd393a1f63c0a984506500e06035802e0284e4cde058b57fa0795f",
+    "python": "3.10.20 (main, Jul  6 2026, 21:47:22) [GCC 12.2.0]",
+    "modules": {
+      "setuptools": {
+        "available": true,
+        "version": "79.0.1"
+      },
+      "pip": {
+        "available": true,
+        "version": "23.0.1"
+      },
+      "wheel": {
+        "available": true,
+        "version": "0.46.3"
+      }
+    },
+    "network": "none",
+    "read_only": true,
+    "tmpfs": "/tmp:rw,exec,size=2g"
+  },
+  "model_lookup": {
+    "jev_latest_available": true,
+    "inference_calls": 0
+  },
+  "cohort_capacity": {
+    "snapshot": {
+      "schema_version": "jev-token-budget-snapshot/v4",
+      "budget_id": "8f256409-1245-4f32-ba67-d3fb2fddf6e4",
+      "limit_usd": null,
+      "rate_usd_per_million": 0.6,
+      "token_limit": null,
+      "charged_input_tokens": 27755457,
+      "reserved_input_tokens": 0,
+      "estimated_spent_usd": 16.6532742,
+      "estimated_reserved_usd": 0,
+      "remaining_usd": null,
+      "actual_billed_usd": null,
+      "reservations_pending": 0,
+      "pending_reservation_id": null,
+      "blocked_code": null,
+      "closed": false,
+      "pending_reservation_ids": [],
+      "reservations_in_flight": 0,
+      "remaining_input_tokens": null,
+      "settled_requests": 1544,
+      "budget_unit": "input_tokens",
+      "unlimited": true
+    },
+    "remaining_jev_arms": 1,
+    "required_input_tokens": null,
+    "token_capacity_unlimited": true
+  },
+  "schema_version": "adaptive-preflight/v2",
+  "arms": [
+    "jev_profile"
+  ],
+  "protocol": {
+    "draft": {
+      "status": "draft_not_runnable",
+      "protocol": "docs/orchestration/contracts/evaluation-protocol.v1.json",
+      "task": "pycparser",
+      "derived_from": "benchmarks/e2e-swe/manifests/d083-repair-fixes.json",
+      "blockers": [
+        "catalog_reuse hashes are null until a new catalog is prepared with a v1 catalog-prep manifest (scripts/adaptive-dag-comparison.mjs forbids --prepare-catalog on a manifest with catalog_reuse). The loader accepts all-null hashes for a non-openapi task so --probe can run; loadAdaptiveSharedPreparation refuses every arm with ADAPTIVE_CATALOG_REUSE_UNPINNED until all six are pinned.",
+        "public-checks/ holds only registry.json (generated from public-checks.plan.json by scripts/build-heldout-obligations.mjs). inventory.json, run_public_checks.py, environment.json, assertions.json, controls and results/controls.json do not exist yet; --probe stops at inventory.json (ENOENT) in loadPublicAuditInputs.",
+        "repair_policy.assertion_contract is still the openapi benchmarks/e2e-swe/public-checks/assertions.v2.json, which the v7+ loader requires verbatim."
+      ]
+    },
+    "schema_version": "adaptive-dag-comparison/v12",
+    "input": "benchmarks/e2e-swe/heldout/pycparser/obligations.json",
+    "public_registry": "benchmarks/e2e-swe/heldout/pycparser/public-checks/registry.json",
+    "public_checker_root": "benchmarks/e2e-swe/heldout/pycparser/public-checks",
+    "public_environment_ref": "e2e-swe-public-pycparser/v1",
+    "image_lock": "benchmarks/e2e-swe/heldout/pycparser/image-lock.json",
+    "worker_profile": {
+      "id": "opus55-medium",
+      "model": "claude-opus-5-5",
+      "effort": "medium"
+    },
+    "arms": [
+      "jev_profile"
+    ],
+    "cohort_concurrency": 1,
+    "limits": {
+      "max_units": 30,
+      "max_artifacts": 60,
+      "max_files": 60,
+      "max_leaves": 30,
+      "max_depth": 3,
+      "max_nodes": 59,
+      "max_relation_pairs": 435,
+      "max_decisions": 128,
+      "relation_batch_size": 32,
+      "max_request_bytes": 256000,
+      "max_concurrency": 2,
+      "maximum_workers": 30,
+      "minimum_workers": 2,
+      "wall_timeout_seconds": 14400,
+      "planning_input_tokens": null,
+      "max_file_bytes": 262144,
+      "max_total_bytes": 4194304
+    },
+    "max_repair_rounds": 2,
+    "automatic_retries": 0,
+    "jev_budget": {
+      "schema_version": "jev-token-budget/v4",
+      "ledger_path": "benchmark-runs/jev-usd1-budget.json",
+      "max_input_tokens": null,
+      "reserve_input_tokens": 65536
+    },
+    "valuation": {
+      "usd_per_million_input_tokens": 0.6,
+      "basis": "informational_token_pack_equivalent_not_monthly_invoice",
+      "actual_billed_usd": null
+    },
+    "catalog_reuse": {
+      "schema_version": "adaptive-catalog-reuse/v4",
+      "preparation_directory": "benchmark-runs/heldout-pycparser-catalog-01",
+      "original_manifest": "benchmarks/e2e-swe/heldout/pycparser/catalog-prep.v1.json",
+      "original_manifest_sha256": null,
+      "result_sha256": null,
+      "catalog_file_sha256": null,
+      "source_pins_sha256": null,
+      "prepared_request_sha256": null,
+      "provider_request_sha256": null,
+      "allowed_changed_source_paths": [
+        "src/benchmark/adaptive-dag-runner.mjs",
+        "scripts/adaptive-dag-comparison.mjs",
+        "src/benchmark/budget.mjs",
+        "src/benchmark/budget-acquire.mjs",
+        "src/benchmark/dag-runner.mjs",
+        "src/orchestration/adaptive-dag-planner.mjs",
+        "src/orchestration/adaptive-dag-execution.mjs",
+        "scripts/audit-dag-public-checks.mjs",
+        "benchmarks/e2e-swe/public-checks/run_public_checks.py",
+        "benchmarks/e2e-swe/public-checks/extensions/cli_config.py",
+        "src/orchestration/artifact-transport.mjs",
+        "src/orchestration/adaptive-failure.mjs",
+        "src/benchmark/telemetry.mjs"
+      ]
+    },
+    "preparation_accounting": "New source-only catalog for held-out task pycparser (one Claude catalog call, prepared before the cohort and reported separately). The openapi D066 catalog is not reused.",
+    "deadline_basis": "Retain the existing 14400-second total deadline and no separate worker cap. Cumulative and per-arm token spending caps are null. v4 input estimates are observational; official 256000-byte body, structural and uncertainty checks can block.",
+    "session_semantics": "Held-out stage 1 (R20261017-EVAL-PROTOCOL), task pycparser: D083 cloud defaults (d083-repair-fixes.json) with task-bound inputs replaced. Condition jev_profile only; the claude_all control condition cannot be expressed in v12 (arms fixed to [jev_profile]).",
+    "claude_auth_methods": [
+      "claude.ai",
+      "oauth_token"
+    ],
+    "independent_grade": "Root-owned after candidate freeze with benchmarks/e2e-swe/heldout/pycparser/grade.json and benchmarks/e2e-swe/heldout/pycparser/image-lock.json; hidden tests never enter planning, implementation or public repair.",
+    "repair_policy": {
+      "artifact_contract": "docs/orchestration/contracts/adaptive-causal-repair.v1.json",
+      "assertion_contract": "benchmarks/e2e-swe/public-checks/assertions.v2.json",
+      "failure_contract": "adaptive-terminal-cause/v1",
+      "scope_contract": "public-inferred-owner-v3",
+      "token_admission_contract": "docs/orchestration/contracts/jev-token-admission.v4.json",
+      "owner_inference_contract": "docs/orchestration/contracts/adaptive-inferred-repair.v3.json"
+    },
+    "decomposition_policy": {
+      "id": "layered-v2",
+      "contract": "docs/orchestration/contracts/adaptive-layered-decomposition.v2.json"
+    },
+    "public_runner": "benchmarks/e2e-swe/heldout/pycparser/public-checks/run_public_checks.py",
+    "public_controls_evidence": "benchmarks/e2e-swe/heldout/pycparser/public-checks/results/controls.json",
+    "profile_policy": {
+      "contract": "docs/orchestration/contracts/adaptive-profile-selection.v2.json",
+      "candidate_contract": "docs/orchestration/contracts/adaptive-profiles.v1.json",
+      "phase_policy": "initial_and_selected_repairs",
+      "cli_version": "2.1.293",
+      "account_probe": "benchmark-runs/d071-model-probes-01/result.json",
+      "account_probe_sha256": "4201fa4fe2df4b9caea6db759e5609e892605ba99c7bd4afc45b4c59e85b691a",
+      "allowed_profile_ids": [
+        "claude_opus55_low",
+        "claude_opus55_medium",
+        "claude_opus55_high",
+        "claude_opus55_xhigh",
+        "claude_opus55_max",
+        "claude_sonnet55_low",
+        "claude_sonnet55_medium",
+        "claude_sonnet55_high",
+        "claude_sonnet55_xhigh",
+        "claude_sonnet55_max",
+        "claude_haiku55_low",
+        "claude_haiku55_medium",
+        "claude_haiku55_high",
+        "claude_haiku55_xhigh",
+        "claude_haiku55_max",
+        "claude_fable51_low",
+        "claude_fable51_medium",
+        "claude_fable51_high",
+        "claude_fable51_xhigh",
+        "claude_fable51_max"
+      ]
+    },
+    "runtime_speed": {
+      "model_lookup": "per_session",
+      "budget_lock": "ledger_op",
+      "public_check_concurrency": 2,
+      "readiness_batch": true
+    },
+    "question_forms": {
+      "decomposition": {
+        "contract": "docs/orchestration/contracts/adaptive-layered-decomposition.v2.json",
+        "sha256": "595deea341fe26ccd62cca511637c31130e33bad64ae27cfed811120dd6c9d6a"
+      },
+      "owner_criteria": {
+        "contract": "docs/orchestration/contracts/adaptive-owner-criteria.v2.json",
+        "sha256": "6051be503b9484b34e0a77720fec1929d600d955cc858d411337da79b4403ebe"
+      },
+      "inferred_scope": {
+        "contract": "docs/orchestration/contracts/adaptive-inferred-scope.v1.json",
+        "sha256": "8ea862295bc2f6460b003e6b124a509ebf1e5a01a22747579c679511aa05870e"
+      }
+    },
+    "repair_budget": {
+      "policy": "repair-budget-v3",
+      "contract": "docs/orchestration/contracts/adaptive-repair-budget.v3.json",
+      "sha256": "ded35d2885352386e4a13dc948a40cb9b542c4f1d01422d630c2fa74d31171b3"
+    },
+    "repair_feedback": {
+      "read_scope": "candidate-v1",
+      "worker_diagnostics": "report-v1",
+      "scope_expansion": "worker-mentioned-v1"
+    },
+    "schedule_policy": {
+      "policy": "critical-path-v1",
+      "contract": "docs/orchestration/contracts/adaptive-critical-path-schedule.v1.json",
+      "sha256": "66205dc51d05b4a714677c4c8d23de1b104f35371ee493515e47ed20cdb97af0"
+    },
+    "spec_review": {
+      "policy": "spec-review-v1",
+      "contract": "docs/orchestration/contracts/adaptive-spec-review.v1.json",
+      "sha256": "fcb81c6fd247d5fc14177de9fccf9cd5d6a24424f44e9f5a0d22e66f14a2f769"
+    },
+    "manifest_path": "benchmarks/e2e-swe/heldout/pycparser/v12.draft.json",
+    "manifest_sha256": "f298a46fd78160dbc38eae3fd0429aeb0fc6098b721f6146a43677da1e3c17ad"
+  }
+}
