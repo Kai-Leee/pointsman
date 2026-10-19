@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Pre-experiment Jev model check. FREE GETs only: GET /v1/models and the public docs page.
 // Never POSTs, never prints the key or Authorization header, never touches the budget ledger.
-// Exit 0: nothing missing. Exit 3: a documented dated build, or a listed jev-X.Y[.Z] version, has no contract entry.
+// Exit 0: nothing missing. Exit 3: a documented dated build, or a listed jev-X.Y[.Z] version, has no contract entry,
+// or a settlement model the run could receive is not an accepted observed model of the active token-admission policy.
 // Exit 2: check failed. --update appends only dated builds whose exact ID and multiplier the docs give.
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -10,6 +11,13 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createJevClient } from '../src/client.mjs';
 import { loadConfig } from '../src/config.mjs';
 import { JEV_SETTLEMENT_MODELS_CONTRACT, loadSettlementModels } from '../src/benchmark/budget.mjs';
+import { jevTokenAdmissionPolicy as admissionV4 } from '../src/orchestration/jev-token-admission-v4.mjs';
+import { jevTokenAdmissionPolicy as admissionV5 } from '../src/orchestration/jev-token-admission-v5.mjs';
+
+// Token-admission policies a manifest may select (adaptive-dag-runner.mjs); the newest is the default.
+export const ADMISSION_POLICIES = { 'docs/orchestration/contracts/jev-token-admission.v4.json': admissionV4,
+  'docs/orchestration/contracts/jev-token-admission.v5.json': admissionV5 };
+export const DEFAULT_ADMISSION_CONTRACT = 'docs/orchestration/contracts/jev-token-admission.v5.json';
 
 export const DOCS_URL = 'https://jev-ai.pro/docs';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -36,7 +44,9 @@ export function parseDocs(html) {
 }
 
 export async function runModelCheck({ client, fetchImpl, contractPath = JEV_SETTLEMENT_MODELS_CONTRACT,
-  evidenceRoot = join(ROOT, 'benchmark-runs'), update = false, now = new Date() }) {
+  evidenceRoot = join(ROOT, 'benchmark-runs'), update = false, now = new Date(), admissionContract = DEFAULT_ADMISSION_CONTRACT }) {
+  const admissionPolicy = ADMISSION_POLICIES[admissionContract];
+  if (!admissionPolicy) throw Object.assign(new Error('ADMISSION_CONTRACT_UNKNOWN'), { code: 'ADMISSION_CONTRACT_UNKNOWN' });
   const get = getOnly(fetchImpl);
   const listed = (await client.listModels()).models.map(model => model.name);
   let response;
@@ -79,14 +89,24 @@ export async function runModelCheck({ client, fetchImpl, contractPath = JEV_SETT
   const covered = version => entries.some(({ model_id, kind }) => (kind === 'dated_build' || kind === 'legacy_id')
     && (model_id.match(/^typesafe\/jev-(\d+\.\d+)-\d{8}$/) ?? model_id.match(/^jev-(\d+\.\d+)(?:\.\d+)?$/))?.[1] === version);
   const uncovered = listed.filter(name => /^jev-\d+\.\d+(?:\.\d+)?$/.test(name) && !covered(name.match(/^jev-(\d+\.\d+)/)[1]));
-  const exitCode = stillMissing.length || uncovered.length ? 3 : 0;
+  // The settlement and admission gates must agree on every model a response could report: each settlement entry of a
+  // listed version, and each version-less provider alias, has to be an exact accepted observed model of admission.
+  const listedVersions = new Set(listed.map(name => name.match(/^jev-(\d+\.\d+)(?:\.\d+)?$/)?.[1]).filter(Boolean));
+  const entryVersion = id => (id.match(/^typesafe\/jev-(\d+\.\d+)-\d{8}$/) ?? id.match(/^jev-(\d+\.\d+)(?:\.\d+)?$/))?.[1];
+  const admitted = new Set(admissionPolicy().accepted_observed_model_labels);
+  const notAdmitted = entries.filter(({ model_id, kind }) => kind === 'provider_alias' || listedVersions.has(entryVersion(model_id)))
+    .map(({ model_id }) => model_id).filter(id => !admitted.has(id));
+  const exitCode = stillMissing.length || uncovered.length || notAdmitted.length ? 3 : 0;
   return {
     exitCode,
     report: { listed_models: listed, listed_not_in_contract: listed.filter(name => !known.has(name)),
       listed_versions_without_contract_entry: uncovered,
+      admission_contract: admissionContract, admission_policy_id: admissionPolicy().policy_id,
+      settlement_models_not_admitted: notAdmitted,
       docs_url: DOCS_URL, docs_sha256: sha256(bytes), docs_dated_builds: docs,
       missing_from_contract: stillMissing.map(build => build.model_id), added: added.map(build => build.model_id), refused,
-      ...(exitCode === 3 ? { message: 'Settlement contract does not cover every listed Jev version or documented dated build; do not start a paid run. '
+      ...(exitCode === 3 ? { message: 'Settlement contract does not cover every listed Jev version or documented dated build, '
+        + 'or the token-admission policy does not accept a settlement model; do not start a paid run. '
         + 'A dated build is learned only from the first paid response (response.model); that response stays fail-closed '
         + '(BUDGET_MODEL_UNSUPPORTED) and is reconciled offline with scripts/reconcile-d086-response.mjs. '
         + '--update adds only exact dated IDs proven by saved docs evidence.' } : {}) },
@@ -97,7 +117,9 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   try {
     const fetchImpl = getOnly(globalThis.fetch);
     const client = createJevClient({ apiKey: loadConfig().apiKey, fetchImpl });
-    const { exitCode, report } = await runModelCheck({ client, fetchImpl, update: process.argv.includes('--update') });
+    const at = process.argv.indexOf('--admission-contract');
+    const { exitCode, report } = await runModelCheck({ client, fetchImpl, update: process.argv.includes('--update'),
+      ...(at > 0 ? { admissionContract: process.argv[at + 1] } : {}) });
     console.log(JSON.stringify(report, null, 2));
     process.exitCode = exitCode;
   } catch (error) {

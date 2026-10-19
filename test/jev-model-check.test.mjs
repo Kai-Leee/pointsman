@@ -29,8 +29,8 @@ function fixture(t, html, listed = ['jev-latest', 'jev-1.14.0']) {
   };
   // The real client over a fake transport, so a stray decide() POST would be visible in calls.
   const client = createJevClient({ apiKey: 'test-key-not-real', fetchImpl });
-  const run = update => runModelCheck({ client, fetchImpl, contractPath, evidenceRoot: join(directory, 'runs'), update,
-    now: new Date('2026-11-02T00:00:00Z') });
+  const run = (update, options = {}) => runModelCheck({ client, fetchImpl, contractPath, evidenceRoot: join(directory, 'runs'), update,
+    now: new Date('2026-11-02T00:00:00Z'), ...options });
   return { directory, contractPath, calls, run, contract: () => JSON.parse(readFileSync(contractPath, 'utf8')) };
 }
 
@@ -147,4 +147,22 @@ test('a listed Jev version without a same-version contract entry exits 3; moving
   }
   // Coverage never relaxes settlement: jev-1.14.0 itself stays unsettleable.
   assert.equal(JEV_SETTLEMENT_MODELS.includes('jev-1.14.0'), false);
+});
+
+test('a settlement model of a listed version that token admission does not accept exits 3 (the openapi-partial-repair-01 gap)', async t => {
+  const docs = page('Aliases: typesafe/jev-1.13-20260917 → jev-1.13.0.');
+  const v4 = 'docs/orchestration/contracts/jev-token-admission.v4.json';
+  // Admission v4 accepts only 1.13 labels, so a listed 1.14 with a settlement entry must block before any paid run.
+  const blocked = await fixture(t, docs, ['jev-latest', 'jev-1.14.0', 'jev-1.13.0']).run(false, { admissionContract: v4 });
+  assert.equal(blocked.exitCode, 3);
+  assert.deepEqual(blocked.report.settlement_models_not_admitted, ['typesafe/jev-1.14-20261014']);
+  assert.match(blocked.report.message, /token-admission policy does not accept a settlement model/);
+  // Only listed versions count: with 1.14 unlisted, v4 covers every reachable settlement model.
+  assert.equal((await fixture(t, docs, ['jev-latest', 'jev-1.13.0']).run(false, { admissionContract: v4 })).exitCode, 0);
+  // The default (v5) admits the 1.14 build.
+  const ok = await fixture(t, docs, ['jev-latest', 'jev-1.14.0', 'jev-1.13.0']).run(false);
+  assert.equal(ok.exitCode, 0); assert.deepEqual(ok.report.settlement_models_not_admitted, []);
+  assert.equal(ok.report.admission_policy_id, 'r20261019-jev114-observed-build-v5');
+  await assert.rejects(fixture(t, docs).run(false, { admissionContract: 'docs/orchestration/contracts/jev-token-admission.v3.json' }),
+    { code: 'ADMISSION_CONTRACT_UNKNOWN' });
 });
