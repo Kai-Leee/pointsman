@@ -1,3 +1,5 @@
+R20261019-RESULTS-ANALYSIS: D095 계열 병합(b444a5f) 후 실제 결과 분석. openapi Claude단독 3/3·38.3분·$19.83, Jev 현재경로 4/9(성공시 27.5분·$7.89, 실패포함 성공당 $18.73·57.5분). h2 보류과제 1/4(실패3은 경로결함), 리허설 관문 후 유료 2/2 성공. Jev 우위 미입증: 같은 실행 Claude 기준·반복 필요. [기록](../decisions/R20261019_RESULTS_ANALYSIS.md). 아래는 당시 기록이다.
+
 R20261019-PAID-OPENAPI-02: Jev 모델 관문 3곳 정리(895b49e) — 무료 사전점검이 정산 모델 중 admission 미허용이 있으면 exit 3. 사전점검 exit 0, h2·openapi 리허설 4/4(같은 tree) 뒤 openapi jev_profile 유료 1회: 완료, 공개 8/8(assertion 2,236), 독립 63/63(product_success), 1,895.0초, 수리 0, Claude API환산 $10.85, Jev 7회 196,662토큰, 장부 28,360,261→28,556,923 정산·예약0. Jev 응답에 1.14 없음. 1회 성공은 성공률 아님. [기록](../decisions/R20261019_PAID_OPENAPI_02.md). 아래는 당시 기록이다.
 
 R20261019-ADMISSION-V5: 토큰 admission v5(328c105)가 공식 문서 근거(1.14 기본 한도 64k/32k로 1.13과 같음)로 jev-1.14.0·typesafe/jev-1.14-20261014만 추가 허용, h2·openapi v12 manifest만 opt-in. 리허설 가짜 Jev는 무료 모델 목록 기준 현재 서빙 dated 빌드로 응답. v11 재고정·d076 재연결, 테스트 1421/1422. 리허설(깨끗한 트리, 장부 불변): h2·openapi 4/4 통과(전 응답 1.14, 전 admission 통과); v4로 되돌린 대조 실행은 baseline에서 차단돼 이제 무료로 잡힘. 유료 전 기록 커밋에서 재리허설 필요. [기록](../decisions/R20261019_ADMISSION_V5.md). 아래는 당시 기록이다.

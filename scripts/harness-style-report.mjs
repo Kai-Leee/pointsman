@@ -31,6 +31,8 @@ export function collectArms(runsDir) {
     let result;
     try { result = read(file); } catch { continue; }
     if (!ARM_SCHEMAS.includes(result.schema_version)) continue;
+    // Zero-cost rehearsals (scripts/rehearse.mjs) answer from doubles; they are harness checks, never product attempts.
+    if (existsSync(join(dir, 'rehearsal-log.json')) || existsSync(join(runsDir, path.split(sep)[0], 'rehearsal.json'))) continue;
     result.arm ??= basename(dir);
     const id = relative(runsDir, dir), run = id.split(sep)[0];
     const evaluation = existsSync(join(dir, 'independent-evaluation.json')) ? read(join(dir, 'independent-evaluation.json')) : null;

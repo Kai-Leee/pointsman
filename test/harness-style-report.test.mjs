@@ -118,3 +118,11 @@ test('Wilson interval and credibility checklist', () => {
   assert.equal(item('C14').jev, 'no');
   assert.match(item('C07').observed, /^5 arms = 4 counted \+ 1 excluded/);
 });
+
+test('zero-cost rehearsal arms are not counted as product attempts', () => {
+  const root = fixture();
+  arm(join(root, 'rehearsal-dx-01'), 'baseline', {status: 'failed', stop_code: 'BUDGET_MODEL_UNSUPPORTED'}, null);
+  writeFileSync(join(root, 'rehearsal-dx-01', 'rehearsal.json'), '{}');
+  assert.equal(collectArms(root).some(a => a.id.startsWith('rehearsal-dx-01')), false);
+  assert.equal(collectArms(root).length, 5);
+});
