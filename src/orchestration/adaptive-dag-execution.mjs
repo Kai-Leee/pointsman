@@ -24,6 +24,8 @@ import {workerMentionedExpansion, ownerProbabilityAlternatives, EXPANDED_UNION_I
 import {flatAssignments, buildOwnerTiebreakRequest, resolveOwnerTiebreak, loadOwnerTiebreakContract} from './adaptive-owner-tiebreak.mjs';
 import {collectPublicOwnerEvidence, attachPublicOwnerEvidence, applyPublicOwnerEvidenceScope, assertPublicOwnerEvidenceCoverage} from './adaptive-public-owner-evidence.mjs';
 import {PARTIAL_REPAIR_POLICY, buildPartialReadinessRepair, buildPartialRepairWorkerContext} from './adaptive-partial-repair.mjs';
+import {VERIFIED_REPAIR_CONTEXT_POLICY, buildVerifiedRepairContext,
+  attachVerifiedRepairContext} from './adaptive-verified-repair-context.mjs';
 
 const clone = value => structuredClone(value);
 const canonical = value => Array.isArray(value) ? value.map(canonical) : value && typeof value === 'object'
@@ -84,7 +86,7 @@ async function scopedManifest(root, scopes) {
   return {files: files.sort((a, b) => a.path.localeCompare(b.path)), directories: directories.sort()};
 }
 
-async function repairSourceFiles(exported, bindings, plan, {recovery = false} = {}) {
+async function repairSourceFiles(exported, bindings, plan, {recovery = false, includeTemplates = false} = {}) {
   if (!exported?.candidateDirectory) return [];
   const sources = [];
   for (const artifact of plan.artifacts) {
@@ -92,7 +94,8 @@ async function repairSourceFiles(exported, bindings, plan, {recovery = false} = 
     if (!revision) continue;
     const manifest = await scopedManifest(exported.candidateDirectory, bindings[artifact.id].paths);
     if (digest(manifest) !== revision) fail('ADAPTIVE_REPAIR_SCOPE_REVISION_DRIFT');
-    for (const file of manifest.files.filter(file => recovery || file.path.endsWith('.py'))) {
+    for (const file of manifest.files.filter(file => recovery || file.path.endsWith('.py')
+      || includeTemplates && /\.(?:jinja|j2|jinja2)$/.test(file.path))) {
       if (!recovery && file.size > 262144) fail('ADAPTIVE_REPAIR_SCOPE_SOURCE_LIMIT');
       const content = await readFile(join(exported.candidateDirectory, file.path));
       if (bytesDigest(content) !== file.sha256) fail('ADAPTIVE_REPAIR_SCOPE_REVISION_DRIFT');
@@ -390,6 +393,8 @@ export async function runAdaptiveDagExecution(options) {
       (INFERRED_SCOPE_POLICIES.includes(options.repairScopePolicy) && typeof options.decideRepairOwners !== 'function') ||
       (options.publicOwnerEvidencePolicy !== undefined && (options.publicOwnerEvidencePolicy !== 'public-source-v1' || !INFERRED_SCOPE_POLICIES.includes(options.repairScopePolicy))) ||
       (options.partialRepairPolicy !== undefined && options.partialRepairPolicy !== PARTIAL_REPAIR_POLICY) ||
+      (options.repairDispatchPolicy !== undefined && (options.repairDispatchPolicy !== VERIFIED_REPAIR_CONTEXT_POLICY
+        || !INFERRED_SCOPE_POLICIES.includes(options.repairScopePolicy))) ||
       (options.beforeRepairDecision !== undefined && typeof options.beforeRepairDecision !== 'function') ||
       (options.prepareRoundPlan !== undefined && typeof options.prepareRoundPlan !== 'function') ||
       (options.projectRepairFailure !== undefined && typeof options.projectRepairFailure !== 'function') ||
@@ -1079,11 +1084,18 @@ export async function runAdaptiveDagExecution(options) {
       }
       // Preserved-candidate authorization must precede both paid inference and
       // repair selection. A known failed gate is not a provider uncertainty.
-      let repairInputContext = null, publicOwnerEvidence = null;
+      let repairInputContext = null, publicOwnerEvidence = null, verifiedRepairContext = null;
       try {
         if (options.publicOwnerEvidencePolicy) {
-          publicOwnerEvidence = await collectPublicOwnerEvidence({planning, failure, candidateDirectory: exported.candidateDirectory});
+          publicOwnerEvidence = await collectPublicOwnerEvidence({planning, failure, candidateDirectory: exported.candidateDirectory,
+            assertionContract: options.assertionContract, runtimeBinding: JSON.parse(await readFile(join(initialization.root, 'binding.json'), 'utf8'))});
           await record({event: 'adaptive_public_owner_evidence_committed', round_index: roundIndex, evidence: publicOwnerEvidence});
+        }
+        if (options.repairDispatchPolicy) {
+          verifiedRepairContext = buildVerifiedRepairContext({planning, failure, repairHistory, workerReports,
+            sources: await repairSourceFiles(exported, bindings, plan, {includeTemplates: true})});
+          await record({event: 'adaptive_verified_repair_context_committed', round_index: roundIndex,
+            policy: options.repairDispatchPolicy, context: verifiedRepairContext});
         }
         if (options.beforeRepairDecision) await options.beforeRepairDecision({planning: clone(planning),
           failure: clone(failure), candidates: clone(candidates), repair_history: clone(repairHistory)},
@@ -1103,6 +1115,16 @@ export async function runAdaptiveDagExecution(options) {
                 failedRequest = clone(body);
                 let sent = body;
                 if (publicOwnerEvidence && !requestOverride) sent = attachPublicOwnerEvidence(sent, publicOwnerEvidence);
+                if (verifiedRepairContext && !requestOverride) {
+                  sent = attachVerifiedRepairContext(sent, verifiedRepairContext);
+                  const projection = sent.state.verified_repair_context;
+                  await record({event: 'adaptive_verified_repair_context_attached', round_index: roundIndex,
+                    context_sha256: verifiedRepairContext.sha256, attached: !!projection,
+                    model_projection_bytes: projection ? Buffer.byteLength(JSON.stringify(projection)) : 0,
+                    model_projection_sha256: projection ? digest(projection) : null,
+                    reason: projection ? 'bounded_source_identifier_hints' : 'no_case_level_source_hints_original_evidence_retained',
+                    question_sha256: digest(sent.questions), automatic_owner_additions: 0, skipped_workers: 0});
+                }
                 // A recovery override is bound to its exact request hash, so it never gains diagnostics or repacking.
                 if (options.repairFeedback?.worker_diagnostics && workerReports.length && !requestOverride) {
                   const diagnostics = workerDiagnostics(workerReports, snapshots);

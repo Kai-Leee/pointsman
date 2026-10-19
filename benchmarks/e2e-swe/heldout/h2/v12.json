@@ -69,7 +69,9 @@
       "benchmarks/e2e-swe/public-checks/extensions/cli_config.py",
       "src/orchestration/artifact-transport.mjs",
       "src/orchestration/adaptive-failure.mjs",
-      "src/benchmark/telemetry.mjs"
+      "src/benchmark/telemetry.mjs",
+      "src/orchestration/dag-filesystem-runtime.mjs",
+      "src/orchestration/dag-scheduler.mjs"
     ]
   },
   "preparation_accounting": "New source-only catalog for held-out task h2 (one Claude catalog call, prepared before the cohort and reported separately). The openapi D066 catalog is not reused.",

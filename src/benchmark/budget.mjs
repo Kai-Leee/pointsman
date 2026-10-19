@@ -1,6 +1,7 @@
 import { constants, openSync, closeSync, readFileSync, writeFileSync, fsyncSync, fstatSync, lstatSync, realpathSync, renameSync, linkSync, unlinkSync } from 'node:fs';
 import { basename, dirname, join, resolve } from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
+import {isJevSettlementModel, assertJevModelRegistrySource} from '../jev-model-registry.mjs';
 
 export const BUDGET_ERROR_CODES = Object.freeze([
   'INVALID_BUDGET_CONFIG', 'JEV_BUDGET_REQUIRED', 'BUDGET_REQUIRED', 'BUDGET_LOCKED', 'BUDGET_LOCK_LOST',
@@ -27,6 +28,7 @@ export function loadSettlementModels(path = JEV_SETTLEMENT_MODELS_CONTRACT) {
     || new Set(models.map(m => m.model_id)).size !== models.length) throw new Error('JEV_SETTLEMENT_MODELS_CONTRACT_INVALID');
   return Object.freeze(models.map(m => m.model_id));
 }
+// D088 registry and this contract must both list a label for it to settle (fail-closed intersection).
 const SETTLEMENT_MODELS = loadSettlementModels();
 export const JEV_SETTLEMENT_MODELS = SETTLEMENT_MODELS;
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -170,7 +172,8 @@ function syncDirectory(directory) {
 // tokens / credits / credits-fallback / tokens-fallback. Accept ONLY plain tokens.
 // Resolved model and multiplier: https://jev-ai.pro/docs#billing and #models.
 function settlement(response) {
-  if (!object(response) || !SETTLEMENT_MODELS.includes(response.model)) fail('BUDGET_MODEL_UNSUPPORTED');
+  assertJevModelRegistrySource();
+  if (!object(response) || !SETTLEMENT_MODELS.includes(response.model) || !isJevSettlementModel(response.model)) fail('BUDGET_MODEL_UNSUPPORTED');
   const billing = response.billing;
   const usage = response.usage;
   const receipt = response.receipt;

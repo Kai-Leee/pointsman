@@ -69,7 +69,9 @@
       "benchmarks/e2e-swe/public-checks/extensions/cli_config.py",
       "src/orchestration/artifact-transport.mjs",
       "src/orchestration/adaptive-failure.mjs",
-      "src/benchmark/telemetry.mjs"
+      "src/benchmark/telemetry.mjs",
+      "src/orchestration/dag-filesystem-runtime.mjs",
+      "src/orchestration/dag-scheduler.mjs"
     ]
   },
   "preparation_accounting": "Reuse the exact completed D066 source-only catalog with pinned result, source snapshots and identical generation prompt/schema. There are no new catalog calls or preparation charges in this cohort. Current-run arm wall time and usage are primary; historical full-preparation inclusive references are recorded separately and never added to current-cohort physical spend.",

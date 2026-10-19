@@ -13,10 +13,12 @@ import { loadConfig } from '../src/config.mjs';
 import { JEV_SETTLEMENT_MODELS_CONTRACT, loadSettlementModels } from '../src/benchmark/budget.mjs';
 import { jevTokenAdmissionPolicy as admissionV4 } from '../src/orchestration/jev-token-admission-v4.mjs';
 import { jevTokenAdmissionPolicy as admissionV5 } from '../src/orchestration/jev-token-admission-v5.mjs';
+import { jevTokenAdmissionPolicy as admissionV6 } from '../src/orchestration/jev-token-admission-v6.mjs';
 
-// Token-admission policies a manifest may select (adaptive-dag-runner.mjs); the newest is the default.
+// Token-admission policies a manifest may select (adaptive-dag-runner.mjs); v5 (jev-1.14 build) is the default, v6 is the D088 registry policy.
 export const ADMISSION_POLICIES = { 'docs/orchestration/contracts/jev-token-admission.v4.json': admissionV4,
-  'docs/orchestration/contracts/jev-token-admission.v5.json': admissionV5 };
+  'docs/orchestration/contracts/jev-token-admission.v5.json': admissionV5,
+  'docs/orchestration/contracts/jev-token-admission.v6.json': admissionV6 };
 export const DEFAULT_ADMISSION_CONTRACT = 'docs/orchestration/contracts/jev-token-admission.v5.json';
 
 export const DOCS_URL = 'https://jev-ai.pro/docs';

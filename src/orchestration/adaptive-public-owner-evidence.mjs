@@ -50,12 +50,26 @@ async function sourceFile(root, path) {
   return {path, sha256: hash(bytes), content};
 }
 
+function sameImplementationOwnership(initial, current) {
+  if (!Array.isArray(current?.artifacts) || !Array.isArray(current?.tasks)) return false;
+  const tasks = initial.tasks.filter(t => t.kind === 'implementation');
+  const actual = current.tasks.filter(t => t.kind === 'implementation');
+  return actual.length === tasks.length && new Set(actual.map(t => t.id)).size === tasks.length
+    && actual.every(t => {
+      const owner = tasks.find(x => x.id === t.id);
+      return owner && t.output_artifact_ids.every(id => owner.output_artifact_ids.includes(id))
+        && t.write_scope.every(path => owner.write_scope.includes(path));
+    }) && current.artifacts.length === initial.artifacts.length
+    && new Set(current.artifacts.map(a => a.id)).size === initial.artifacts.length
+    && current.artifacts.every(a => initial.artifacts.some(x => x.id === a.id && x.producer_task_id === a.producer_task_id));
+}
+
 /** Conservative, public-only candidate generation, not a diagnosis oracle.
  * No artifact/test/package names are prescribed. Dynamic absolute Python imports
  * are inspected only after public ModuleNotFoundError with successful generation.
  * Source traceback paths and literal missing-module imports provide direct links.
  */
-export async function collectPublicOwnerEvidence({planning, failure, candidateDirectory}) {
+export async function collectPublicOwnerEvidence({planning, failure, candidateDirectory, assertionContract, runtimeBinding}) {
   need(planning?.plan && planning?.catalog && failure?.outcome_uncertain === false && candidateDirectory);
   const root = await realpath(resolve(candidateDirectory));
   const rows = observations(failure), sources = [], links = [], owners = new Map();
@@ -90,6 +104,49 @@ export async function collectPublicOwnerEvidence({planning, failure, candidateDi
     }
   }
   const order = planning.plan.artifacts.map(row => row.id);
+  // v3 links a failed, revision-bound public assertion directly to the current
+  // path owner, even when that owner was assigned a different requirement group.
+  // The old requirement-union fallback can otherwise omit an upstream producer.
+  if (assertionContract?.source_path === 'benchmarks/e2e-swe/public-checks/assertions.v3.json') {
+    need(hash(assertionContract.source_text) === assertionContract.sha256
+      && digest(JSON.parse(assertionContract.source_text)) === digest(assertionContract.contract)
+      && assertionContract.contract.version === '3', 'PUBLIC_OWNER_ASSERTION_SOURCE_DRIFT');
+    need(runtimeBinding?.schema_version === 'dag-filesystem-binding/v1'
+      && runtimeBinding.checker_manifest?.some(pin => pin.path === assertionContract.source_path && pin.sha256 === assertionContract.sha256)
+      && runtimeBinding.plan_hash === digest(runtimeBinding.plan)
+      && sameImplementationOwnership(planning.plan, runtimeBinding.plan)
+      && runtimeBinding.binding_digest === failure.binding_digest
+      && runtimeBinding.binding_digest === digest({pinManifest: runtimeBinding.checker_manifest,
+        environment: runtimeBinding.environment, plan_hash: runtimeBinding.plan_hash, artifact_bindings: runtimeBinding.artifact_bindings}),
+      'PUBLIC_OWNER_ASSERTION_RUNTIME_DRIFT');
+    for (const report of failure.public_evidence ?? []) {
+      if (report.status !== 'failed' || report.evidence?.assertion_contract_sha256 !== assertionContract.sha256
+        || digest(report.artifact_revisions ?? null) !== digest(failure.artifact_revisions ?? {})
+        || report.runtime_binding?.binding_digest !== failure.binding_digest
+        || report.runtime_binding?.plan_hash !== runtimeBinding.plan_hash
+        || report.runtime_binding?.checker_manifest_sha256 !== digest(runtimeBinding.checker_manifest)
+        || report.runtime_binding?.environment_fingerprint !== runtimeBinding.environment?.fingerprint
+        || report.evidence_key !== digest({check_id: report.check_id, check_version: report.check_version,
+          artifact_revisions: report.artifact_revisions, runtime_binding: report.runtime_binding})) continue;
+      for (const testcase of report.evidence.cases ?? []) {
+        if (testcase.status !== 'failed' || testcase.error_type !== 'AssertionError') continue;
+        const definition = assertionContract.contract.assertions.find(row => row.id === testcase.failed_assertion_id
+          && row.check_id === report.check_id && row.test_id === testcase.test_id);
+        if (!definition || !testcase.assertion_results?.some(row => row.assertion_id === definition.id && row.status === 'failed')) continue;
+        const observation = rows.find(row => row.check_id === report.check_id && row.test_id === testcase.test_id);
+        if (!observation) continue;
+        for (const path of definition.artifact_paths) {
+          const owner = owners.get(path);
+          if (!owner) continue; // No fabricated owner for a missing catalog path.
+          const source = await sourceFile(root, path);
+          links.push({...owner, check_id: report.check_id, test_id: testcase.test_id,
+            public_observation_sha256: observation.public_observation_sha256,
+            source: {path, sha256: source.sha256, line: 1, excerpt: 'Public assertion candidate: ' + definition.id},
+            basis: 'public_assertion_current_path_owner', certainty: 'repair_candidate_not_fault_proof'});
+        }
+      }
+    }
+  }
   return seal({schema_version: 'adaptive-public-owner-evidence/v1', policy: 'public-source-v1',
     binding: {plan_sha256: digest(planning.plan), catalog_sha256: digest(planning.catalog),
       public_evidence_sha256: digest(failure.public_evidence ?? []), artifact_revisions_sha256: digest(failure.artifact_revisions ?? {}),
