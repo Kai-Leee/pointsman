@@ -18,6 +18,18 @@ behavior bumps the minor version, and a fix-only goal bumps the patch version.
 
 ## [Unreleased]
 
+## [0.3.6] - 2026-10-20
+
+Goal: lead the README with measured routing gains and state plainly which effectiveness claims are not yet established.
+
+### Changed
+
+- Rewrote the English, Korean and Chinese READMEs around per-row percentage gains: D067 time, token and cost reductions
+  at equal 85/85 + 63/63 quality, and the D076/D081 repair-path change (527.7s → 270.4s, incomplete → 93/93 + 63/63).
+- Added a "Not yet established" section from evaluation-protocol.v1: same-run quality pairs (Claude-only 2–1–0),
+  later completion rates with Wilson intervals, repeat coverage and pending held-out tasks.
+- Replaced decision-centred wording ("Jev judges") with the measured routing loop it supports.
+
 ## [0.3.5] - 2026-10-16
 
 Goal: restore visibility of post-D067 experiments without implying a newer controlled efficiency result.

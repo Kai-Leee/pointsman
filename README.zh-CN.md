@@ -3,62 +3,82 @@
 
 <h1 align="center">Pointsman</h1>
 
-<p align="center"><em>通过 Jev 与依赖 DAG 实现快速任务路由。</em><br><sub>原名 Jev Router</sub></p>
+<p align="center"><em>面向编码智能体的依赖 DAG 任务路由，全流程实测。</em><br><sub>原名 Jev Router</sub></p>
 
 [English](README.md) | [한국어](README.ko.md) | **简体中文**
 
-Pointsman 是一个结合 Jev 与依赖 DAG 的编码智能体任务路由项目。
-它把结构化判断连接到任务拆分、前置依赖和执行顺序，并将就绪任务分派给编码工作智能体。
-研究运行器将路由结果与产物范围、公开检查和执行记录相连接。
+Pointsman 将编码任务拆分为有明确范围的单元，按依赖 DAG 排序，并把就绪单元分派给编码工作智能体。
+每个路由步骤只有在完整开发运行中证明能在不降低检查结果的前提下节省时间或 token 时才会保留。
+Jev 在该流程中回答固定格式的问题；控制器强制执行范围，公开检查与独立隐藏测试判定结果。
 
-本次发布提供 Jev 客户端、评估工具、运行契约和用量仪表盘。
-请参阅 [main、research、本地功能与技能拆分（英文）](docs/CAPABILITIES.en.md)。
-高级 DAG 实验记录位于 [research 分支](https://github.com/Kai-Leee/pointsman/tree/research)。
+本次发布提供 Jev 客户端、评估工具、运行契约和用量仪表盘
+（[已发布、公开研究与仅本地的功能（英文）](docs/CAPABILITIES.en.md)）。
+DAG 运行器与全部实验位于 [research 分支](https://github.com/Kai-Leee/pointsman/tree/research)。
 
-[实测结果](#实测结果) · [路由流程](#路由流程) · [快速开始](#快速开始) ·
-[文档](#文档) · [安全](#安全)
+[实测改进](#实测改进) · [尚未证实](#尚未证实) ·
+[路由流程](#路由流程) · [快速开始](#快速开始) · [文档](#文档) · [安全](#安全)
 
-## 实测结果
+## 实测改进
 
-在完成的 D067 对比中，Jev 拆分与依赖判断条件相对 Claude 基线的**开发阶段耗时减少 21.84%，报告 token 合计减少 46.50%**。仅使用 Jev 拆分判断的条件**耗时减少 28.74%，token 减少 41.42%**。以下三组均通过全部 **85 项公开检查和 63 项独立检查**。
+任务：根据规格构建 OpenAPI Python client generator。所有条件的工作智能体均为 Opus 5.5 medium，
+只有路由判断不同。所有行均通过 **85/85 公开检查与 63/63 独立检查**。
 
-| OpenAPI Python 客户端生成器条件 | 开发阶段耗时 | 报告 token 合计 | 实验时 API 费率折算成本 |
+| D067 对比，每个条件 1 次 | 开发时间 | 报告 token | API 价格折算成本 |
 |---|---:|---:|---:|
-| Claude 结构化判断 + Claude 工作智能体 | 36分 20.704秒 | 6,772,666 | $21.135172 |
-| Jev 拆分判断 + Claude 工作智能体 | 25分 54.036秒 | 3,967,289 | $9.864863 |
-| Jev 拆分与依赖判断 + Claude 工作智能体 | 28分 24.540秒 | 3,623,150 | $8.766580 |
+| Claude 结构化判断（基线） | 36分 20.704秒 | 6,772,666 | $21.135172 |
+| Jev 任务拆分 | 25分 54.036秒（**−28.74%**） | 3,967,289（**−41.42%**） | $9.864863（**−53.32%**） |
+| Jev 任务拆分 + 依赖关系 | 28分 24.540秒（**−21.84%**） | 3,623,150（**−46.50%**） | $8.766580（**−58.52%**） |
 
-每个条件运行一次，在同一批次并发执行。均使用 Opus 5.5 medium，每组两个并发工作槽。
-耗时包括判断、实现、修复和公开验证，不包括共享准备和独立评分。
-Token 合计包含 Claude 输入、输出、缓存创建、缓存读取，以及 Jev 输入和输出；提供商的分词器不同。
-三组外部调用总数均为 57 次。降幅以 Claude 基线为分母。
-拆分与依赖条件的历史 API 费率折算成本减少 58.52%，并非订阅账单。
-[测量方法、token 明细与独立判断阶段（英文）](docs/MEASURED_ROUTING.en.md) ·
-[公开汇总 JSON](docs/evidence/measured-results-20261015.json) ·
-[完整实验记录](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D067_RESULTS.md)。
+修复路由：同一失败候选（公开 79/93），在给修复工作智能体相关产物读取权限之前与之后
+（[D076 / D081 §2](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D081_REPAIR_PATH_AND_RESULTS.md)）：
 
-[D068–D085 后续结果、实际修复与重复运行（英文）](docs/POST_D067_RESULTS.en.md)。
+| 修复运行 | 结果 | 修复时间 |
+|---|---|---:|
+| 之前：仅写入范围 | 公开 88/93，独立 60/63（未完成） | 527.7秒，2 轮 |
+| 之后：允许读取相关产物 | **公开 93/93，独立 63/63** | 270.4秒（**−48.76%**），1 轮 |
+
+测量方法：
+
+- 时间包含判断、实现、修复与公开检查，不含共享准备与独立评分。
+- token 为 Claude 输入、输出、缓存创建、缓存读取与 Jev 输入、输出之和。各提供方分词器不同。
+- 成本按当时 API 标价折算，并非订阅账单。降幅以基线行为分母。
+- 每行均为单次观测。
+
+[测量方法与 token 明细（英文）](docs/MEASURED_ROUTING.en.md) ·
+[汇总 JSON](docs/evidence/measured-results-20261015.json) ·
+[D067 完整记录](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D067_RESULTS.md) ·
+[D068–D085 后续结果（英文）](docs/POST_D067_RESULTS.en.md)
+
+## 尚未证实
+
+以上改进是在一个对比批次中、检查质量相同前提下的效率。尚未证明 Pointsman 比仅用 Claude 的运行更可靠或结果更好。
+2026-10-17 的评估协议（[evaluation-protocol.v1](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/EVALUATION_PROTOCOL.md)，韩文）记录了当前证据：
+
+| 问题 | 当前证据 | 状态 |
+|---|---|---|
+| 质量至少相同吗？ | 同一运行内配对，仅 Claude 对完整 Jev 路由：Claude 2 胜 1 平 0 负（D066、D067、D071） | 未证实 |
+| 运行完成的频率？ | 之后的云端运行，需 93/93 + 63/63：D082 5/7（Wilson 95% 35.9–91.8%），D083 2/3，D085 2/3（20.8–93.9%） | 区间较宽 |
+| 改进能否重复？ | 37 个条件中仅 2 个有 3 次以上计入运行 | 未重复 |
+| 能否迁移到其他任务？ | 预先固定 15 个保留任务，尚未运行 | 待定 |
+
+之后的运行更换了检查集（85 → 93）、策略与主机，因此不合并为单一节省数字。当前工作只评估 Claude 工作智能体路径。
 
 ## 路由流程
 
-主智能体提供目标、公开规格和产物契约。Jev 通过固定英文问题判断任务拆分与依赖关系。
-研究运行器将验证后的答案连接到可执行 DAG，并在每个工作智能体允许的文件范围内执行就绪任务。
-
 ```text
 目标 + 规格 + 产物契约
-→ 结构化 Jev 问题与输入验证
-→ 拆分与依赖判断
+→ 输入验证与固定格式问题
+→ 任务拆分与依赖选择
 → 依赖 DAG 与就绪任务队列
 → 限定文件范围的编码工作智能体
 → 与产物版本绑定的公开检查
-→ 结果记录与基于失败证据的修复路由
+→ 仅针对失败产物、依据证据的修复
 ```
 
-- **按依赖关系调度。** 就绪任务可并行执行，下游任务接收经验证的上游产物。
-- **判断连接到执行。** 结构化答案连接到工作范围与执行处理程序。
-- **每个判断保留证据。** 问题、答案、用量、产物版本与检查结果保持关联。
+- **就绪单元并行运行。** 下游工作从经验证的上游产物开始。
+- **修复保持局部。** 失败的检查回到负责它的产物，而不是整体重建。
+- **每一步都留下证据。** 问题、答案、用量、产物版本与检查结果保持关联。
 
-控制器实施权限与验证，Jev 在契约范围内选择。测试确认产物是否满足任务要求。
 参见[技术规格](docs/TECHNICAL_SPEC.en.md)与[研究状态](https://github.com/Kai-Leee/pointsman/blob/research/docs/agents/STATE.md)。
 
 ## 快速开始
@@ -100,6 +120,8 @@ npm run demo -- --spend  # 1 次付费 POST；消耗 Jev 余额
   [输入契约](docs/EVALUATION_CONTRACT.en.md) · [仪表盘](docs/DASHBOARD.en.md) ·
   [开发联动与独立 Opus 监控](docs/PAIRED_RUN.md) · [基准测试](benchmarks/README.md) ·
   [MCP](MCP.md)
+- **结果：** [D067 实测（英文）](docs/MEASURED_ROUTING.en.md) · [D068–D085 后续结果（英文）](docs/POST_D067_RESULTS.en.md) ·
+  [评估协议（韩文）](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/EVALUATION_PROTOCOL.md)
 - **research 分支（韩语）：** [当前状态](https://github.com/Kai-Leee/pointsman/blob/research/docs/agents/STATE.md) ·
   [文档索引](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/README.md) · [决策记录](https://github.com/Kai-Leee/pointsman/blob/research/docs/DECISIONS.md) ·
   [工作记录](https://github.com/Kai-Leee/pointsman/blob/research/docs/WORK_LOG.md) · [验证记录](https://github.com/Kai-Leee/pointsman/blob/research/VERIFICATION.md) ·

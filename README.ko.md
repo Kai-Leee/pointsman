@@ -3,65 +3,86 @@
 
 <h1 align="center">Pointsman</h1>
 
-<p align="center"><em>Jev와 의존성 DAG로 빠르게 연결하는 작업 라우팅.</em><br><sub>이전 이름 Jev Router</sub></p>
+<p align="center"><em>코딩 에이전트를 위한 의존성 DAG 작업 라우팅, 처음부터 끝까지 실측합니다.</em><br><sub>이전 이름 Jev Router</sub></p>
 
 [English](README.md) | **한국어** | [简体中文](README.zh-CN.md)
 
-Pointsman은 Jev와 의존성 DAG를 활용하는 코딩 에이전트 작업 라우팅 프로젝트입니다.
-구조화된 판단을 작업 분해·선행 관계·실행 순서에 연결하고, 준비된 작업을 코딩 작업자에게 배정합니다.
-연구 실행기는 라우팅 결과를 담당 산출물, 공개 검사, 실행 기록까지 연결합니다.
+Pointsman은 코딩 작업을 담당 범위가 정해진 단위로 나누고, 의존성 DAG로 순서를 잡아 준비된 단위를
+코딩 작업자에게 보냅니다. 각 라우팅 단계는 전체 개발 실행에서 검사 결과를 낮추지 않고 시간이나 토큰을
+줄였을 때만 남깁니다. Jev는 이 과정 안에서 고정된 형식의 질문에 답하고, 컨트롤러가 작업 범위를 강제하며,
+공개 검사와 독립 숨김 검사가 결과를 판정합니다.
 
-이번 배포는 Jev 클라이언트·평가 도구·실행 계약·사용량 대시보드를 제공합니다.
-[main·research·로컬 기능 구분과 스킬 분해 방법](docs/CAPABILITIES.md)을 먼저 확인하세요.
-고급 DAG 실험은 [research 브랜치](https://github.com/Kai-Leee/pointsman/tree/research)에서 확인할 수 있습니다.
+이번 배포는 Jev 클라이언트·평가 도구·실행 계약·사용량 대시보드를 제공합니다
+([main·research·로컬 기능 구분](docs/CAPABILITIES.md)).
+DAG 실행기와 모든 실험은 [research 브랜치](https://github.com/Kai-Leee/pointsman/tree/research)에 있습니다.
 
-[실측 결과](#실측-결과) · [라우팅 과정](#라우팅-과정) · [빠른 시작](#빠른-시작) ·
-[문서](#문서) · [보안](#보안)
+[실측 개선](#실측-개선) · [아직 입증되지 않은 것](#아직-입증되지-않은-것) ·
+[라우팅 과정](#라우팅-과정) · [빠른 시작](#빠른-시작) · [문서](#문서) · [보안](#보안)
 
-## 실측 결과
+## 실측 개선
 
-완료된 D067 비교에서 Jev 분해·관계 판단 조건은 Claude 기준선 대비 **개발 시간 21.84%, 보고 토큰 합계 46.50% 감소**를 기록했습니다. 분해만 Jev로 옮긴 조건은 **시간 28.74%, 토큰 41.42% 감소**였습니다. 아래 세 조건 모두 **공개 85/85·독립 63/63 검사**를 통과했습니다.
+과제: 명세로부터 OpenAPI Python client generator를 만든다. 모든 조건의 작업자는 Opus 5.5 medium이고
+라우팅 판단만 바뀝니다. 모든 행이 **공개 85/85·독립 63/63 검사**를 통과했습니다.
 
-| OpenAPI Python client generator 조건 | 개발 단계 시간 | 보고 토큰 합계 | 당시 API 단가 환산 비용 |
+| D067 비교, 조건당 1회 | 개발 시간 | 보고 토큰 | API 단가 환산 비용 |
 |---|---:|---:|---:|
-| Claude 구조화 판단 + Claude 작업자 | 36분 20.704초 | 6,772,666 | $21.135172 |
-| Jev 분해 판단 + Claude 작업자 | 25분 54.036초 | 3,967,289 | $9.864863 |
-| Jev 분해·의존 관계 판단 + Claude 작업자 | 28분 24.540초 | 3,623,150 | $8.766580 |
+| Claude 구조화 판단 (기준선) | 36분 20.704초 | 6,772,666 | $21.135172 |
+| Jev 작업 분해 | 25분 54.036초 (**−28.74%**) | 3,967,289 (**−41.42%**) | $9.864863 (**−53.32%**) |
+| Jev 작업 분해 + 의존 관계 | 28분 24.540초 (**−21.84%**) | 3,623,150 (**−46.50%**) | $8.766580 (**−58.52%**) |
 
-조건별 1회이며 같은 비교군에서 동시에 실행했습니다. 공통 작업자는 Opus 5.5 medium,
-조건당 동시 작업자는 2개입니다. 시간은 판단·구현·수리·공개 검사를 포함하고 공통 준비와 독립 채점은 제외합니다.
-토큰은 Claude 입력·출력·캐시 생성·읽기와 Jev 입력·출력의 합이며, 공급자별 토크나이저는 다릅니다.
-세 조건의 총 외부 호출은 모두 57회입니다. 감소율의 분모는 Claude 기준선입니다.
-분해·관계 조건의 역사적 API 환산 비용은 58.52% 감소했으며, 월 구독 청구액이 아닙니다.
-[측정 방법·토큰 내역·추가 판단 구간](docs/MEASURED_ROUTING.md) ·
-[공개 집계 JSON](docs/evidence/measured-results-20261015.json) ·
-[전체 실험 기록](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D067_RESULTS.md).
+수리 라우팅: 같은 실패 후보(공개 79/93)에서 수리 작업자에게 관련 산출물 읽기 권한을 주기 전과 후
+([D076 / D081 §2](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D081_REPAIR_PATH_AND_RESULTS.md)):
 
-[D068–D085 후속 결과·실제 수리·반복 실행](docs/POST_D067_RESULTS.md).
+| 수리 실행 | 결과 | 수리 시간 |
+|---|---|---:|
+| 전: 쓰기 범위만 | 공개 88/93, 독립 60/63 (미완료) | 527.7초, 2라운드 |
+| 후: 관련 산출물 읽기 허용 | **공개 93/93, 독립 63/63** | 270.4초 (**−48.76%**), 1라운드 |
+
+측정 방법:
+
+- 시간은 판단·구현·수리·공개 검사를 포함하고, 공통 준비와 독립 채점은 제외합니다.
+- 토큰은 Claude 입력·출력·캐시 생성·캐시 읽기와 Jev 입력·출력의 합입니다. 공급자마다 토크나이저가 다릅니다.
+- 비용은 당시 API 정가 환산이며 구독 청구액이 아닙니다. 감소율의 분모는 기준선 행입니다.
+- 각 행은 1회 관측입니다.
+
+[측정 방법과 토큰 내역](docs/MEASURED_ROUTING.md) ·
+[집계 JSON](docs/evidence/measured-results-20261015.json) ·
+[D067 전체 기록](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D067_RESULTS.md) ·
+[D068–D085 이후 결과](docs/POST_D067_RESULTS.md)
+
+## 아직 입증되지 않은 것
+
+위 개선은 한 비교 묶음에서 같은 검사 품질을 유지한 효율입니다. Pointsman이 Claude 단독 실행보다
+더 안정적이거나 더 좋은 결과를 낸다는 것은 아직 보여주지 못했습니다. 2026-10-17 평가 프로토콜
+([evaluation-protocol.v1](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/EVALUATION_PROTOCOL.md))이 현재 근거를 정리합니다.
+
+| 질문 | 현재 근거 | 상태 |
+|---|---|---|
+| 품질이 최소한 같은가? | 같은 실행 안의 쌍, Claude 단독 대 Jev 전체 라우팅: Claude 2승 1무 0패 (D066, D067, D071) | 미입증 |
+| 실행이 얼마나 자주 완료되는가? | 이후 클라우드 실행, 93/93 + 63/63 필요: D082 5/7 (Wilson 95% 35.9–91.8%), D083 2/3, D085 2/3 (20.8–93.9%) | 구간이 넓음 |
+| 개선이 반복되는가? | 37개 조건 중 2개만 집계 실행이 3회 이상 | 반복 안 됨 |
+| 다른 과제로 옮겨지는가? | 사전 고정한 보류 과제 15개, 아직 실행 없음 | 대기 |
+
+이후 실행은 검사 수(85 → 93)·정책·호스트가 바뀌어 하나의 절감 수치로 합치지 않습니다.
+현재 작업은 Claude 작업자 경로만 평가합니다.
 
 ## 라우팅 과정
 
-메인 에이전트가 목표·공개 명세·산출물 계약을 제공합니다. 고정된 영어 질문으로 Jev가 작업 분해와
-의존 관계를 판단합니다. 연구 실행기는 검증된 답을 실행 가능한 DAG로 연결하고, 준비된 작업을
-각 작업자의 허용 파일 범위 안에서 실행합니다.
-
 ```text
 목표 + 명세 + 산출물 계약
-→ 구조화 Jev 질문과 입력 검증
-→ 분해·의존 관계 판단
-→ 의존성 DAG와 실행 가능한 작업 목록
-→ 담당 범위가 지정된 코딩 작업자
-→ 산출물 버전에 연결된 공개 검사
-→ 결과 기록과 실패 근거 기반 수리 라우팅
+→ 입력 검증과 고정 형식 질문
+→ 작업 분해와 의존 관계 선택
+→ 의존성 DAG와 준비된 작업 대기열
+→ 파일 범위가 제한된 코딩 작업자
+→ 산출물 버전에 묶인 공개 검사
+→ 실패 근거에 맞춘 해당 산출물만의 수리
 ```
 
-- **의존 관계를 따라 실행합니다.** 준비된 작업은 병렬로 진행하고, 후속 작업은 검증된 선행 산출물을 받습니다.
-- **판단을 실행에 연결합니다.** 구조화 답변이 작업자의 담당 범위와 실행 핸들러로 이어집니다.
-- **판단마다 근거를 남깁니다.** 질문·답변·사용량·산출물 버전·검사 결과를 연결해 기록합니다.
+- **준비된 단위는 동시에 실행합니다.** 하위 작업은 검증된 상위 산출물에서 시작합니다.
+- **수리는 국소적으로 합니다.** 실패한 검사는 전체 재작성이 아니라 그 검사를 담당하는 산출물로 돌아갑니다.
+- **모든 단계가 근거를 남깁니다.** 질문·답·사용량·산출물 버전·검사 결과가 연결됩니다.
 
-제어기가 권한과 검증을 적용하고 Jev는 그 계약 안에서 선택합니다. 완성한 산출물의 요구사항 충족은
-검사로 확인합니다. [기술 명세](docs/TECHNICAL_SPEC.md)와
-[연구 상태](https://github.com/Kai-Leee/pointsman/blob/research/docs/agents/STATE.md)를 참고하세요.
+[기술 명세](docs/TECHNICAL_SPEC.md)와 [연구 상태](https://github.com/Kai-Leee/pointsman/blob/research/docs/agents/STATE.md)를 참고하세요.
 
 ## 빠른 시작
 
@@ -102,6 +123,8 @@ npm run demo -- --spend  # 유료 POST 1회. Jev 잔액 사용
   [입력 계약](docs/EVALUATION_CONTRACT.md) · [대시보드](docs/DASHBOARD.md) ·
   [개발 연결과 별도 Opus 모니터](docs/PAIRED_RUN.md) · [벤치마크](benchmarks/README.md) ·
   [MCP](MCP.md)
+- **결과:** [D067 실측](docs/MEASURED_ROUTING.md) · [D068–D085 이후 결과](docs/POST_D067_RESULTS.md) ·
+  [평가 프로토콜](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/EVALUATION_PROTOCOL.md)
 - **research 브랜치:** [현재 상태](https://github.com/Kai-Leee/pointsman/blob/research/docs/agents/STATE.md) ·
   [문서 찾아보기](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/README.md) · [결정 기록](https://github.com/Kai-Leee/pointsman/blob/research/docs/DECISIONS.md) ·
   [작업 기록](https://github.com/Kai-Leee/pointsman/blob/research/docs/WORK_LOG.md) · [검증 기록](https://github.com/Kai-Leee/pointsman/blob/research/VERIFICATION.md) ·

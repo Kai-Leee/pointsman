@@ -3,65 +3,88 @@
 
 <h1 align="center">Pointsman</h1>
 
-<p align="center"><em>Fast task routing with Jev and dependency DAGs.</em><br><sub>formerly Jev Router</sub></p>
+<p align="center"><em>Dependency-DAG task routing for coding agents, measured end to end.</em><br><sub>formerly Jev Router</sub></p>
 
 **English** | [한국어](README.ko.md) | [简体中文](README.zh-CN.md)
 
-Pointsman is a Jev-powered task routing project for coding agents. It turns structured decisions
-into dependency DAGs: divide work, connect prerequisites, and dispatch ready tasks to coding workers.
-The research runner connects routing decisions to scoped artifacts, public checks and recorded outcomes.
+Pointsman splits a coding task into scoped units, orders them as a dependency DAG and dispatches
+ready units to coding workers. Each routing step is kept only when a full development run shows it
+saves time or tokens without lowering the checked result. Jev answers fixed, typed questions inside
+that loop; the controller enforces scopes, and public plus independent hidden tests decide the outcome.
 
-This release provides the Jev client, evaluation tools, run contracts and usage dashboard.
-See [released/research/local capabilities and skill decomposition](docs/CAPABILITIES.en.md).
-The advanced DAG experiments are documented on the [research branch](https://github.com/Kai-Leee/pointsman/tree/research).
+This release ships the Jev client, evaluation tools, run contracts and a usage dashboard
+([what is released, public research or local only](docs/CAPABILITIES.en.md)).
+The DAG runner and all experiments live on the [research branch](https://github.com/Kai-Leee/pointsman/tree/research).
 
-[Measured results](#measured-results) · [How routing works](#how-routing-works) ·
-[Quick start](#quick-start) · [Documentation](#documentation) · [Security](#security)
+[Measured gains](#measured-gains) · [Not yet established](#not-yet-established) ·
+[How routing works](#how-routing-works) · [Quick start](#quick-start) · [Documentation](#documentation) · [Security](#security)
 
-## Measured results
+## Measured gains
 
-In the completed D067 comparison, Jev decomposition plus dependency decisions used **21.84% less development-stage time and 46.50% fewer reported tokens** than the structured Claude baseline. Jev decomposition alone used **28.74% less time and 41.42% fewer tokens**. All three conditions passed **85 public and 63 independent checks**.
+Task: build an OpenAPI Python client generator from its specification. Workers are Opus 5.5 medium in every
+condition; only the routing decisions change. All rows passed **85/85 public and 63/63 independent checks**.
 
-| OpenAPI Python client generator | Development-stage time | Reported token sum | Historical API-rate-equivalent cost |
+| D067 cohort, one run per condition | Development time | Reported tokens | API-rate-equivalent cost |
 |---|---:|---:|---:|
-| Claude structured decisions + Claude workers | 36m 20.704s | 6,772,666 | $21.135172 |
-| Jev decomposition decisions + Claude workers | 25m 54.036s | 3,967,289 | $9.864863 |
-| Jev decomposition and dependency decisions + Claude workers | 28m 24.540s | 3,623,150 | $8.766580 |
+| Claude structured decisions (baseline) | 36m 20.704s | 6,772,666 | $21.135172 |
+| Jev decomposition | 25m 54.036s (**−28.74%**) | 3,967,289 (**−41.42%**) | $9.864863 (**−53.32%**) |
+| Jev decomposition + dependencies | 28m 24.540s (**−21.84%**) | 3,623,150 (**−46.50%**) | $8.766580 (**−58.52%**) |
 
-One run per condition in a concurrent cohort; identical Opus 5.5 medium workers and two worker slots per condition.
-Time includes decisions, implementation, repairs and public validation, excluding shared preparation and independent grading.
-Token sums include Claude input/output/cache creation/cache reads and Jev input/output; provider tokenizers differ.
-All three conditions had 57 external adapter calls. Reductions use the Claude row as denominator.
-The decomposition-plus-relations condition also used 58.52% less historical API-rate-equivalent cost; this is not a subscription bill.
-[Methods, token breakdown and separate decision-stage observation](docs/MEASURED_ROUTING.en.md) ·
-[Public aggregate JSON](docs/evidence/measured-results-20261015.json) ·
-[Complete experiment record](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D067_RESULTS.md).
+Repair routing, same failed starting candidate (public 79/93), before and after giving repair workers
+read access to related artifacts ([D076 / D081 §2](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D081_REPAIR_PATH_AND_RESULTS.md)):
 
-[D068–D085 follow-up results, actual repairs and repeated runs](docs/POST_D067_RESULTS.en.md).
+| Repair run | Result | Repair time |
+|---|---|---:|
+| Before: write scope only | 88/93 public, 60/63 independent (incomplete) | 527.7s, two rounds |
+| After: read access to related artifacts | **93/93 public, 63/63 independent** | 270.4s (**−48.76%**), one round |
+
+How these were measured:
+
+- Time covers decisions, implementation, repairs and public checks; it excludes shared preparation and independent grading.
+- Tokens are Claude input, output, cache creation and cache reads plus Jev input and output. Providers use different tokenizers.
+- Cost uses historical API list rates; it is not a subscription bill. Reductions use the baseline row as denominator.
+- Each row is a single observation.
+
+[Methods and token breakdown](docs/MEASURED_ROUTING.en.md) ·
+[aggregate JSON](docs/evidence/measured-results-20261015.json) ·
+[full D067 record](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/D067_RESULTS.md) ·
+[D068–D085 timeline](docs/POST_D067_RESULTS.en.md)
+
+## Not yet established
+
+The gains above are efficiency at equal checked quality in one cohort. They do not yet show that Pointsman
+is more reliable or produces better results than a Claude-only run. The evaluation protocol from
+2026-10-17 ([evaluation-protocol.v1](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/EVALUATION_PROTOCOL.md))
+records where the evidence stands:
+
+| Question | Current evidence | Status |
+|---|---|---|
+| Is quality at least equal? | Same-run pairs, Claude-only vs full Jev routing: Claude 2 wins, 1 tie, 0 losses (D066, D067, D071) | Not shown |
+| How often does a run complete? | Later cloud runs, 93/93 + 63/63 required: D082 5/7 (Wilson 95% 35.9–91.8%), D083 2/3, D085 2/3 (20.8–93.9%) | Wide intervals |
+| Do gains repeat? | 2 of 37 conditions have three or more counted runs | Not repeated |
+| Do gains transfer to other tasks? | 15 held-out tasks are fixed in advance; none run yet | Pending |
+
+Later runs changed the check set (85 → 93), policies and hosts, so they are not pooled into one savings figure.
+Current work evaluates Claude-worker paths only.
 
 ## How routing works
 
-The main agent supplies the goal, public specification and artifact contracts. Fixed English questions
-let Jev judge work decomposition and dependencies. The research runner turns validated decisions into
-an executable DAG, then dispatches ready work within each worker's file scope.
-
 ```text
 Goal + specification + artifact contracts
-→ structured Jev questions and input validation
-→ decomposition and dependency decisions
+→ input validation and fixed typed questions
+→ work decomposition and dependency choices
 → dependency DAG and ready-task queue
-→ scoped coding workers
+→ coding workers, each limited to its file scope
 → public checks tied to artifact revisions
-→ recorded outcomes and evidence-driven repair routing
+→ evidence-scoped repair of the failing artifact only
 ```
 
-- **Dependencies guide dispatch.** Ready tasks can run concurrently; downstream work consumes validated upstream artifacts.
-- **Decisions reach execution.** Structured answers connect to worker scopes and execution handlers.
-- **Evidence follows each decision.** Questions, accepted answers, usage, artifact revisions and checks stay connected.
+- **Ready units run concurrently.** Downstream work starts from validated upstream artifacts.
+- **Repair stays local.** A failing check routes back to the artifact that owns it, not to a full rebuild.
+- **Every step leaves evidence.** Questions, answers, usage, artifact revisions and check results stay linked.
 
-The controller enforces permissions and validation. Jev selects within that contract; tests establish
-whether the resulting artifacts meet the task requirements. See the
-[technical specification](docs/TECHNICAL_SPEC.en.md) and [research state](https://github.com/Kai-Leee/pointsman/blob/research/docs/agents/STATE.md).
+See the [technical specification](docs/TECHNICAL_SPEC.en.md) and the
+[research state](https://github.com/Kai-Leee/pointsman/blob/research/docs/agents/STATE.md).
 
 ## Quick start
 
@@ -104,6 +127,8 @@ More: [all usage, failure handling and deployment](docs/USAGE.en.md) ·
   [input contract](docs/EVALUATION_CONTRACT.en.md) · [dashboard](docs/DASHBOARD.en.md) ·
   [paired run and separate Opus monitor](docs/PAIRED_RUN.md) · [benchmarks](benchmarks/README.md) ·
   [MCP](MCP.md)
+- **Results:** [D067 measurements](docs/MEASURED_ROUTING.en.md) · [D068–D085 timeline](docs/POST_D067_RESULTS.en.md) ·
+  [evaluation protocol (Korean)](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/EVALUATION_PROTOCOL.md)
 - **Research branch (Korean):** [current state](https://github.com/Kai-Leee/pointsman/blob/research/docs/agents/STATE.md) ·
   [document index](https://github.com/Kai-Leee/pointsman/blob/research/docs/orchestration/README.md) · [decisions](https://github.com/Kai-Leee/pointsman/blob/research/docs/DECISIONS.md) ·
   [work log](https://github.com/Kai-Leee/pointsman/blob/research/docs/WORK_LOG.md) · [verification](https://github.com/Kai-Leee/pointsman/blob/research/VERIFICATION.md) ·
