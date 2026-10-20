@@ -1,0 +1,35 @@
+{
+  "code_commit": "92088e4",
+  "coupling": {
+    "task_cycles": [
+      {
+        "tasks": [
+          "n2",
+          "n3",
+          "n4",
+          "n5",
+          "n6"
+        ],
+        "foundation_files": [
+          "pyclientgen/config.py",
+          "pyclientgen/diagnostics.py",
+          "pyclientgen/ir.py",
+          "pyclientgen/metadata.py",
+          "pyclientgen/naming.py",
+          "pyclientgen/schema/enums.py",
+          "pyclientgen/schema/models.py",
+          "pyclientgen/schema/operations.py",
+          "pyclientgen/schema/properties.py"
+        ],
+        "foundation_share": 0.2727272727272727,
+        "resolves_with_foundation_first": false
+      }
+    ],
+    "split_file_cycles": []
+  },
+  "lazy_edges": 20,
+  "all_edges": 37,
+  "advice": [
+    "tasks n2, n3, n4, n5, n6 import each other: keep the plan and give each worker pyclientgen/config.py, pyclientgen/diagnostics.py, pyclientgen/ir.py, pyclientgen/metadata.py, pyclientgen/naming.py, pyclientgen/schema/enums.py, pyclientgen/schema/models.py, pyclientgen/schema/operations.py, pyclientgen/schema/properties.py as fixed interfaces from the spec"
+  ]
+}
