@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { closingFeedback, estimatePlan, findMissingLinks, shouldSkipJev, validatePlan } from '../src/plan/plan.mjs';
+import { analyzeCoupling, closingFeedback, estimatePlan, findMissingLinks, shouldSkipJev, validatePlan } from '../src/plan/plan.mjs';
 import { renderPlanView } from '../src/plan/view.mjs';
 
 const task = (id, extra = {}) => ({ id, profile: 'claude_sonnet55_medium', writes: [], inputs: [], outputs: [], requirements: [], ...extra });
@@ -78,4 +78,26 @@ test('the view lists every task and the closing items', () => {
   assert.deepEqual(feedback.map((f) => f.kind), ['plan', 'check', 'review']);
   const html = renderPlanView({ validation, gaps, estimate, skip: shouldSkipJev({ taskCount: 2, estimatedSeconds: 1 }), feedback }, { actual: { a: { start: 0, end: 10 } } });
   for (const text of ['PLAN_WRITE_OVERLAP', 'check failed: c1', 'spec review changed x.py', '>a<', '>b<', 'actual']) assert.ok(html.includes(text), text);
+});
+
+test('a task cycle that only comes from grouping is broken by a first task with the shared files', () => {
+  const plan = { tasks: [task('a', { writes: ['p/base.py', 'p/a_use.py'] }), task('b', { writes: ['p/b_base.py', 'p/b_use.py'] })] };
+  const files = { 'p/a_use.py': 'from p.b_base import B\n', 'p/b_use.py': 'from .base import A\n' };
+  const gaps = findMissingLinks(plan, (path) => files[path] ?? null);
+  const coupling = analyzeCoupling(plan, gaps);
+  assert.deepEqual(coupling.split_file_cycles, []);
+  assert.deepEqual(coupling.task_cycles, [{ tasks: ['a', 'b'], foundation_files: ['p/b_base.py', 'p/base.py'], foundation_share: 0.5, resolves_with_foundation_first: true }]);
+  const advice = closingFeedback({ validation: validatePlan(plan), gaps, estimate: estimatePlan(plan), coupling }).filter((f) => f.kind === 'coupling');
+  assert.match(advice[0].text, /in a first task/);
+});
+
+test('files that import each other across tasks must be regrouped', () => {
+  const plan = { tasks: [task('a', { writes: ['x.py'] }), task('b', { writes: ['y.py'] })] };
+  const files = { 'x.py': 'import y\n', 'y.py': 'import x\n' };
+  const gaps = findMissingLinks(plan, (path) => files[path] ?? null);
+  const coupling = analyzeCoupling(plan, gaps);
+  assert.deepEqual(coupling.split_file_cycles, [['x.py', 'y.py']]);
+  const advice = closingFeedback({ validation: validatePlan(plan), gaps, estimate: estimatePlan(plan), coupling }).filter((f) => f.kind === 'coupling').map((f) => f.text);
+  assert.match(advice[0], /keep together in one task: x\.py, y\.py/);
+  assert.match(advice[1], /fixed interfaces/); // moving every file first would just move the whole group
 });

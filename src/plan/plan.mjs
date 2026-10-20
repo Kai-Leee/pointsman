@@ -99,21 +99,64 @@ function importedPaths(file, text) {
 /** Links the plan does not express: a task's file imports a file another task writes, and that task is not before it.
  * `readFile(path)` returns the file text or null; only files that already exist can be scanned. */
 export function findMissingLinks(plan, readFile) {
-  const { predecessors } = validatePlan(plan), owner = new Map(), links = [], scanned = [];
+  const { predecessors } = validatePlan(plan), owner = new Map(), edges = [], scanned = [];
   for (const task of list(plan.tasks)) for (const path of list(task.writes)) owner.set(normalize(path), task.id);
   for (const task of list(plan.tasks)) {
-    const before = ancestors(task.id, predecessors);
     for (const path of list(task.writes)) {
       const text = readFile(path);
       if (text == null) continue;
       scanned.push(path);
       for (const imported of new Set(importedPaths(path, text))) {
-        const other = owner.get(imported);
-        if (other && other !== task.id && !before.has(other)) links.push({ task: task.id, needs: other, file: path, imports: imported });
+        if (owner.has(imported) && imported !== normalize(path)) edges.push({ task: task.id, needs: owner.get(imported), file: path, imports: imported });
       }
     }
   }
-  return { links, scanned };
+  const links = edges.filter((e) => e.needs !== e.task && !ancestors(e.task, predecessors).has(e.needs));
+  return { links, scanned, edges };
+}
+
+// Groups of nodes that reach each other (strongly connected), size > 1 only. Plans are small, so plain reachability is enough.
+function cycles(nodes, pairs) {
+  const next = new Map(nodes.map((n) => [n, new Set()]));
+  for (const [from, to] of pairs) next.get(from)?.add(to);
+  const reach = (start) => {
+    const seen = new Set([start]), stack = [start];
+    while (stack.length) for (const n of next.get(stack.pop()) ?? []) if (!seen.has(n)) { seen.add(n); stack.push(n); }
+    return seen;
+  };
+  const reached = new Map(nodes.map((n) => [n, reach(n)])), done = new Set(), groups = [];
+  for (const n of nodes) {
+    if (done.has(n)) continue;
+    const group = nodes.filter((m) => reached.get(n).has(m) && reached.get(m).has(n));
+    group.forEach((m) => done.add(m));
+    if (group.length > 1) groups.push(group);
+  }
+  return groups;
+}
+
+/** Tasks that import each other. A file-level import cycle split across tasks must be regrouped; a task cycle that only
+ * comes from grouping can be broken by a first task holding the shared files, or kept with those files as fixed interfaces.
+ * `edges` are the import edges from findMissingLinks. */
+export function analyzeCoupling(plan, { edges = [] } = {}) {
+  const { predecessors } = validatePlan(plan), ids = list(plan.tasks).map((t) => t.id);
+  const owner = new Map(list(plan.tasks).flatMap((t) => list(t.writes).map((p) => [normalize(p), t.id])));
+  const fileCycles = cycles([...owner.keys()], edges.map((e) => [e.imports, normalize(e.file)]));
+  const split_file_cycles = fileCycles.filter((g) => new Set(g.map((f) => owner.get(f))).size > 1);
+  const planPairs = ids.flatMap((id) => predecessors[id].map((p) => [p, id]));
+  const groups = cycles(ids, [...planPairs, ...edges.map((e) => [e.needs, e.task])]).map((tasks) => {
+    const inGroup = new Set(tasks), foundation = new Set();
+    for (const e of edges) if (e.task !== e.needs && inGroup.has(e.task) && inGroup.has(e.needs)) foundation.add(e.imports);
+    for (const g of fileCycles) if (g.some((f) => foundation.has(f))) g.forEach((f) => foundation.add(f));
+    const moved = (file) => (foundation.has(file) ? '(first)' : owner.get(file));
+    const after = [...planPairs, ...edges.map((e) => [moved(e.imports), moved(normalize(e.file))])]
+      .filter(([a, b]) => a !== b && (inGroup.has(a) || a === '(first)') && (inGroup.has(b) || b === '(first)'));
+    const files = [...owner].filter(([, t]) => inGroup.has(t)).length;
+    return {
+      tasks, foundation_files: [...foundation].sort(), foundation_share: files ? foundation.size / files : 0,
+      resolves_with_foundation_first: cycles([...tasks, '(first)'], after).length === 0,
+    };
+  });
+  return { task_cycles: groups, split_file_cycles };
 }
 
 /** Time and cost estimate per task (median and range of recorded samples for its profile), a slot schedule and totals.
@@ -168,11 +211,20 @@ export function shouldSkipJev({ taskCount, estimatedSeconds }, { rates = RATES }
   return { skip: false, reason: null, overhead_seconds: overhead };
 }
 
+// shortcut: half of the group's files is a judgment line, not a measured one; revisit once interface-first runs are recorded.
+function couplingAdvice(group) {
+  const names = group.foundation_files.join(', ');
+  if (group.resolves_with_foundation_first && group.foundation_share <= 0.5) return `tasks ${group.tasks.join(', ')} import each other: write ${names} in a first task, then the rest`;
+  return `tasks ${group.tasks.join(', ')} import each other: keep the plan and give each worker ${names} as fixed interfaces from the spec`;
+}
+
 /** Items to close out a run: plan errors, unexpressed links, size outliers, failed checks and files a review changed.
  * Repair is not automated here; the list goes to the person running the session. */
-export function closingFeedback({ validation, gaps, estimate, checks = [], reviewChanged = [] }) {
+export function closingFeedback({ validation, gaps, estimate, coupling = null, checks = [], reviewChanged = [] }) {
   return [
     ...validation.errors.map((e) => ({ kind: 'plan', text: `${e.code}${e.task ? ` ${e.task}` : ''}${e.path ? ` ${e.path}` : ''}${e.artifact ? ` ${e.artifact}` : ''}` })),
+    ...(coupling?.split_file_cycles ?? []).map((files) => ({ kind: 'coupling', text: `keep together in one task: ${files.join(', ')} import each other` })),
+    ...(coupling?.task_cycles ?? []).map((g) => ({ kind: 'coupling', text: couplingAdvice(g) })),
     ...(gaps?.links ?? []).map((l) => ({ kind: 'link', text: `${l.task} imports ${l.imports} (written by ${l.needs}) without a plan link` })),
     ...estimate.warnings.map((w) => ({ kind: 'size', text: `${w.code} ${w.task}${w.profile ? ` ${w.profile}` : ''}` })),
     ...checks.filter((c) => !c.passed).map((c) => ({ kind: 'check', text: `check failed: ${c.id}` })),

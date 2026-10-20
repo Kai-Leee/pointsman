@@ -4,7 +4,7 @@
 // Prints a JSON report; exits 2 when the plan has structural errors.
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { closingFeedback, estimatePlan, findMissingLinks, shouldSkipJev, validatePlan } from '../src/plan/plan.mjs';
+import { analyzeCoupling, closingFeedback, estimatePlan, findMissingLinks, shouldSkipJev, validatePlan } from '../src/plan/plan.mjs';
 import { renderPlanView } from '../src/plan/view.mjs';
 
 const args = process.argv.slice(2);
@@ -16,11 +16,12 @@ const repo = option('--repo');
 const readFile = (path) => { const full = resolve(repo ?? '.', path); return repo && existsSync(full) ? readFileSync(full, 'utf8') : null; };
 
 const validation = validatePlan(plan);
-const gaps = repo ? findMissingLinks(plan, readFile) : { links: [], scanned: [] };
+const gaps = repo ? findMissingLinks(plan, readFile) : { links: [], scanned: [], edges: [] };
+const coupling = analyzeCoupling(plan, gaps);
 const estimate = estimatePlan(plan, { slots: Number(option('--slots') ?? 2) });
 const skip = shouldSkipJev({ taskCount: plan.tasks?.length ?? 0, estimatedSeconds: estimate.totals.makespan_seconds });
-const feedback = closingFeedback({ validation, gaps, estimate });
-const report = { validation, gaps, estimate, skip, feedback };
+const feedback = closingFeedback({ validation, gaps, estimate, coupling });
+const report = { validation, gaps, coupling, estimate, skip, feedback };
 
 const html = option('--html');
 if (html) {

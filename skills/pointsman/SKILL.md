@@ -41,6 +41,10 @@ node "${CLAUDE_PLUGIN_ROOT}/bin/pointsman-plan.mjs" --plan .pointsman/plan.json 
 
 - Exit 2 means a placement error (`PLAN_WRITE_OVERLAP`, `PLAN_INPUT_WITHOUT_PRODUCER`, `PLAN_DUPLICATE_PRODUCER`, `PLAN_CYCLE`, `PLAN_REQUIREMENT_UNOWNED`). Fix the plan and run the check again.
 - `gaps.links` lists imports between tasks that the plan does not order. Add the missing input/output pair, or say why the order does not matter.
+- `coupling` covers tasks that import each other, where adding links would create a cycle:
+  - `split_file_cycles`: files that import each other sit in different tasks. Move them into one task before starting.
+  - `task_cycles` with `resolves_with_foundation_first` and `foundation_share` at most 0.5: put `foundation_files` in a first task that the others depend on.
+  - Other `task_cycles`: keep the plan, and give every worker in the group the `foundation_files` names and signatures from the spec as fixed interfaces.
 - `estimate` gives time and cost per task from recorded runs. They are medians of a small sample. Present them as estimates.
 - If `skip.skip` is true, do the task directly in this session without decomposition.
 
