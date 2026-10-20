@@ -101,3 +101,13 @@ test('files that import each other across tasks must be regrouped', () => {
   assert.match(advice[0], /keep together in one task: x\.py, y\.py/);
   assert.match(advice[1], /fixed interfaces/); // moving every file first would just move the whole group
 });
+
+test('a lazy import inside a function does not make a load-time file cycle but still links the tasks', () => {
+  const plan = { tasks: [task('a', { writes: ['x.py'] }), task('b', { writes: ['y.py'] })] };
+  const files = { 'x.py': 'import y\n', 'y.py': 'def f():\n    import x\n    return x\n' };
+  const gaps = findMissingLinks(plan, (path) => files[path] ?? null);
+  assert.deepEqual(gaps.edges.map((e) => `${e.file}->${e.imports}:${e.lazy}`).sort(), ['x.py->y.py:false', 'y.py->x.py:true']);
+  const coupling = analyzeCoupling(plan, gaps);
+  assert.deepEqual(coupling.split_file_cycles, []);
+  assert.deepEqual(coupling.task_cycles.map((g) => g.tasks), [['a', 'b']]);
+});

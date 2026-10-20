@@ -65,35 +65,37 @@ const ancestors = (id, predecessors, seen = new Set()) => {
 };
 
 // Python absolute/relative imports and JS relative imports, resolved to repository paths.
+// Each found path carries `lazy`: an indented Python import or a JS import()/require() runs only when called,
+// so it cannot fail at load time even inside a cycle.
 function importedPaths(file, text) {
   const found = [];
-  const python = (module, dots) => {
+  const python = (module, dots, lazy) => {
     let base = dots ? dirname(file) : '.';
     for (let i = 1; i < dots; i += 1) base = dirname(base);
     const parts = module ? module.split('.') : [];
     const stem = join(base, ...parts);
-    found.push(`${stem}.py`, join(stem, '__init__.py'));
+    found.push({ path: `${stem}.py`, lazy }, { path: join(stem, '__init__.py'), lazy });
     return stem;
   };
   // Names run to the end of the line, or across lines only inside parentheses.
-  for (const match of text.matchAll(/^[ \t]*from[ \t]+(\.*)([\w.]*)[ \t]+import[ \t]+(\([^)]*\)|[^\n#]*)/gm)) {
-    const stem = python(match[2], match[1].length);
-    for (const name of match[3].replace(/[()]/g, '').split(',').map((s) => s.trim().split(/\s+/)[0]).filter((s) => /^\w+$/.test(s))) {
-      found.push(join(stem, `${name}.py`), join(stem, name, '__init__.py'));
+  for (const match of text.matchAll(/^([ \t]*)from[ \t]+(\.*)([\w.]*)[ \t]+import[ \t]+(\([^)]*\)|[^\n#]*)/gm)) {
+    const lazy = match[1].length > 0, stem = python(match[3], match[2].length, lazy);
+    for (const name of match[4].replace(/[()]/g, '').split(',').map((s) => s.trim().split(/\s+/)[0]).filter((s) => /^\w+$/.test(s))) {
+      found.push({ path: join(stem, `${name}.py`), lazy }, { path: join(stem, name, '__init__.py'), lazy });
     }
   }
-  for (const match of text.matchAll(/^\s*import\s+([\w.]+(?:\s*,\s*[\w.]+)*)/gm)) {
-    for (const module of match[1].split(',')) python(module.trim(), 0);
+  for (const match of text.matchAll(/^([ \t]*)import[ \t]+([\w.]+(?:[ \t]*,[ \t]*[\w.]+)*)/gm)) {
+    for (const module of match[2].split(',')) python(module.trim(), 0, match[1].length > 0);
   }
-  for (const match of text.matchAll(/(?:from\s+|import\s*\(\s*|require\s*\(\s*)['"](\.{1,2}\/[^'"]+)['"]/g)) {
-    const stem = join(dirname(file), match[1]);
-    found.push(stem, `${stem}.js`, `${stem}.mjs`, `${stem}.ts`, join(stem, 'index.js'));
+  for (const match of text.matchAll(/(from\s+|import\s*\(\s*|require\s*\(\s*)['"](\.{1,2}\/[^'"]+)['"]/g)) {
+    const stem = join(dirname(file), match[2]), lazy = !match[1].startsWith('from');
+    for (const path of [stem, `${stem}.js`, `${stem}.mjs`, `${stem}.ts`, join(stem, 'index.js')]) found.push({ path, lazy });
   }
   // shortcut: an enclosing package's __init__.py runs on every submodule import, so it is not reported as a link;
   // report it if plans start splitting package initialisation into its own task.
   const own = normalize(dirname(file));
-  return found.map((path) => normalize(path))
-    .filter((path) => !(path.endsWith('__init__.py') && (own + '/').startsWith(normalize(dirname(path)) + '/')));
+  return found.map(({ path, lazy }) => ({ path: normalize(path), lazy }))
+    .filter(({ path }) => !(path.endsWith('__init__.py') && (own + '/').startsWith(normalize(dirname(path)) + '/')));
 }
 
 /** Links the plan does not express: a task's file imports a file another task writes, and that task is not before it.
@@ -106,8 +108,11 @@ export function findMissingLinks(plan, readFile) {
       const text = readFile(path);
       if (text == null) continue;
       scanned.push(path);
-      for (const imported of new Set(importedPaths(path, text))) {
-        if (owner.has(imported) && imported !== normalize(path)) edges.push({ task: task.id, needs: owner.get(imported), file: path, imports: imported });
+      const seen = new Set();
+      for (const { path: imported, lazy } of importedPaths(path, text)) {
+        if (!owner.has(imported) || imported === normalize(path) || seen.has(`${imported}|${lazy}`)) continue;
+        seen.add(`${imported}|${lazy}`);
+        edges.push({ task: task.id, needs: owner.get(imported), file: path, imports: imported, lazy });
       }
     }
   }
@@ -140,7 +145,8 @@ function cycles(nodes, pairs) {
 export function analyzeCoupling(plan, { edges = [] } = {}) {
   const { predecessors } = validatePlan(plan), ids = list(plan.tasks).map((t) => t.id);
   const owner = new Map(list(plan.tasks).flatMap((t) => list(t.writes).map((p) => [normalize(p), t.id])));
-  const fileCycles = cycles([...owner.keys()], edges.map((e) => [e.imports, normalize(e.file)]));
+  // Only load-time imports can make a file cycle fail; lazy imports still count for task order and interfaces.
+  const fileCycles = cycles([...owner.keys()], edges.filter((e) => !e.lazy).map((e) => [e.imports, normalize(e.file)]));
   const split_file_cycles = fileCycles.filter((g) => new Set(g.map((f) => owner.get(f))).size > 1);
   const planPairs = ids.flatMap((id) => predecessors[id].map((p) => [p, id]));
   const groups = cycles(ids, [...planPairs, ...edges.map((e) => [e.needs, e.task])]).map((tasks) => {
