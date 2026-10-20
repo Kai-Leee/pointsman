@@ -1,0 +1,423 @@
+{
+  "validation": {
+    "order": [
+      "n1",
+      "n3",
+      "n4",
+      "n5",
+      "n6",
+      "n2"
+    ],
+    "predecessors": {
+      "n1": [],
+      "n2": [
+        "n3",
+        "n5"
+      ],
+      "n3": [],
+      "n4": [],
+      "n5": [],
+      "n6": []
+    },
+    "errors": []
+  },
+  "gaps": {
+    "links": [
+      {
+        "task": "n1",
+        "needs": "n3",
+        "file": "pyclientgen/cli.py",
+        "imports": "pyclientgen/config.py"
+      },
+      {
+        "task": "n1",
+        "needs": "n2",
+        "file": "pyclientgen/cli.py",
+        "imports": "pyclientgen/generator.py"
+      },
+      {
+        "task": "n2",
+        "needs": "n4",
+        "file": "pyclientgen/generator.py",
+        "imports": "pyclientgen/naming.py"
+      },
+      {
+        "task": "n2",
+        "needs": "n4",
+        "file": "pyclientgen/generator.py",
+        "imports": "pyclientgen/metadata.py"
+      },
+      {
+        "task": "n3",
+        "needs": "n2",
+        "file": "pyclientgen/config.py",
+        "imports": "pyclientgen/diagnostics.py"
+      },
+      {
+        "task": "n3",
+        "needs": "n4",
+        "file": "pyclientgen/config.py",
+        "imports": "pyclientgen/naming.py"
+      },
+      {
+        "task": "n3",
+        "needs": "n2",
+        "file": "pyclientgen/schema/defaults.py",
+        "imports": "pyclientgen/diagnostics.py"
+      },
+      {
+        "task": "n3",
+        "needs": "n2",
+        "file": "pyclientgen/schema/models.py",
+        "imports": "pyclientgen/diagnostics.py"
+      },
+      {
+        "task": "n3",
+        "needs": "n4",
+        "file": "pyclientgen/schema/models.py",
+        "imports": "pyclientgen/naming.py"
+      },
+      {
+        "task": "n3",
+        "needs": "n5",
+        "file": "pyclientgen/schema/models.py",
+        "imports": "pyclientgen/ir.py"
+      },
+      {
+        "task": "n4",
+        "needs": "n2",
+        "file": "pyclientgen/schema/enums.py",
+        "imports": "pyclientgen/diagnostics.py"
+      },
+      {
+        "task": "n4",
+        "needs": "n5",
+        "file": "pyclientgen/schema/enums.py",
+        "imports": "pyclientgen/ir.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n4",
+        "file": "pyclientgen/schema/operations.py",
+        "imports": "pyclientgen/naming.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n6",
+        "file": "pyclientgen/schema/operations.py",
+        "imports": "pyclientgen/schema/properties.py"
+      },
+      {
+        "task": "n6",
+        "needs": "n2",
+        "file": "pyclientgen/schema/refs.py",
+        "imports": "pyclientgen/diagnostics.py"
+      },
+      {
+        "task": "n6",
+        "needs": "n4",
+        "file": "pyclientgen/schema/properties.py",
+        "imports": "pyclientgen/naming.py"
+      },
+      {
+        "task": "n6",
+        "needs": "n2",
+        "file": "pyclientgen/schema/properties.py",
+        "imports": "pyclientgen/diagnostics.py"
+      },
+      {
+        "task": "n6",
+        "needs": "n5",
+        "file": "pyclientgen/schema/properties.py",
+        "imports": "pyclientgen/ir.py"
+      },
+      {
+        "task": "n6",
+        "needs": "n4",
+        "file": "pyclientgen/schema/properties.py",
+        "imports": "pyclientgen/schema/enums.py"
+      },
+      {
+        "task": "n6",
+        "needs": "n5",
+        "file": "pyclientgen/schema/unions.py",
+        "imports": "pyclientgen/ir.py"
+      }
+    ],
+    "scanned": [
+      "pyproject.toml",
+      "setup.sh",
+      "pyclientgen/__init__.py",
+      "pyclientgen/cli.py",
+      "pyclientgen/__main__.py",
+      "pyclientgen/loader.py",
+      "pyclientgen/diagnostics.py",
+      "pyclientgen/generator.py",
+      "pyclientgen/hooks.py",
+      "pyclientgen/config.py",
+      "pyclientgen/schema/defaults.py",
+      "pyclientgen/schema/models.py",
+      "pyclientgen/templates/model.py.jinja",
+      "pyclientgen/templates/enum.py.jinja",
+      "pyclientgen/templates/literal_enum.py.jinja",
+      "pyclientgen/templates/models_init.py.jinja",
+      "pyclientgen/naming.py",
+      "pyclientgen/schema/enums.py",
+      "pyclientgen/metadata.py",
+      "pyclientgen/templates/pyproject_poetry.toml.jinja",
+      "pyclientgen/templates/pyproject_pdm.toml.jinja",
+      "pyclientgen/templates/pyproject_uv.toml.jinja",
+      "pyclientgen/templates/setup.py.jinja",
+      "pyclientgen/templates/README.md.jinja",
+      "pyclientgen/templates/gitignore.jinja",
+      "pyclientgen/ir.py",
+      "pyclientgen/schema/operations.py",
+      "pyclientgen/templates/types.py.jinja",
+      "pyclientgen/templates/package_init.py.jinja",
+      "pyclientgen/templates/client.py.jinja",
+      "pyclientgen/templates/errors.py.jinja",
+      "pyclientgen/templates/endpoint_module.py.jinja",
+      "pyclientgen/templates/api_init.py.jinja",
+      "pyclientgen/templates/tag_init.py.jinja",
+      "pyclientgen/schema/__init__.py",
+      "pyclientgen/schema/refs.py",
+      "pyclientgen/schema/properties.py",
+      "pyclientgen/schema/unions.py"
+    ]
+  },
+  "estimate": {
+    "tasks": {
+      "n1": {
+        "profile": "claude_opus55_medium",
+        "seconds": 514,
+        "usd": 1.8209855,
+        "range": {
+          "seconds": [
+            50,
+            922
+          ],
+          "usd": [
+            0.2988228,
+            3.2730298
+          ]
+        },
+        "samples": 6
+      },
+      "n2": {
+        "profile": "claude_opus55_medium",
+        "seconds": 514,
+        "usd": 1.8209855,
+        "range": {
+          "seconds": [
+            50,
+            922
+          ],
+          "usd": [
+            0.2988228,
+            3.2730298
+          ]
+        },
+        "samples": 6
+      },
+      "n3": {
+        "profile": "claude_opus55_medium",
+        "seconds": 514,
+        "usd": 1.8209855,
+        "range": {
+          "seconds": [
+            50,
+            922
+          ],
+          "usd": [
+            0.2988228,
+            3.2730298
+          ]
+        },
+        "samples": 6
+      },
+      "n4": {
+        "profile": "claude_sonnet55_medium",
+        "seconds": 80,
+        "usd": 0.20103169999999998,
+        "range": {
+          "seconds": [
+            44,
+            174
+          ],
+          "usd": [
+            0.1345098,
+            0.4353807
+          ]
+        },
+        "samples": 4
+      },
+      "n5": {
+        "profile": "claude_opus55_medium",
+        "seconds": 514,
+        "usd": 1.8209855,
+        "range": {
+          "seconds": [
+            50,
+            922
+          ],
+          "usd": [
+            0.2988228,
+            3.2730298
+          ]
+        },
+        "samples": 6
+      },
+      "n6": {
+        "profile": "claude_sonnet55_medium",
+        "seconds": 80,
+        "usd": 0.20103169999999998,
+        "range": {
+          "seconds": [
+            44,
+            174
+          ],
+          "usd": [
+            0.1345098,
+            0.4353807
+          ]
+        },
+        "samples": 4
+      }
+    },
+    "schedule": [
+      {
+        "task": "n1",
+        "slot": 0,
+        "start": 0,
+        "end": 514
+      },
+      {
+        "task": "n3",
+        "slot": 1,
+        "start": 0,
+        "end": 514
+      },
+      {
+        "task": "n5",
+        "slot": 0,
+        "start": 514,
+        "end": 1028
+      },
+      {
+        "task": "n2",
+        "slot": 1,
+        "start": 1028,
+        "end": 1542
+      },
+      {
+        "task": "n4",
+        "slot": 0,
+        "start": 1028,
+        "end": 1108
+      },
+      {
+        "task": "n6",
+        "slot": 0,
+        "start": 1108,
+        "end": 1188
+      }
+    ],
+    "warnings": [],
+    "slots": 2,
+    "totals": {
+      "makespan_seconds": 1542,
+      "sequential_seconds": 2216,
+      "usd": 7.686005399999999,
+      "time_saved_vs_sequential": 0.30415162454873645,
+      "usd_saved_vs_all_baseline_profile": 0.296534266747319,
+      "baseline_profile": "claude_opus55_medium"
+    }
+  },
+  "skip": {
+    "skip": false,
+    "reason": null,
+    "overhead_seconds": 436
+  },
+  "feedback": [
+    {
+      "kind": "link",
+      "text": "n1 imports pyclientgen/config.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n1 imports pyclientgen/generator.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n2 imports pyclientgen/naming.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n2 imports pyclientgen/metadata.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n3 imports pyclientgen/diagnostics.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n3 imports pyclientgen/naming.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n3 imports pyclientgen/diagnostics.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n3 imports pyclientgen/diagnostics.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n3 imports pyclientgen/naming.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n3 imports pyclientgen/ir.py (written by n5) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n4 imports pyclientgen/diagnostics.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n4 imports pyclientgen/ir.py (written by n5) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports pyclientgen/naming.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports pyclientgen/schema/properties.py (written by n6) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n6 imports pyclientgen/diagnostics.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n6 imports pyclientgen/naming.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n6 imports pyclientgen/diagnostics.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n6 imports pyclientgen/ir.py (written by n5) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n6 imports pyclientgen/schema/enums.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n6 imports pyclientgen/ir.py (written by n5) without a plan link"
+    }
+  ]
+}

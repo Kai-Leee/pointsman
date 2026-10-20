@@ -1,3 +1,5 @@
+R20261020-PLAN-TOOLS: 수리 제외 항목을 main용 브랜치 feat/plan-tools-20261020(92e231d, v0.4.0)에 구현. 배치 검사·연결 누락·예상 시간비용·건너뛰기·회색조 배치 그림·마무리 목록·Claude 플러그인(작업자는 세션 에이전트를 따름). 기록된 2실행 적용: 배치 오류 0, 계획에 없던 import 연결 openapi 20·h2 18(h2 계획은 의존 0개였음), 예상 오차 −10%~+34%(같은 실행으로 보정, 검증 아님). 미push. [기록](decisions/R20261020_PLAN_TOOLS.md). 아래는 당시 기록이다.
+
 R20261020-PLUGIN-PLAN: main으로 올릴 Pointsman 플러그인 수정 계획. 원칙0: 제품 모드 작업자는 메인 세션 에이전트를 따름(해석 확인 대기). 추가: 예상 토큰·시간, 크기·연결 누락 점검, Jev 뒤 배치 그림과 마무리 피드백 루프. 수정: 계획 검증기, 수리 사다리, Jev 건너뛰기 기준. 정정: openapi-02·h2-04의 Claude 비용에 명세 검토($2.35·$1.30)가 빠져 있었음, 실제 $10.85·$5.19. [기록](decisions/R20261020_PLUGIN_PLAN.md). 아래는 당시 기록이다.
 
 R20261020-WORKFLOW-DESIGN: Pointsman을 Claude Code Workflow로 옮기는 설계 검토. 결론은 혼합안: 실험 실행기(Node)는 유지하고, Jev 판단을 MCP 도구로 감싼 제품용 Workflow 모드를 따로 둔다. 위험: 작업자 격리 상실(모든 도구·CLAUDE.md 주입), 무료 리허설 불가, 작업자별 비용 미확인. 후속 실험(5e6f4aa 커밋 후): 직접 정의한 agent는 main checkout 세션에서 찾지 못함, 내장 Explore는 CLAUDE.md 미주입이나 Bash 있음, general-purpose는 둘 다 있음. 다음: worktree에서 시작한 세션으로 재실행. [기록](decisions/R20261020_WORKFLOW_DESIGN.md). 아래는 당시 기록이다.

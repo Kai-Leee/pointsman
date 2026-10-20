@@ -1,0 +1,374 @@
+{
+  "validation": {
+    "order": [
+      "n1",
+      "n2",
+      "n3",
+      "n4",
+      "n5"
+    ],
+    "predecessors": {
+      "n1": [],
+      "n2": [],
+      "n3": [],
+      "n4": [],
+      "n5": []
+    },
+    "errors": []
+  },
+  "gaps": {
+    "links": [
+      {
+        "task": "n2",
+        "needs": "n3",
+        "file": "h2/stream.py",
+        "imports": "h2/errors.py"
+      },
+      {
+        "task": "n2",
+        "needs": "n4",
+        "file": "h2/stream.py",
+        "imports": "h2/events.py"
+      },
+      {
+        "task": "n2",
+        "needs": "n3",
+        "file": "h2/stream.py",
+        "imports": "h2/exceptions.py"
+      },
+      {
+        "task": "n2",
+        "needs": "n5",
+        "file": "h2/stream.py",
+        "imports": "h2/utilities.py"
+      },
+      {
+        "task": "n2",
+        "needs": "n3",
+        "file": "h2/windows.py",
+        "imports": "h2/exceptions.py"
+      },
+      {
+        "task": "n4",
+        "needs": "n3",
+        "file": "h2/settings.py",
+        "imports": "h2/errors.py"
+      },
+      {
+        "task": "n4",
+        "needs": "n3",
+        "file": "h2/settings.py",
+        "imports": "h2/exceptions.py"
+      },
+      {
+        "task": "n4",
+        "needs": "n3",
+        "file": "h2/upgrade.py",
+        "imports": "h2/exceptions.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n3",
+        "file": "h2/utilities.py",
+        "imports": "h2/exceptions.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n4",
+        "file": "h2/connection.py",
+        "imports": "h2/events.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n2",
+        "file": "h2/connection.py",
+        "imports": "h2/config.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n3",
+        "file": "h2/connection.py",
+        "imports": "h2/errors.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n3",
+        "file": "h2/connection.py",
+        "imports": "h2/exceptions.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n4",
+        "file": "h2/connection.py",
+        "imports": "h2/settings.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n4",
+        "file": "tests/test_roundtrip.py",
+        "imports": "h2/settings.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n2",
+        "file": "tests/test_roundtrip.py",
+        "imports": "h2/config.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n4",
+        "file": "tests/test_roundtrip.py",
+        "imports": "h2/events.py"
+      },
+      {
+        "task": "n5",
+        "needs": "n3",
+        "file": "tests/test_roundtrip.py",
+        "imports": "h2/exceptions.py"
+      }
+    ],
+    "scanned": [
+      "pyproject.toml",
+      "setup.sh",
+      "h2/__init__.py",
+      "h2/config.py",
+      "h2/stream.py",
+      "h2/windows.py",
+      "h2/errors.py",
+      "h2/exceptions.py",
+      "h2/frame_buffer.py",
+      "h2/settings.py",
+      "h2/events.py",
+      "h2/upgrade.py",
+      "h2/utilities.py",
+      "h2/connection.py",
+      "tests/test_roundtrip.py"
+    ]
+  },
+  "estimate": {
+    "tasks": {
+      "n1": {
+        "profile": "claude_haiku55_low",
+        "seconds": 29,
+        "usd": 0.00500232,
+        "range": {
+          "seconds": [
+            29,
+            29
+          ],
+          "usd": [
+            0.00500232,
+            0.00500232
+          ]
+        },
+        "samples": 1
+      },
+      "n2": {
+        "profile": "claude_opus55_medium",
+        "seconds": 514,
+        "usd": 1.8209855,
+        "range": {
+          "seconds": [
+            50,
+            922
+          ],
+          "usd": [
+            0.2988228,
+            3.2730298
+          ]
+        },
+        "samples": 6
+      },
+      "n3": {
+        "profile": "claude_sonnet55_medium",
+        "seconds": 80,
+        "usd": 0.20103169999999998,
+        "range": {
+          "seconds": [
+            44,
+            174
+          ],
+          "usd": [
+            0.1345098,
+            0.4353807
+          ]
+        },
+        "samples": 4
+      },
+      "n4": {
+        "profile": "claude_sonnet55_medium",
+        "seconds": 80,
+        "usd": 0.20103169999999998,
+        "range": {
+          "seconds": [
+            44,
+            174
+          ],
+          "usd": [
+            0.1345098,
+            0.4353807
+          ]
+        },
+        "samples": 4
+      },
+      "n5": {
+        "profile": "claude_opus55_medium",
+        "seconds": 514,
+        "usd": 1.8209855,
+        "range": {
+          "seconds": [
+            50,
+            922
+          ],
+          "usd": [
+            0.2988228,
+            3.2730298
+          ]
+        },
+        "samples": 6
+      }
+    },
+    "schedule": [
+      {
+        "task": "n2",
+        "slot": 0,
+        "start": 0,
+        "end": 514
+      },
+      {
+        "task": "n5",
+        "slot": 1,
+        "start": 0,
+        "end": 514
+      },
+      {
+        "task": "n3",
+        "slot": 0,
+        "start": 514,
+        "end": 594
+      },
+      {
+        "task": "n4",
+        "slot": 1,
+        "start": 514,
+        "end": 594
+      },
+      {
+        "task": "n1",
+        "slot": 0,
+        "start": 594,
+        "end": 623
+      }
+    ],
+    "warnings": [
+      {
+        "code": "PLAN_TASK_SIZE_OUTLIER",
+        "task": "n2",
+        "seconds": 514,
+        "median": 80
+      },
+      {
+        "code": "PLAN_TASK_SIZE_OUTLIER",
+        "task": "n5",
+        "seconds": 514,
+        "median": 80
+      }
+    ],
+    "slots": 2,
+    "totals": {
+      "makespan_seconds": 623,
+      "sequential_seconds": 1217,
+      "usd": 4.04903672,
+      "time_saved_vs_sequential": 0.4880854560394412,
+      "usd_saved_vs_all_baseline_profile": 0.5552917120976526,
+      "baseline_profile": "claude_opus55_medium"
+    }
+  },
+  "skip": {
+    "skip": false,
+    "reason": null,
+    "overhead_seconds": 436
+  },
+  "feedback": [
+    {
+      "kind": "link",
+      "text": "n2 imports h2/errors.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n2 imports h2/events.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n2 imports h2/exceptions.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n2 imports h2/utilities.py (written by n5) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n2 imports h2/exceptions.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n4 imports h2/errors.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n4 imports h2/exceptions.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n4 imports h2/exceptions.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/exceptions.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/events.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/config.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/errors.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/exceptions.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/settings.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/settings.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/config.py (written by n2) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/events.py (written by n4) without a plan link"
+    },
+    {
+      "kind": "link",
+      "text": "n5 imports h2/exceptions.py (written by n3) without a plan link"
+    },
+    {
+      "kind": "size",
+      "text": "PLAN_TASK_SIZE_OUTLIER n2"
+    },
+    {
+      "kind": "size",
+      "text": "PLAN_TASK_SIZE_OUTLIER n5"
+    }
+  ]
+}
