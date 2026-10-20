@@ -1,3 +1,5 @@
+R20261020-WORKFLOW-DESIGN: Pointsman을 Claude Code Workflow로 옮기는 설계 검토. 결론은 혼합안: 실험 실행기(Node)는 유지하고, Jev 판단을 MCP 도구로 감싼 제품용 Workflow 모드를 따로 둔다. 위험: 작업자 격리 상실(모든 도구·CLAUDE.md 주입), 무료 리허설 불가, 작업자별 비용 미확인. 다음: 사용자 정의 agentType 도구 제한 실험. 코드 변경·실행 없음. [기록](decisions/R20261020_WORKFLOW_DESIGN.md). 아래는 당시 기록이다.
+
 R20261019-RESULTS-ANALYSIS: D095 계열 병합(b444a5f) 후 실제 결과 분석. openapi Claude단독 3/3·38.3분·$19.83, Jev 현재경로 4/9(성공시 27.5분·$7.89, 실패포함 성공당 $18.73·57.5분). h2 보류과제 1/4(실패3은 경로결함), 리허설 관문 후 유료 2/2 성공. Jev 우위 미입증: 같은 실행 Claude 기준·반복 필요. [기록](decisions/R20261019_RESULTS_ANALYSIS.md). 아래는 당시 기록이다.
 
 R20261019-PAID-OPENAPI-02: Jev 모델 관문 3곳 정리(895b49e) — 무료 사전점검이 정산 모델 중 admission 미허용이 있으면 exit 3. 사전점검 exit 0, h2·openapi 리허설 4/4(같은 tree) 뒤 openapi jev_profile 유료 1회: 완료, 공개 8/8(assertion 2,236), 독립 63/63(product_success), 1,895.0초, 수리 0, Claude API환산 $10.85, Jev 7회 196,662토큰, 장부 28,360,261→28,556,923 정산·예약0. Jev 응답에 1.14 없음. 1회 성공은 성공률 아님. [기록](decisions/R20261019_PAID_OPENAPI_02.md). 아래는 당시 기록이다.
