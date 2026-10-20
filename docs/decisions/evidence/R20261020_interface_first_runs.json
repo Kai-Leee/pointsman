@@ -1,0 +1,232 @@
+{
+  "schema_version": "r20261020-interface-first-runs/v1",
+  "code_commits": {
+    "off-01,on-01,off-02": "8202fd6",
+    "on-02,off-03,on-03,on-04": "aa5ff5b"
+  },
+  "note": "usd is API-equivalent; jev at USD 0.6 per million input tokens; on-01 did not use the contract (validator defect fixed in aa5ff5b)",
+  "runs": [
+    {
+      "run": "off-01",
+      "condition": "off",
+      "contract_used": null,
+      "status": "completed",
+      "product_success": true,
+      "graded": true,
+      "wall_s": 995.86891875,
+      "repair_rounds_used": 0,
+      "round0_passed": true,
+      "round_failed_public_checks": [
+        []
+      ],
+      "usd": {
+        "workers": 5.12532223,
+        "spec_review": 1.3601729999999999,
+        "interface_first": 0,
+        "jev": 0.051819
+      },
+      "jev_input_tokens": 86365,
+      "interface_wall_s": 0,
+      "stop_code": null,
+      "outcome_uncertain": false,
+      "settlement": "settled",
+      "total_usd": 6.53731423
+    },
+    {
+      "run": "on-01",
+      "condition": "on",
+      "contract_used": false,
+      "status": "failed",
+      "product_success": false,
+      "graded": false,
+      "wall_s": 1667.623932791,
+      "repair_rounds_used": 2,
+      "round0_passed": false,
+      "round_failed_public_checks": [
+        [
+          "public.stream-control-frames"
+        ],
+        [
+          "public.stream-control-frames"
+        ],
+        [
+          "public.request-response"
+        ]
+      ],
+      "usd": {
+        "workers": 6.76810826,
+        "spec_review": 0,
+        "interface_first": 0.526796,
+        "jev": 0.0965508
+      },
+      "jev_input_tokens": 160918,
+      "interface_wall_s": 129.877089458,
+      "stop_code": "ARTIFACT_CHECK_NOT_PASSED",
+      "outcome_uncertain": false,
+      "settlement": "settled",
+      "total_usd": 7.39145506
+    },
+    {
+      "run": "off-02",
+      "condition": "off",
+      "contract_used": null,
+      "status": "failed",
+      "product_success": false,
+      "graded": false,
+      "wall_s": 1792.4367782079999,
+      "repair_rounds_used": 2,
+      "round0_passed": false,
+      "round_failed_public_checks": [
+        [
+          "public.request-response",
+          "public.stream-control-frames"
+        ],
+        [
+          "public.request-response",
+          "public.stream-control-frames"
+        ],
+        [
+          "public.request-response"
+        ]
+      ],
+      "usd": {
+        "workers": 7.989171819999999,
+        "spec_review": 0,
+        "interface_first": 0,
+        "jev": 0.0984918
+      },
+      "jev_input_tokens": 164153,
+      "interface_wall_s": 0,
+      "stop_code": "ARTIFACT_CHECK_NOT_PASSED",
+      "outcome_uncertain": false,
+      "settlement": "settled",
+      "total_usd": 8.087663619999999
+    },
+    {
+      "run": "on-02",
+      "condition": "on",
+      "contract_used": true,
+      "status": "completed",
+      "product_success": true,
+      "graded": true,
+      "wall_s": 1371.654446584,
+      "repair_rounds_used": 1,
+      "round0_passed": false,
+      "round_failed_public_checks": [
+        [
+          "public.request-response"
+        ],
+        []
+      ],
+      "usd": {
+        "workers": 4.51211323,
+        "spec_review": 1.3419442,
+        "interface_first": 0.559736,
+        "jev": 0.07101539999999999
+      },
+      "jev_input_tokens": 118359,
+      "interface_wall_s": 145.93760791600002,
+      "stop_code": null,
+      "outcome_uncertain": false,
+      "settlement": "settled",
+      "total_usd": 6.4848088299999995
+    },
+    {
+      "run": "off-03",
+      "condition": "off",
+      "contract_used": null,
+      "status": "failed",
+      "product_success": false,
+      "graded": false,
+      "wall_s": 1058.7447872499997,
+      "repair_rounds_used": 2,
+      "round0_passed": false,
+      "round_failed_public_checks": [
+        [
+          "public.stream-control-frames"
+        ],
+        [
+          "public.stream-control-frames"
+        ],
+        [
+          "public.stream-control-frames"
+        ]
+      ],
+      "usd": {
+        "workers": 5.56719831,
+        "spec_review": 0,
+        "interface_first": 0,
+        "jev": 0.09656039999999999
+      },
+      "jev_input_tokens": 160934,
+      "interface_wall_s": 0,
+      "stop_code": "ARTIFACT_CHECK_NOT_PASSED",
+      "outcome_uncertain": false,
+      "settlement": "settled",
+      "total_usd": 5.66375871
+    },
+    {
+      "run": "on-03",
+      "condition": "on",
+      "contract_used": true,
+      "status": "completed",
+      "product_success": true,
+      "graded": true,
+      "wall_s": 1004.427837417,
+      "repair_rounds_used": 1,
+      "round0_passed": false,
+      "round_failed_public_checks": [
+        [
+          "public.install-surface",
+          "public.handshake-config",
+          "public.request-response",
+          "public.flow-control",
+          "public.stream-control-frames",
+          "public.settings-upgrade"
+        ],
+        []
+      ],
+      "usd": {
+        "workers": 3.33834112,
+        "spec_review": 1.0231122000000001,
+        "interface_first": 0.4643026,
+        "jev": 0.13360019999999997
+      },
+      "jev_input_tokens": 222667,
+      "interface_wall_s": 106.32552679200002,
+      "stop_code": null,
+      "outcome_uncertain": false,
+      "settlement": "settled",
+      "total_usd": 4.95935612
+    },
+    {
+      "run": "on-04",
+      "condition": "on",
+      "contract_used": true,
+      "status": "completed",
+      "product_success": true,
+      "graded": true,
+      "wall_s": 1062.139533041,
+      "repair_rounds_used": 1,
+      "round0_passed": false,
+      "round_failed_public_checks": [
+        [
+          "public.request-response"
+        ],
+        []
+      ],
+      "usd": {
+        "workers": 4.42473087,
+        "spec_review": 1.1039219999999998,
+        "interface_first": 0.2700852,
+        "jev": 0.0700494
+      },
+      "jev_input_tokens": 116749,
+      "interface_wall_s": 95.980989125,
+      "stop_code": null,
+      "outcome_uncertain": false,
+      "settlement": "settled",
+      "total_usd": 5.868787470000001
+    }
+  ]
+}
