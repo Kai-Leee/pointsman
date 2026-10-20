@@ -30,6 +30,8 @@ Goal: let a Claude Code session check a Jev task plan before workers start and s
   cycle, unowned requirement), import-based missing-link scan, time and cost estimates from recorded runs with a
   two-slot schedule, a skip rule for tasks below the recorded fixed overhead, a closing feedback list and a grayscale
   HTML view. No network and no model calls.
+- Coupling analysis for tasks that import each other: file-level import cycles split across tasks, and task cycles
+  that a first task holding the shared files would break, with advice in the closing list.
 
 ### Not included
 
