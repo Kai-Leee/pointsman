@@ -66,6 +66,17 @@
 
 다음 확인은 `feat/heldout-eval-20261018` worktree에서 새로 시작한 세션에서 `pointsman-probe`를 다시 실행하는 것이다.
 
+## 정정: 기존 Jev MCP 서버 (2026-10-20)
+
+위 "권하는 구조" 표에는 "지금 있는 MCP 서버는 작업자용 `artifact-transport.mjs`뿐"이라고 적었다. 이 설명은 research 줄기에만 맞다.
+
+`origin/main`(v0.3.5)에는 이미 다음이 있다.
+- `.mcp.json`의 `jev-ai` MCP 서버: `src/mcp.mjs` 실행기가 고정 버전의 jev-mcp 바이너리를 띄운다.
+- `.codex-plugin/plugin.json`
+- `.claude/settings.json`의 SessionStart 로그인 확인 훅
+
+다만 이 서버는 Jev `decide`를 그대로 전달할 뿐이다. 장부, 토큰 사전 검사, 고정 질문 계약을 거치지 않는다. 따라서 `pointsman_decide`는 새 서버로 만들지 않고, 이 `jev-ai` 서버에 장부와 계약을 거치는 도구로 추가하는 것이 맞다.
+
 ```decision-record
 {
   "id": "R20261020-WORKFLOW-DESIGN",
@@ -84,7 +95,8 @@
     {"id": "grader", "path": "scripts/grade-adaptive-arm.mjs", "sha256": "89ef8f0f50114e8a3ba32b2b6f83b3eee78ddea87d5362b01c1487ccacdae6ce"},
     {"id": "rehearsal", "path": "src/benchmark/rehearsal.mjs", "sha256": "3dfe23d11813705f2e9c71c3a663529214a3819bc3ec05b1557454a07f0d3767"},
     {"id": "probe_def", "path": ".claude/agents/pointsman-probe.md", "sha256": "008de0047e43e444e5f1ec1b230c16a519a0677d06001f726469643166e2be32"},
-    {"id": "probe_result", "path": "docs/decisions/evidence/R20261020_worker_probe.json", "sha256": "9e9602bfb46776034102ae8843b38049064b19b17740a431e0e953a2ec015cd4"}
+    {"id": "probe_result", "path": "docs/decisions/evidence/R20261020_worker_probe.json", "sha256": "9e9602bfb46776034102ae8843b38049064b19b17740a431e0e953a2ec015cd4"},
+    {"id": "mcp_launcher", "path": "src/mcp.mjs", "sha256": "dabb1c809c5e1b8823287646f207351ef27f7f687878e93dad6071300a4e2df4"}
   ],
   "claims": [
     {"id": "hybrid", "kind": "decision", "text": "Keep the Node experiment runner as the only measured path; add a Workflow mode for product use, wrapping Jev decisions in an MCP tool; evaluate it only as a separate condition.", "source_ids": ["runner", "transport"]},
@@ -92,6 +104,7 @@
     {"id": "rehearsal_loss", "kind": "hypothesis", "text": "Rehearsal B cannot double workflow agents because it replaces runCommand, so a Workflow mode loses the zero-cost rehearsal gate unless a new double is designed.", "source_ids": ["rehearsal"]},
     {"id": "profile_map", "kind": "decision", "text": "Jev model/effort profiles map directly onto agent() model and effort options.", "source_ids": ["runner"]},
     {"id": "agent_type_unknown", "kind": "unknown", "text": "Whether a custom agentType can restrict tools to the artifact MCP write tool and omit CLAUDE.md injection is untested.", "source_ids": []},
+    {"id": "existing_mcp", "kind": "correction", "text": "origin/main v0.3.5 already ships a jev-ai MCP server (.mcp.json, launched by src/mcp.mjs) that forwards Jev decide without the ledger, token admission or fixed question contracts; pointsman_decide should be added to that server rather than built as a new one.", "source_ids": ["mcp_launcher"]},
     {"id": "probe_not_found", "kind": "measured", "text": "The pointsman-probe definition committed in this worktree was not found by the Agent tool of a session started in the main checkout, so tool restriction could not be exercised.", "source_ids": ["probe_def", "probe_result"]},
     {"id": "probe_builtin", "kind": "measured", "text": "Self-reports under haiku: Explore had Bash and Read without project instructions; general-purpose had Bash, Edit, Write and Agent with project instructions. No built-in type both lacks a shell and omits CLAUDE.md.", "source_ids": ["probe_result"]},
     {"id": "cost_unknown", "kind": "unknown", "text": "Whether per-worker Claude cost or token usage is recoverable from workflow agents is untested.", "source_ids": []}
