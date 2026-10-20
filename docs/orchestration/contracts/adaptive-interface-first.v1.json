@@ -1,0 +1,58 @@
+{
+  "schema_version": "adaptive-interface-first/v1",
+  "policy": "interface-contract-v1",
+  "decision": "R20261020-INTERFACE-FIRST",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "timeout_ms": 900000,
+  "task": "Write the interface contract that every leaf task will implement against.",
+  "system": "You write one interface contract for a whole package before any implementation exists. Use only the supplied public specification, requirement descriptions, interface catalog and task file ownership. For every source module that a task owns, list the public names that other modules or tests will use: classes, functions, methods, constants and exception types with exact signatures, and the names it imports from other owned modules. Give each shared name exactly one defining module. Avoid import cycles at module load time; when two modules need each other, keep one direction at module level and state that the other import happens inside a function. Do not write implementations and do not add features beyond the specification. Output only the JSON object required by the schema.",
+  "output_schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["files", "shared_rules"],
+    "properties": {
+      "files": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "purpose", "exports", "imports"],
+          "properties": {
+            "path": { "type": "string" },
+            "purpose": { "type": "string" },
+            "exports": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name", "kind", "signature"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "kind": { "type": "string", "enum": ["class", "function", "method", "constant", "exception", "type", "module"] },
+                  "signature": { "type": "string" },
+                  "notes": { "type": "string" }
+                }
+              }
+            },
+            "imports": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["from", "names", "load_time"],
+                "properties": {
+                  "from": { "type": "string" },
+                  "names": { "type": "array", "items": { "type": "string" } },
+                  "load_time": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "shared_rules": { "type": "array", "items": { "type": "string" } }
+    }
+  },
+  "worker_rule": "An interface_contract is supplied. Implement every name it lists for your files with the given signatures, import other owned modules only through names it declares, and keep imports marked load_time false inside functions."
+}
