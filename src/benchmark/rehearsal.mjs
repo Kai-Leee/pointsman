@@ -95,8 +95,11 @@ export function rehearsalAdapters({recorded, referenceRoots, fault = null, log =
     let response;
     if (prompt.task?.startsWith?.('Compare the implementation')) response = {rehearsal: 'review'};
     // Interface-first contract: one entry per owned Python module, no names (structure only, never a recorded answer).
+    // Imports take the shapes a real contract used (R20261020 on-01): dotted module names and an external package.
     else if (prompt.stage === 'interface_first') response = {shared_rules: [], files: prompt.tasks.flatMap(task => task.write_scope)
-      .filter(path => path.endsWith('.py')).map(path => ({path, purpose: 'rehearsal', exports: [], imports: []}))};
+      .filter(path => path.endsWith('.py')).map(path => ({path, purpose: 'rehearsal', exports: [],
+        imports: [{from: path.replace(/\.py$/, '').replaceAll('/', '.'), names: [], load_time: false},
+          {from: 'external_package', names: [], load_time: true}]}))};
     else if (prompt.questions) response = {answers: Object.fromEntries(Object.entries(prompt.questions).map(([id, q]) => [id, answerFor(id, q)]))};
     else { writeWorker(prompt, args); response = {rehearsal: 'worker completed'}; }
     const result = completion(response, model);

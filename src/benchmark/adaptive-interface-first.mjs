@@ -28,14 +28,14 @@ export function validateInterfaceFirstBinding(value, rootDir) {
     || binding.sha256 !== sha(readFileSync(join(rootDir, binding.contract)))) fail('ADAPTIVE_INTERFACE_FIRST_BINDING');
 }
 
-/** Every file and import must name a path some implementation task owns; one entry per path. */
+/** Every described file must be a path some implementation task owns; one entry per path. Import sources are not
+ * checked: the model may name them as module paths (h2.errors) and external packages (hpack) are owned by no task. */
 export function checkInterfaceContract(contract, plan) {
   const owned = new Set(plan.tasks.filter(task => task.kind === 'implementation').flatMap(task => task.write_scope));
   const paths = contract?.files?.map(file => file.path) ?? [];
   if (!paths.length) return 'ADAPTIVE_INTERFACE_FIRST_EMPTY';
   if (new Set(paths).size !== paths.length) return 'ADAPTIVE_INTERFACE_FIRST_DUPLICATE_PATH';
   if (paths.some(path => !owned.has(path))) return 'ADAPTIVE_INTERFACE_FIRST_PATH_UNOWNED';
-  if (contract.files.some(file => file.imports.some(item => !owned.has(item.from)))) return 'ADAPTIVE_INTERFACE_FIRST_IMPORT_UNOWNED';
   return null;
 }
 

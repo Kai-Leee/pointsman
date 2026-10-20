@@ -25,12 +25,14 @@ const run = async (t, output, options) => {
   return {summary, sent, out};
 };
 
-test('only owned paths and owned import sources are accepted', () => {
+test('only owned file paths are required; import sources may be module names or external packages', () => {
   assert.equal(checkInterfaceContract({files: [file('pkg/a.py'), file('pkg/b.py', [{from: 'pkg/a.py', names: ['f'], load_time: true}])]}, plan), null);
   assert.equal(checkInterfaceContract({files: []}, plan), 'ADAPTIVE_INTERFACE_FIRST_EMPTY');
   assert.equal(checkInterfaceContract({files: [file('pkg/a.py'), file('pkg/a.py')]}, plan), 'ADAPTIVE_INTERFACE_FIRST_DUPLICATE_PATH');
   assert.equal(checkInterfaceContract({files: [file('pkg/c.py')]}, plan), 'ADAPTIVE_INTERFACE_FIRST_PATH_UNOWNED');
-  assert.equal(checkInterfaceContract({files: [file('pkg/a.py', [{from: 'other/x.py', names: [], load_time: true}])]}, plan), 'ADAPTIVE_INTERFACE_FIRST_IMPORT_UNOWNED');
+  // R20261020 on-01: the real contract named imports as 'h2.exceptions' and used external 'hpack' and was wrongly rejected.
+  assert.equal(checkInterfaceContract({files: [file('pkg/b.py', [{from: 'pkg.a', names: ['f'], load_time: true},
+    {from: 'hpack', names: ['Encoder'], load_time: true}])]}, plan), null);
 });
 
 test('a valid contract is used; the call has no tools and sends only public inputs', async t => {
