@@ -1,3 +1,5 @@
+R20261020-PLUGIN-PLAN: main으로 올릴 Pointsman 플러그인 수정 계획. 원칙0: 제품 모드 작업자는 메인 세션 에이전트를 따름(해석 확인 대기). 추가: 예상 토큰·시간, 크기·연결 누락 점검, Jev 뒤 배치 그림과 마무리 피드백 루프. 수정: 계획 검증기, 수리 사다리, Jev 건너뛰기 기준. 정정: openapi-02·h2-04의 Claude 비용에 명세 검토($2.35·$1.30)가 빠져 있었음, 실제 $10.85·$5.19. [기록](decisions/R20261020_PLUGIN_PLAN.md). 아래는 당시 기록이다.
+
 R20261020-WORKFLOW-DESIGN: Pointsman을 Claude Code Workflow로 옮기는 설계 검토. 결론은 혼합안: 실험 실행기(Node)는 유지하고, Jev 판단을 MCP 도구로 감싼 제품용 Workflow 모드를 따로 둔다. 위험: 작업자 격리 상실(모든 도구·CLAUDE.md 주입), 무료 리허설 불가, 작업자별 비용 미확인. 후속 실험(5e6f4aa 커밋 후): 직접 정의한 agent는 main checkout 세션에서 찾지 못함, 내장 Explore는 CLAUDE.md 미주입이나 Bash 있음, general-purpose는 둘 다 있음. 다음: worktree에서 시작한 세션으로 재실행. [기록](decisions/R20261020_WORKFLOW_DESIGN.md). 아래는 당시 기록이다.
 
 R20261019-RESULTS-ANALYSIS: D095 계열 병합(b444a5f) 후 실제 결과 분석. openapi Claude단독 3/3·38.3분·$19.83, Jev 현재경로 4/9(성공시 27.5분·$7.89, 실패포함 성공당 $18.73·57.5분). h2 보류과제 1/4(실패3은 경로결함), 리허설 관문 후 유료 2/2 성공. Jev 우위 미입증: 같은 실행 Claude 기준·반복 필요. [기록](decisions/R20261019_RESULTS_ANALYSIS.md). 아래는 당시 기록이다.
