@@ -1,0 +1,14 @@
+{
+  "schema_version": "r20261020-worker-probe/v1",
+  "date": "2026-10-20",
+  "commit": "5e6f4aa",
+  "method": "Agent tool, model haiku, same three-line probe prompt; answers are the subagents' self-reports, no file reads requested.",
+  "session_cwd": "/Users/lee/workspace/plugins/jev-router (main checkout); probe definition lives in the feat/heldout-eval-20261018 worktree",
+  "rows": [
+    {"agent_type": "pointsman-probe", "status": "not_found", "error": "Agent type 'pointsman-probe' not found", "tools": null, "shell": null, "project_instructions": null},
+    {"agent_type": "Explore", "agent_id": "a18559b54648215bf", "status": "answered", "shell": true, "project_instructions": false,
+     "tools": ["Bash", "ListAgents", "Read", "ReportFindings", "SendUserFile", "Skill", "SuggestPluginInstall", "SuggestSkills", "ToolSearch", "mcp__1a59c906-*", "mcp__37f13cab-*", "mcp__ccd_session__*", "mcp__ccd_turn__*", "mcp__Claude_Browser__*", "mcp__Claude_Code_iOS_Simulator__control", "mcp__terminal__read_terminal", "mcp__visualize__*", "SubagentHandback"]},
+    {"agent_type": "general-purpose", "agent_id": "a92cc491383b39b12", "status": "answered", "shell": true, "project_instructions": true,
+     "tools": ["Agent", "Artifact", "Bash", "Edit", "ListAgents", "Read", "ReportFindings", "Skill", "SearchPlugins", "SendUserFile", "SuggestPluginInstall", "SuggestSkills", "ToolSearch", "Write", "SubagentHandback", "mcp__1a59c906-*", "mcp__37f13cab-*", "mcp__ccd_session__*", "mcp__ccd_turn__*", "mcp__Claude_Browser__*", "mcp__Claude_Code_iOS_Simulator__control", "mcp__terminal__read_terminal", "mcp__visualize__*"]}
+  ]
+}

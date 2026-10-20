@@ -1,4 +1,4 @@
-R20261020-WORKFLOW-DESIGN: Pointsman을 Claude Code Workflow로 옮기는 설계 검토. 결론은 혼합안: 실험 실행기(Node)는 유지하고, Jev 판단을 MCP 도구로 감싼 제품용 Workflow 모드를 따로 둔다. 위험: 작업자 격리 상실(모든 도구·CLAUDE.md 주입), 무료 리허설 불가, 작업자별 비용 미확인. 다음: 사용자 정의 agentType 도구 제한 실험. 코드 변경·실행 없음. [기록](decisions/R20261020_WORKFLOW_DESIGN.md). 아래는 당시 기록이다.
+R20261020-WORKFLOW-DESIGN: Pointsman을 Claude Code Workflow로 옮기는 설계 검토. 결론은 혼합안: 실험 실행기(Node)는 유지하고, Jev 판단을 MCP 도구로 감싼 제품용 Workflow 모드를 따로 둔다. 위험: 작업자 격리 상실(모든 도구·CLAUDE.md 주입), 무료 리허설 불가, 작업자별 비용 미확인. 후속 실험(5e6f4aa 커밋 후): 직접 정의한 agent는 main checkout 세션에서 찾지 못함, 내장 Explore는 CLAUDE.md 미주입이나 Bash 있음, general-purpose는 둘 다 있음. 다음: worktree에서 시작한 세션으로 재실행. [기록](decisions/R20261020_WORKFLOW_DESIGN.md). 아래는 당시 기록이다.
 
 R20261019-RESULTS-ANALYSIS: D095 계열 병합(b444a5f) 후 실제 결과 분석. openapi Claude단독 3/3·38.3분·$19.83, Jev 현재경로 4/9(성공시 27.5분·$7.89, 실패포함 성공당 $18.73·57.5분). h2 보류과제 1/4(실패3은 경로결함), 리허설 관문 후 유료 2/2 성공. Jev 우위 미입증: 같은 실행 Claude 기준·반복 필요. [기록](decisions/R20261019_RESULTS_ANALYSIS.md). 아래는 당시 기록이다.
 
