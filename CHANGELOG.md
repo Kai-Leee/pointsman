@@ -8,7 +8,7 @@ versioned; they use decision IDs such as D029.
 ## Releasing
 
 1. Move the `Unreleased` entries under a new `## [X.Y.Z] - YYYY-MM-DD` heading. Start the entry with a `Goal:` line.
-2. Run `npm version X.Y.Z --no-git-tag-version` and set the same version in `.codex-plugin/plugin.json`.
+2. Run `npm version X.Y.Z --no-git-tag-version` and set the same version in `.codex-plugin/plugin.json` and `.claude-plugin/plugin.json`.
    `npm test` fails if the two versions differ or the changelog has no heading for the version.
 3. Merge the change into `main` through a pull request.
 4. Tag the merge commit on `main`: `git tag -a vX.Y.Z -m vX.Y.Z` and `git push origin vX.Y.Z`.
@@ -17,6 +17,23 @@ Each goal that reaches `main` is one release. Before 1.0.0, a goal that adds fea
 behavior bumps the minor version, and a fix-only goal bumps the patch version.
 
 ## [Unreleased]
+
+## [0.4.0] - 2026-10-20
+
+Goal: let a Claude Code session check a Jev task plan before workers start and show its order, time and cost.
+
+### Added
+
+- Claude Code plugin manifest (`.claude-plugin/plugin.json`) with the existing `jev-ai` MCP server and a `pointsman` skill.
+  Workers follow the session agent; only model and effort come from the task profile.
+- `bin/pointsman-plan.mjs` and `src/plan/`: placement checks (write overlap, input without producer, duplicate producer,
+  cycle, unowned requirement), import-based missing-link scan, time and cost estimates from recorded runs with a
+  two-slot schedule, a skip rule for tasks below the recorded fixed overhead, a closing feedback list and a grayscale
+  HTML view. No network and no model calls.
+
+### Not included
+
+- Automated repair, budget ledger and token admission on the plugin path.
 
 ## [0.3.5] - 2026-10-16
 
