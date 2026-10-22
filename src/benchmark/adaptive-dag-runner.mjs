@@ -33,6 +33,7 @@ import {assessJevTransmission, validateJevTransmissionBinding, validateJevRecove
   JEV_TRANSMISSION_SOURCE_PATHS} from '../orchestration/jev-transmission-preflight.mjs';
 import {isQuestionFormManifest, validateQuestionFormManifest, createQuestionFormHooks,
   QUESTION_FORM_SOURCES} from './adaptive-question-forms.mjs';
+import {runInterfaceFirst, validateInterfaceFirstBinding} from './adaptive-interface-first.mjs';
 import {createPointsmanGateway, validatePointsmanBinding, validatePointsmanManifest, POINTSMAN_D087_ROUTING_CONTRACT, POINTSMAN_D088_ROUTING_CONTRACT, POINTSMAN_D089_ROUTING_CONTRACT, POINTSMAN_D090_ROUTING_CONTRACT,POINTSMAN_D091_ROUTING_CONTRACT,POINTSMAN_D091_ADAPTIVE_ROUTING_CONTRACT,POINTSMAN_D092_ROUTING_CONTRACT,POINTSMAN_D093_CODEX_ROUTING_CONTRACT,POINTSMAN_D093_CLAUDE_ROUTING_CONTRACT,POINTSMAN_D093_CLAUDE_RECOVERY_ROUTING_CONTRACT,POINTSMAN_D093_CLAUDE_CLASSIFIER_ROUTING_CONTRACT,POINTSMAN_D095_RUNTIME_ROUTING_CONTRACT,POINTSMAN_D095_CLAUDE_ROUTING_CONTRACT,POINTSMAN_D094_CLAUDE_ROUTING_CONTRACT} from '../orchestration/pointsman-gateway.mjs';
 
 const ROOT = resolve(import.meta.dirname, '../..');
@@ -219,6 +220,9 @@ export function loadAdaptiveRunManifest(path = join(ROOT, 'benchmarks/e2e-swe/ma
     || (value.repair_feedback.scope_expansion && !value.repair_feedback.worker_diagnostics))) fail('ADAPTIVE_REPAIR_FEEDBACK_BINDING');
   // R20261015 partial readiness repair: a failed local readiness check repairs its exact owner without a model call.
   if (value.partial_repair !== undefined && (!v12 || value.partial_repair !== 'local-readiness-v1')) fail('ADAPTIVE_PARTIAL_REPAIR_BINDING');
+  // R20261020 interface-first: one public-input interface contract before any leaf task (v12 opt-in).
+  if (value.interface_first !== undefined && !v12) fail('ADAPTIVE_INTERFACE_FIRST_BINDING');
+  validateInterfaceFirstBinding(value, rootDir);
   if (v10) {
     const gate = validateJevTransmissionBinding(value.transmission_preflight);
     // v10 keeps policy v1; v11 binds a later frozen policy (v2+).
@@ -929,8 +933,10 @@ export function loadAdaptiveTestRequirements(rootDir, manifest) {
 }
 
 function createWorkerAndChecks({rootDir, manifest, context, session, input, catalog, registry, preflight, adapters,
-  arm = 'jev_all', profileSelections = new Map(), readinessBatch = false}) {
+  arm = 'jev_all', profileSelections = new Map(), readinessBatch = false, interfaceFirst = null}) {
   const runCommand = adapters.runCommand ?? processResult, image = read(join(rootDir, manifest.image_lock));
+  const interfaceContract = interfaceFirst?.used ? interfaceFirst.contract : null;
+  const contractRule = interfaceContract ? ` ${interfaceFirst.worker_rule}` : '';
   const executeTask = async (task, worker) => {
     context.remaining();
     const transportId = `worker-${randomUUID()}`, transportPath = join(context.directory, 'calls', `${transportId}.transport.json`);
@@ -944,9 +950,9 @@ function createWorkerAndChecks({rootDir, manifest, context, session, input, cata
     const mcp = {mcpServers: {artifact_worker: {command: process.execPath, args: [join(rootDir, 'bin/artifact-worker-mcp.mjs'), '--config', transportPath]}}};
     const artifactRepair = artifactRepairManifest(manifest) && worker.operation === 'repair' ? worker.repair_context?.artifact_repair : null;
     if (artifactRepairManifest(manifest) && worker.operation === 'repair' && !artifactRepair) fail('ADAPTIVE_ARTIFACT_REPAIR_PACKET_REQUIRED');
-    const system = artifactRepair
+    const system = (artifactRepair
       ? 'Repair only the selected artifact paths using the supplied public assertion evidence, source-backed requirements and interface contracts. Read available predecessor and previous own files through artifact_worker. Persist complete files individually with write_file. Other prior files are inherited unchanged and read-only. The public-interface repair attribution is a candidate, not proof of the fault location. If required changes are outside allowed writes, explain the unmet dependency without claiming success. No shell, network, installation or delegation tools are available. Never weaken checks or claim tests ran: the controller reruns all original local and public checks. Final response is a concise factual summary, never source bodies.'
-      : 'Implement the complete public specification within this leaf task\'s exact file ownership. Read available predecessor files and previous own files through artifact_worker. Persist complete files individually with write_file. Only declared paths are writable. Preserve the shared source-backed interface catalog. Public requirements are accountability assignments; all substantive behavior is checked on the assembled candidate. For repair, use only the provided public failure evidence and previous revision context. No shell, network, installation or delegation tools are available. Never weaken check expectations or claim tests were executed; the controller runs pinned checks. Final response is a concise factual summary, never source bodies.';
+      : 'Implement the complete public specification within this leaf task\'s exact file ownership. Read available predecessor files and previous own files through artifact_worker. Persist complete files individually with write_file. Only declared paths are writable. Preserve the shared source-backed interface catalog. Public requirements are accountability assignments; all substantive behavior is checked on the assembled candidate. For repair, use only the provided public failure evidence and previous revision context. No shell, network, installation or delegation tools are available. Never weaken check expectations or claim tests were executed; the controller runs pinned checks. Final response is a concise factual summary, never source bodies.') + contractRule;
     const selected = profileSelections.get(task.id);
     if (arm === 'jev_profile' && (!causalManifest(manifest) || !selected)) fail('ADAPTIVE_PROFILE_REQUIRED');
     const profile = selected ? resolveAdaptiveProfile(selected.profile_id, profileOptions(manifest)) : undefined;
@@ -955,12 +961,13 @@ function createWorkerAndChecks({rootDir, manifest, context, session, input, cata
     const prompt = artifactRepair ? {source_ref: input.source_ref, task, artifact_repair: artifactRepair,
       input_artifact_revisions: worker.input_artifact_revisions, operation: worker.operation, round_index: worker.round_index,
       original_task_id: worker.original_task_id, execution_model,
-      ...(manifest.repair_feedback?.read_scope ? {read_only_reference_paths: [...overlayPaths].sort()} : {})}
+      ...(manifest.repair_feedback?.read_scope ? {read_only_reference_paths: [...overlayPaths].sort()} : {}),
+      ...(interfaceContract ? {interface_contract: interfaceContract} : {})}
       : {public_source: input.source, source_ref: input.source_ref, task,
       requirements: input.requirement_descriptions.filter(requirement => task.requirement_ids.includes(requirement.id)),
       shared_catalog: catalog, input_artifact_revisions: worker.input_artifact_revisions,
       operation: worker.operation, round_index: worker.round_index, original_task_id: worker.original_task_id,
-      repair_context: worker.repair_context, execution_model};
+      repair_context: worker.repair_context, execution_model, ...(interfaceContract ? {interface_contract: interfaceContract} : {})};
     let call;
     try {
       call = await session.claude({purpose: 'worker', prompt, system, mcp, profile, attempt_id: worker.attempt_id, task_id: task.id,
@@ -1098,7 +1105,7 @@ export async function runAdaptiveArm({rootDir = ROOT, manifest = loadAdaptiveRun
   if (!Object.hasOwn(ADAPTIVE_ARMS, arm) || !manifest.arms.includes(arm)) fail('ADAPTIVE_ARM_INVALID');
   const context = createRunContext({rootDir, runDir, manifest, abortSignal: adapters.abortSignal});
   let session, execution = null, planning = null, prepared = null, stopCode = null, unknown = false, budgetBefore = null, budgetAfter = null,
-    terminalCause = null, budgetObservationError = null, specReview = null;
+    terminalCause = null, budgetObservationError = null, specReview = null, interfaceFirst = null;
   try {
     budgetBefore = await withAdaptiveSettledBudget({rootDir, manifest, remaining: context.remaining, record: context.record,
       abortSignal: context.signal, adapters, purpose: 'arm_start'}, snapshot =>
@@ -1152,8 +1159,14 @@ export async function runAdaptiveArm({rootDir = ROOT, manifest = loadAdaptiveRun
     }
     await context.record({event: 'adaptive_planning_completed', started_at_ms: planningStarted, finished_at_ms: context.elapsed(),
       planning_stats: planning.stats ?? null, provider_decisions: session.decision_count()});
+    if (manifest.interface_first) {
+      interfaceFirst = await runInterfaceFirst({rootDir, manifest, input, catalog: prepared.catalog, plan: planning.plan,
+        outDirectory: join(context.directory, 'interface-first'), runCommand: adapters.runCommand ?? processResult,
+        record: context.record, remaining: context.remaining});
+      context.save('interface-first-result.json', interfaceFirst);
+    }
     const callbacks = createWorkerAndChecks({rootDir, manifest, context, session, input, catalog: prepared.catalog, registry, preflight, adapters,
-      arm, profileSelections, readinessBatch: adaptiveRuntimeSpeed(manifest).readiness_batch});
+      arm, profileSelections, readinessBatch: adaptiveRuntimeSpeed(manifest).readiness_batch, interfaceFirst});
     const {runAdaptiveDagExecution} = await import('../orchestration/adaptive-dag-execution.mjs');
     const repairProjection = repairManifest(manifest) ? await import('../orchestration/adaptive-repair-projection.mjs') : null;
     const artifactRepair = inferredManifest(manifest) ? await import('../orchestration/adaptive-inferred-repair.mjs')
@@ -1226,6 +1239,9 @@ export async function runAdaptiveArm({rootDir = ROOT, manifest = loadAdaptiveRun
     ...(specReview ? {spec_review: specReview, artifact_revisions_basis: specReview.adopted ? 'pre_spec_review' : 'final_candidate',
       usage_including_spec_review: specReview.review_usage ? combinedUsage([adaptiveUsageSummary(receipts), adaptiveUsageSummary([{provider: 'claude',
         inference_started: true, usage: specReview.review_usage, api_equivalent_usd: specReview.review_api_equivalent_usd}])]) : null} : {}),
+    ...(interfaceFirst ? {interface_first: {used: interfaceFirst.used, reason: interfaceFirst.reason, status: interfaceFirst.status,
+      wall_ms: interfaceFirst.wall_ms, usage: interfaceFirst.usage, api_equivalent_usd: interfaceFirst.api_equivalent_usd,
+      files: interfaceFirst.files, exports: interfaceFirst.exports, outcome_uncertain: interfaceFirst.outcome_uncertain}} : {}),
     public_status: execution?.status === 'completed' && !stopCode && !unknown ? 'passed' : 'not_passed',
     planning_stats: planning?.stats ?? null, decision_callbacks: session?.decision_count() ?? 0,
     operations: execution?.operations ?? null, repair_rounds_used: execution?.repair_rounds_used ?? 0,

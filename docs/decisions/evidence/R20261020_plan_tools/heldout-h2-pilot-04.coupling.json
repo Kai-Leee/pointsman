@@ -1,0 +1,25 @@
+{
+  "code_commit": "92088e4",
+  "coupling": {
+    "task_cycles": [
+      {
+        "tasks": [
+          "n2",
+          "n5"
+        ],
+        "foundation_files": [
+          "h2/config.py",
+          "h2/utilities.py"
+        ],
+        "foundation_share": 0.3333333333333333,
+        "resolves_with_foundation_first": true
+      }
+    ],
+    "split_file_cycles": []
+  },
+  "lazy_edges": 3,
+  "all_edges": 26,
+  "advice": [
+    "tasks n2, n5 import each other: write h2/config.py, h2/utilities.py in a first task, then the rest"
+  ]
+}

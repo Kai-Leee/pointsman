@@ -1,0 +1,498 @@
+{
+  "schema_version": "r20261020-run-timelines/v1",
+  "note": "Extracted from events.jsonl, result.json and spec-review/review.stream.jsonl of each run; usd is API-equivalent.",
+  "runs": [
+    {
+      "run": "openapi-partial-repair-02",
+      "result": {
+        "status": "completed",
+        "wall_s": 1894.98980125,
+        "public_status": "passed"
+      },
+      "spec_review": {
+        "usd": 2.3515896,
+        "wall_s": 411.393
+      },
+      "plan": {
+        "order": [
+          "adaptive-leaf-n1",
+          "adaptive-leaf-n3",
+          "adaptive-leaf-n4",
+          "adaptive-leaf-n5",
+          "adaptive-leaf-n2",
+          "adaptive-leaf-n6",
+          "verify-public"
+        ],
+        "predecessors": {
+          "adaptive-leaf-n1": [],
+          "adaptive-leaf-n2": [
+            "adaptive-leaf-n3",
+            "adaptive-leaf-n5"
+          ],
+          "adaptive-leaf-n3": [],
+          "adaptive-leaf-n4": [],
+          "adaptive-leaf-n5": [],
+          "adaptive-leaf-n6": [],
+          "verify-public": [
+            "adaptive-leaf-n1",
+            "adaptive-leaf-n2",
+            "adaptive-leaf-n3",
+            "adaptive-leaf-n4",
+            "adaptive-leaf-n5",
+            "adaptive-leaf-n6"
+          ]
+        }
+      },
+      "profiles": {
+        "adaptive-leaf-n1": "claude_opus55_medium",
+        "adaptive-leaf-n2": "claude_opus55_medium",
+        "adaptive-leaf-n3": "claude_opus55_medium",
+        "adaptive-leaf-n4": "claude_sonnet55_medium",
+        "adaptive-leaf-n5": "claude_opus55_medium",
+        "adaptive-leaf-n6": "claude_sonnet55_medium"
+      },
+      "tasks": [
+        {
+          "task": "adaptive-leaf-n5",
+          "e": "dag_task_started",
+          "at_s": 110.8
+        },
+        {
+          "task": "adaptive-leaf-n3",
+          "e": "dag_task_started",
+          "at_s": 110.8
+        },
+        {
+          "task": "adaptive-leaf-n5",
+          "e": "dag_task_completed",
+          "at_s": 798
+        },
+        {
+          "task": "adaptive-leaf-n4",
+          "e": "dag_task_started",
+          "at_s": 798.4
+        },
+        {
+          "task": "adaptive-leaf-n4",
+          "e": "dag_task_completed",
+          "at_s": 864.2
+        },
+        {
+          "task": "adaptive-leaf-n6",
+          "e": "dag_task_started",
+          "at_s": 864.6
+        },
+        {
+          "task": "adaptive-leaf-n3",
+          "e": "dag_task_completed",
+          "at_s": 1032.8
+        },
+        {
+          "task": "adaptive-leaf-n1",
+          "e": "dag_task_started",
+          "at_s": 1033.2
+        },
+        {
+          "task": "adaptive-leaf-n6",
+          "e": "dag_task_completed",
+          "at_s": 1038.3
+        },
+        {
+          "task": "adaptive-leaf-n2",
+          "e": "dag_task_started",
+          "at_s": 1038.7
+        },
+        {
+          "task": "adaptive-leaf-n1",
+          "e": "dag_task_completed",
+          "at_s": 1083.7
+        },
+        {
+          "task": "adaptive-leaf-n2",
+          "e": "dag_task_completed",
+          "at_s": 1262.3
+        },
+        {
+          "task": "verify-public",
+          "e": "dag_task_started",
+          "at_s": 1262.8
+        },
+        {
+          "task": "verify-public",
+          "e": "dag_task_completed",
+          "at_s": 1359
+        }
+      ],
+      "providers": [
+        {
+          "id": "jev-0001",
+          "provider": "jev",
+          "stage": "split",
+          "questions": 53,
+          "start_s": 97.8,
+          "wall_s": 2.2,
+          "input_tokens": 37421,
+          "output_tokens": 4470,
+          "usd": 0.0224526
+        },
+        {
+          "id": "jev-0002",
+          "provider": "jev",
+          "stage": "split",
+          "questions": 53,
+          "start_s": 100.1,
+          "wall_s": 1.5,
+          "input_tokens": 37244,
+          "output_tokens": 4521,
+          "usd": 0.0223464
+        },
+        {
+          "id": "jev-0003",
+          "provider": "jev",
+          "stage": "split",
+          "questions": 53,
+          "start_s": 101.7,
+          "wall_s": 1.4,
+          "input_tokens": 37495,
+          "output_tokens": 4518,
+          "usd": 0.022497
+        },
+        {
+          "id": "jev-0004",
+          "provider": "jev",
+          "stage": "split",
+          "questions": 51,
+          "start_s": 103.1,
+          "wall_s": 1.5,
+          "input_tokens": 37692,
+          "output_tokens": 4353,
+          "usd": 0.022615200000000002
+        },
+        {
+          "id": "jev-0005",
+          "provider": "jev",
+          "stage": "profiles",
+          "questions": 2,
+          "start_s": 105.4,
+          "wall_s": 1.1,
+          "input_tokens": 15945,
+          "output_tokens": 619,
+          "usd": 0.009567
+        },
+        {
+          "id": "jev-0006",
+          "provider": "jev",
+          "stage": "profiles",
+          "questions": 2,
+          "start_s": 106.6,
+          "wall_s": 1.2,
+          "input_tokens": 14943,
+          "output_tokens": 620,
+          "usd": 0.0089658
+        },
+        {
+          "id": "jev-0007",
+          "provider": "jev",
+          "stage": "profiles",
+          "questions": 2,
+          "start_s": 107.9,
+          "wall_s": 1.3,
+          "input_tokens": 15922,
+          "output_tokens": 620,
+          "usd": 0.0095532
+        },
+        {
+          "id": "claude-0008",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 111.1,
+          "wall_s": 670.8,
+          "input_tokens": 28,
+          "output_tokens": 83361,
+          "usd": 3.0330762000000004
+        },
+        {
+          "id": "claude-0010",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 798.5,
+          "wall_s": 56.8,
+          "input_tokens": 6,
+          "output_tokens": 8718,
+          "usd": 0.224024
+        },
+        {
+          "id": "claude-0009",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 111.2,
+          "wall_s": 912.7,
+          "input_tokens": 18,
+          "output_tokens": 106200,
+          "usd": 3.2730298
+        },
+        {
+          "id": "claude-0011",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 864.6,
+          "wall_s": 167.9,
+          "input_tokens": 6,
+          "output_tokens": 24522,
+          "usd": 0.43538069999999995
+        },
+        {
+          "id": "claude-0012",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 1033.3,
+          "wall_s": 38,
+          "input_tokens": 8,
+          "output_tokens": 4083,
+          "usd": 0.29882279999999994
+        },
+        {
+          "id": "claude-0013",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 1039.3,
+          "wall_s": 214.5,
+          "input_tokens": 24,
+          "output_tokens": 21625,
+          "usd": 1.2388816
+        }
+      ],
+      "spec_review_window_s": [
+        1359.6,
+        1894.9
+      ]
+    },
+    {
+      "run": "heldout-h2-pilot-04",
+      "result": {
+        "status": "completed",
+        "wall_s": 1177.4695934580002,
+        "public_status": "passed"
+      },
+      "spec_review": {
+        "usd": 1.2955124,
+        "wall_s": 237.573
+      },
+      "plan": {
+        "order": [
+          "adaptive-leaf-n1",
+          "adaptive-leaf-n2",
+          "adaptive-leaf-n3",
+          "adaptive-leaf-n4",
+          "adaptive-leaf-n5",
+          "verify-public"
+        ],
+        "predecessors": {
+          "adaptive-leaf-n1": [],
+          "adaptive-leaf-n2": [],
+          "adaptive-leaf-n3": [],
+          "adaptive-leaf-n4": [],
+          "adaptive-leaf-n5": [],
+          "verify-public": [
+            "adaptive-leaf-n1",
+            "adaptive-leaf-n2",
+            "adaptive-leaf-n3",
+            "adaptive-leaf-n4",
+            "adaptive-leaf-n5"
+          ]
+        }
+      },
+      "profiles": {
+        "adaptive-leaf-n1": "claude_haiku55_low",
+        "adaptive-leaf-n2": "claude_opus55_medium",
+        "adaptive-leaf-n3": "claude_sonnet55_medium",
+        "adaptive-leaf-n4": "claude_sonnet55_medium",
+        "adaptive-leaf-n5": "claude_opus55_medium"
+      },
+      "tasks": [
+        {
+          "task": "adaptive-leaf-n5",
+          "e": "dag_task_started",
+          "at_s": 63.6
+        },
+        {
+          "task": "adaptive-leaf-n2",
+          "e": "dag_task_started",
+          "at_s": 63.6
+        },
+        {
+          "task": "adaptive-leaf-n2",
+          "e": "dag_task_completed",
+          "at_s": 407.6
+        },
+        {
+          "task": "adaptive-leaf-n4",
+          "e": "dag_task_started",
+          "at_s": 408.3
+        },
+        {
+          "task": "adaptive-leaf-n4",
+          "e": "dag_task_completed",
+          "at_s": 502.1
+        },
+        {
+          "task": "adaptive-leaf-n1",
+          "e": "dag_task_started",
+          "at_s": 502.7
+        },
+        {
+          "task": "adaptive-leaf-n1",
+          "e": "dag_task_completed",
+          "at_s": 531.4
+        },
+        {
+          "task": "adaptive-leaf-n3",
+          "e": "dag_task_started",
+          "at_s": 531.7
+        },
+        {
+          "task": "adaptive-leaf-n3",
+          "e": "dag_task_completed",
+          "at_s": 575.3
+        },
+        {
+          "task": "adaptive-leaf-n5",
+          "e": "dag_task_completed",
+          "at_s": 747.4
+        },
+        {
+          "task": "verify-public",
+          "e": "dag_task_started",
+          "at_s": 747.8
+        },
+        {
+          "task": "verify-public",
+          "e": "dag_task_completed",
+          "at_s": 793.5
+        }
+      ],
+      "providers": [
+        {
+          "id": "jev-0001",
+          "provider": "jev",
+          "stage": "split",
+          "questions": 33,
+          "start_s": 53.7,
+          "wall_s": 2.3,
+          "input_tokens": 26082,
+          "output_tokens": 2939,
+          "usd": 0.0156492
+        },
+        {
+          "id": "jev-0002",
+          "provider": "jev",
+          "stage": "split",
+          "questions": 33,
+          "start_s": 56.1,
+          "wall_s": 1.7,
+          "input_tokens": 26208,
+          "output_tokens": 2976,
+          "usd": 0.0157248
+        },
+        {
+          "id": "jev-0003",
+          "provider": "jev",
+          "stage": "profiles",
+          "questions": 2,
+          "start_s": 58.2,
+          "wall_s": 1.5,
+          "input_tokens": 11354,
+          "output_tokens": 620,
+          "usd": 0.0068124
+        },
+        {
+          "id": "jev-0004",
+          "provider": "jev",
+          "stage": "profiles",
+          "questions": 2,
+          "start_s": 59.7,
+          "wall_s": 1.2,
+          "input_tokens": 11903,
+          "output_tokens": 621,
+          "usd": 0.0071418
+        },
+        {
+          "id": "jev-0005",
+          "provider": "jev",
+          "stage": "profiles",
+          "questions": 1,
+          "start_s": 61,
+          "wall_s": 1.3,
+          "input_tokens": 10818,
+          "output_tokens": 311,
+          "usd": 0.0064908000000000006
+        },
+        {
+          "id": "claude-0007",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 64,
+          "wall_s": 290.3,
+          "input_tokens": 8,
+          "output_tokens": 36354,
+          "usd": 1.170247
+        },
+        {
+          "id": "claude-0008",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 408.9,
+          "wall_s": 58,
+          "input_tokens": 4,
+          "output_tokens": 7656,
+          "usd": 0.17803940000000001
+        },
+        {
+          "id": "claude-0009",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 503,
+          "wall_s": 18,
+          "input_tokens": 8,
+          "output_tokens": 1782,
+          "usd": 0.00500232
+        },
+        {
+          "id": "claude-0010",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 531.9,
+          "wall_s": 34.3,
+          "input_tokens": 4,
+          "output_tokens": 5181,
+          "usd": 0.1345098
+        },
+        {
+          "id": "claude-0006",
+          "provider": "claude",
+          "stage": null,
+          "questions": null,
+          "start_s": 63.9,
+          "wall_s": 676.6,
+          "input_tokens": 12,
+          "output_tokens": 78726,
+          "usd": 2.4030894
+        }
+      ],
+      "spec_review_window_s": [
+        794,
+        1177.3
+      ]
+    }
+  ]
+}

@@ -1,3 +1,13 @@
+R20261020-INTERFACE-FIRST: 인터페이스 먼저 만들기 단계(Opus 1회, 공개 입력만, 구조화 계약을 작업자·수리 작업자에게 전달)를 v12 opt-in으로 구현하고 h2에서 비교. 끔 1/3 성공(첫 회차 통과 1/3, 수리 0·2·2), 켬(계약 사용) 3/3 성공(첫 회차 통과 0/3, 수리 1·1·1), 성공당 $20.29·64.1분 대 $5.77·19.1분. Fisher p=0.40으로 효과 미확정. 첫 회차 어긋남은 줄지 않았고 수리 수렴이 달랐음(가설). on-01은 검증 결함으로 계약 미사용(수정 aa5ff5b). h2 대조군 기록 갱신(8202fd6). 7회 API 환산 $44.99. [기록](../decisions/R20261020_INTERFACE_FIRST.md). 아래는 당시 기록이다.
+
+R20261020-COUPLING: 서로 import하는 작업 쌍 처리 방침. 모듈 수준 파일 순환이 작업에 걸치면 같은 작업으로 묶고, 공용 파일을 첫 작업으로 옮겨 풀리며 절반 이하면 먼저 만드는 작업으로 분리, 그 밖은 계획 유지+고정 인터페이스. 지연 import는 파일 순환 판정에서 제외. 적용: openapi는 지연 import 37개 중 20개, 파일 순환 없음, n2–n6 결합이라 고정 인터페이스; h2는 config·utilities를 먼저 만드는 작업 권고. 정정: openapi 5파일 순환은 n4–n6에 걸쳐 있었고 되돌아가는 import는 모두 지연 import. [기록](../decisions/R20261020_COUPLING.md). 아래는 당시 기록이다.
+
+R20261020-PLAN-TOOLS: 수리 제외 항목을 main용 브랜치 feat/plan-tools-20261020(92e231d, v0.4.0)에 구현. 배치 검사·연결 누락·예상 시간비용·건너뛰기·회색조 배치 그림·마무리 목록·Claude 플러그인(작업자는 세션 에이전트를 따름). 기록된 2실행 적용: 배치 오류 0, 계획에 없던 import 연결 openapi 20·h2 18(h2 계획은 의존 0개였음), 예상 오차 −10%~+34%(같은 실행으로 보정, 검증 아님). 미push. [기록](../decisions/R20261020_PLAN_TOOLS.md). 아래는 당시 기록이다.
+
+R20261020-PLUGIN-PLAN: main으로 올릴 Pointsman 플러그인 수정 계획. 원칙0: 제품 모드 작업자는 메인 세션 에이전트를 따름(해석 확인 대기). 추가: 예상 토큰·시간, 크기·연결 누락 점검, Jev 뒤 배치 그림과 마무리 피드백 루프. 수정: 계획 검증기, 수리 사다리, Jev 건너뛰기 기준. 정정: openapi-02·h2-04의 Claude 비용에 명세 검토($2.35·$1.30)가 빠져 있었음, 실제 $10.85·$5.19. [기록](../decisions/R20261020_PLUGIN_PLAN.md). 아래는 당시 기록이다.
+
+R20261020-WORKFLOW-DESIGN: Pointsman을 Claude Code Workflow로 옮기는 설계 검토. 결론은 혼합안: 실험 실행기(Node)는 유지하고, Jev 판단을 MCP 도구로 감싼 제품용 Workflow 모드를 따로 둔다. 위험: 작업자 격리 상실(모든 도구·CLAUDE.md 주입), 무료 리허설 불가, 작업자별 비용 미확인. 후속 실험(5e6f4aa 커밋 후): 직접 정의한 agent는 main checkout 세션에서 찾지 못함, 내장 Explore는 CLAUDE.md 미주입이나 Bash 있음, general-purpose는 둘 다 있음. 다음: worktree에서 시작한 세션으로 재실행. [기록](../decisions/R20261020_WORKFLOW_DESIGN.md). 아래는 당시 기록이다.
+
 R20261019-RESULTS-ANALYSIS: D095 계열 병합(b444a5f) 후 실제 결과 분석. openapi Claude단독 3/3·38.3분·$19.83, Jev 현재경로 4/9(성공시 27.5분·$7.89, 실패포함 성공당 $18.73·57.5분). h2 보류과제 1/4(실패3은 경로결함), 리허설 관문 후 유료 2/2 성공. Jev 우위 미입증: 같은 실행 Claude 기준·반복 필요. [기록](../decisions/R20261019_RESULTS_ANALYSIS.md). 아래는 당시 기록이다.
 
 R20261019-PAID-OPENAPI-02: Jev 모델 관문 3곳 정리(895b49e) — 무료 사전점검이 정산 모델 중 admission 미허용이 있으면 exit 3. 사전점검 exit 0, h2·openapi 리허설 4/4(같은 tree) 뒤 openapi jev_profile 유료 1회: 완료, 공개 8/8(assertion 2,236), 독립 63/63(product_success), 1,895.0초, 수리 0, Claude API환산 $10.85, Jev 7회 196,662토큰, 장부 28,360,261→28,556,923 정산·예약0. Jev 응답에 1.14 없음. 1회 성공은 성공률 아님. [기록](../decisions/R20261019_PAID_OPENAPI_02.md). 아래는 당시 기록이다.

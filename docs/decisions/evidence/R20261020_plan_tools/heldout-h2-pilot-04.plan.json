@@ -1,0 +1,193 @@
+{
+  "requirements": [
+    "R01.01",
+    "R02.01",
+    "R02.02",
+    "R02.03",
+    "R02.04",
+    "R03.01",
+    "R03.02",
+    "R04.01",
+    "R05.01",
+    "R05.02",
+    "R05.03",
+    "R06.01",
+    "R06.02",
+    "R06.03",
+    "R06.04",
+    "R06.05",
+    "R06.06",
+    "R06.07",
+    "R06.08",
+    "R06.09",
+    "R06.10",
+    "R06.11",
+    "R06.12",
+    "R06.13",
+    "R06.14",
+    "R06.15",
+    "R06.16",
+    "R06.17",
+    "R06.18",
+    "R06.19",
+    "R06.20",
+    "R06.21",
+    "R06.22",
+    "R06.23",
+    "R06.24",
+    "R06.25",
+    "R06.26",
+    "R06.27",
+    "R06.28",
+    "R06.29",
+    "R06.30",
+    "R06.31",
+    "R06.32",
+    "R06.33",
+    "R06.34",
+    "R07.01",
+    "R07.02",
+    "R08.01",
+    "R09.01",
+    "R09.02",
+    "R09.03",
+    "R10.01"
+  ],
+  "tasks": [
+    {
+      "id": "n1",
+      "profile": "claude_haiku55_low",
+      "writes": [
+        "pyproject.toml",
+        "setup.sh",
+        "h2/__init__.py"
+      ],
+      "inputs": [],
+      "outputs": [
+        "A01-packaging"
+      ],
+      "requirements": [
+        "R01.01",
+        "R03.01",
+        "R03.02",
+        "R04.01"
+      ]
+    },
+    {
+      "id": "n2",
+      "profile": "claude_opus55_medium",
+      "writes": [
+        "h2/config.py",
+        "h2/stream.py",
+        "h2/windows.py"
+      ],
+      "inputs": [],
+      "outputs": [
+        "A02-config",
+        "A08-stream",
+        "A09-windows"
+      ],
+      "requirements": [
+        "R05.01",
+        "R05.02",
+        "R05.03",
+        "R06.11",
+        "R06.16",
+        "R06.17",
+        "R06.19",
+        "R06.14",
+        "R06.25",
+        "R06.26",
+        "R06.27",
+        "R06.28",
+        "R06.29",
+        "R06.34"
+      ]
+    },
+    {
+      "id": "n3",
+      "profile": "claude_sonnet55_medium",
+      "writes": [
+        "h2/errors.py",
+        "h2/exceptions.py",
+        "h2/frame_buffer.py"
+      ],
+      "inputs": [],
+      "outputs": [
+        "A03-errors",
+        "A04-exceptions",
+        "A07-frame-buffer"
+      ],
+      "requirements": [
+        "R08.01",
+        "R10.01",
+        "R06.06"
+      ]
+    },
+    {
+      "id": "n4",
+      "profile": "claude_sonnet55_medium",
+      "writes": [
+        "h2/settings.py",
+        "h2/events.py",
+        "h2/upgrade.py"
+      ],
+      "inputs": [],
+      "outputs": [
+        "A05-settings",
+        "A06-events",
+        "A11-upgrade"
+      ],
+      "requirements": [
+        "R09.01",
+        "R09.02",
+        "R09.03",
+        "R06.05",
+        "R07.01",
+        "R07.02",
+        "R06.03",
+        "R06.04"
+      ]
+    },
+    {
+      "id": "n5",
+      "profile": "claude_opus55_medium",
+      "writes": [
+        "h2/utilities.py",
+        "h2/connection.py",
+        "tests/test_roundtrip.py"
+      ],
+      "inputs": [],
+      "outputs": [
+        "A10-utilities",
+        "A12-connection",
+        "A13-roundtrip-tests"
+      ],
+      "requirements": [
+        "R02.01",
+        "R02.02",
+        "R02.03",
+        "R02.04",
+        "R06.01",
+        "R06.02",
+        "R06.07",
+        "R06.08",
+        "R06.09",
+        "R06.10",
+        "R06.12",
+        "R06.13",
+        "R06.15",
+        "R06.18",
+        "R06.20",
+        "R06.21",
+        "R06.22",
+        "R06.23",
+        "R06.24",
+        "R06.30",
+        "R06.31",
+        "R06.32",
+        "R06.33"
+      ]
+    }
+  ]
+}
