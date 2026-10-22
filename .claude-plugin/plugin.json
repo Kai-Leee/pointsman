@@ -1,6 +1,6 @@
 {
   "name": "pointsman",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Jev-routed task plans for Claude Code: check placement and links, estimate time and cost, show the order, and run workers that follow the session agent.",
   "author": { "name": "Kai-Leee" },
   "repository": "https://github.com/Kai-Leee/pointsman",
