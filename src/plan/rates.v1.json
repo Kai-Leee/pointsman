@@ -1,0 +1,27 @@
+{
+  "schema_version": "pointsman-plan-rates/v1",
+  "note": "Per-task wall seconds (DAG start to completion) and Claude API-equivalent USD from two completed research runs: openapi-partial-repair-02 and heldout-h2-pilot-04 (research record R20261020-PLUGIN-PLAN, evidence R20261020_run_timelines.json). Eleven samples in total; estimates from this table are rough until recalibrated.",
+  "profiles": {
+    "claude_opus55_medium": [
+      { "run": "openapi-partial-repair-02", "task": "n5", "seconds": 688, "usd": 3.0330762 },
+      { "run": "openapi-partial-repair-02", "task": "n3", "seconds": 922, "usd": 3.2730298 },
+      { "run": "openapi-partial-repair-02", "task": "n1", "seconds": 50, "usd": 0.2988228 },
+      { "run": "openapi-partial-repair-02", "task": "n2", "seconds": 224, "usd": 1.2388816 },
+      { "run": "heldout-h2-pilot-04", "task": "n5", "seconds": 684, "usd": 2.4030894 },
+      { "run": "heldout-h2-pilot-04", "task": "n2", "seconds": 344, "usd": 1.170247 }
+    ],
+    "claude_sonnet55_medium": [
+      { "run": "openapi-partial-repair-02", "task": "n4", "seconds": 66, "usd": 0.224024 },
+      { "run": "openapi-partial-repair-02", "task": "n6", "seconds": 174, "usd": 0.4353807 },
+      { "run": "heldout-h2-pilot-04", "task": "n4", "seconds": 94, "usd": 0.1780394 },
+      { "run": "heldout-h2-pilot-04", "task": "n3", "seconds": 44, "usd": 0.1345098 }
+    ],
+    "claude_haiku55_low": [
+      { "run": "heldout-h2-pilot-04", "task": "n1", "seconds": 29, "usd": 0.00500232 }
+    ]
+  },
+  "fixed_overhead_seconds": {
+    "note": "Preparation before the first Jev call plus spec review and re-check, measured in the same two runs.",
+    "samples": [[97, 536], [53, 383]]
+  }
+}
